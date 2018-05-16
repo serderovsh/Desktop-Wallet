@@ -1,6 +1,7 @@
 .container {
   text-align: center;
   flex-grow: 1;
+  display: flex;
 }
 
 .container h2 {

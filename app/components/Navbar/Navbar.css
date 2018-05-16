@@ -2,10 +2,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: linear-gradient(0deg, #31353E 0%, #192028 51.21%, #0B0F12 100%);
+    background: linear-gradient(0deg, #3a3e48 0%, #171e23 100%);
     width: 80px;
     height: 100vh;
-    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.25);
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
+    z-index: 2;
+    border-right: 1px solid #1d1d1d;
 }
 
 .logo {
@@ -21,10 +23,16 @@
 
 .link svg {
     font-size: 25px;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
     padding: 10px;
     border-radius: 10px;
     color: #C1C1C1;
+    transition: background-color 200ms;
+}
+
+.link:hover svg {
+    transition: 0s;
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
 .link {
