@@ -1,6 +1,9 @@
 // @flow
 import * as React from 'react';
 
+import Navbar from '../components/Navbar/Navbar.js';
+import ContentMain from '../components/ContentMain.js';
+
 type Props = {
   children: React.Node
 };
@@ -10,8 +13,9 @@ export default class App extends React.Component<Props> {
 
   render() {
     return (
-      <div>
-        {this.props.children}
+      <div className="interface">
+      <Navbar />
+      <ContentMain>{ this.props.children }</ContentMain>
       </div>
     );
   }
