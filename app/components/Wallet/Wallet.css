@@ -24,14 +24,13 @@
 }
 
 .wallet > .walletIcon {
-    color: #9B9B9B;
+    fill: #9B9B9B;
     font-size: 25px;
-    margin-top: 13px;
     padding: 0px 20px;
 }
 
 .wallet > .arrowIcon {
-    color: #fff;
+    fill: #fff;
     font-size: 30px;
     padding: 15px;
 }

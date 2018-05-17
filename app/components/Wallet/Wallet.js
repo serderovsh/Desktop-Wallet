@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Wallet.css';
 
-import WalletIcon from 'react-icons/lib/md/account-balance-wallet';
-import ArrowIcon from 'react-icons/lib/md/keyboard-arrow-right';
+//import WalletIcon from 'react-icons/lib/md/account-balance-wallet';
+//import ArrowIcon from 'react-icons/lib/md/keyboard-arrow-right';
+
+import { WalletIcon, ArrowRightIcon } from '../Icons.js';
+
 
 type Props = {
   name: string,
@@ -26,7 +29,7 @@ export default class Wallet extends Component<Props> {
           <li>{ this.props.tkn1 } Tkn1</li>
           <li>{ this.props.tkn2 } Tkn2</li>
         </ul>
-        <ArrowIcon className={styles.arrowIcon} />
+        <ArrowRightIcon className={styles.arrowIcon} />
       </div>
     );
   }

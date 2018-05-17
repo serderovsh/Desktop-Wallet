@@ -5,7 +5,8 @@ import styles from './WalletList.css';
 
 import Button from '../Button.js';
 import Wallet from './Wallet.js';
-import More from 'react-icons/lib/md/more-horiz';
+
+import { MoreIcon } from '../Icons.js';
 
 type Props = {};
 
@@ -32,7 +33,7 @@ export default class WalletList extends Component<Props> {
       <div className={styles.container}>
         <div className={styles.walletBar}>
           <div>MY WALLETS :</div>
-          <More />
+          <MoreIcon />
         </div>
         <div className={styles.buttonContainer}>
           <Button name="Create New Wallet"/>

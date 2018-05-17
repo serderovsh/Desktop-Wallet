@@ -14,8 +14,8 @@ export default class App extends React.Component<Props> {
   render() {
     return (
       <div className="interface">
-      <Navbar />
-      <ContentMain>{ /*this.props.children*/ }</ContentMain>
+        <Navbar />
+        <ContentMain>{ /*this.props.children*/ }</ContentMain>
       </div>
     );
   }

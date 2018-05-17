@@ -3,19 +3,16 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Navbar.css';
 
-import Wallet from 'react-icons/lib/md/account-balance-wallet';
-import Send from 'react-icons/lib/fa/paper-plane-o';
-import Receive from 'react-icons/lib/md/loupe';
-import Vote from 'react-icons/lib/md/assignment-turned-in';
-import Settings from 'react-icons/lib/md/settings';
-import Search from 'react-icons/lib/md/search';
+import * as Icons from '../Icons.js';
 
 const links = [
-	{ route: '/wallet', text: 'Wallet', icon: Wallet },
-	{ route: '/send', text: 'Send', icon: Send },
-	{ route: '/receive', text: 'Receive', icon: Receive },
-	{ route: '/vote', text: 'Vote', icon: Vote },
-	{ route: '/settings', text: 'Settings', icon: Settings },
+	{ route: '/wallets', text: 'Wallets', icon: Icons.WalletIcon },
+	{ route: '/send', text: 'Send', icon: Icons.SendIcon },
+	{ route: '/receive', text: 'Receive', icon: Icons.ReceiveIcon },
+  { route: '/tokens', text: 'Tokens', icon: Icons.TokensIcon },
+	{ route: '/vote', text: 'Vote', icon: Icons.VoteIcon },
+  { route: '/contact', text: 'Contact', icon: Icons.ContactIcon },
+	{ route: '/settings', text: 'Settings', icon: Icons.SettingsIcon },
 ];
 
 
@@ -49,7 +46,7 @@ export default class Navbar extends Component<Props> {
       		)
 	    	}
 
-        <div className={`${styles.link} ${styles.bottom}`}><Search /></div>
+        <div className={`${styles.link} ${styles.bottom}`}><Icons.SearchIcon /></div>
       </nav>
     );
   }
