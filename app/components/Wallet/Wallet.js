@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { loadTokenBalances } from '../../actions/wallet';
+//import { loadTokenBalances } from '../../actions/wallet';
 import styles from './Wallet.css';
 
 

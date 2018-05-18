@@ -5,6 +5,8 @@ import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 
+//import * as loadTokenBalances from '../actions/wallet';
+
 const history = createHashHistory();
 
 const configureStore = (initialState) => {
@@ -32,6 +34,7 @@ const configureStore = (initialState) => {
 
   // Redux DevTools Configuration
   const actionCreators = {
+    // ...loadTokenBalances,
     ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

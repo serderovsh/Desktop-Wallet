@@ -1,11 +1,11 @@
 // @flow
 import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
-import counter from './counter';
+import { walletReducer } from './wallets';
 
-const rootReducer = combineReducers({
-  counter,
+
+export default combineReducers({
+  wallet: walletReducer,
   router,
 });
 
-export default rootReducer;
