@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './WalletList.css';
 
-import Button from '../Button.js';
-import Wallet from './Wallet.js';
+import Button from '../Button';
+import Wallet from './Wallet';
 
-import { MoreIcon } from '../Icons.js';
+import { MoreIcon } from '../Icons';
 
 type Props = {};
 

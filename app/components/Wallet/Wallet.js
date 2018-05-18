@@ -1,23 +1,16 @@
 // @flow
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { loadTokenBalances } from '../../actions/wallet';
 import styles from './Wallet.css';
 
-//import WalletIcon from 'react-icons/lib/md/account-balance-wallet';
-//import ArrowIcon from 'react-icons/lib/md/keyboard-arrow-right';
 
-import { WalletIcon, ArrowRightIcon } from '../Icons.js';
+import { WalletIcon, ArrowRightIcon } from '../Icons';
 
+class Wallet extends Component {
 
-type Props = {
-  name: string,
-  trx: string,
-  tkn1: string,
-  tkn2: string
-};
-
-export default class Wallet extends Component<Props> {
-  props: Props;
 
   render() {
     return (
@@ -34,3 +27,18 @@ export default class Wallet extends Component<Props> {
     );
   }
 }
+
+// function mapStateToProps(state) {
+//   return {
+//     wallet: state.app.wallet,
+//     tokenBalances: state.wallet.tokens,
+//     entropy: state.wallet.entropy,
+//   };
+// }
+// const mapDispatchToProps = {
+//   loadTokenBalances,
+// };
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+
+export default Wallet;

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Navbar from '../components/Navbar/Navbar';
 import ContentMain from '../components/ContentMain';
-import WalletView from '../components/ContentSecondary/WalletView/WalletView';
+import WalletView from '../components/Wallet/WalletView/WalletView';
 
 import styles from '../components/ContentMain.css';
 
