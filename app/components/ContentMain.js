@@ -1,19 +1,19 @@
+// @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ContentMain.css';
 
-import WalletList from './Wallet/WalletList.js';
-import WalletView from './ContentSecondary/WalletView/WalletView.js';
+type Props = {
+  //children: React.Node
+};
 
-export default class ContentMain extends Component {
+export default class ContentMain extends Component<Props> {
+  props: Props;
 
   render() {
     return (
       <div className={styles.container}>
-        <WalletList />
-        <div className={ styles.contentSecondary }>
-            <WalletView />
-        </div>
+        {/*{this.props.children}*/}
       </div>
     );
   }

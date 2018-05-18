@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import Navbar from '../components/Navbar/Navbar.js';
-import ContentMain from '../components/ContentMain.js';
+import Navbar from '../components/Navbar/Navbar';
+import ContentMain from '../components/ContentMain';
 
 export default class App extends React.Component {
   
@@ -9,7 +9,7 @@ export default class App extends React.Component {
     return (
       <div className="interface">
         <Navbar />
-        <ContentMain>{ /*this.props.children*/ }</ContentMain>
+        {this.props.children}
       </div>
     );
   }
