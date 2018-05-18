@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
 
+export class TronIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 236.1 271">
+        <line stroke="#fff" strokeWidth="10" x1="3.7" y1="4.7" x2="115.3" y2="134"/>
+        <line stroke="#fff" strokeWidth="10" x1="114.6" y1="134" x2="100.2" y2="267.5"/>
+        <line stroke="#fff" strokeWidth="15" x1="3.5" y1="3.5" x2="192" y2="48.7"/>
+        <line stroke="#fff" strokeWidth="10" x1="192" y1="49.5" x2="114.6" y2="134"/>
+        <line stroke="#fff" strokeWidth="15" x1="232.6" y1="76.8" x2="101" y2="267.5"/>
+        <line stroke="#fff" strokeWidth="10" x1="115.3" y1="134" x2="231.9" y2="76.8"/>
+        <line stroke="#fff" strokeWidth="15" x1="192" y1="48.7" x2="232.6" y2="76.8"/>
+        <line stroke="#fff" strokeWidth="10" x1="2.8" y1="4.5" x2="100.2" y2="268.5"/>
+      </svg>
+    )
+  }
+}
+
 export class TokensIcon extends Component {
   render() {
     return (
@@ -95,6 +112,26 @@ export class SearchIcon extends Component {
     return (
       <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
         <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+      </svg>
+    )
+  }
+}
+
+export class TopRightArrow extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" />
+      </svg>
+    )
+  }
+}
+
+export class CalendarIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path fill="#000000" d="M9,10H7V12H9V10M13,10H11V12H13V10M17,10H15V12H17V10M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z" />
       </svg>
     )
   }

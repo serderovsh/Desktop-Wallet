@@ -1,13 +1,11 @@
 .container {
-  text-align: center;
-  flex-grow: 1;
-  display: flex;
+    display: flex;
+    text-align: center;
+    flex-grow: 1;
 }
 
-.container h2 {
-  font-size: 5rem;
-}
-
-.container a {
-  font-size: 1.4rem;
+.contentSecondary {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(0deg, #cac3c5 0%, #BFBFBF 100%);
 }

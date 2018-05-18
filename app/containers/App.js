@@ -1,16 +1,10 @@
-// @flow
 import * as React from 'react';
 
 import Navbar from '../components/Navbar/Navbar.js';
 import ContentMain from '../components/ContentMain.js';
 
-type Props = {
-  children: React.Node
-};
-
-export default class App extends React.Component<Props> {
-  props: Props;
-
+export default class App extends React.Component {
+  
   render() {
     return (
       <div className="interface">

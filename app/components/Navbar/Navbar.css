@@ -42,7 +42,7 @@
     color: #fff;
     font-size: 10px;
     font-weight: 300;
-    margin: 11px 0px;
+    margin: 8px 0px;
 }
 
 .top {
@@ -59,6 +59,3 @@
     fill: #fff;
     background: linear-gradient(270deg, #ED3F21 0%, #DC2C73 100%);
 }
-
-.st0{fill:none;stroke:#fff;stroke-width:10;stroke-linecap:round;stroke-miterlimit:10;}
-.st1{fill:none;stroke:#fff;stroke-width:15;stroke-linecap:round;stroke-miterlimit:10;}

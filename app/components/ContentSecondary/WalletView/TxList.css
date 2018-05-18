@@ -1,0 +1,16 @@
+.txList {
+    position: relative;
+    padding: 20px;
+    overflow-y: overlay;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.txList::-webkit-scrollbar {
+  border-left: 5px solid rgba(0, 0, 0, 0.08);
+  width: 10px;
+}
+
+.txList::-webkit-scrollbar-thumb {
+  border-left: 5px solid rgba(0, 0, 0, 0.2);
+}
