@@ -1,0 +1,59 @@
+.wallet {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255,255,255,0.05);
+    height: 100px;
+    border-radius: 5px;
+    margin: 5px 30px 0px 30px;
+    transition: background-color 300ms;
+    cursor: pointer;
+}
+
+.wallet:hover {
+    transition: 0s;
+    background-color: rgba(255,255,255,0.08);
+}
+
+.wallet:first-child {
+    margin: 85px 30px 0px 30px;
+}
+
+.wallet:last-child {
+    margin: 5px 30px 85px 30px;
+}
+
+.wallet > .walletIcon {
+    fill: #9B9B9B;
+    font-size: 25px;
+    padding: 0px 20px;
+}
+
+.wallet > .arrowIcon {
+    fill: #fff;
+    font-size: 30px;
+    padding: 15px;
+}
+
+.wallet svg {
+    margin: auto 0px;
+}
+
+.walletInfo {
+    font-size: 12px;
+    text-align: left;
+    flex-grow: 1;
+    margin-top: 20px;
+}
+
+.walletInfo > li {
+    font-family: 'Source Code Pro', monospace;
+    color: #9B9B9B;
+    margin-bottom: 5px;
+}
+
+.walletInfo > .name {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    margin-bottom: 8px;
+}
