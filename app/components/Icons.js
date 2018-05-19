@@ -97,16 +97,6 @@ export class MoreIcon extends Component {
   }
 }
 
-export class ArrowRightIcon extends Component {
-  render() {
-    return (
-      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
-        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-      </svg>
-    )
-  }
-}
-
 export class SearchIcon extends Component {
   render() {
     return (
@@ -131,7 +121,27 @@ export class CalendarIcon extends Component {
   render() {
     return (
       <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
-        <path fill="#000000" d="M9,10H7V12H9V10M13,10H11V12H13V10M17,10H15V12H17V10M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z" />
+        <path d="M9,10H7V12H9V10M13,10H11V12H13V10M17,10H15V12H17V10M19,3H18V1H16V3H8V1H6V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z" />
+      </svg>
+    )
+  }
+}
+
+export class ArrowLeftIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+      </svg>
+    )
+  }
+}
+
+export class ArrowRightIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
       </svg>
     )
   }

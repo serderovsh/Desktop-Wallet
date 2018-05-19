@@ -8,30 +8,9 @@
     top: 42px;
 }
 
-.walletName {
+.headerName {
     font-weight: 500;
     margin-top: 45px;
     font-size: 24px;
     color: #0B0F12;
-}
-
-.coinContainer {
-    margin-top: 20px;
-}
-
-.coinAmount {
-    font-family: 'Source Code Pro', monospace;
-    font-size: 14px;
-    font-weight: 500;
-    border-left: 1px solid #969696;
-    padding: 0px 20px;
-    color: #0B0F12;
-}
-
-.coinAmount:first-child {
-    border-left: none;
-}
-
-.coinAmount:last-child {
-
 }

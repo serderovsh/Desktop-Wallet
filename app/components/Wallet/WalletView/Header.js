@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.css';
 
-import { MoreIcon, CalendarIcon } from '../../Icons.js';
+import { MoreIcon, CalendarIcon } from '../../Icons';
 
 const coins = [
   { amount: '0.98654110', type: 'TRX' },
@@ -14,15 +14,8 @@ export default class Header extends Component {
   render() {
     return (
       <div className={styles.viewHeader}>
-        <div className={styles.walletName}>{ this.props.walletName }</div>
+        <div className={styles.headerName}>{ this.props.headerName }</div>
         <MoreIcon />
-        <div className={styles.coinContainer}>
-          {
-            coins.map((coin, i) => 
-              <span key={i} className={styles.coinAmount}>{coin.amount} {coin.type}</span>
-            )
-          }
-        </div>
       </div>
     );
   }

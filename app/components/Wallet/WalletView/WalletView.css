@@ -1,3 +1,14 @@
 .walletView {
     
 }
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonContainer button {
+    width: 140px;
+    margin: 20px 5px;
+}
