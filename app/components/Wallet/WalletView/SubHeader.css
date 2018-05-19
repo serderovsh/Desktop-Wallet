@@ -1,5 +1,9 @@
 .coinContainer {
+    position: relative;
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .coinAmount {
@@ -9,6 +13,7 @@
     border-left: 1px solid #969696;
     padding: 0px 20px;
     color: #0B0F12;
+    margin-top: 5px;
 }
 
 .coinAmount:first-child {

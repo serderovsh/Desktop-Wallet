@@ -10,6 +10,8 @@
 @import '../node_modules/react-calendar/dist/Calendar.css';
 @import '../node_modules/react-date-picker/dist/DatePicker.css';
 
+@import './components/MoreMenu.css';
+
 .react-date-picker__button {
   border: none !important;
 }
@@ -20,6 +22,10 @@
 
 .react-date-picker__button__input input {
   text-align: center;
+}
+
+.react-date-picker__button__input__divider {
+  color: #d4d4d4;
 }
 
 #root {

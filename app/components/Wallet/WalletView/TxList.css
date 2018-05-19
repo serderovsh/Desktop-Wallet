@@ -2,8 +2,8 @@
     position: relative;
     padding: 20px;
     overflow-y: overlay;
-    height: 100vh;
     box-sizing: border-box;
+    flex: 1;
 }
 
 .txList::-webkit-scrollbar {

@@ -1,19 +1,25 @@
-// @flow
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './SettingList.css';
 
-type Props = {};
+import Header from '../ContentPrimaryHeader';
 
-export default class SettingList extends Component<Props> {
-  props: Props;
+import { Dropdown } from 'semantic-ui-react'
+import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 
+export default class SettingList extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.settingBar}>
-          <div>Settings :</div>
-        </div>
+        <Header text="SETTINGS :">
+          <Dropdown icon={<MoreIcon />}>
+            <Dropdown.Menu>
+              <Dropdown.Item text='New Wallet' icon={<WalletIcon />}/>
+              <Dropdown.Divider />
+              <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />}/>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Header>
       </div>
     );
   }

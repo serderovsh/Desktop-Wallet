@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.css';
 
-import { MoreIcon, CalendarIcon } from '../../Icons';
+import { Dropdown } from 'semantic-ui-react'
+import { MoreIcon, CalendarIcon, VoteIcon } from '../../Icons';
 
 const coins = [
   { amount: '0.98654110', type: 'TRX' },
@@ -15,7 +16,13 @@ export default class Header extends Component {
     return (
       <div className={styles.viewHeader}>
         <div className={styles.headerName}>{ this.props.headerName }</div>
-        <MoreIcon />
+        <Dropdown className={styles.moreMenu} icon={<MoreIcon />}>
+          <Dropdown.Menu>
+            <Dropdown.Item text='Temp Dropdown One' icon={<VoteIcon />}/>
+            <Dropdown.Divider />
+            <Dropdown.Item text='Temp Dropdown Two' icon={<CalendarIcon />}/>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     );
   }

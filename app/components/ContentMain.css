@@ -4,6 +4,12 @@
     flex-grow: 1;
 }
 
+.contentPrimary {
+    min-width: 350px;
+    flex-basis: 33%;
+    background: linear-gradient(0deg, #31353E 0%, #192028 51.21%, #0B0F12 100%);
+}
+
 .contentSecondary {
     height: 100%;
     width: 100%;

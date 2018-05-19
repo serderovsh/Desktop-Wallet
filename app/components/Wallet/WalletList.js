@@ -1,47 +1,47 @@
-// @flow
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './WalletList.css';
 
-import Button from '../Button';
+import { Button } from 'semantic-ui-react';
+import buttonStyles from '../Button.css';
+
+import Header from '../ContentPrimaryHeader';
+
 import Wallet from './Wallet';
 
-import { MoreIcon } from '../Icons';
-
-type Props = {};
+import { Dropdown } from 'semantic-ui-react'
+import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 
 const wallets = [
-  { name: 'Personal Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.48033000' },
-  { name: 'Business Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.48303000' },
-  { name: 'Personal Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.40833000' },
-  { name: 'Personal Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.48303000' },
-  { name: 'Personal Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.48033000' },
-  { name: 'Business Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.48303000' },
-  { name: 'Personal Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.40833000' },
-  { name: 'Personal Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.48303000' },
-  { name: 'Personal Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.48033000' },
-  { name: 'Business Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.48303000' },
-  { name: 'Personal Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.40833000' },
-  { name: 'Personal Wallet', trx: '0.48999850', tkn1: '0.48000000', tkn2: '0.48303000' }
+  { name: 'Personal Wallet', tokens: [{ name: 'TRX', amount: '0.48999850'}, { name: 'tkn1', amount: '0.48999850'}, { name: 'tkn2', amount: '0.48999850'}] },
+  { name: 'Personal Wallet', tokens: [{ name: 'TRX', amount: '0.48999850'}, { name: 'tkn1', amount: '0.48999850'}, { name: 'tkn2', amount: '0.48999850'}] },
+  { name: 'Personal Wallet', tokens: [{ name: 'TRX', amount: '0.48999850'}, { name: 'tkn1', amount: '0.48999850'}, { name: 'tkn2', amount: '0.48999850'}] },
+  { name: 'Personal Wallet', tokens: [{ name: 'TRX', amount: '0.48999850'}, { name: 'tkn1', amount: '0.48999850'}, { name: 'tkn2', amount: '0.48999850'}] },
+  { name: 'Personal Wallet', tokens: [{ name: 'TRX', amount: '0.48999850'}, { name: 'tkn1', amount: '0.48999850'}, { name: 'tkn2', amount: '0.48999850'}] },
+  { name: 'Personal Wallet', tokens: [{ name: 'TRX', amount: '0.48999850'}, { name: 'tkn2', amount: '0.48999850'}] },
+  { name: 'Personal Wallet', tokens: [{ name: 'TRX', amount: '0.48999850'}, { name: 'tkn1', amount: '0.48999850'}, { name: 'tkn2', amount: '0.48999850'}, { name: 'tkn3', amount: '0.48999850'}, { name: 'tkn4', amount: '0.48999850'}] }
 ];
 
-export default class WalletList extends Component<Props> {
-  props: Props;
-
+export default class WalletList extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.walletBar}>
-          <div>MY WALLETS :</div>
-          <MoreIcon />
-        </div>
+        <Header text="MY WALLETS :">
+          <Dropdown icon={<MoreIcon />}>
+            <Dropdown.Menu>
+              <Dropdown.Item text='New Wallet' icon={<WalletIcon />}/>
+              <Dropdown.Divider />
+              <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />}/>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Header>
         <div className={styles.buttonContainer}>
-          <Button name="Create New Wallet"/>
+          <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Wallet</Button>
         </div>
         <div className={styles.walletContainer}>
           {
             wallets.map((wallet, i) =>
-              <Wallet key={i} name={wallet.name} trx={wallet.trx} tkn1={wallet.tkn1} tkn2={wallet.tkn2} />
+              <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />
             )
           }
         </div>

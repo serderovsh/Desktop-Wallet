@@ -14,6 +14,10 @@
     transition: 0ms;
 }
 
+.button:focus {
+    outline: none;
+}
+
 .black {
     background-color: #0B0F12;
     color: #eee;
@@ -26,7 +30,7 @@
 
 .black:hover {
     color: #fff;
-    background-color: #383e42;
+    background-color: #060606;
 }
 
 .black:active {
@@ -35,7 +39,7 @@
 }
 
 .gradient:hover {
-    background: linear-gradient(270deg, #e25c45 0%, #e0528b 100%);
+    background: linear-gradient(270deg, #e0472c 0%, #da3678 100%);
 }
 
 .gradient:active {

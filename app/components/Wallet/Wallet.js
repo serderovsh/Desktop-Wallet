@@ -18,9 +18,11 @@ class Wallet extends Component {
         <WalletIcon className={styles.walletIcon} />
         <ul className={styles.walletInfo}>
           <li className={styles.name}>{ this.props.name }</li>
-          <li>{ this.props.trx } TRX</li>
-          <li>{ this.props.tkn1 } Tkn1</li>
-          <li>{ this.props.tkn2 } Tkn2</li>
+          {
+            this.props.tokens.map((wallet, i) =>
+              <li key={i}>{ wallet.amount } { wallet.name }</li>
+            )
+          }
         </ul>
         <ArrowRightIcon className={styles.arrowIcon} />
       </div>

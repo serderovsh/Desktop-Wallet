@@ -1,19 +1,25 @@
-// @flow
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './ContactList.css';
 
-type Props = {};
+import Header from '../ContentPrimaryHeader';
 
-export default class ContactList extends Component<Props> {
-  props: Props;
+import { Dropdown } from 'semantic-ui-react'
+import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 
+export default class ContactList extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.contactBar}>
-          <div>Contacts :</div>
-        </div>
+        <Header text="CONTACTS :">
+          <Dropdown icon={<MoreIcon />}>
+            <Dropdown.Menu>
+              <Dropdown.Item text='New Wallet' icon={<WalletIcon />}/>
+              <Dropdown.Divider />
+              <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />}/>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Header>
       </div>
     );
   }
