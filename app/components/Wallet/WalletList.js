@@ -26,7 +26,7 @@ export default class WalletList extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <Header text="MY WALLETS :">
+        <Header className={styles.header} text="MY WALLETS :">
           <Dropdown icon={<MoreIcon />}>
             <Dropdown.Menu>
               <Dropdown.Item text='New Wallet' icon={<WalletIcon />}/>

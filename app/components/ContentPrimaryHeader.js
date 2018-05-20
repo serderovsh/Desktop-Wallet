@@ -8,7 +8,7 @@ import { MoreIcon, CalendarIcon, VoteIcon } from './Icons';
 export default class ContentPrimaryHeader extends Component {
   render() {
     return (
-      <div className={styles.bar}>
+      <div className={`${styles.bar} ${this.props.className}`}>
         <div>{ this.props.text }</div>
         { this.props.children }
       </div>
