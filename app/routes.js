@@ -12,6 +12,8 @@ import Create from './components/Wallet/Create/';
 import Import from './components/Wallet/Import/';
 import WalletView from './components/Wallet/WalletView/';
 import Share from './components/Settings/Share';
+import ContactDetails from './components/Contact/ContactDetails';
+import VoteDetails from './components/Vote/VoteDetails';
 
 export const routes = [
   {
@@ -47,6 +49,7 @@ export const routes = [
   {
     path: "/vote",
     sidebar: () => <VoteList />,
+    main: () => <VoteDetails />
   },
   {
     path: "/tokens",
@@ -56,5 +59,6 @@ export const routes = [
   {
     path: "/contact",
     sidebar: () => <ContactList />,
+    main: () => <ContactDetails />
   },
 ];
