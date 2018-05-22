@@ -50,3 +50,6 @@ main.js.map
 
 .idea
 npm-debug.log.*
+
+# Remove the editor Configuration so everyone can use the config they want.
+.editorconfig

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from './Navbar.css';
 
-import * as Icons from '../Icons.js';
+
+import * as Icons from '../Icons';
+import styles from './Navbar.css';
 
 const links = [
 	{ route: '/wallets', text: 'Wallets', icon: Icons.WalletIcon },
@@ -14,18 +15,17 @@ const links = [
 	{ route: '/settings', text: 'Settings', icon: Icons.SettingsIcon },
 ];
 
-export default class Navbar extends Component {
-
+class Navbar extends Component {
   render() {
     return (
       <nav className={styles.navbar}>
-      	<div className={`${styles.logo} ${styles.top}`}>
+        <div className={`${styles.logo} ${styles.top}`}>
           <Icons.TronIcon />
-      	</div>
+        </div>
 
-      	{
-      		links.map((link, i) =>
-      			<NavLink to={link.route} key={i} activeClassName={styles.active} className={styles.link}>
+        {
+          links.map((link, i) =>
+            <NavLink to={link.route} key={i} activeClassName={styles.active} className={styles.link}>
       			  <link.icon />
       			  <div>{link.text}</div>
       			</NavLink>
@@ -37,3 +37,5 @@ export default class Navbar extends Component {
     );
   }
 }
+
+export default Navbar;
