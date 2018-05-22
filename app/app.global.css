@@ -3,13 +3,36 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300');
-@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:300,500,700');
 @import "~font-awesome/css/font-awesome.css";
+
+@import '../node_modules/react-calendar/dist/Calendar.css';
+@import '../node_modules/react-date-picker/dist/DatePicker.css';
+
+@import './components/MoreMenu.css';
+@import './components/SemanticSearch.css';
+
+.react-date-picker__button {
+  border: none !important;
+}
+
+.react-date-picker__calendar {
+  z-index: 500 !important;
+}
+
+.react-date-picker__button__input input {
+  text-align: center;
+}
+
+.react-date-picker__button__input__divider {
+  color: #d4d4d4;
+}
 
 #root {
   height: 100%;
   font-family: 'Roboto', sans-serif;
+  user-select: none;
 }
 
 html, body {
@@ -23,16 +46,7 @@ html, body {
   overflow: hidden;
 }
 
-::-webkit-scrollbar {
-  background: rgba(255, 255, 255, 0.02);
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-left: 5px solid rgba(255, 255, 255, 0.06);
-}
-
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -46,8 +60,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   margin: 0;
@@ -58,7 +72,7 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }

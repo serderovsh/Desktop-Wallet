@@ -3,11 +3,12 @@
     display: flex;
     justify-content: space-between;
     background-color: rgba(255,255,255,0.05);
-    height: 100px;
     border-radius: 5px;
     margin: 5px 30px 0px 30px;
     transition: background-color 300ms;
     cursor: pointer;
+    padding: 20px 0px 10px 0px;
+    box-sizing: border-box;
 }
 
 .wallet:hover {
@@ -43,7 +44,6 @@
     font-size: 12px;
     text-align: left;
     flex-grow: 1;
-    margin-top: 20px;
 }
 
 .walletInfo > li {

@@ -62,7 +62,8 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 768
+    height: 768,
+    icon: __dirname + '/assets/icons/64x64.png'
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);

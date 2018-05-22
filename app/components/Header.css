@@ -1,0 +1,10 @@
+.viewHeader {
+    z-index: 5;
+}
+
+.headerName {
+    font-weight: 500;
+    margin-top: 45px;
+    font-size: 24px;
+    color: #0B0F12;
+}

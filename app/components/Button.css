@@ -2,10 +2,47 @@
     font-size: 13px;
     height: 45px;
     border-radius: 10px;
-    background-color: #0B0F12;
-    color: #fff;
     text-align: center;
     line-height: 45px;
     cursor: pointer;
     width: 100%;
+    border: none;
+    transition: 100ms;
+}
+
+.button:hover {
+    transition: 0ms;
+}
+
+.button:focus {
+    outline: none;
+}
+
+.black {
+    background-color: #0B0F12;
+    color: #eee;
+}
+
+.gradient {
+    color: #fff;
+    background: linear-gradient(270deg, #ED3F21 0%, #DC2C73 100%);
+}
+
+.black:hover {
+    color: #fff;
+    background-color: #060606;
+}
+
+.black:active {
+    color: #aaa;
+    opacity: 0.9;
+}
+
+.gradient:hover {
+    background: linear-gradient(270deg, #e0472c 0%, #da3678 100%);
+}
+
+.gradient:active {
+    color: #efefef;
+    opacity: 0.9;
 }
