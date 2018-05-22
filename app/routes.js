@@ -1,6 +1,7 @@
 /* eslint flowtype-errors/show-errors: 0 */
 import React from 'react';
 
+import App from './components/App';
 import WalletList from './components/Wallet/';
 import VoteList from './components/Vote/';
 import TokenList from './components/Tokens/';
@@ -15,34 +16,34 @@ import Share from './components/Settings/Share';
 import ContactDetails from './components/Contact/ContactDetails';
 import VoteDetails from './components/Vote/VoteDetails';
 import Support from './components/Settings/Support';
-import AddressBook from "./components/Settings/AddressBook";
-import Language from "./components/Settings/Language";
-import Notifications from "./components/Settings/Notifications";
+import AddressBook from './components/Settings/AddressBook';
+import Language from './components/Settings/Language';
+import Notifications from './components/Settings/Notifications';
+import CreateToken from './components/Tokens/CreateToken';
 
 export const routes = [
   {
-    path: "/wallets",
+    path: "/wallets/",
     sidebar: () => <WalletList />,
-    main: () => <WalletView />,
   },
   {
-    path: "/import",
-    sidebar: () => <WalletList />,
+    path: "/wallets/walletDetails/",
+    main: () => <WalletView />
+  },
+  {
+    path: "/wallets/import",
     main: () => <Import />,
   },
   {
-    path: "/create",
-    sidebar: () => <WalletList />,
+    path: "/wallets/create",
     main: () => <Create />,
   },
   {
-    path: "/send",
-    sidebar: () => <WalletList />,
+    path: "/wallets/send",
     main: () => <Send />,
   },
   {
-    path: "/receive",
-    sidebar: () => <WalletList />,
+    path: "/wallets/receive",
     main: () => <Receive />,
   },
   {
@@ -77,7 +78,10 @@ export const routes = [
   {
     path: "/tokens",
     sidebar: () => <TokenList />,
-    main: () => <WalletView />,
+  },
+  {
+    path: "/tokens/createtoken",
+    main: () => <CreateToken />,
   },
   {
     path: "/contact",
