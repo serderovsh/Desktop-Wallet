@@ -14,6 +14,10 @@ import WalletView from './components/Wallet/WalletView/';
 import Share from './components/Settings/Share';
 import ContactDetails from './components/Contact/ContactDetails';
 import VoteDetails from './components/Vote/VoteDetails';
+import Support from './components/Settings/Support';
+import AddressBook from "./components/Settings/AddressBook";
+import Language from "./components/Settings/Language";
+import Notifications from "./components/Settings/Notifications";
 
 export const routes = [
   {
@@ -42,9 +46,28 @@ export const routes = [
     main: () => <Receive />,
   },
   {
-    path: "/settings",
+    path: "/settings/",
     sidebar: () => <SettingList />,
+  },
+  {
+    path: "/settings/addressbook",
+    main: () => <AddressBook />,
+  },
+  {
+    path: "/settings/help",
+    main: () => <Support />,
+  },
+  {
+    path: "/settings/share",
     main: () => <Share />,
+  },
+  {
+    path: "/settings/notifications",
+    main: () => <Notifications />,
+  },
+  {
+    path: "/settings/language",
+    main: () => <Language />
   },
   {
     path: "/vote",
