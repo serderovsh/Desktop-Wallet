@@ -7,8 +7,6 @@ import styles from './Navbar.css';
 
 const links = [
 	{ route: '/wallets', text: 'Wallets', icon: Icons.WalletIcon },
-	{ route: '/send', text: 'Send', icon: Icons.SendIcon },
-	{ route: '/receive', text: 'Receive', icon: Icons.ReceiveIcon },
   { route: '/tokens', text: 'Tokens', icon: Icons.TokensIcon },
 	{ route: '/vote', text: 'Vote', icon: Icons.VoteIcon },
   { route: '/contact', text: 'Contact', icon: Icons.ContactIcon },
