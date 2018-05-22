@@ -12,6 +12,8 @@
 
 @import './components/MoreMenu.css';
 @import './components/SemanticSearch.css';
+@import './components/SemanticTabs.css';
+@import './components/SemanticRadioButton.css';
 
 .react-date-picker__button {
   border: none !important;
