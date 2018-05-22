@@ -7,7 +7,7 @@ import Header from '../../Header';
 import Background from '../../ContentSecondaryBG';
 import { MoreIcon, CalendarIcon, VoteIcon } from '../../Icons';
 
-export default class Send extends Component {
+export default class Import extends Component {
   render() {
     return (
       <Secondary className={styles.container}>

@@ -13,7 +13,7 @@ import Header from '../../Header';
 import SubHeader from './SubHeader';
 import DatePicker from './DatePicker';
 import TxList from './TxList';
-import Background from '../../ContentSecondaryBG'
+import Background from '../../ContentSecondaryBG';
 
 export default class WalletView extends Component {
 
@@ -23,16 +23,20 @@ export default class WalletView extends Component {
         <Header headerName="Personal Wallet">
           <Dropdown className={styles.moreMenu} icon={<MoreIcon />}>
             <Dropdown.Menu>
-              <Dropdown.Item text='Temp Dropdown One' icon={<VoteIcon />}/>
+              <Dropdown.Item text='Temp Dropdown One' icon={<VoteIcon />} />
               <Dropdown.Divider />
-              <Dropdown.Item text='Temp Dropdown Two' icon={<CalendarIcon />}/>
+              <Dropdown.Item text='Temp Dropdown Two' icon={<CalendarIcon />} />
             </Dropdown.Menu>
           </Dropdown>
         </Header>
         <SubHeader />
         <div className={styles.buttonContainer}>
+          <NavLink to="/receive">
             <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Receive</Button>
+          </NavLink>
+          <NavLink to="/send">
             <Button className={`${buttonStyles.button} ${buttonStyles.black}`}>Send</Button>
+          </NavLink>
         </div>
         <DatePicker />
         <TxList />

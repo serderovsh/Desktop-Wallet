@@ -1,7 +1,6 @@
 /* eslint flowtype-errors/show-errors: 0 */
-import React from "react";
+import React from 'react';
 
-import App from './components/App';
 import WalletList from './components/Wallet/';
 import VoteList from './components/Vote/';
 import TokenList from './components/Tokens/';
@@ -19,18 +18,16 @@ export const routes = [
     path: "/wallets",
     sidebar: () => <WalletList />,
     main: () => <WalletView />,
-    routes: [
-      {
-        path: "wallets/import",
-        main: () => <Import />,
-        showInMenu: false,
-      },
-      {
-        path: "wallets/create",
-        main: () => <Create />,
-        showInMenu: false,
-      }
-    ],
+  },
+  {
+    path: "/import",
+    sidebar: () => <WalletList />,
+    main: () => <Import />,
+  },
+  {
+    path: "/create",
+    sidebar: () => <WalletList />,
+    main: () => <Create />,
   },
   {
     path: "/send",
