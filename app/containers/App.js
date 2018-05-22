@@ -3,6 +3,8 @@ import * as React from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import ContentMain from '../components/ContentMain';
 import WalletView from '../components/Wallet/WalletView/WalletView';
+import Send from '../components/Wallet/Send/Send';
+import SendAmount from '../components/Wallet/Send/SendAmount';
 
 import styles from '../components/ContentMain.css';
 

@@ -11,6 +11,7 @@
 @import '../node_modules/react-date-picker/dist/DatePicker.css';
 
 @import './components/MoreMenu.css';
+@import './components/SemanticSearch.css';
 
 .react-date-picker__button {
   border: none !important;

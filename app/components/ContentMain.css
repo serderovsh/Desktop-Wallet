@@ -1,16 +1,19 @@
 .container {
+    position: relative;
     display: flex;
     text-align: center;
     flex-grow: 1;
 }
 
 .contentPrimary {
+    position: relative;
     min-width: 350px;
     flex-basis: 33%;
     background: linear-gradient(0deg, #31353E 0%, #192028 51.21%, #0B0F12 100%);
 }
 
 .contentSecondary {
+    position: relative;
     height: 100%;
     width: 100%;
     background: linear-gradient(0deg, #cac3c5 0%, #BFBFBF 100%);
