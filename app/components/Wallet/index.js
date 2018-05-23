@@ -19,27 +19,6 @@ const wallets = [
       amount: '0.48999850'
     } ]
   },
-  {
-    name: 'Personal Wallet',
-    tokens: [ { name: 'TRX', amount: '0.48999850' }, { name: 'tkn1', amount: '0.48999850' }, {
-      name: 'tkn2',
-      amount: '0.48999850'
-    } ]
-  },
-  {
-    name: 'Personal Wallet',
-    tokens: [ { name: 'TRX', amount: '0.48999850' }, { name: 'tkn1', amount: '0.48999850' }, {
-      name: 'tkn2',
-      amount: '0.48999850'
-    } ]
-  },
-  {
-    name: 'Personal Wallet',
-    tokens: [ { name: 'TRX', amount: '0.48999850' }, { name: 'tkn1', amount: '0.48999850' }, {
-      name: 'tkn2',
-      amount: '0.48999850'
-    } ]
-  }
 ];
 
 export default class WalletList extends Component {
