@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Dropdown } from 'semantic-ui-react';
-import styles from './WalletList.css';
-
-import buttonStyles from '../Button.css';
+import { connect } from 'react-redux';
 
 import Header from '../ContentPrimaryHeader';
-
 import Wallet from './Wallet';
 
+//import { loadTokenBalances } from '../../actions/wallet';
+
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
+import styles from './WalletList.css';
+import buttonStyles from '../Button.css';
 
 const wallets = [
   {
@@ -21,7 +22,7 @@ const wallets = [
   },
 ];
 
-export default class WalletList extends Component {
+class WalletList extends Component {
   render() {
     return (
       <div className={styles.container}>
@@ -43,16 +44,28 @@ export default class WalletList extends Component {
             <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Wallet</Button>
           </NavLink>
         </div>
-          <div className={styles.walletContainer}>
-            <NavLink to="/wallets/walletDetails">
+        <div className={styles.walletContainer}>
+          <NavLink to="/wallets/walletDetails">
             {
               wallets.map((wallet, i) =>
                 <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />)
             }
-            </NavLink>
-          </div>
-
+          </NavLink>
+        </div>
       </div>
     );
   }
 }
+
+// function mapStateToProps(state) {
+//   return {
+//     wallet: state.app.wallet,
+//     tokenBalances: state.wallet.tokens,
+//     entropy: state.wallet.entropy,
+//   };
+// }
+// const mapDispatchToProps = {
+//   loadTokenBalances,
+// };
+
+export default WalletList;

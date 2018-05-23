@@ -3,10 +3,11 @@ import thunk from 'redux-thunk';
 import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
-import rootReducer from '../reducers';
 import * as walletActions from '../actions/wallet';
 import * as tokensActions from '../actions/tokens';
-import * as repActions from '../actions/representatives';
+import * as representativesActions from '../actions/representatives';
+
+import rootReducer from '../reducers';
 
 const history = createHashHistory();
 
@@ -37,7 +38,7 @@ const configureStore = (initialState) => {
   const actionCreators = {
     ...walletActions,
     ...tokensActions,
-    ...repActions,
+    ...representativesActions,
     ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
