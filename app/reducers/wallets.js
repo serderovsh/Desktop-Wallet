@@ -21,7 +21,7 @@ export function walletReducer(state = initialState, action) {
   switch (action.type) {
     case SET_TOKEN_BALANCES: {
 
-      let { balance: trxBalance = 0} = find(action.tokens, tb => tb.name.toUpperCase() === 'TRX' ) || {};
+      let { balance: trxBalance = 0} = find(action.tokens, tb => tb.name.toUpperCase() === 'TRX') || {};
 
       return {
         ...state,
