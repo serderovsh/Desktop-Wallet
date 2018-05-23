@@ -4,7 +4,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { filter, sortBy } from 'lodash';
 
-import { loadRepresentatives } from '../../actions/representatives';
+import { loadWitnesses } from '../../actions/witnesses';
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 
 import Header from '../ContentPrimaryHeader';
@@ -14,12 +14,12 @@ import styles from './VoteList.css';
 
 class VoteList extends Component {
   componentDidMount() {
-    this.props.loadRepresentatives();
+    this.props.loadWitnesses();
   }
 
   renderRepresentatives() {
-    let { representatives, searchString } = this.props;
-    if (representatives.length === 0) {
+    let { witnesses } = this.props;
+    if (witnesses.length === 0) {
       return (
         <div>
           <h1>NOTHING HERE</h1>
@@ -27,13 +27,13 @@ class VoteList extends Component {
       );
     }
 
-    representatives = filter(representatives, r => r.url !== -1);
-    representatives = sortBy(representatives, r => r.url);
+    witnesses = filter(witnesses, w => w.url !== -1);
+    witnesses = sortBy(witnesses, w => w.url);
 
     return (
       <div className={styles.votesContainer}>
         {
-          representatives.map((rep, index) =>
+          witnesses.map((rep, index) =>
             <Vote
               key={index}
               voteLabel={index + 1}
@@ -49,7 +49,7 @@ class VoteList extends Component {
 
   render() {
 
-    let { representatives } = this.props;
+    let { witnesses } = this.props;
 
     return (
       <div className={styles.container}>
@@ -61,9 +61,9 @@ class VoteList extends Component {
 }
 
 export default connect(
-  state => ({ representatives: state.representatives, searchString: state.searchString }),
+  state => ({ witnesses: state.witnesses }),
   dispatch => ({
-    loadRepresentatives: () => {
-      dispatch(loadRepresentatives()(dispatch));
+    loadWitnesses: () => {
+      dispatch(loadWitnesses(dispatch));
     }
   }))(VoteList);

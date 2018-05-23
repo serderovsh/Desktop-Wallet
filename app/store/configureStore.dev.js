@@ -5,7 +5,7 @@ import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import * as walletActions from '../actions/wallet';
 import * as tokensActions from '../actions/tokens';
-import * as representativesActions from '../actions/representatives';
+import * as witnessesActions from '../actions/witnesses';
 
 import rootReducer from '../reducers';
 
@@ -38,7 +38,7 @@ const configureStore = (initialState) => {
   const actionCreators = {
     ...walletActions,
     ...tokensActions,
-    ...representativesActions,
+    ...witnessesActions,
     ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

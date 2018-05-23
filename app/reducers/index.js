@@ -3,13 +3,12 @@ import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
 import { walletReducer } from './wallets';
 import { tokensReducer } from './tokens';
-import { representativeReducer } from './representatives';
+import { witnessesReducer } from './witnesses';
 
 
 export default combineReducers({
   wallet: walletReducer,
   tokens: tokensReducer,
-  representatives: representativeReducer,
+  witnesses: witnessesReducer,
   router,
 });
-

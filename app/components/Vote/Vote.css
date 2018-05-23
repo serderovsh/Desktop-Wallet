@@ -16,7 +16,7 @@
     background-color: rgba(255,255,255,0.08);
 }
 
-.vote:first-child {
+.vote:first-child:last-child {
     margin: 85px 30px 0px 30px;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .title {
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow:ellipsis;
     color: #fff;
