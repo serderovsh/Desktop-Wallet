@@ -3,6 +3,7 @@
   background: linear-gradient(0deg, #31353E 0%, #192028 51.21%, #0B0F12 100%);
   width: 350px;
   box-sizing: border-box;
+  height: 100%;
 }
 
 .tokenBar {

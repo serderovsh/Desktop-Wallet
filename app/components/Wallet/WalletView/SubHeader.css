@@ -1,22 +1,76 @@
-.coinContainer {
+.main {
+
+}
+
+.scroll {
     position: relative;
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    z-index: 2;
+    width: 100%;
+    overflow-x: scroll;
+    min-width: 0;
+}
+
+.scroll::-webkit-scrollbar {
+  border-top: 5px solid rgba(255, 255, 255, 0.2);
+  height: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-top: 5px solid rgba(255, 255, 255, 0.35);
+}
+
+.mainAmount {
+    font-family: 'Source Code Pro', monospace;
+    color: #fff;
+    font-size: 20px;
+    margin: 40px 0px 20px 0px;
+}
+
+.mainAmount span {
+    font-weight: 300;
+}
+
+.container {
+    display: inline-block;
+    white-space: nowrap;
+    margin: 10px 0px;
+}
+
+.coinContainer {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    background: rgba(255,255,255,0.2);
+    margin: 0px 2px;
+    width: 110px;
+    padding: 10px 2px;
+    border-radius: 5px;
+    font-family: 'Source Code Pro', monospace;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.coinContainer:first-child {
+    margin-left: 20px;
+}
+
+.coinContainer:last-child {
+    margin-right: 20px;
+}
+
+.coinContainer:hover {
+    transition: 0ms;
+    background: rgba(255,255,255,0.3);
 }
 
 .coinAmount {
-    font-family: 'Source Code Pro', monospace;
-    font-size: 14px;
-    font-weight: 500;
-    border-left: 1px solid #969696;
+    font-size: 11px;
     padding: 0px 20px;
-    color: #0B0F12;
-    margin-top: 5px;
+    color: #fff;
+    font-weight: 300;
 }
 
-.coinAmount:first-child {
-    border-left: none;
+.coinType {
+    color: #fff;
+    font-size: 12px;
+    margin-top: 2px;
 }

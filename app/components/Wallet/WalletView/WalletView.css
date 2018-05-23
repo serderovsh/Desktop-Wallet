@@ -4,6 +4,11 @@
     flex-direction: column;
 }
 
+.headerContainer {
+    background: linear-gradient(270deg, #ED3F21 0%, #DC2C73 100%);
+    z-index: 2;
+}
+
 .buttonContainer {
     display: flex;
     align-items: center;

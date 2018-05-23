@@ -4,7 +4,7 @@ import { Dropdown, Button } from 'semantic-ui-react'
 import styles from './WalletView.css';
 
 
-import { MoreIcon, VoteIcon, CalendarIcon } from '../../Icons';
+import { MoreIcon, VoteIcon, CalendarIcon, SendIcon, QRScanIcon } from '../../Icons';
 import buttonStyles from '../../Button.css';
 
 import Secondary from '../../Content/Secondary';
@@ -19,6 +19,7 @@ export default class WalletView extends Component {
   render() {
     return (
       <Secondary>
+      <div className={styles.headerContainer}>
         <Header headerName="Personal Wallet">
           <Dropdown className={styles.moreMenu} icon={<MoreIcon />}>
             <Dropdown.Menu>
@@ -29,12 +30,13 @@ export default class WalletView extends Component {
           </Dropdown>
         </Header>
         <SubHeader />
+      </div>
         <div className={styles.buttonContainer}>
-          <NavLink to="/wallets/receive">
-            <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Receive</Button>
-          </NavLink>
           <NavLink to="/wallets/send">
-            <Button className={`${buttonStyles.button} ${buttonStyles.black}`}>Send</Button>
+            <Button className={buttonStyles.button}><SendIcon />Send</Button>
+          </NavLink>
+          <NavLink to="/wallets/receive">
+            <Button className={buttonStyles.button}><QRScanIcon />Receive</Button>
           </NavLink>
         </div>
         <DatePicker />

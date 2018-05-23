@@ -1,4 +1,6 @@
 .button {
+    font-family: 'Source Code Pro';
+    font-weight: 500;
     font-size: 13px;
     height: 45px;
     border-radius: 10px;
@@ -8,10 +10,15 @@
     width: 100%;
     border: none;
     transition: 100ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
 }
 
 .button:hover {
     transition: 0ms;
+    background: rgba(0,0,0,0.05);
 }
 
 .button:focus {
@@ -45,4 +52,22 @@
 .gradient:active {
     color: #efefef;
     opacity: 0.9;
+}
+
+.button svg {
+    fill: #000;
+    margin-top: -4px;
+    margin-right: 10px;
+}
+
+.black svg {
+    fill: #fff;
+    margin-top: -4px;
+    margin-right: 10px;
+}
+
+.gradient svg {
+    fill: #fff;
+    margin-top: -4px;
+    margin-right: 10px;
 }
