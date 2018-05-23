@@ -1,3 +1,5 @@
+import { TronHttpClient } from 'tron-http-client';
+
 export const SET_REPRESENTATIVES = "SET_REPRESENTATIVES";
 
 export const setRepresentatives = (representatives = []) => ({
@@ -5,6 +7,8 @@ export const setRepresentatives = (representatives = []) => ({
   representatives,
 });
 
-// export const loadRepresentatives = () => async (dispatch, getState) => {
-//   dispatch(setRepresentatives(await Client.getRepresentatives()));
-// };
+export const loadRepresentatives = () => async (dispatch, getState) => {
+  let data = await TronHttpClient.listWitnesses();
+
+  dispatch(setRepresentatives(data));
+};

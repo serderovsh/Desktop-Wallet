@@ -6,6 +6,7 @@ import { filter, sortBy } from 'lodash';
 
 import { loadRepresentatives } from '../../actions/representatives';
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
+
 import Header from '../ContentPrimaryHeader';
 import Vote from './Vote';
 
@@ -26,8 +27,8 @@ class VoteList extends Component {
       );
     }
 
-    representatives = filter(representatives, w => w.url.toUpperCase().indexOf(searchString) !== -1);
-    representatives = sortBy(representatives, w => w.url);
+    representatives = filter(representatives, r => r.url !== -1);
+    representatives = sortBy(representatives, r => r.url);
 
     return (
       <div className={styles.votesContainer}>
@@ -36,14 +37,14 @@ class VoteList extends Component {
             <Vote
               key={index}
               voteLabel={index + 1}
-              voteTitle={rep.voteTitle}
-              lastBlock={rep.lastBlock}
-              blocksProduced={rep.blocksProduced}
-              blocksMissed={rep.blocksMissed}
+              voteTitle={rep.url}
+              lastBlock={rep.latestBlockNumber}
+              blocksProduced={rep.producedTotal}
+              blocksMissed={rep.missedTotal}
             />)
         }
       </div>
-    )
+    );
   }
 
   render() {
@@ -59,15 +60,10 @@ class VoteList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    representatives: state.network.representatives,
-    searchString: state.app.searchString,
-  };
-}
-
-const mapDispatchToProps = {
-  loadRepresentatives,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(VoteList);
+export default connect(
+  state => ({ representatives: state.representatives, searchString: state.searchString }),
+  dispatch => ({
+    loadRepresentatives: () => {
+      dispatch(loadRepresentatives()(dispatch));
+    }
+  }))(VoteList);
