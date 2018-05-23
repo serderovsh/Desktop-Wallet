@@ -187,7 +187,6 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
-    "@tronscan/client": "^0.0.3",
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
     "font-awesome": "^4.7.0",
@@ -205,7 +204,8 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.80.0",
     "source-map-support": "^0.5.3",
-    "tron-http-client": "tronwatch/tron-http-client"
+    "tron-http-client": "tronwatch/tron-http-client",
+    "tron-http-tools": "tronwatch/tron-http-tools"
   },
   "devEngines": {
     "node": ">=7.x",

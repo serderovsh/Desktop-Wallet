@@ -10200,6 +10200,15 @@ tron-http-client@tronwatch/tron-http-client:
     btoa "^1.2.1"
     text-encoding "^0.6.4"
 
+tron-http-tools@tronwatch/tron-http-tools:
+  version "1.0.0"
+  resolved "https://codeload.github.com/tronwatch/tron-http-tools/tar.gz/e003f40838c669d39e61c5683ab92a0247504f90"
+  dependencies:
+    "@tronprotocol/wallet-api" "0.0.35"
+    bip39 "2.5.0"
+    btoa "^1.2.1"
+    text-encoding "^0.6.4"
+
 trough@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trough/-/trough-1.0.1.tgz#a9fd8b0394b0ae8fff82e0633a0a36ccad5b5f86"
