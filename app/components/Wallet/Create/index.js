@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from '../Send/Send.css';
+import { Tab } from 'semantic-ui-react';
 
-import Secondary from '../../Content/Secondary';
+import styles from './Creation.css';
+
 import Header from '../../Header';
-import Background from '../../ContentSecondaryBG';
-import { MoreIcon, CalendarIcon, VoteIcon } from '../../Icons';
+import Secondary from '../../Content/Secondary';
+import CreationContent from './Create/CreationContent';
 
-export default class Create extends Component {
+const panes = [
+  { menuItem: 'Create New Wallet', render: () => <Tab.Pane attached={false}><CreationContent/></Tab.Pane> },
+  { menuItem: 'Import Wallet', render: () => <Tab.Pane attached={false}>Tab 1 Content</Tab.Pane> }
+]
+
+export default class Creation extends Component {
   render() {
     return (
       <Secondary className={styles.container}>
-        <Header headerName="Create" />
+        <Header headerName="Wallet Creation" />
+        <Tab className={styles.tabContainer} menu={{ secondary: true }} panes={panes} />
       </Secondary>
     );
   }
