@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from '../Send/Send.css';
+import styles from '../../Wallet/Send/Send.css';
 
 import Secondary from '../../Content/Secondary';
 import Header from '../../Header';
 import Background from '../../ContentSecondaryBG';
 import { MoreIcon, CalendarIcon, VoteIcon } from '../../Icons';
 
-export default class Receive extends Component {
-    render() {
-        return (
-            <Secondary className={styles.container}>
-                <Header headerName="Receive" />
-            </Secondary>
-        );
-    }
+export default class AddressBook extends Component {
+  render() {
+    return (
+      <Secondary className={styles.container}>
+        <Header headerName="Address Book" />
+      </Secondary>
+    );
+  }
 }

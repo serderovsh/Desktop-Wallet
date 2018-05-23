@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { Dropdown, Button } from 'semantic-ui-react'
 import styles from './WalletView.css';
 
-import { Dropdown } from 'semantic-ui-react'
-import { MoreIcon, VoteIcon, CalendarIcon } from '../../Icons';
 
-import { Button } from 'semantic-ui-react';
+import { MoreIcon, VoteIcon, CalendarIcon } from '../../Icons';
 import buttonStyles from '../../Button.css';
 
 import Secondary from '../../Content/Secondary';
@@ -31,10 +30,10 @@ export default class WalletView extends Component {
         </Header>
         <SubHeader />
         <div className={styles.buttonContainer}>
-          <NavLink to="/receive">
+          <NavLink to="/wallets/receive">
             <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Receive</Button>
           </NavLink>
-          <NavLink to="/send">
+          <NavLink to="/wallets/send">
             <Button className={`${buttonStyles.button} ${buttonStyles.black}`}>Send</Button>
           </NavLink>
         </div>

@@ -5,7 +5,7 @@ import styles from './Send.css';
 import Secondary from '../../Content/Secondary';
 import Header from '../../Header';
 import SearchBar from './SearchBar';
-import Background from '../../ContentSecondaryBG'
+import Background from '../../ContentSecondaryBG';
 
 import { MoreIcon, CalendarIcon, VoteIcon } from '../../Icons';
 

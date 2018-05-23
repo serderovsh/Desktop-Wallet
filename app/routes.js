@@ -1,6 +1,7 @@
 /* eslint flowtype-errors/show-errors: 0 */
 import React from 'react';
 
+import App from './components/App';
 import WalletList from './components/Wallet/';
 import VoteList from './components/Vote/';
 import TokenList from './components/Tokens/';
@@ -12,49 +13,79 @@ import Create from './components/Wallet/Create/';
 import Import from './components/Wallet/Import/';
 import WalletView from './components/Wallet/WalletView/';
 import Share from './components/Settings/Share';
+import ContactDetails from './components/Contact/ContactDetails';
+import VoteDetails from './components/Vote/VoteDetails';
+import Support from './components/Settings/Support';
+import AddressBook from './components/Settings/AddressBook';
+import Language from './components/Settings/Language';
+import Notifications from './components/Settings/Notifications';
+import CreateToken from './components/Tokens/CreateToken';
 
 export const routes = [
   {
-    path: "/wallets",
+    path: "/wallets/",
     sidebar: () => <WalletList />,
-    main: () => <WalletView />,
   },
   {
-    path: "/import",
-    sidebar: () => <WalletList />,
+    path: "/wallets/walletDetails/",
+    main: () => <WalletView />
+  },
+  {
+    path: "/wallets/import",
     main: () => <Import />,
   },
   {
-    path: "/create",
-    sidebar: () => <WalletList />,
+    path: "/wallets/create",
     main: () => <Create />,
   },
   {
-    path: "/send",
-    sidebar: () => <WalletList />,
+    path: "/wallets/send",
     main: () => <Send />,
   },
   {
-    path: "/receive",
-    sidebar: () => <WalletList />,
+    path: "/wallets/receive",
     main: () => <Receive />,
   },
   {
-    path: "/settings",
+    path: "/settings/",
     sidebar: () => <SettingList />,
+  },
+  {
+    path: "/settings/addressbook",
+    main: () => <AddressBook />,
+  },
+  {
+    path: "/settings/help",
+    main: () => <Support />,
+  },
+  {
+    path: "/settings/share",
     main: () => <Share />,
+  },
+  {
+    path: "/settings/notifications",
+    main: () => <Notifications />,
+  },
+  {
+    path: "/settings/language",
+    main: () => <Language />
   },
   {
     path: "/vote",
     sidebar: () => <VoteList />,
+    main: () => <VoteDetails />
   },
   {
     path: "/tokens",
     sidebar: () => <TokenList />,
-    main: () => <WalletView />,
+  },
+  {
+    path: "/tokens/createtoken",
+    main: () => <CreateToken />,
   },
   {
     path: "/contact",
     sidebar: () => <ContactList />,
+    main: () => <ContactDetails />
   },
 ];

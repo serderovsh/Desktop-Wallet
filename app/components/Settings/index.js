@@ -15,7 +15,7 @@ export default class SettingList extends Component {
       <div className={styles.container}>
         <Header text="MY SETTINGS :" />
         <CategoryHeader text="General">
-          <CategoryChild text="Address Book" icon={<BookIcon />} routeTo="/settings/addressBook" />
+          <CategoryChild text="Address Book" icon={<BookIcon />} routeTo="/settings/addressbook" />
           <CategoryChild text="Help & Support" icon={<QuestionMarkIcon />} routeTo="/settings/help" />
           <CategoryChild text="Share Tron Wallet" icon={<ShareIcon />} routeTo="/settings/share" />
         </CategoryHeader>
