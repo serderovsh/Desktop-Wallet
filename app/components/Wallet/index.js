@@ -14,10 +14,10 @@ import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 const wallets = [
   {
     name: 'Personal Wallet',
-    tokens: [ { name: 'TRX', amount: '0.48999850' }, { name: 'tkn1', amount: '0.48999850' }, {
+    tokens: [{ name: 'TRX', amount: '480 980.00' }, { name: 'tkn1', amount: '452.00' }, {
       name: 'tkn2',
-      amount: '0.48999850'
-    } ]
+      amount: '7 879.00'
+    }]
   },
 ];
 
@@ -47,8 +47,7 @@ export default class WalletList extends Component {
             <NavLink to="/wallets/walletDetails">
             {
               wallets.map((wallet, i) =>
-                <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />
-              )
+                <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />)
             }
             </NavLink>
           </div>

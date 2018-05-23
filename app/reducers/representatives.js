@@ -1,54 +1,18 @@
-export const ADD_REPRESENTATIVE = 'REP_0';
+import { SET_REPRESENTATIVES } from '../actions/representatives';
 
-// get default state from local storage
-export default (state = {
-  repData: {
-    someRepID: {
-      position: 1,
-      name: 'http://url1.com',
-      rep_info: [
-        {
-          last_block: 36444,
-          blocks_produced: 2809,
-          blocks_missed: 6,
-          votes: 803003243,
-        }
-      ]
-    },
-    someRepID2: {
-      position: 2,
-      name: 'http://url2.com',
-      rep_info: [
-        {
-          last_block: 36444,
-          blocks_produced: 2809,
-          blocks_missed: 6,
-          votes: 803003243,
-        }
-      ]
-    },
-  }
-}, action) => {
-  switch(action.type) {
-    case ADD_REPRESENTATIVE:
+const initialState = {
+  representatives: [],
+};
+
+export function representativeReducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_REPRESENTATIVES: {
       return {
         ...state,
-        repData: {
-          ...state.repData,
-          [action.state.repID]: action.state.representative
-        }
+        representatives: action.representatives,
       };
+    }
     default:
       return state;
   }
-};
-
-export function addRepresentative(repID, representative) {
-  return {
-    type: ADD_REPRESENTATIVE,
-    state: {
-      repID,
-      representative
-    }
-  };
 }
