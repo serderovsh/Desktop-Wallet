@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from "react-redux";
 import { Button, Dropdown } from 'semantic-ui-react';
 import styles from './TokenList.css';
 
 import buttonStyles from '../Button.css';
 
+import { loadTokens } from '../../actions/tokens';
+
 import Header from '../ContentPrimaryHeader';
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 
-export default class TokenList extends Component {
+
+class TokenList extends Component {
+  componentDidMount() {
+    this.props.loadTokens();
+  }
   render() {
     return (
       <div className={styles.container}>
@@ -30,3 +37,13 @@ export default class TokenList extends Component {
     );
   }
 }
+
+
+export default connect(
+  state => ({ tokens: state.tokens }),
+  dispatch => ({
+    loadTokens: () => {
+      dispatch(loadTokens(dispatch));
+    }
+  })
+)(TokenList);

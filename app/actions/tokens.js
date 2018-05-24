@@ -1,3 +1,7 @@
+const TronHttpClient = require('tron-http-client');
+
+const client = new TronHttpClient();
+
 export const SET_TOKENS = 'SET_TOKENS';
 
 export const setTokens = (tokens = []) => ({
@@ -6,6 +10,6 @@ export const setTokens = (tokens = []) => ({
 });
 
 export const loadTokens = () => async (dispatch, getState) => {
-  let assets = await Client.getAssetIssueList();
+  let assets = await client.getTokens();
   dispatch(setTokens(assets));
 };

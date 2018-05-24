@@ -2029,12 +2029,12 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000187, caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639, caniuse-db@^1.0.30000794:
-  version "1.0.30000845"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000845.tgz#296a9064a849b76cf6d7be132c1852c5b55f3718"
+  version "1.0.30000846"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000846.tgz#d9c86f914738db4da098eeded997413c44561bd2"
 
 caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805, caniuse-lite@^1.0.30000844:
-  version "1.0.30000844"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000844.tgz#de7c84cde0582143cf4f5abdf1b98e5a0539ad4a"
+  version "1.0.30000846"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000846.tgz#2092911eecad71a89dae1faa62bcc202fde7f959"
 
 capture-exit@^1.2.0:
   version "1.2.0"
@@ -4765,8 +4765,8 @@ grpc-tools@^1.6.6:
     node-pre-gyp "^0.6.38"
 
 grpc@^1.10.0, grpc@^1.8.4:
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/grpc/-/grpc-1.12.1.tgz#bf2ef184695836582d7b0f04a0120032460fdac7"
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/grpc/-/grpc-1.12.2.tgz#b9f853540825c6c716c30d06794d7d52d081d968"
   dependencies:
     lodash "^4.17.5"
     nan "^2.0.0"
@@ -8886,8 +8886,8 @@ ret@~0.1.10:
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
 
 rgb2hex@~0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/rgb2hex/-/rgb2hex-0.1.0.tgz#ccd55f860ae0c5c4ea37504b958e442d8d12325b"
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/rgb2hex/-/rgb2hex-0.1.1.tgz#81abc922b60e9087a42c3e1ce20bf62d2359e400"
 
 right-align@^0.1.1:
   version "0.1.3"
@@ -10137,7 +10137,7 @@ trim@0.0.1:
 
 "tron-http-client@github:tronwatch/tron-http-client":
   version "1.0.0"
-  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/935935b46b5529b451f58934d923783ff285b66f"
+  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/5b2dd3dcf83e52ae4a9a8ca56954bf05033031de"
   dependencies:
     axios "^0.18.0"
     tron-http-tools "github:Flott-org/tron-http-tools"
