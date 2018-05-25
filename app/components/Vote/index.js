@@ -17,7 +17,7 @@ class VoteList extends Component {
     this.props.loadWitnesses();
   }
 
-  renderRepresentatives() {
+  renderWitnesses() {
     let { witnesses } = this.props;
     if (witnesses.length === 0) {
       return (
@@ -54,7 +54,7 @@ class VoteList extends Component {
     return (
       <div className={styles.container}>
         <Header className={styles.header} text="REPRESENTATIVE LISTING :" />
-        {this.renderRepresentatives()}
+        {this.renderWitnesses()}
       </div>
     );
   }
