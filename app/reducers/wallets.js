@@ -1,37 +1,30 @@
-import { SET_TOKEN_BALANCES } from '../actions/wallet';
+import { FINISH_INITIALIZATION, WALLET_STATE, SET_TOKEN_BALANCES, INIT } from '../actions/wallet';
 
 const initialState = {
-  walletName: '',
-  tokens: [],
-  trxBalance: 0,
-  entropy: {
-    total: 0,
-    balances: [],
-  },
-  tronPower: {
-    total: 0,
-    balances: [],
-  },
-  unfreezeDeadline: '',
-  privateKey: '',
-  publicKey: ''
+    persistent : {
+
+        wallets : []
+    },
+    wallet_state : WALLET_STATE.NEEDS_LOADING,
 };
 
 export function walletReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_TOKEN_BALANCES: {
 
-      let { balance: trxBalance = 0} = find(action.tokens, tb => tb.name.toUpperCase() === 'TRX') || {};
-
+    case INIT : {
       return {
-        ...state,
-        tokens: action.tokens,
-        trxBalance,
-        frozen: {
-          ...action.frozen,
-        }
+          ...state,
+          ...action
       };
     }
+
+  case FINISH_INITIALIZATION:{
+      return {
+          ...state,
+          persistent: action.persistent,
+          wallet_state: action.wallet_state
+      }
+  }
 
     default:
       return state;

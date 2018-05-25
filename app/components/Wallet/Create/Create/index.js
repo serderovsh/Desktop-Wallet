@@ -2,15 +2,26 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './CreationContent.css';
 
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import {createWallet} from "../../../../actions/wallet";
+
 import { Checkbox, Input, Form, Button } from 'semantic-ui-react';
 import buttonStyles from '../../../Button.css';
 
-export default class CreationContent extends Component {
+class CreationContent extends Component {
   state = {}
   handleChange = (e, { value }) => this.setState({ value });
 
-  // enum for radio state: 0: cold, 1: hot 
-  // handle via semantic UI's <Form> https://react.semantic-ui.com/collections/form
+  constructor(){
+    super();
+    this.onClickCreate = this.onClickCreate.bind(this);
+  }
+
+  onClickCreate(){
+    this.props.createWallet(this.props);
+  }
 
   render() {
     return (
@@ -59,9 +70,19 @@ export default class CreationContent extends Component {
               </div>
             </Form.Field>
           </div>
-          <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Send</Form.Button>
+          <Form.Button onClick={this.onClickCreate} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Send</Form.Button>
         </Form>
       </div>
     );
   }
 }
+
+export default withRouter(connect(
+    state => ({ wallet: state.wallet }),
+    dispatch => ( {
+        createWallet : (props, walletName) => {
+            dispatch(createWallet(props, walletName));
+        }
+    } )
+)(CreationContent));
+

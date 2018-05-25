@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Dropdown } from 'semantic-ui-react';
+
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Header from '../ContentPrimaryHeader';
 import Wallet from './Wallet';
+
 
 //import { loadTokenBalances } from '../../actions/wallet';
 
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 import styles from './WalletList.css';
 import buttonStyles from '../Button.css';
-
-const wallets = [
-  {
-    name: 'Personal Wallet',
-    tokens: [{ name: 'TRX', amount: '480 980.00' }, { name: 'tkn1', amount: '452.00' }, {
-      name: 'tkn2',
-      amount: '7 879.00'
-    }]
-  },
-];
+import {initFromStorage} from "../../actions/wallet";
 
 class WalletList extends Component {
+
+    componentDidMount() {
+        this.props.initFromStorage(this.props);
+    }
+
   render() {
     return (
       <div className={styles.container}>
@@ -48,7 +47,7 @@ class WalletList extends Component {
         </div>
         <div className={styles.walletContainer}>
           {
-            wallets.map((wallet, i) =>
+            this.props.wallet.persistent.wallets.map((wallet, i) =>
               // NavLink in Wallet Component
               <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />
             )
@@ -59,15 +58,11 @@ class WalletList extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     wallet: state.app.wallet,
-//     tokenBalances: state.wallet.tokens,
-//     entropy: state.wallet.entropy,
-//   };
-// }
-// const mapDispatchToProps = {
-//   loadTokenBalances,
-// };
-
-export default WalletList;
+export default withRouter(connect(
+    state => ({ wallet: state.wallet }),
+    dispatch => ( {
+        initFromStorage: (props) => {
+            dispatch(initFromStorage(props));
+        }
+    } )
+)(WalletList));
