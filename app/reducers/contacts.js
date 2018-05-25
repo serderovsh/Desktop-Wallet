@@ -1,6 +1,7 @@
 import { ADD_CONTACT, REMOVE_CONTACT, UPDATE_CONTACT} from '../actions/contacts';
 
 const initialState = {
+  contactID: '',
   contactName: '',
   contactAddress: '',
   contactImage: '',
