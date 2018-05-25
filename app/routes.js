@@ -10,8 +10,8 @@ import SettingList from './components/Settings/';
 import Send from './components/Wallet/Send/';
 import Receive from './components/Wallet/Receive/';
 import Create from './components/Wallet/Create/';
-import Import from './components/Wallet/Import/';
 import WalletView from './components/Wallet/WalletView/';
+import WalletBackup from './components/Wallet/Backup/';
 import Share from './components/Settings/Share';
 import ContactDetails from './components/Contact/ContactDetails';
 import VoteDetails from './components/Vote/VoteDetails';
@@ -31,8 +31,8 @@ export const routes = [
     main: () => <WalletView />
   },
   {
-    path: "/wallets/import",
-    main: () => <Import />,
+    path: "/wallets/walletBackup/",
+    main: () => <WalletBackup />
   },
   {
     path: "/wallets/create",

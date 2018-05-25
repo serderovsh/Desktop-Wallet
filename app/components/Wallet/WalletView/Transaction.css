@@ -56,9 +56,9 @@
 
 .iconReceived {
     fill: #1FBE9A;
+    transform: rotate(180deg);
 }
 
 .iconSent {
     fill: #ED3F23;
-    transform: rotate(180deg);
 }

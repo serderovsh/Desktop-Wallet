@@ -4,7 +4,7 @@ import { Dropdown, Button } from 'semantic-ui-react'
 import styles from './WalletView.css';
 
 
-import { MoreIcon, VoteIcon, CalendarIcon, SendIcon, QRScanIcon } from '../../Icons';
+import { MoreIcon, VoteIcon, CalendarIcon, SendIcon, QRScanIcon, DownloadIcon } from '../../Icons';
 import buttonStyles from '../../Button.css';
 
 import Secondary from '../../Content/Secondary';
@@ -37,6 +37,9 @@ export default class WalletView extends Component {
           </NavLink>
           <NavLink to="/wallets/receive">
             <Button className={buttonStyles.button}><QRScanIcon />Receive</Button>
+          </NavLink>
+          <NavLink to="/wallets/walletBackup">
+            <Button className={buttonStyles.button}><DownloadIcon />Backup</Button>
           </NavLink>
         </div>
         <DatePicker />

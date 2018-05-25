@@ -30,12 +30,14 @@ class WalletList extends Component {
           <Dropdown icon={<MoreIcon />}>
             <Dropdown.Menu>
               <NavLink to="/wallets/create">
-                <Dropdown.Item text='New Wallet' icon={<WalletIcon />} />
+                <Dropdown.Item text='Import or Create Wallet' icon={<WalletIcon />} />
               </NavLink>
-              <Dropdown.Divider />
-              <NavLink to="/wallets/import">
-                <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />} />
-              </NavLink>
+              {/*
+                <Dropdown.Divider />
+                <NavLink to="/wallets/import">
+                  <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />} />
+                </NavLink>
+              */}
             </Dropdown.Menu>
           </Dropdown>
         </Header>
@@ -45,12 +47,12 @@ class WalletList extends Component {
           </NavLink>
         </div>
         <div className={styles.walletContainer}>
-          <NavLink to="/wallets/walletDetails">
-            {
-              wallets.map((wallet, i) =>
-                <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />)
-            }
-          </NavLink>
+          {
+            wallets.map((wallet, i) =>
+              // NavLink in Wallet Component
+              <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />
+            )
+          }
         </div>
       </div>
     );

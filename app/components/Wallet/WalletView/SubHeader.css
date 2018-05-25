@@ -10,12 +10,12 @@
 }
 
 .scroll::-webkit-scrollbar {
-  border-top: 5px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 8px solid rgba(255, 255, 255, 0.2);
   height: 10px;
 }
 
 .scroll::-webkit-scrollbar-thumb {
-  border-top: 5px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 8px solid rgba(255, 255, 255, 0.35);
 }
 
 .mainAmount {

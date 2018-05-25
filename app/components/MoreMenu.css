@@ -23,7 +23,7 @@
     z-index: 5;
 }
 
-.ui.dropdown .menu.visible {
+.ui.dropdown.visible .menu {
     display: block;
 }
 

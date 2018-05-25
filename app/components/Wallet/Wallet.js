@@ -11,7 +11,7 @@ class Wallet extends Component {
 
   render() {
     return (
-      <div className={styles.wallet}>
+      <NavLink to="/wallets/walletDetails" className={styles.wallet} activeClassName={styles.active}>
         <WalletIcon className={styles.walletIcon} />
         <ul className={styles.walletInfo}>
           <li className={styles.name}>{ this.props.name }</li>
@@ -22,7 +22,7 @@ class Wallet extends Component {
           }
         </ul>
         <ArrowRightIcon className={styles.arrowIcon} />
-      </div>
+      </NavLink>
     );
   }
 }
