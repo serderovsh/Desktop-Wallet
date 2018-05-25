@@ -38,9 +38,9 @@ class VoteList extends Component {
               key={index}
               voteLabel={index + 1}
               voteTitle={rep.url}
-              lastBlock={rep.latestBlockNumber}
-              blocksProduced={rep.producedTotal}
-              blocksMissed={rep.missedTotal}
+              lastBlock={rep.latestblocknum}
+              blocksProduced={rep.totalproduced}
+              blocksMissed={rep.totalmissed}
             />)
         }
       </div>
@@ -61,9 +61,10 @@ class VoteList extends Component {
 }
 
 export default connect(
-  state => ({ witnesses: state.witnesses }),
+  state => ({ witnesses: state.witnesses.witnesses }),
   dispatch => ({
     loadWitnesses: () => {
       dispatch(loadWitnesses(dispatch));
     }
-  }))(VoteList);
+  })
+)(VoteList);
