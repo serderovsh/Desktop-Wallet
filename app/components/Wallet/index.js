@@ -14,10 +14,11 @@ import buttonStyles from '../Button.css';
 const wallets = [
   {
     name: 'Personal Wallet',
-    tokens: [{ name: 'TRX', amount: '480 980.00' }, { name: 'tkn1', amount: '452.00' }, {
-      name: 'tkn2',
-      amount: '7 879.00'
-    }]
+    tokens: [
+      { name: 'TRX', amount: '480 980.00' },
+      { name: 'tkn1', amount: '452.00' },
+      { name: 'tkn2', amount: '7 879.00' }
+    ]
   },
 ];
 
@@ -29,11 +30,11 @@ class WalletList extends Component {
           <Dropdown icon={<MoreIcon />}>
             <Dropdown.Menu>
               <NavLink to="/wallets/create">
-                <Dropdown.Item text='Create Wallet' icon={<WalletIcon />} />
+                <Dropdown.Item text="Create Wallet" icon={<WalletIcon />} />
               </NavLink>
               <Dropdown.Divider />
               <NavLink to="/wallets/import">
-                <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />} />
+                <Dropdown.Item text="Import Wallet" icon={<DownloadIcon />} />
               </NavLink>
             </Dropdown.Menu>
           </Dropdown>
@@ -47,8 +48,7 @@ class WalletList extends Component {
           {
             wallets.map((wallet, i) =>
               // NavLink in Wallet Component
-              <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />
-            )
+              <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />)
           }
         </div>
       </div>
