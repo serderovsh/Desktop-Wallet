@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Dropdown } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 
 import Header from '../ContentPrimaryHeader';
 import Wallet from './Wallet';
 
-//import { loadTokenBalances } from '../../actions/wallet';
+import { tu } from '../../utils/i18n';
 
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 import styles from './WalletList.css';
@@ -30,14 +29,12 @@ class WalletList extends Component {
           <Dropdown icon={<MoreIcon />}>
             <Dropdown.Menu>
               <NavLink to="/wallets/create">
-                <Dropdown.Item text='Import or Create Wallet' icon={<WalletIcon />} />
+                <Dropdown.Item text='Create Wallet' icon={<WalletIcon />} />
               </NavLink>
-              {/*
-                <Dropdown.Divider />
-                <NavLink to="/wallets/import">
-                  <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />} />
-                </NavLink>
-              */}
+              <Dropdown.Divider />
+              <NavLink to="/wallets/import">
+                <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />} />
+              </NavLink>
             </Dropdown.Menu>
           </Dropdown>
         </Header>

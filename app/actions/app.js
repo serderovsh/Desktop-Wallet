@@ -2,6 +2,12 @@ import xhr from 'axios';
 
 export const SET_PRICE = 'SET_PRICE';
 export const SEARCH = 'SEARCH';
+export const SET_LANGUAGE = 'SET_LANGUAGE';
+
+export const setLanguage = (language = 'en') => ({
+  type: SET_LANGUAGE,
+  language,
+});
 
 export const search = (searchString) => ({
   type: SEARCH,
