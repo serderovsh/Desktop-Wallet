@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Dropdown } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { filter, sortBy } from 'lodash';
 
@@ -27,7 +25,7 @@ class VoteList extends Component {
       );
     }
 
-    witnesses = filter(witnesses, w => w.url.toUpperCase() !== -1);
+    witnesses = filter(witnesses, w => w.url.toUpperCase().indexOf(searchString) !== -1);
     witnesses = sortBy(witnesses, w => w.url);
 
     return (
@@ -62,7 +60,7 @@ class VoteList extends Component {
 }
 
 export default connect(
-  state => ({ witnesses: state.witnesses.witnesses }),
+  state => ({ witnesses: state.witnesses.witnesses, searchString: state.app.searchString }),
   dispatch => ({
     loadWitnesses: () => {
       dispatch(loadWitnesses(dispatch));
