@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Dropdown } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { filter, sortBy } from 'lodash';
 
@@ -18,7 +16,7 @@ class VoteList extends Component {
   }
 
   renderWitnesses() {
-    let { witnesses } = this.props;
+    let { witnesses, searchString } = this.props;
     if (witnesses.length === 0) {
       return (
         <div>
@@ -27,7 +25,7 @@ class VoteList extends Component {
       );
     }
 
-    witnesses = filter(witnesses, w => w.url !== -1);
+    witnesses = filter(witnesses, w => w.url.toUpperCase().indexOf(searchString) !== -1);
     witnesses = sortBy(witnesses, w => w.url);
 
     return (
@@ -38,9 +36,10 @@ class VoteList extends Component {
               key={index}
               voteLabel={index + 1}
               voteTitle={rep.url}
-              lastBlock={rep.latestBlockNumber}
-              blocksProduced={rep.producedTotal}
-              blocksMissed={rep.missedTotal}
+              lastBlock={rep.latestblocknum}
+              blocksProduced={rep.totalproduced}
+              blocksMissed={rep.totalmissed}
+              totalVote={rep.votecount}
             />)
         }
       </div>
@@ -61,9 +60,10 @@ class VoteList extends Component {
 }
 
 export default connect(
-  state => ({ witnesses: state.witnesses }),
+  state => ({ witnesses: state.witnesses.witnesses, searchString: state.app.searchString }),
   dispatch => ({
     loadWitnesses: () => {
       dispatch(loadWitnesses(dispatch));
     }
-  }))(VoteList);
+  })
+)(VoteList);

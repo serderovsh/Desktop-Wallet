@@ -1,7 +1,6 @@
 /* eslint flowtype-errors/show-errors: 0 */
 import React from 'react';
 
-import App from './components/App';
 import WalletList from './components/Wallet/';
 import VoteList from './components/Vote/';
 import TokenList from './components/Tokens/';

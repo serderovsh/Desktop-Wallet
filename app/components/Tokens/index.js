@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Button, Dropdown } from 'semantic-ui-react';
 import styles from './TokenList.css';
 
@@ -40,7 +40,7 @@ class TokenList extends Component {
 
 
 export default connect(
-  state => ({ tokens: state.tokens }),
+  state => ({ tokens: state.tokens.tokens }),
   dispatch => ({
     loadTokens: () => {
       dispatch(loadTokens(dispatch));

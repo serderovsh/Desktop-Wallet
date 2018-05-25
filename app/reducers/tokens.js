@@ -10,7 +10,7 @@ export function tokensReducer(state = initialState, action) {
       return {
         ...state,
         tokens: action.tokens,
-      }
+      };
     }
     default:
       return state;
