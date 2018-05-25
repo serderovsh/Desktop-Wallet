@@ -18,7 +18,7 @@ class VoteList extends Component {
   }
 
   renderWitnesses() {
-    let { witnesses } = this.props;
+    let { witnesses, searchString } = this.props;
     if (witnesses.length === 0) {
       return (
         <div>
@@ -27,7 +27,7 @@ class VoteList extends Component {
       );
     }
 
-    witnesses = filter(witnesses, w => w.url !== -1);
+    witnesses = filter(witnesses, w => w.url.toUpperCase() !== -1);
     witnesses = sortBy(witnesses, w => w.url);
 
     return (
@@ -41,6 +41,7 @@ class VoteList extends Component {
               lastBlock={rep.latestblocknum}
               blocksProduced={rep.totalproduced}
               blocksMissed={rep.totalmissed}
+              totalVote={rep.votecount}
             />)
         }
       </div>

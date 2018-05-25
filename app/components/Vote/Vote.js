@@ -23,7 +23,11 @@ class Vote extends Component {
           </div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}>Blocks Missed : </span>
-            <span className={styles.subVal}>{this.props.blocksMissed} TRX }</span>
+            <span className={styles.subVal}>{this.props.blocksMissed}</span>
+          </div>
+          <div className={styles.subContainer}>
+            <span className={styles.subTitle}> Total Vote :</span>
+            <span className={styles.subVal}>{this.props.totalVote} TRX</span>
           </div>
         </div>
       </div>
