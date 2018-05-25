@@ -1,29 +1,19 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Dropdown } from 'semantic-ui-react';
-<<<<<<< HEAD
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-=======
->>>>>>> 7c9791a1012aaba9988d7416957555fe9479a3b7
-
 import Header from '../ContentPrimaryHeader';
 import Wallet from './Wallet';
 
-<<<<<<< HEAD
-
-//import { loadTokenBalances } from '../../actions/wallet';
-=======
 import { tu } from '../../utils/i18n';
->>>>>>> 7c9791a1012aaba9988d7416957555fe9479a3b7
 
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 import styles from './WalletList.css';
 import buttonStyles from '../Button.css';
-<<<<<<< HEAD
 import {initFromStorage} from "../../actions/wallet";
-=======
+
 
 const wallets = [
   {
@@ -35,7 +25,6 @@ const wallets = [
     ]
   },
 ];
->>>>>>> 7c9791a1012aaba9988d7416957555fe9479a3b7
 
 class WalletList extends Component {
 
