@@ -120,7 +120,7 @@ export const createWallet = (props, accountName="Unnamed Wallet") => {
     }
 };
 
-export const createAccount = (props) => {
+export const createAccount = (props, accountName) => {
 
 };
 
