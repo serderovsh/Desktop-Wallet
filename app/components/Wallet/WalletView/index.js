@@ -19,7 +19,8 @@ import Background from '../../ContentSecondaryBG';
 class WalletView extends Component {
 
   render() {
-    let account = this.props.wallet.persistent.accounts[parseInt(this.props.match.params.account)];
+    let accountId = parseInt(this.props.match.params.account);
+    let account = this.props.wallet.persistent.accounts[accountId];
 
     return (
       <Secondary>
@@ -36,7 +37,7 @@ class WalletView extends Component {
         <SubHeader trx={account.trx} />
       </div>
         <div className={styles.buttonContainer}>
-          <NavLink to="/wallets/send">
+          <NavLink to={"/wallets/send/" + accountId + "/"}>
             <Button className={buttonStyles.button}><SendIcon />Send</Button>
           </NavLink>
           <NavLink to="/wallets/receive">

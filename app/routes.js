@@ -26,7 +26,7 @@ export const routes = [
     sidebar: () => <WalletList />,
   },
   {
-    path: "/wallets/walletDetails/:account",
+    path: "/wallets/walletDetails/:account/:token?",
     main: () => <WalletView />
   },
   {
@@ -38,7 +38,7 @@ export const routes = [
     main: () => <Create />,
   },
   {
-    path: "/wallets/send",
+    path: "/wallets/send/:account/:token?",
     main: () => <Send />,
   },
   {
