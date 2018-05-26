@@ -32,7 +32,7 @@ export default class CreationContent extends Component {
                 />
               </div>
               <div className={styles.radioContainer}>
-                <div className={styles.radioHeader}>COLD WALLET :</div>
+                <div className={styles.radioHeader}>HOT WALLET :</div>
                 <ul className={styles.radioList}>
                   <li>Send and receive Tron immediately.</li>
                   <li>Manage all your Tron accounts and tokens.</li>
@@ -51,7 +51,7 @@ export default class CreationContent extends Component {
                 />
               </div>
               <div className={styles.radioContainer}>
-                <div className={styles.radioHeader}>HOT WALLET :</div>
+                <div className={styles.radioHeader}>COLD WALLET :</div>
                 <ul className={styles.radioList}>
                   <li>Sign Transactions without an active internet connection.</li>
                   <li>Broadcast them using a different device for best possible security.</li>
