@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { Dropdown, Button } from 'semantic-ui-react'
 import styles from './WalletView.css';
 
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { MoreIcon, VoteIcon, CalendarIcon, SendIcon, QRScanIcon, DownloadIcon } from '../../Icons';
 import buttonStyles from '../../Button.css';
@@ -14,13 +16,15 @@ import DatePicker from './DatePicker';
 import TxList from './TxList';
 import Background from '../../ContentSecondaryBG';
 
-export default class WalletView extends Component {
+class WalletView extends Component {
 
   render() {
+    let account = this.props.wallet.persistent.accounts[parseInt(this.props.match.params.account)];
+
     return (
       <Secondary>
       <div className={styles.headerContainer}>
-        <Header headerName="Personal Wallet">
+        <Header headerName={account.name}>
           <Dropdown className={styles.moreMenu} icon={<MoreIcon />}>
             <Dropdown.Menu>
               <Dropdown.Item text='Temp Dropdown One' icon={<VoteIcon />} />
@@ -29,7 +33,7 @@ export default class WalletView extends Component {
             </Dropdown.Menu>
           </Dropdown>
         </Header>
-        <SubHeader />
+        <SubHeader trx={account.trx} />
       </div>
         <div className={styles.buttonContainer}>
           <NavLink to="/wallets/send">
@@ -48,3 +52,12 @@ export default class WalletView extends Component {
     );
   }
 }
+
+export default withRouter(connect(
+    state => ({ wallet: state.wallet }),
+    dispatch => ( {
+        initFromStorage: (props) => {
+            dispatch(initFromStorage(props));
+        }
+    } )
+)(WalletView));

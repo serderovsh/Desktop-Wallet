@@ -1,28 +1,37 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Dropdown } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Header from '../ContentPrimaryHeader';
 import Wallet from './Wallet';
 
-//import { loadTokenBalances } from '../../actions/wallet';
+import { tu } from '../../utils/i18n';
 
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 import styles from './WalletList.css';
 import buttonStyles from '../Button.css';
+import {initFromStorage} from "../../actions/wallet";
+
 
 const wallets = [
   {
     name: 'Personal Wallet',
-    tokens: [{ name: 'TRX', amount: '480 980.00' }, { name: 'tkn1', amount: '452.00' }, {
-      name: 'tkn2',
-      amount: '7 879.00'
-    }]
+    tokens: [
+      { name: 'TRX', amount: '480 980.00' },
+      { name: 'tkn1', amount: '452.00' },
+      { name: 'tkn2', amount: '7 879.00' }
+    ]
   },
 ];
 
 class WalletList extends Component {
+
+    componentDidMount() {
+        this.props.initFromStorage(this.props);
+    }
+
   render() {
     return (
       <div className={styles.container}>
@@ -30,14 +39,12 @@ class WalletList extends Component {
           <Dropdown icon={<MoreIcon />}>
             <Dropdown.Menu>
               <NavLink to="/wallets/create">
-                <Dropdown.Item text='Import or Create Wallet' icon={<WalletIcon />} />
+                <Dropdown.Item text="Create Wallet" icon={<WalletIcon />} />
               </NavLink>
-              {/*
-                <Dropdown.Divider />
-                <NavLink to="/wallets/import">
-                  <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />} />
-                </NavLink>
-              */}
+              <Dropdown.Divider />
+              <NavLink to="/wallets/import">
+                <Dropdown.Item text="Import Wallet" icon={<DownloadIcon />} />
+              </NavLink>
             </Dropdown.Menu>
           </Dropdown>
         </Header>
@@ -48,10 +55,9 @@ class WalletList extends Component {
         </div>
         <div className={styles.walletContainer}>
           {
-            wallets.map((wallet, i) =>
+            this.props.wallet.persistent.accounts.map((account, i) =>
               // NavLink in Wallet Component
-              <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />
-            )
+              <Wallet trx={account.trx} key={i} name={account.name} tokens={account.tokens} index={account.index} />)
           }
         </div>
       </div>
@@ -59,15 +65,11 @@ class WalletList extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     wallet: state.app.wallet,
-//     tokenBalances: state.wallet.tokens,
-//     entropy: state.wallet.entropy,
-//   };
-// }
-// const mapDispatchToProps = {
-//   loadTokenBalances,
-// };
-
-export default WalletList;
+export default withRouter(connect(
+    state => ({ wallet: state.wallet }),
+    dispatch => ( {
+        initFromStorage: (props) => {
+            dispatch(initFromStorage(props));
+        }
+    } )
+)(WalletList));

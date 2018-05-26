@@ -20,7 +20,7 @@ export default class SubHeader extends Component {
   render() {
     return (
       <div className={styles.main}>
-        <div className={styles.mainAmount}>{ trx } <span>TRX</span></div>
+        <div className={styles.mainAmount}>{ this.props.trx } <span>TRX</span></div>
         <div className={styles.scroll}>
           <div className={styles.container}>
             {

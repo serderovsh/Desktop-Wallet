@@ -1,4 +1,4 @@
-import { SEARCH, SET_PRICE } from '../actions/app';
+import { SEARCH, SET_PRICE, SET_LANGUAGE } from '../actions/app';
 
 const initialState = {
   price: {
@@ -6,6 +6,11 @@ const initialState = {
     percentage: 0,
   },
   searchString: '',
+  availableLanguages: {
+    en: 'English',
+    fr: 'Français',
+  },
+  activeLanguage: 'en'
 };
 
 export function appReducer(state = initialState, action) {
@@ -24,6 +29,20 @@ export function appReducer(state = initialState, action) {
       return {
         ...state,
         searchString: action.searchString
+      };
+    }
+
+    case SET_LANGUAGE: {
+
+
+      let language = action.language;
+
+      if (typeof state.availableLanguages[action.language] === 'undefined') {
+        language = 'en';
+      }
+      return {
+        ...state,
+        activeLanguage: language,
       };
     }
 

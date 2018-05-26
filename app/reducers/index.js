@@ -5,6 +5,7 @@ import { walletReducer } from './wallets';
 import { tokensReducer } from './tokens';
 import { witnessesReducer } from './witnesses';
 import { appReducer } from './app';
+import { contactReducer } from './contacts';
 
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   tokens: tokensReducer,
   witnesses: witnessesReducer,
   app: appReducer,
+  contact: contactReducer,
   router,
 });
