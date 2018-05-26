@@ -1,9 +1,11 @@
 const TronHttpClient = require('tron-http-client');
 const TronHttpTools = require('tron-http-tools');
+const client = new TronHttpClient();
 
 export const SET_TOKEN_BALANCES = 'SET_TOKEN_BALANCES';
 export const INIT = 'INIT';
 export const FINISH_INITIALIZATION = 'FINISH_INITIALIZATION';
+export const UPDATE_ALL_ACCOUNTS = 'UPDATE_ALL_ACCOUNTS';
 
 const LOCALSTORAGE_KEY = "TRON_WATCH";
 
@@ -121,17 +123,40 @@ export const createWallet = (props, accountName="Unnamed Wallet") => {
 };
 
 export const createAccount = () => async (props, dispatch) => {
-    let client = new TronHttpClient();
     dispatch(setWitnesses(await client.listWitnesses()));
 };
 
-export const updateAllAccounts = (props) =>{
+async function getAccountsInfo(persistent){
+    let addresses = [];
+    for(let i = 0;i<persistent.accounts.length;i++){
+        addresses.push(persistent.accounts[i].publicKey);
+    }
+    console.log(addresses);
+    return await client.getAccounts(addresses);
+}
 
-    //////////continue here! update all accounts
+export const updateAllAccounts = () => async (persistent, dispatch) =>{
     return {
-        type:'wat'
-    };
+        type : UPDATE_ALL_ACCOUNTS,
+        persistent : persistent
+    }
 };
+
+function startUpdateAccountsAsync(persistent, dispatch){
+    setTimeout(async ()=>{
+        let accountsInfo = await getAccountsInfo(persistent);
+        console.log(accountsInfo);
+
+        for(var i = 0;i<persistent.accounts.length;i++){
+            let info = accountsInfo[persistent.accounts[i].publicKey];
+            if(info){
+                persistent.accounts[i].trx = info.trx;
+
+            }
+        }
+        dispatch(updateAllAccounts(persistent));
+    }, 0);
+}
 
 export const initFromStorage = (props, dispatch) =>{
     let persistent = window.localStorage.getItem(LOCALSTORAGE_KEY);
@@ -140,8 +165,8 @@ export const initFromStorage = (props, dispatch) =>{
         persistent = JSON.parse(persistent);
 
         if(persistent.securityMethod === PERSISTENT_SECURITY_METHOD.NONE){
-            props.history.push("/wallets/walletDetails/0");
-            dispatch(updateAllAccounts(props, dispatch));
+            startUpdateAccountsAsync(persistent, dispatch);
+
             return {
                 type : FINISH_INITIALIZATION,
                 wallet_state : WALLET_STATE.READY,

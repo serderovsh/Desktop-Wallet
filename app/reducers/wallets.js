@@ -1,4 +1,4 @@
-import { FINISH_INITIALIZATION, WALLET_STATE, SET_TOKEN_BALANCES, INIT } from '../actions/wallet';
+import { UPDATE_ALL_ACCOUNTS,FINISH_INITIALIZATION, WALLET_STATE, SET_TOKEN_BALANCES, INIT } from '../actions/wallet';
 
 const initialState = {
     persistent : {
@@ -25,6 +25,14 @@ export function walletReducer(state = initialState, action) {
           wallet_state: action.wallet_state
       }
   }
+
+  case UPDATE_ALL_ACCOUNTS:{
+      return {
+          ...state,
+          persistent: action.persistent
+      }
+  }
+
 
     default:
       return state;
