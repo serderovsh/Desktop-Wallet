@@ -77,16 +77,16 @@ function savePersistent(persistent){
     }
 }
 
-function addAccount(persistent, accountName : "New Wallet"){
+function addAccount(persistent, accountName = "Unnamed Wallet"){
     let index = persistent.accounts.length;
     let newAccount = TronHttpTools.accounts.getAccountAtIndex(persistent.priv , index);
 
     persistent.accounts.push({
         index : index,
         trx : 0,
-        name : walletName,
-        publicKey : index0Account.pub,
-        privateKey: index0Account.priv,
+        name : accountName,
+        publicKey : newAccount.pub,
+        privateKey: newAccount.priv,
 
         tokens : [],
         transactions : [],
@@ -94,7 +94,7 @@ function addAccount(persistent, accountName : "New Wallet"){
 
         lastSync : 0, //timestamp with last sync
     });
-
+    return persistent;
 }
 
 export const createWallet = (props, accountName="Unnamed Wallet") => {
@@ -136,12 +136,12 @@ export const initFromStorage = (props) =>{
         persistent = JSON.parse(persistent);
 
         if(persistent.securityMethod === PERSISTENT_SECURITY_METHOD.NONE){
+            props.history.push("/wallets/walletDetails/0");
             return {
                 type : FINISH_INITIALIZATION,
                 wallet_state : WALLET_STATE.READY,
                 persistent : persistent
             };
-            props.history.push("/wallets/create");
         }else if(persistent.securityMethod === PERSISTENT_SECURITY_METHOD.USER_ENCRYPTED){
             throw 'USER_ENCRYPTED not implemented';
         }else{
@@ -156,6 +156,4 @@ export const initFromStorage = (props) =>{
             reactisretarded : true
         };
     }
-
-
 };
