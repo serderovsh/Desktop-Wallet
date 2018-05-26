@@ -15,19 +15,19 @@ class Vote extends Component {
           <div className={styles.title}>{ this.props.voteTitle }</div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}>Last Block : </span>
-            <span className={styles.subVal}>{this.props.lastBlock}</span>
+            <span className={styles.subVal}>{this.props.lastBlock.toLocaleString()}</span>
           </div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}>Blocks Produced : </span>
-            <span className={styles.subVal}>{this.props.blocksProduced}</span>
+            <span className={styles.subVal}>{this.props.blocksProduced.toLocaleString()}</span>
           </div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}>Blocks Missed : </span>
-            <span className={styles.subVal}>{this.props.blocksMissed}</span>
+            <span className={styles.subVal}>{this.props.blocksMissed.toLocaleString()}</span>
           </div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}> Total Vote :</span>
-            <span className={styles.subVal}>{this.props.totalVote} TRX</span>
+            <span className={styles.subVal}>{this.props.totalVote.toLocaleString()} TRX</span>
           </div>
         </div>
       </div>
