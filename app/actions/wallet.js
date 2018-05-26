@@ -120,16 +120,20 @@ export const createWallet = (props, accountName="Unnamed Wallet") => {
     }
 };
 
-export const createAccount = (props, accountName) => {
-
+export const createAccount = () => async (props, dispatch) => {
+    let client = new TronHttpClient();
+    dispatch(setWitnesses(await client.listWitnesses()));
 };
-
 
 export const updateAllAccounts = (props) =>{
 
+    //////////continue here! update all accounts
+    return {
+        type:'wat'
+    };
 };
 
-export const initFromStorage = (props) =>{
+export const initFromStorage = (props, dispatch) =>{
     let persistent = window.localStorage.getItem(LOCALSTORAGE_KEY);
 
     if(persistent){
@@ -137,6 +141,7 @@ export const initFromStorage = (props) =>{
 
         if(persistent.securityMethod === PERSISTENT_SECURITY_METHOD.NONE){
             props.history.push("/wallets/walletDetails/0");
+            dispatch(updateAllAccounts(props, dispatch));
             return {
                 type : FINISH_INITIALIZATION,
                 wallet_state : WALLET_STATE.READY,

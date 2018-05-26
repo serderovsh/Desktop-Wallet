@@ -22,6 +22,11 @@ class WalletView extends Component {
     let accountId = parseInt(this.props.match.params.account);
     let account = this.props.wallet.persistent.accounts[accountId];
 
+    if(!account){
+      this.props.history.push("/wallets/");
+      return(<div></div>);
+    }
+
     return (
       <Secondary>
       <div className={styles.headerContainer}>
