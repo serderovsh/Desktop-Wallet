@@ -26,7 +26,7 @@ export const routes = [
     sidebar: () => <WalletList />,
   },
   {
-    path: "/wallets/walletDetails/",
+    path: "/wallets/walletDetails/:account",
     main: () => <WalletView />
   },
   {

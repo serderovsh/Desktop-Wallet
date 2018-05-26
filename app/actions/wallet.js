@@ -40,12 +40,12 @@ function verifyPersistent(persistent){
         console.log("persistent.priv missing");
         return false;
     }
-    if(!('wallets' in persistent)){
-        console.log("persistent.wallets missing");
+    if(!('accounts' in persistent)){
+        console.log("persistent.accounts missing");
         return false;
     }
-    if(!Array.isArray(persistent.wallets)){
-        console.log("persistent.wallets is not an array");
+    if(!Array.isArray(persistent.accounts)){
+        console.log("persistent.accounts is not an array");
         return false;
     }
     if(!('walletType' in persistent)){
@@ -77,28 +77,37 @@ function savePersistent(persistent){
     }
 }
 
-export const createWallet = (props, walletName="Unnamed Wallet") => {
+function addAccount(persistent, accountName : "New Wallet"){
+    let index = persistent.accounts.length;
+    let newAccount = TronHttpTools.accounts.getAccountAtIndex(persistent.priv , index);
+
+    persistent.accounts.push({
+        index : index,
+        trx : 0,
+        name : walletName,
+        publicKey : index0Account.pub,
+        privateKey: index0Account.priv,
+
+        tokens : [],
+        transactions : [],
+        votes : [],
+
+        lastSync : 0, //timestamp with last sync
+    });
+
+}
+
+export const createWallet = (props, accountName="Unnamed Wallet") => {
     let newAccount = TronHttpTools.accounts.generateRandomBip39();
     let index0Account = TronHttpTools.accounts.getAccountAtIndex(newAccount.privateKey, 0);
     let newPersistent = {
         priv : newAccount.privateKey,
-        wallets : [
-            {
-                index : 0,
-                name : walletName,
-                publicKey : index0Account.pub,
-                privateKey: index0Account.priv,
-
-                tokens : [],
-                transactions : [],
-                votes : [],
-
-                lastSync : 0, //timestamp with last sync
-            }
-        ],
+        accounts: [],
         walletType : WALLET_TYPE.HOT,
         securityMethod : PERSISTENT_SECURITY_METHOD.NONE,
     };
+
+    newPersistent = addAccount(newPersistent, accountName);
 
     if(savePersistent(newPersistent)){
         return {
@@ -109,6 +118,15 @@ export const createWallet = (props, walletName="Unnamed Wallet") => {
     }else{
         throw 'create wallet failed on step: savePersistent';
     }
+};
+
+export const createAccount = (props) => {
+
+};
+
+
+export const updateAllAccounts = (props) =>{
+
 };
 
 export const initFromStorage = (props) =>{
@@ -123,6 +141,7 @@ export const initFromStorage = (props) =>{
                 wallet_state : WALLET_STATE.READY,
                 persistent : persistent
             };
+            props.history.push("/wallets/create");
         }else if(persistent.securityMethod === PERSISTENT_SECURITY_METHOD.USER_ENCRYPTED){
             throw 'USER_ENCRYPTED not implemented';
         }else{

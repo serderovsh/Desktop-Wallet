@@ -3,7 +3,7 @@ import { FINISH_INITIALIZATION, WALLET_STATE, SET_TOKEN_BALANCES, INIT } from '.
 const initialState = {
     persistent : {
 
-        wallets : []
+        accounts: []
     },
     wallet_state : WALLET_STATE.NEEDS_LOADING,
 };

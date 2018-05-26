@@ -55,9 +55,9 @@ class WalletList extends Component {
         </div>
         <div className={styles.walletContainer}>
           {
-            this.props.wallet.persistent.wallets.map((wallet, i) =>
+            this.props.wallet.persistent.accounts.map((account, i) =>
               // NavLink in Wallet Component
-              <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />)
+              <Wallet key={i} name={account.name} tokens={account.tokens} index={account.index} />)
           }
         </div>
       </div>

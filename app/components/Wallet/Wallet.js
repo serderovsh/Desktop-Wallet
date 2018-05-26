@@ -11,13 +11,13 @@ class Wallet extends Component {
 
   render() {
     return (
-      <NavLink to="/wallets/walletDetails" className={styles.wallet} activeClassName={styles.active}>
+      <NavLink to={"/wallets/walletDetails/" + this.props.index} className={styles.wallet} activeClassName={styles.active}>
         <WalletIcon className={styles.walletIcon} />
         <ul className={styles.walletInfo}>
           <li className={styles.name}>{ this.props.name }</li>
           {
-            this.props.tokens.map((wallet, i) =>
-              <li key={i}>{ wallet.amount } { wallet.name }</li>
+            this.props.tokens.map((token, i) =>
+              <li key={i}>{ token.amount } { token.name }</li>
             )
           }
         </ul>
