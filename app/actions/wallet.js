@@ -156,7 +156,6 @@ export const updateTransactions = (accountId, transactions)=>{
 function startUpdateAccountsAsync(persistent, dispatch){
     setTimeout(async ()=>{
         let accountsInfo = await getAccountsInfo(persistent);
-        console.log(accountsInfo);
 
         for(var i = 0;i<persistent.accounts.length;i++){
             let info = accountsInfo[persistent.accounts[i].publicKey];

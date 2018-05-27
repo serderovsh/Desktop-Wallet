@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-import styles from './SubHeader.css';
+import styles from './SubHeaderToken.css';
 
-export default class SubHeaderToken extends Component {
+import { NavLink } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+class SubHeaderToken extends Component {
     render() {
         return (
-            <div className={styles.coinContainer}>
+            <NavLink to={"/wallets/walletDetails/" + this.props.match.params.account + "/" + this.props.token} className={styles.coinContainer} activeClassName={styles.active}>
                 <div className={styles.coinAmount}>{this.props.amount}</div>
                 <div className={styles.coinType}>{this.props.token}</div>
-            </div>
+            </NavLink>
         );
     }
 }
+export default withRouter(connect(
+    state => ({ wallet: state.wallet }),
+    dispatch => ( {
+    } )
+)(SubHeaderToken));
+

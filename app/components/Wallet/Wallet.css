@@ -9,6 +9,7 @@
     cursor: pointer;
     padding: 20px 0px 10px 0px;
     box-sizing: border-box;
+    border:2px transparent;
 }
 
 .wallet:hover {
@@ -63,5 +64,8 @@
 }
 
 .active {
-    /*background-color: rgba(255,255,255,0.1);*/
+    border-top: 2px solid #ED3F21;
+    border-left: 2px solid #ED3F21;
+    border-bottom: 2px solid #DC2C73 !important;
+    border-right: 2px solid #DC2C73;
 }
