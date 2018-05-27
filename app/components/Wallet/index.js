@@ -37,7 +37,7 @@ class WalletList extends Component {
           </Dropdown>
         </Header>
         <div className={styles.buttonContainer}>
-          <NavLink to="/wallets/create">
+          <NavLink to="/wallets/createAccount">
             <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Wallet</Button>
           </NavLink>
         </div>

@@ -9,6 +9,7 @@ import SettingList from './components/Settings/';
 import SendAmount from './components/Wallet/Send/SendAmount';
 import Receive from './components/Wallet/Receive/';
 import Create from './components/Wallet/Create/';
+import CreateAccount from './components/Wallet/CreateAccount/';
 import WalletView from './components/Wallet/WalletView/';
 import WalletBackup from './components/Wallet/Backup/';
 import Share from './components/Settings/Share';
@@ -36,6 +37,10 @@ export const routes = [
   {
     path: "/wallets/create",
     main: () => <Create />,
+  },
+  {
+    path: "/wallets/createAccount",
+    main: () => <CreateAccount />,
   },
   {
     path: "/wallets/send/:account/:token?",

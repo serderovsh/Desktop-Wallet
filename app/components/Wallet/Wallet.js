@@ -11,7 +11,6 @@ class Wallet extends Component {
 
   render() {
       let keys = Object.keys(this.props.tokens);
-      console.log(this.props.tokens);
     return (
       <NavLink to={"/wallets/walletDetails/" + this.props.index} className={styles.wallet} activeClassName={styles.active}>
         <WalletIcon className={styles.walletIcon} />

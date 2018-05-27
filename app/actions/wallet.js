@@ -122,10 +122,6 @@ export const createWallet = (props, accountName="Unnamed Wallet") => {
     }
 };
 
-export const createAccount = () => async (props, dispatch) => {
-    dispatch(setWitnesses(await client.listWitnesses()));
-};
-
 async function getAccountsInfo(persistent){
     let addresses = [];
     for(let i = 0;i<persistent.accounts.length;i++){
@@ -144,6 +140,16 @@ export const updateAllAccounts = (persistent) =>{
         persistent : persistent
     }
 };
+
+export const createAccount = (props, accountName) => {
+    let persistent = addAccount(props.wallet.persistent, accountName);
+    savePersistent(persistent);
+    return {
+        type : UPDATE_ALL_ACCOUNTS,
+        persistent: persistent
+    }
+};
+
 
 export const updateTransactions = (accountId, transactions)=>{
     return {
