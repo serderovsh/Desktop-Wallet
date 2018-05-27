@@ -102,7 +102,6 @@ function addAccount(persistent, accountName = "Unnamed Wallet"){
 
 export const createWallet = (props, accountName="Unnamed Wallet") => {
     let newAccount = TronHttpTools.accounts.generateRandomBip39();
-    let index0Account = TronHttpTools.accounts.getAccountAtIndex(newAccount.privateKey, 0);
     let newPersistent = {
         priv : newAccount.privateKey,
         accounts: [],
@@ -132,7 +131,6 @@ async function getAccountsInfo(persistent){
     for(let i = 0;i<persistent.accounts.length;i++){
         addresses.push(persistent.accounts[i].publicKey);
     }
-    console.log(addresses);
     return await client.getAccounts(addresses);
 }
 
@@ -164,6 +162,7 @@ function startUpdateAccountsAsync(persistent, dispatch){
             let info = accountsInfo[persistent.accounts[i].publicKey];
             if(info){
                 persistent.accounts[i].trx = info.trx;
+                persistent.accounts[i].tokens = info.tokens;
             }
         }
         dispatch(updateAllAccounts(persistent));

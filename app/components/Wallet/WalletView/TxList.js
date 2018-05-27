@@ -36,17 +36,12 @@ class TxList extends Component {
             }
         }
 
-        console.log("cleaned transactions");
-        console.log(cleanedTransactions);
-
         this.props.updateTransactions(accountId, cleanedTransactions);
     }
 
   render() {
       let accountId = parseInt(this.props.match.params.account);
       let transactions = this.props.wallet.persistent.accounts[accountId].transactions;
-      console.log("HERE");
-      console.log(transactions);
     return (
       <div className={styles.txList}>
         {
