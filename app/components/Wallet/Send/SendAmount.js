@@ -22,7 +22,7 @@ class SendAmount extends Component {
         <div className={styles.subContainer}>
             <div className={styles.addressContainer}>
                 <ContactIcon />
-                <div className={styles.address}>0xf230b790e05390fc8295f4d3f60332c93bed42e2</div>
+                <input className={styles.address}></input>
             </div>
             <AmountDisplay />
             <Button className={`${buttonStyles.button} ${buttonStyles.black}`}>Send</Button>

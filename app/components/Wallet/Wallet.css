@@ -64,8 +64,5 @@
 }
 
 .active {
-    border-top: 2px solid #ED3F21;
-    border-left: 2px solid #ED3F21;
-    border-bottom: 2px solid #DC2C73 !important;
-    border-right: 2px solid #DC2C73;
+    background-color: rgba(255,255,255,0.1);
 }

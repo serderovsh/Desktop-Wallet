@@ -138,7 +138,7 @@ export const sendAmount = (props, dispatch) =>{
 
 };
 
-export const updateAllAccounts = () => async (persistent, dispatch) =>{
+export const updateAllAccounts = (persistent) =>{
     return {
         type : UPDATE_ALL_ACCOUNTS,
         persistent : persistent
@@ -156,8 +156,7 @@ export const updateTransactions = (accountId, transactions)=>{
 function startUpdateAccountsAsync(persistent, dispatch){
     setTimeout(async ()=>{
         let accountsInfo = await getAccountsInfo(persistent);
-
-        for(var i = 0;i<persistent.accounts.length;i++){
+        for(let i = 0;i<persistent.accounts.length;i++){
             let info = accountsInfo[persistent.accounts[i].publicKey];
             if(info){
                 persistent.accounts[i].trx = info.trx;
@@ -173,10 +172,8 @@ export const initFromStorage = (props, dispatch) =>{
 
     if(persistent){
         persistent = JSON.parse(persistent);
-
         if(persistent.securityMethod === PERSISTENT_SECURITY_METHOD.NONE){
             startUpdateAccountsAsync(persistent, dispatch);
-
             return {
                 type : FINISH_INITIALIZATION,
                 wallet_state : WALLET_STATE.READY,
