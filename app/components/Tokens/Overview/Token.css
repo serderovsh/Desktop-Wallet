@@ -17,11 +17,11 @@
 }
 
 .token:first-child {
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .token:last-child {
-    margin-bottom: 60px;
+    margin-bottom: 55px;
 }
 
 .container {

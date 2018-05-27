@@ -23,13 +23,19 @@ class CreationContent extends Component {
     this.props.createWallet(this.props);
   }
 
+  inputAlphanumeric(e) {
+    if (!/^[a-zA-Z0-9]+$/.test(e.key)) {
+      e.preventDefault();
+    }
+  }
+
   render() {
     return (
       <div className={styles.container}>
         <div className={styles.header}>CREATE A NEW WALLET :</div>
         <Form className={styles.form}>
           <Form.Field>
-            <Input placeholder="Enter Wallet Name" />
+            <Input placeholder="Enter Wallet Name" onKeyPress={this.inputAlphanumeric}/>
           </Form.Field>
           <div className={styles.radioContainerMain}>
             <Form.Field className={styles.radioSection}>

@@ -40,9 +40,10 @@ export default class Participants extends Component {
                 <Token
                   key={index}
                   tokenName={token.name}
-                  totalSupply={token.totalSupply}
+                  tokenURL={token.url}
                   totalIssued={token.totalIssued}
-                  registered={token.registered}
+                  totalSupply={token.totalSupply}
+                  endTime={Date.now() + 5000000000}
                 />
               )
             })

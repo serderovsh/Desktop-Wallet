@@ -11,7 +11,7 @@ import { MoreIcon, CalendarIcon, VoteIcon } from '../../Icons';
 
 export default class VoteDetails extends Component {
   state = {
-    current: 1,
+    current: 0,
   }
 
   handleChange = (e, { value }) => this.setState({ current: value });
@@ -32,7 +32,7 @@ export default class VoteDetails extends Component {
         <div className={styles.sliderContainer}>
           <Input
             className={ styles.slider }
-            min={1}
+            min={0}
             max={this.props.totalTP}
             onChange={this.handleChange}
             type="range"

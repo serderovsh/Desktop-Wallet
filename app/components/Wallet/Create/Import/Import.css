@@ -45,6 +45,7 @@
 
 .wordContainer {
     display: flex;
+    justify-content: space-around;
     background: #fff;
     font-size: 12px;
     border: 2px solid #ED3F21;
@@ -54,14 +55,13 @@
     width: 100%;
     box-sizing: border-box;
     font-family: 'Source Code Pro', monospace;
-    max-width: 320px;
+    max-width: 360px;
 }
 
 .wordColumn {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    flex-grow: 1;
 }
 
 .wordColumn:first-child {

@@ -4,12 +4,14 @@ import React from 'react';
 import WalletList from './components/Wallet/';
 import VoteList from './components/Vote/';
 import TokenList from './components/Tokens/';
+import TokenView from './components/Tokens/View';
 import ContactList from './components/Contact/';
 import SettingList from './components/Settings/';
 import Send from './components/Wallet/Send/';
 import Receive from './components/Wallet/Receive/';
 import Create from './components/Wallet/Create/';
 import WalletView from './components/Wallet/WalletView/';
+import ViewTransaction from './components/Wallet/WalletView/View';
 import WalletBackup from './components/Wallet/Backup/';
 import Share from './components/Settings/Share';
 import ContactDetails from './components/Contact/ContactDetails';
@@ -77,6 +79,7 @@ export const routes = [
   {
     path: "/tokens",
     sidebar: () => <TokenList />,
+    main: () => <TokenView />
   },
   {
     path: "/tokens/createtoken",

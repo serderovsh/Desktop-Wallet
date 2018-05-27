@@ -21,6 +21,12 @@
     transition: 200ms;
 }
 
+.blue .ui.secondary .item {
+    background: #0f1418;
+    color: #fff;
+    box-shadow: inset 0px 0px 5px #000;
+}
+
 .ui.secondary .item:first-child {
     border-top: 2px solid #ED3F21;
     border-left: 2px solid #ED3F21;
@@ -41,6 +47,7 @@
     transition: 0s;
     color: #fff;
     background: linear-gradient(270deg, #ED3F21 0%, #DC2C73 100%);
+    box-shadow: none;
 }
 
 .ui.segment.active.tab {

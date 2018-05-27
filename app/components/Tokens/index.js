@@ -19,12 +19,12 @@ const panes = [
 ]
 
 let tokens = [
-  { name: 'token-one', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
-  { name: 'token-two', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
-  { name: 'token-three', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
-  { name: 'crapcoin', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
-  { name: 'textcoin', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
-  { name: 'eszurium', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
+  { name: 'token-one', url: 'http://google.com/', totalSupply: 99999999, totalIssued: 85230000, registered: Date.now() },
+  { name: 'token-two', totalSupply: 99999999, totalIssued: 15230000, registered: Date.now() },
+  { name: 'token-three', totalSupply: 99999999, totalIssued: 25230000, registered: Date.now() },
+  { name: 'crapcoin', url: 'http://google.com/', totalSupply: 99999999, totalIssued: 15230000, registered: Date.now() },
+  { name: 'textcoin', url: 'http://google.com/', totalSupply: 99999999, totalIssued: 55230000, registered: Date.now() },
+  { name: 'eszurium', totalSupply: 99999999, totalIssued: 95230000, registered: Date.now() },
 ]
 
 class TokenList extends Component {
@@ -35,7 +35,7 @@ class TokenList extends Component {
     return (
       <div className={styles.container}>
         <Header text="TOKENS :" />
-        <Tab className={styles.tabContainer} menu={{ secondary: true }} panes={panes} />
+        <Tab className={`${styles.tabContainer} blue`} menu={{ secondary: true }} panes={panes} />
       </div>
     );
   }

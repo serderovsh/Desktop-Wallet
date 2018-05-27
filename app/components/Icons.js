@@ -4,14 +4,14 @@ export class TronIcon extends Component {
   render() {
     return (
       <svg className={this.props.className} width="24" height="24" viewBox="0 0 236.1 271">
-        <line stroke="#fff" strokeWidth="10" x1="3.7" y1="4.7" x2="115.3" y2="134"/>
-        <line stroke="#fff" strokeWidth="10" x1="114.6" y1="134" x2="100.2" y2="267.5"/>
-        <line stroke="#fff" strokeWidth="15" x1="3.5" y1="3.5" x2="192" y2="48.7"/>
-        <line stroke="#fff" strokeWidth="10" x1="192" y1="49.5" x2="114.6" y2="134"/>
-        <line stroke="#fff" strokeWidth="15" x1="232.6" y1="76.8" x2="101" y2="267.5"/>
-        <line stroke="#fff" strokeWidth="10" x1="115.3" y1="134" x2="231.9" y2="76.8"/>
-        <line stroke="#fff" strokeWidth="15" x1="192" y1="48.7" x2="232.6" y2="76.8"/>
-        <line stroke="#fff" strokeWidth="10" x1="2.8" y1="4.5" x2="100.2" y2="268.5"/>
+        <line strokeWidth="10" x1="3.7" y1="4.7" x2="115.3" y2="134"/>
+        <line strokeWidth="10" x1="114.6" y1="134" x2="100.2" y2="267.5"/>
+        <line strokeWidth="15" x1="3.5" y1="3.5" x2="192" y2="48.7"/>
+        <line strokeWidth="10" x1="192" y1="49.5" x2="114.6" y2="134"/>
+        <line strokeWidth="15" x1="232.6" y1="76.8" x2="101" y2="267.5"/>
+        <line strokeWidth="10" x1="115.3" y1="134" x2="231.9" y2="76.8"/>
+        <line strokeWidth="15" x1="192" y1="48.7" x2="232.6" y2="76.8"/>
+        <line strokeWidth="10" x1="2.8" y1="4.5" x2="100.2" y2="268.5"/>
       </svg>
     )
   }

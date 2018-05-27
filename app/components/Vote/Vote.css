@@ -17,11 +17,11 @@
 }
 
 .vote:first-child {
-    margin: 85px 30px 0px 30px;
+    margin: 5px 30px 0px 30px;
 }
 
 .vote:last-child {
-    margin: 5px 30px 85px 30px;
+    margin: 5px 30px 45px 30px;
 }
 
 .voteLabel {

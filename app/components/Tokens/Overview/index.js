@@ -21,7 +21,7 @@ export default class Overview extends Component {
   filterTokens = (e) => {
     console.log('input', e.target)
     let filtered = this.props.tokens.filter((token) =>{
-      return token.name.includes(e.target.value);
+      return token.name.toLowerCase().includes(e.target.value.toLowerCase());
     });
 
     this.setState({

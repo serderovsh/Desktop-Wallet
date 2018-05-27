@@ -11,18 +11,26 @@ import VoteAmountSlider from './VoteAmountSlider';
 import { ArrowRightIcon } from '../../Icons';
 
 export default class VoteDetails extends Component {
-  state = {
-    rep: {
-      name: 'FlottPay'
-    },
-    selectedWallet: {
-      tp: 0,
-    },
-    wallets: [
-      { text: 'Personal Wallet', value: 'wallet-id-1', tp: 533682 },
-      { text: 'Business Wallet', value: 'wallet-id-2', tp: 266434534 },
-      { text: 'New Wallet', value: 'wallet-id-3', tp: 0 }
-    ]
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      rep: {
+        name: 'FlottPay'
+      },
+      wallets: [
+        { text: 'Personal Wallet', value: 'wallet-id-1', tp: 533682 },
+        { text: 'Business Wallet', value: 'wallet-id-2', tp: 266434534 },
+        { text: 'New Wallet', value: 'wallet-id-3', tp: 0 }
+      ],
+      selectedWallet: {
+        text: 'Select a Wallet',
+        value: '',
+        tp: 0,
+      }
+    };
+
+    if (this.state.wallets.length > 0) this.state.selectedWallet = this.state.wallets[0];
   }
 
   selectWallet = (e, { value }) => {
@@ -42,7 +50,12 @@ export default class VoteDetails extends Component {
         <div className={styles.votingFor}>YOUR ARE VOTING FOR : <span>{ this.state.rep.name }</span></div>
         <div className={styles.dropdown}>
           <ArrowRightIcon />
-          <Dropdown onChange={this.selectWallet} placeholder='Choose Wallet' fluid selection options={this.state.wallets} />
+          <Dropdown fluid selection
+            onChange={this.selectWallet}
+            defaultValue={this.state.wallets.length > 0 ? this.state.wallets[0].value : ''}
+            placeholder='Choose Wallet'
+            options={this.state.wallets}
+          />
         </div>
         <VoteAmountSlider totalTP={ this.state.selectedWallet.tp }/>
         <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit Your Vote</Form.Button>
