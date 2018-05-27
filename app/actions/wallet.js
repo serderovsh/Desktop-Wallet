@@ -6,6 +6,7 @@ export const SET_TOKEN_BALANCES = 'SET_TOKEN_BALANCES';
 export const INIT = 'INIT';
 export const FINISH_INITIALIZATION = 'FINISH_INITIALIZATION';
 export const UPDATE_ALL_ACCOUNTS = 'UPDATE_ALL_ACCOUNTS';
+export const UPDATE_TRANSACTIONS = 'UPDATE_TRANSACTIONS';
 
 const LOCALSTORAGE_KEY = "TRON_WATCH";
 
@@ -135,10 +136,22 @@ async function getAccountsInfo(persistent){
     return await client.getAccounts(addresses);
 }
 
+export const sendAmount = (props, dispatch) =>{
+
+};
+
 export const updateAllAccounts = () => async (persistent, dispatch) =>{
     return {
         type : UPDATE_ALL_ACCOUNTS,
         persistent : persistent
+    }
+};
+
+export const updateTransactions = (accountId, transactions)=>{
+    return {
+        type : UPDATE_TRANSACTIONS,
+        accountId : accountId,
+        transactions : transactions
     }
 };
 
@@ -151,7 +164,6 @@ function startUpdateAccountsAsync(persistent, dispatch){
             let info = accountsInfo[persistent.accounts[i].publicKey];
             if(info){
                 persistent.accounts[i].trx = info.trx;
-
             }
         }
         dispatch(updateAllAccounts(persistent));
