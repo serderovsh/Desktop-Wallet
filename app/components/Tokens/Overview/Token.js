@@ -6,7 +6,7 @@ import styles from './Token.css';
 class Token extends Component {
   render() {
     return (
-      <div className={styles.token}>
+      <NavLink to="/tokens/tokendetails" className={styles.token}>
         <div className={styles.container}>
           <div className={styles.title}>{ this.props.tokenName }</div>
           <div className={styles.subContainer}>
@@ -22,7 +22,7 @@ class Token extends Component {
             <span className={styles.subVal}>{(new Date(this.props.registered)).toLocaleString()}</span>
           </div>
         </div>
-      </div>
+      </NavLink>
     );
   }
 }

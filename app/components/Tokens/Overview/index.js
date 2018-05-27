@@ -68,11 +68,7 @@ class Overview extends Component {
     return (
       <div className={styles.container}>
         <input className={styles.input} placeholder="Search for a token here..." onChange={this.filterTokens} />
-        <div className={styles.tokensContainer}>
-          <NavLink to="/tokens/tokendetails">
           {this.renderToken()}
-          </NavLink>
-        </div>
         <div className={styles.buttonContainer}>
           <NavLink to="/tokens/createtoken">
             <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Token</Button>
