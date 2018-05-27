@@ -23,10 +23,11 @@ class TxList extends Component {
             let transaction = transactions[i];
 
             let newTransaction = {
+                ...transaction,
                 amount : transaction.amount,
                 date : 1526567116913,
                 type : (transaction.owner_address === address) ? 1 : 0,
-                asset : (transaction.asset_name) ? transaction.asset_name : "TRX"
+                asset : (transaction.asset_name) ? transaction.asset_name : "TRX",
             };
 
             if( transactions[i].contract_desc === "TransferContract" ||
@@ -42,10 +43,37 @@ class TxList extends Component {
   render() {
       let accountId = parseInt(this.props.match.params.account);
       let transactions = this.props.wallet.persistent.accounts[accountId].transactions;
+      let filteredTransactions = [];
+
+      let highlightedToken = this.props.match.params.token;
+      if(highlightedToken){
+          if(highlightedToken === "TRX"){
+              for(let i = 0;i<transactions.length;i++){
+                  let transaction = transactions[i];
+                  if(transaction.contract_desc === "TransferContract"){
+                      filteredTransactions.push(transaction);
+                  }
+
+              }
+          }else{
+              for(let i = 0;i<transactions.length;i++){
+                  let transaction = transactions[i];
+                  if((transaction.contract_desc === "ParticipateAssetIssueContract" ||
+                    transaction.contract_desc === "TransferAssetContract") &&
+                      transaction.asset === highlightedToken){
+                      filteredTransactions.push(transaction);
+                  }
+
+              }
+          }
+      }else{
+          filteredTransactions = transactions;
+      }
+
     return (
       <div className={styles.txList}>
         {
-          transactions.map((tx, i) =>
+          filteredTransactions.map((tx, i) =>
             <Transaction key={i} amount={tx.amount} date={tx.date} type={tx.type} asset={tx.asset} />
           )
         }
