@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './SendAmount.css';
 
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import Header from '../../Header';
 import AmountDisplay from './AmountDisplay';
 
@@ -10,12 +13,12 @@ import buttonStyles from '../../Button.css';
 
 import { ContactIcon, BackArrowIcon } from '../../Icons';
 
-export default class SendAmount extends Component {
+class SendAmount extends Component {
   render() {
     return (
       <div className={styles.container}>
         <Header className={styles.white} headerName="Enter Amount" />
-        <div className={styles.backArrow}><BackArrowIcon /></div>
+        <div onClick={this.props.history.goBack} className={styles.backArrow}><BackArrowIcon /></div>
         <div className={styles.subContainer}>
             <div className={styles.addressContainer}>
                 <ContactIcon />
@@ -28,3 +31,9 @@ export default class SendAmount extends Component {
     );
   }
 }
+
+export default withRouter(connect(
+    state => ({ wallet: state.wallet }),
+    dispatch => ( {
+    } )
+)(SendAmount));
