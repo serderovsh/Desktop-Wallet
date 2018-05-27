@@ -51,7 +51,7 @@ class TxList extends Component {
       <div className={styles.txList}>
         {
           transactions.map((tx, i) =>
-            <Transaction key={i} amount={tx.amount} date={tx.date} type={tx.type} />
+            <Transaction key={i} amount={tx.amount} date={tx.date} type={tx.type} asset={tx.asset} />
           )
         }
       </div>

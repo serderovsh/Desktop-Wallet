@@ -21,9 +21,9 @@ export default class Transaction extends Component {
 
   txAmount() {
     if (this.props.type == enums.Received) {
-        return <div className={`${styles.txAmount} ${styles.green}`}>+ { this.props.amount } TRX</div>;
+        return <div className={`${styles.txAmount} ${styles.green}`}>+ { this.props.amount } {this.props.asset}</div>;
     } else {
-        return <div className={`${styles.txAmount} ${styles.red}`}>- { this.props.amount } TRX</div>;
+        return <div className={`${styles.txAmount} ${styles.red}`}>- { this.props.amount } {this.props.asset}</div>;
     }
   }
 
