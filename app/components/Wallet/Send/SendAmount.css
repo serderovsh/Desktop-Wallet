@@ -65,4 +65,9 @@
 
 .address {
     margin-left: 10px;
+    border:0px;
+    line-height:25px;
+    text-align:center;
+    width:280px;
+    font-size: 12.5px;
 }

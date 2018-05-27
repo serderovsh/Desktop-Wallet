@@ -14,6 +14,28 @@ import buttonStyles from '../../Button.css';
 import { ContactIcon, BackArrowIcon } from '../../Icons';
 
 class SendAmount extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            amount : 0,
+            address : ""
+        }
+    }
+
+    onClickSend(){
+        console.log(`sending ${this.state.amount} to ${this.state.address}`);;
+    }
+
+    onSetAmount(amount){
+        this.state.amount = amount;
+    }
+
+    onSetAddress(event){
+        this.state.address = event.target.value;
+    }
+
   render() {
     return (
       <div className={styles.container}>
@@ -22,10 +44,10 @@ class SendAmount extends Component {
         <div className={styles.subContainer}>
             <div className={styles.addressContainer}>
                 <ContactIcon />
-                <input className={styles.address}></input>
+                <input onChange={this.onSetAddress.bind(this)} placeholder="Recipient Address" className={styles.address} value={this.props.address}/>
             </div>
-            <AmountDisplay />
-            <Button className={`${buttonStyles.button} ${buttonStyles.black}`}>Send</Button>
+            <AmountDisplay onSetAmount={this.onSetAmount.bind(this)}/>
+            <Button onClick={this.onClickSend.bind(this)} className={`${buttonStyles.button} ${buttonStyles.black}`}>Send</Button>
         </div>
       </div>
     );
