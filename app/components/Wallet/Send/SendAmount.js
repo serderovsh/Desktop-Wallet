@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './SendAmount.css';
 
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import Header from '../../Header';
 import AmountDisplay from './AmountDisplay';
 
@@ -10,21 +13,49 @@ import buttonStyles from '../../Button.css';
 
 import { ContactIcon, BackArrowIcon } from '../../Icons';
 
-export default class SendAmount extends Component {
+class SendAmount extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            amount : 0,
+            address : ""
+        }
+    }
+
+    onClickSend(){
+        console.log(`sending ${this.state.amount} to ${this.state.address}`);;
+    }
+
+    onSetAmount(amount){
+        this.state.amount = amount;
+    }
+
+    onSetAddress(event){
+        this.state.address = event.target.value;
+    }
+
   render() {
     return (
       <div className={styles.container}>
         <Header className={styles.white} headerName="Enter Amount" />
-        <div className={styles.backArrow}><BackArrowIcon /></div>
+        <div onClick={this.props.history.goBack} className={styles.backArrow}><BackArrowIcon /></div>
         <div className={styles.subContainer}>
             <div className={styles.addressContainer}>
                 <ContactIcon />
-                <div className={styles.address}>0xf230b790e05390fc8295f4d3f60332c93bed42e2</div>
+                <input onChange={this.onSetAddress.bind(this)} placeholder="Recipient Address" className={styles.address} value={this.props.address}/>
             </div>
-            <AmountDisplay />
-            <Button className={`${buttonStyles.button} ${buttonStyles.black}`}>Send</Button>
+            <AmountDisplay onSetAmount={this.onSetAmount.bind(this)}/>
+            <Button onClick={this.onClickSend.bind(this)} className={`${buttonStyles.button} ${buttonStyles.black}`}>Send</Button>
         </div>
       </div>
     );
   }
 }
+
+export default withRouter(connect(
+    state => ({ wallet: state.wallet }),
+    dispatch => ( {
+    } )
+)(SendAmount));

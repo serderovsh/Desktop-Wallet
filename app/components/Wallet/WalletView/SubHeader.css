@@ -35,42 +35,8 @@
     margin: 10px 0px;
 }
 
-.coinContainer {
-    display: inline-block;
-    position: relative;
-    text-align: center;
-    background: rgba(255,255,255,0.2);
-    margin: 0px 2px;
-    width: 110px;
-    padding: 10px 2px;
-    border-radius: 5px;
-    font-family: 'Source Code Pro', monospace;
-    cursor: pointer;
-    transition: 300ms;
-}
-
-.coinContainer:first-child {
-    margin-left: 20px;
-}
-
-.coinContainer:last-child {
-    margin-right: 20px;
-}
-
 .coinContainer:hover {
     transition: 0ms;
     background: rgba(255,255,255,0.3);
 }
 
-.coinAmount {
-    font-size: 11px;
-    padding: 0px 20px;
-    color: #fff;
-    font-weight: 300;
-}
-
-.coinType {
-    color: #fff;
-    font-size: 12px;
-    margin-top: 2px;
-}

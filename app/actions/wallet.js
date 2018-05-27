@@ -102,7 +102,6 @@ function addAccount(persistent, accountName = "Unnamed Wallet"){
 
 export const createWallet = (props, accountName="Unnamed Wallet") => {
     let newAccount = TronHttpTools.accounts.generateRandomBip39();
-    let index0Account = TronHttpTools.accounts.getAccountAtIndex(newAccount.privateKey, 0);
     let newPersistent = {
         priv : newAccount.privateKey,
         accounts: [],
@@ -123,16 +122,11 @@ export const createWallet = (props, accountName="Unnamed Wallet") => {
     }
 };
 
-export const createAccount = () => async (props, dispatch) => {
-    dispatch(setWitnesses(await client.listWitnesses()));
-};
-
 async function getAccountsInfo(persistent){
     let addresses = [];
     for(let i = 0;i<persistent.accounts.length;i++){
         addresses.push(persistent.accounts[i].publicKey);
     }
-    console.log(addresses);
     return await client.getAccounts(addresses);
 }
 
@@ -140,12 +134,22 @@ export const sendAmount = (props, dispatch) =>{
 
 };
 
-export const updateAllAccounts = () => async (persistent, dispatch) =>{
+export const updateAllAccounts = (persistent) =>{
     return {
         type : UPDATE_ALL_ACCOUNTS,
         persistent : persistent
     }
 };
+
+export const createAccount = (props, accountName) => {
+    let persistent = addAccount(props.wallet.persistent, accountName);
+    savePersistent(persistent);
+    return {
+        type : UPDATE_ALL_ACCOUNTS,
+        persistent: persistent
+    }
+};
+
 
 export const updateTransactions = (accountId, transactions)=>{
     return {
@@ -158,12 +162,11 @@ export const updateTransactions = (accountId, transactions)=>{
 function startUpdateAccountsAsync(persistent, dispatch){
     setTimeout(async ()=>{
         let accountsInfo = await getAccountsInfo(persistent);
-        console.log(accountsInfo);
-
-        for(var i = 0;i<persistent.accounts.length;i++){
+        for(let i = 0;i<persistent.accounts.length;i++){
             let info = accountsInfo[persistent.accounts[i].publicKey];
             if(info){
                 persistent.accounts[i].trx = info.trx;
+                persistent.accounts[i].tokens = info.tokens;
             }
         }
         dispatch(updateAllAccounts(persistent));
@@ -175,10 +178,8 @@ export const initFromStorage = (props, dispatch) =>{
 
     if(persistent){
         persistent = JSON.parse(persistent);
-
         if(persistent.securityMethod === PERSISTENT_SECURITY_METHOD.NONE){
             startUpdateAccountsAsync(persistent, dispatch);
-
             return {
                 type : FINISH_INITIALIZATION,
                 wallet_state : WALLET_STATE.READY,

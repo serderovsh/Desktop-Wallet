@@ -7,9 +7,10 @@ import TokenList from './components/Tokens/';
 import TokenView from './components/Tokens/View';
 import ContactList from './components/Contact/';
 import SettingList from './components/Settings/';
-import Send from './components/Wallet/Send/';
+import SendAmount from './components/Wallet/Send/SendAmount';
 import Receive from './components/Wallet/Receive/';
 import Create from './components/Wallet/Create/';
+import CreateAccount from './components/Wallet/CreateAccount/';
 import WalletView from './components/Wallet/WalletView/';
 import ViewTransaction from './components/Wallet/WalletView/View';
 import WalletBackup from './components/Wallet/Backup/';
@@ -40,8 +41,12 @@ export const routes = [
     main: () => <Create />,
   },
   {
+    path: "/wallets/createAccount",
+    main: () => <CreateAccount />,
+  },
+  {
     path: "/wallets/send/:account/:token?",
-    main: () => <Send />,
+    main: () => <SendAmount />,
   },
   {
     path: "/wallets/receive",

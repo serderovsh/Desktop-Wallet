@@ -27,6 +27,8 @@ export function walletReducer(state = initialState, action) {
   }
 
   case UPDATE_ALL_ACCOUNTS:{
+      console.log("update all accounts");
+      console.log(action);
       return {
           ...state,
           persistent: action.persistent

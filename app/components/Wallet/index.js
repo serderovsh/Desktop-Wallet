@@ -14,18 +14,6 @@ import styles from './WalletList.css';
 import buttonStyles from '../Button.css';
 import {initFromStorage} from "../../actions/wallet";
 
-
-const wallets = [
-  {
-    name: 'Personal Wallet',
-    tokens: [
-      { name: 'TRX', amount: '480 980.00' },
-      { name: 'tkn1', amount: '452.00' },
-      { name: 'tkn2', amount: '7 879.00' }
-    ]
-  },
-];
-
 class WalletList extends Component {
 
     componentDidMount() {
@@ -49,7 +37,7 @@ class WalletList extends Component {
           </Dropdown>
         </Header>
         <div className={styles.buttonContainer}>
-          <NavLink to="/wallets/create">
+          <NavLink to="/wallets/createAccount">
             <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Wallet</Button>
           </NavLink>
         </div>
