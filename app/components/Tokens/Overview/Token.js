@@ -14,8 +14,8 @@ class Token extends Component {
             <span className={styles.subVal}>{this.props.totalSupply.toLocaleString()}</span>
           </div>
           <div className={styles.subContainer}>
-            <span className={styles.subTitle}>Total Issued : </span>
-            <span className={styles.subVal}>{this.props.totalIssued.toLocaleString()}</span>
+            <span className={styles.subTitle}>Total Sold : </span>
+            {/*<span className={styles.subVal}>{this.props.totalIssued.toLocaleString()}</span>*/}
           </div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}>Registered :</span>
