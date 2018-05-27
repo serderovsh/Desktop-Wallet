@@ -39,7 +39,7 @@ class WalletView extends Component {
             </Dropdown.Menu>
           </Dropdown>
         </Header>
-        <SubHeader trx={account.trx} />
+        <SubHeader tokens={account.tokens} trx={account.trx} />
       </div>
         <div className={styles.buttonContainer}>
           <NavLink to={"/wallets/send/" + accountId + "/"}>

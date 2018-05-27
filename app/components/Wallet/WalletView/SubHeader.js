@@ -1,20 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import SubHeaderToken from './SubHeaderToken';
 import styles from './SubHeader.css';
-
-const trx = '534543.49958443';
-
-const coins = [
-  { amount: '0.98654110', type: 'TRX' },
-  { amount: '586.21585253', type: 'Tkn1' },
-  { amount: '0.28895632', type: 'Tkn2' },
-  { amount: '0.98654110', type: 'Tkn1' },
-  { amount: '586.21585253', type: 'Tkn1' },
-  { amount: '0.28895632', type: 'Tkn2' },
-  { amount: '0.98654110', type: 'Tkn2' },
-  { amount: '586.21585253', type: 'Tkn1' },
-  { amount: '0.28895632', type: 'Tkn2' },
-]
 
 export default class SubHeader extends Component {
   render() {
@@ -23,12 +10,10 @@ export default class SubHeader extends Component {
         <div className={styles.mainAmount}>{ this.props.trx } <span>TRX</span></div>
         <div className={styles.scroll}>
           <div className={styles.container}>
+              <SubHeaderToken amount={this.props.trx} token="TRX"/>
             {
-              coins.map((coin, i) => 
-                <div key={i} className={styles.coinContainer}>
-                  <div className={styles.coinAmount}>{coin.amount}</div>
-                  <div className={styles.coinType}>{coin.type}</div>
-                </div>
+              Object.keys(this.props.tokens).map((coin, i) =>
+                  <SubHeaderToken key={coin} amount={this.props.tokens[coin].amount} token={coin} isToken="true"/>
               )
             }
           </div>
