@@ -84,7 +84,10 @@ export const routes = [
   {
     path: "/tokens",
     sidebar: () => <TokenList />,
-    main: () => <TokenView />
+  },
+  {
+    path: "/tokens/tokendetails",
+    main: () => <TokenView />,
   },
   {
     path: "/tokens/createtoken",
