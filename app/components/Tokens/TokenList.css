@@ -1,34 +1,11 @@
 .container {
+  display: flex;
+  flex-direction: column;
   position: relative;
   background: linear-gradient(0deg, #31353E 0%, #192028 51.21%, #0B0F12 100%);
   width: 350px;
   box-sizing: border-box;
   height: 100%;
-}
-
-.tokenBar {
-  position: absolute;
-  left: 0;
-  right: 10px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  font-size: 12px;
-  padding: 30px 20px 25px 30px;
-  background-image: linear-gradient(to bottom, #0B0F12 20%, rgba(12, 16, 19, 0.8) 70%, rgba(0, 0, 0, 0));
-  z-index: 5;
-}
-
-.tokenBar svg {
-  font-size: 24px;
-  fill: #C1C1C1;
-}
-
-.tokenContainer {
-  height: 100%;
-  overflow-y: overlay;
 }
 
 .buttonContainer {
@@ -43,4 +20,10 @@
 
 .buttonContainer > div {
   box-shadow: 0px 0px 7px #212121;
+}
+
+.tabContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

@@ -9,6 +9,7 @@
     background-image: linear-gradient(to bottom, #0B0F12 20%, rgba(12, 16, 19, 0.8) 70%, rgba(0, 0, 0, 0));
     z-index: 5;
     height: 81px;
+    min-height: 81px;
     cursor: default;
 }
 
