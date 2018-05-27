@@ -90,6 +90,31 @@
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.feeAmount {
+    font-family: 'Source Code Pro', monospace;
+    color: #828282;
+    font-weight: 300;
+}
+
+.feePercentage {
+    color: #000;
+    font-weight: 300;
+}
+
+.walletContainer {
+    margin-top: 10px;
+    color: #828282;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+}
+
+.walletIcon {
+    fill: #828282;
+    margin-right: 10px;
 }
 
 .tokenHeaderText {
@@ -102,4 +127,8 @@
 .divider {
     margin-top: 15px;
     border-bottom: 1px solid #e0e0e0;
+}
+
+.rotate {
+    transform: rotate(180deg);
 }
