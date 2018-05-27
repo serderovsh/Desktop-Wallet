@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Dropdown } from 'semantic-ui-react';
+import { Button, Tab } from 'semantic-ui-react';
 import styles from './TokenList.css';
 
 import buttonStyles from '../Button.css';
@@ -9,8 +9,23 @@ import buttonStyles from '../Button.css';
 import { loadTokens } from '../../actions/tokens';
 
 import Header from '../ContentPrimaryHeader';
+import Overview from './Overview';
+import Participants from './Participants';
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 
+const panes = [
+  { menuItem: 'Overview', render: () => <Tab.Pane attached={false}><Overview tokens={tokens} /></Tab.Pane> },
+  { menuItem: 'Participants', render: () => <Tab.Pane attached={false}><Participants tokens={tokens} /></Tab.Pane> }
+]
+
+let tokens = [
+  { name: 'token-one', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
+  { name: 'token-two', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
+  { name: 'token-three', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
+  { name: 'crapcoin', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
+  { name: 'textcoin', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
+  { name: 'eszurium', totalSupply: 9999999999, totalIssued: 15230000, registered: Date.now() },
+]
 
 class TokenList extends Component {
   componentDidMount() {
@@ -19,20 +34,8 @@ class TokenList extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <Header text="TOKENS :">
-          <Dropdown icon={<MoreIcon />}>
-            <Dropdown.Menu>
-              <Dropdown.Item text='New Wallet' icon={<WalletIcon />} />
-              <Dropdown.Divider />
-              <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />} />
-            </Dropdown.Menu>
-          </Dropdown>
-        </Header>
-        <div className={styles.buttonContainer}>
-          <NavLink to="/tokens/createtoken">
-            <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Token</Button>
-          </NavLink>
-        </div>
+        <Header text="TOKENS :" />
+        <Tab className={styles.tabContainer} menu={{ secondary: true }} panes={panes} />
       </div>
     );
   }
