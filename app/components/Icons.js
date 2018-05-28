@@ -307,3 +307,27 @@ export class PersonIcon extends Component {
   }
 }
 
+export class SquareLoadingIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="41.5" y="41.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0s" calcMode="discrete"></animate>
+      </rect><rect x="47.5" y="41.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.125s" calcMode="discrete"></animate>
+      </rect><rect x="53.5" y="41.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.25s" calcMode="discrete"></animate>
+      </rect><rect x="41.5" y="47.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.875s" calcMode="discrete"></animate>
+      </rect><rect x="53.5" y="47.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.375s" calcMode="discrete"></animate>
+      </rect><rect x="41.5" y="53.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.75s" calcMode="discrete"></animate>
+      </rect><rect x="47.5" y="53.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.625s" calcMode="discrete"></animate>
+      </rect><rect x="53.5" y="53.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.5s" calcMode="discrete"></animate>
+      </rect></svg>
+    )
+  }
+}
+
