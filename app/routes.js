@@ -79,6 +79,9 @@ export const routes = [
   {
     path: "/vote",
     sidebar: () => <VoteList />,
+  },
+  {
+    path: "/vote/voteDetails/:witnesses?",
     main: () => <VoteDetails />
   },
   {
@@ -86,15 +89,15 @@ export const routes = [
     sidebar: () => <TokenList />,
   },
   {
-    path: "/tokens/tokendetails",
+    path: "/tokens/TokenDetails/:token",
     main: () => <TokenView />,
   },
   {
-    path: "/tokens/createtoken",
+    path: "/tokens/createtoken/",
     main: () => <CreateToken />,
   },
   {
-    path: "/contact",
+    path: "/contacts",
     sidebar: () => <ContactList />,
     main: () => <ContactDetails />
   },

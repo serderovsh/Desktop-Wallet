@@ -52,6 +52,7 @@ class TokenList extends Component {
                 totalIssued={token.totalIssued || 0}
                 totalSupply={token.total_supply}
                 endTime={token.end_time}
+                index={token.name}
               />
             )
           })
