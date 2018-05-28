@@ -12,6 +12,7 @@ import { Button } from 'semantic-ui-react';
 import buttonStyles from '../../Button.css';
 
 import { ContactIcon, BackArrowIcon } from '../../Icons';
+import TronHttpClient from 'tron-http-client';
 
 class SendAmount extends Component {
 
@@ -25,7 +26,10 @@ class SendAmount extends Component {
     }
 
     onClickSend(){
-        console.log(`sending ${this.state.amount} to ${this.state.address}`);;
+        let accountId = parseInt(this.props.match.params.account);
+        let account = this.props.wallet.persistent.accounts[accountId];
+        let client = new TronHttpClient();
+        client.sendTrx(account.privateKey, this.state.address, this.state.amount);
     }
 
     onSetAmount(amount){
