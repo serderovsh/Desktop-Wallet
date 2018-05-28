@@ -34,9 +34,9 @@ class VoteList extends Component {
     this.props.loadWitnesses();
   }
 
-  renderWitnesses() {
+  renderWitnesses(witnesses) {
+    console.log("onRenderWitnesses");
     let { searchString } = this.props;
-    let { witnesses } = this.state;
     witnesses = filter(witnesses, w => w.url.toUpperCase().indexOf(searchString) !== -1);
     witnesses = sortBy(witnesses, w => w.url);
 
@@ -61,20 +61,20 @@ class VoteList extends Component {
 
   render() {
 
-    let { witnesses } = this.props;
+    let witnesses = this.props.witnesses.witnesses;
 
     return (
       <div className={styles.container}>
         <Header className={styles.header} text="REPRESENTATIVE LISTING :"/>
         <input className={styles.input} placeholder="Search for a Witness here..." onChange={this.filterTokens}/>
-        {this.renderWitnesses()}
+        {this.renderWitnesses(witnesses)}
       </div>
     );
   }
 }
 
 export default connect(
-  state => ({ witnesses: state.witnesses.witnesses, searchString: state.app.searchString }),
+  state => ({ witnesses: state.witnesses, searchString: state.app.searchString }),
   dispatch => ({
     loadWitnesses: () => {
       dispatch(loadWitnesses(dispatch));
