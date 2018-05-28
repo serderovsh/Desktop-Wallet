@@ -4,14 +4,14 @@ export class TronIcon extends Component {
   render() {
     return (
       <svg className={this.props.className} width="24" height="24" viewBox="0 0 236.1 271">
-        <line stroke="#fff" strokeWidth="10" x1="3.7" y1="4.7" x2="115.3" y2="134"/>
-        <line stroke="#fff" strokeWidth="10" x1="114.6" y1="134" x2="100.2" y2="267.5"/>
-        <line stroke="#fff" strokeWidth="15" x1="3.5" y1="3.5" x2="192" y2="48.7"/>
-        <line stroke="#fff" strokeWidth="10" x1="192" y1="49.5" x2="114.6" y2="134"/>
-        <line stroke="#fff" strokeWidth="15" x1="232.6" y1="76.8" x2="101" y2="267.5"/>
-        <line stroke="#fff" strokeWidth="10" x1="115.3" y1="134" x2="231.9" y2="76.8"/>
-        <line stroke="#fff" strokeWidth="15" x1="192" y1="48.7" x2="232.6" y2="76.8"/>
-        <line stroke="#fff" strokeWidth="10" x1="2.8" y1="4.5" x2="100.2" y2="268.5"/>
+        <line strokeWidth="10" x1="3.7" y1="4.7" x2="115.3" y2="134"/>
+        <line strokeWidth="10" x1="114.6" y1="134" x2="100.2" y2="267.5"/>
+        <line strokeWidth="15" x1="3.5" y1="3.5" x2="192" y2="48.7"/>
+        <line strokeWidth="10" x1="192" y1="49.5" x2="114.6" y2="134"/>
+        <line strokeWidth="15" x1="232.6" y1="76.8" x2="101" y2="267.5"/>
+        <line strokeWidth="10" x1="115.3" y1="134" x2="231.9" y2="76.8"/>
+        <line strokeWidth="15" x1="192" y1="48.7" x2="232.6" y2="76.8"/>
+        <line strokeWidth="10" x1="2.8" y1="4.5" x2="100.2" y2="268.5"/>
       </svg>
     )
   }
@@ -246,3 +246,88 @@ export class CopyIcon extends Component {
     )
   }
 }
+
+export class CommentIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path d="M3,15H1V3A2,2 0 0,1 3,1H19V3H3V15M12,23A1,1 0 0,1 11,22V19H7A2,2 0 0,1 5,17V7A2,2 0 0,1 7,5H21A2,2 0 0,1 23,7V17A2,2 0 0,1 21,19H16.9L13.2,22.71C13,22.89 12.76,23 12.5,23H12M9,9V11H19V9H9M9,13V15H17V13H9Z" />
+      </svg>
+    )
+  }
+}
+
+export class TwitterIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" />
+      </svg>
+    )
+  }
+}
+
+export class FacebookIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z" />
+      </svg>
+    )
+  }
+}
+
+export class RedditIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path d="M22,11.5C22,10.1 20.9,9 19.5,9C18.9,9 18.3,9.2 17.9,9.6C16.4,8.7 14.6,8.1 12.5,8L13.6,4L17,5A2,2 0 0,0 19,7A2,2 0 0,0 21,5A2,2 0 0,0 19,3C18.3,3 17.6,3.4 17.3,4L13.3,3C13,2.9 12.8,3.1 12.7,3.4L11.5,8C9.5,8.1 7.6,8.7 6.1,9.6C5.7,9.2 5.1,9 4.5,9C3.1,9 2,10.1 2,11.5C2,12.4 2.4,13.1 3.1,13.6L3,14.5C3,18.1 7,21 12,21C17,21 21,18.1 21,14.5L20.9,13.6C21.6,13.1 22,12.4 22,11.5M9,11.8C9.7,11.8 10.2,12.4 10.2,13C10.2,13.6 9.7,14.2 9,14.2C8.3,14.2 7.8,13.7 7.8,13C7.8,12.3 8.3,11.8 9,11.8M15.8,17.2C14,18.3 10,18.3 8.2,17.2C8,17 7.9,16.7 8.1,16.5C8.3,16.3 8.6,16.2 8.8,16.4C10,17.3 14,17.3 15.2,16.4C15.4,16.2 15.7,16.3 15.9,16.5C16.1,16.7 16,17 15.8,17.2M15,14.2C14.3,14.2 13.8,13.6 13.8,13C13.8,12.3 14.4,11.8 15,11.8C15.7,11.8 16.2,12.4 16.2,13C16.2,13.7 15.7,14.2 15,14.2Z" />
+      </svg>
+    )
+  }
+}
+
+export class TranslateIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path d="M12.87,15.07L10.33,12.56L10.36,12.53C12.1,10.59 13.34,8.36 14.07,6H17V4H10V2H8V4H1V6H12.17C11.5,7.92 10.44,9.75 9,11.35C8.07,10.32 7.3,9.19 6.69,8H4.69C5.42,9.63 6.42,11.17 7.67,12.56L2.58,17.58L4,19L9,14L12.11,17.11L12.87,15.07M18.5,10H16.5L12,22H14L15.12,19H19.87L21,22H23L18.5,10M15.88,17L17.5,12.67L19.12,17H15.88Z" />
+      </svg>
+    )
+  }
+}
+
+export class PersonIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+      </svg>
+    )
+  }
+}
+
+export class SquareLoadingIcon extends Component {
+  render() {
+    return (
+      <svg className={this.props.className} width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="41.5" y="41.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0s" calcMode="discrete"></animate>
+      </rect><rect x="47.5" y="41.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.125s" calcMode="discrete"></animate>
+      </rect><rect x="53.5" y="41.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.25s" calcMode="discrete"></animate>
+      </rect><rect x="41.5" y="47.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.875s" calcMode="discrete"></animate>
+      </rect><rect x="53.5" y="47.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.375s" calcMode="discrete"></animate>
+      </rect><rect x="41.5" y="53.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.75s" calcMode="discrete"></animate>
+      </rect><rect x="47.5" y="53.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.625s" calcMode="discrete"></animate>
+      </rect><rect x="53.5" y="53.5" width="5" height="5" fill="#39414e">
+        <animate attributeName="fill" values="#626f84;#39414e;#39414e" keyTimes="0;0.125;1" dur="1s" repeatCount="indefinite" begin="0.5s" calcMode="discrete"></animate>
+      </rect></svg>
+    )
+  }
+}
+
