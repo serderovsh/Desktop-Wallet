@@ -8,7 +8,7 @@ import Header from '../../Header';
 import { Form, TextArea, Button } from 'semantic-ui-react'
 import buttonStyles from '../../Button.css';
 
-import { CommentIcon } from '../../Icons';
+import { BellIcon } from '../../Icons';
 
 export default class Notifications extends Component {
   render() {
@@ -16,10 +16,21 @@ export default class Notifications extends Component {
       <Secondary>
         <Header headerName="Notifications" />
         <Form className={styles.container}>
-          <CommentIcon className={styles.icon} />
-          <div>Write below and click on submit to send a support message.</div>
-          <Form.TextArea placeholder="Write your message here..." className={styles.textArea} />
-          <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit</Form.Button>
+          <BellIcon className={styles.icon} />
+          <div className={styles.toggleContainer}>
+            <div className={styles.toggleLabel}>Enable Push Notifications</div>
+            <Form.Checkbox toggle className={styles.toggle} />
+          </div>
+          <div className={styles.divider} />
+          <div className={styles.toggleContainer}>
+            <div className={styles.toggleLabel}>Notify me when transactions are confirmed</div>
+            <Form.Checkbox toggle className={styles.toggle} />
+          </div>
+          <div className={styles.divider} />
+          <div className={styles.toggleContainer}>
+            <div className={styles.toggleLabel}>Enable Email Notifications</div>
+            <Form.Checkbox toggle className={styles.toggle} />
+          </div>
         </Form>
       </Secondary>
     );

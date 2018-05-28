@@ -8,7 +8,11 @@ import Header from '../../Header';
 import { Form, TextArea, Button } from 'semantic-ui-react'
 import buttonStyles from '../../Button.css';
 
-import { CommentIcon } from '../../Icons';
+import { TranslateIcon, ArrowRightIcon } from '../../Icons';
+
+let languages = [
+  { text: 'English', value: 'en' },
+]
 
 export default class Language extends Component {
   render() {
@@ -16,10 +20,18 @@ export default class Language extends Component {
       <Secondary>
         <Header headerName="Language" />
         <Form className={styles.container}>
-          <CommentIcon className={styles.icon} />
-          <div>Write below and click on submit to send a support message.</div>
-          <Form.TextArea placeholder="Write your message here..." className={styles.textArea} />
-          <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit</Form.Button>
+          <TranslateIcon className={styles.icon} />
+          <div>Select a language below.</div>
+          <div className={styles.dropdown}>
+            <ArrowRightIcon />
+            <Form.Select fluid
+              onChange={this.selectWallet}
+              className={styles.selectLanguage}
+              defaultValue={languages.length > 0 ? languages[0].value : ''}
+              placeholder='Select Language...'
+              options={languages}
+            />
+          </div>
         </Form>
       </Secondary>
     );
