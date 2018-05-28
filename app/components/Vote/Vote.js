@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 import styles from './Vote.css';
 
-
-import { WalletIcon } from '../Icons';
 
 class Vote extends Component {
   render() {
     return (
-      <div className={styles.vote}>
-        <div className={styles.voteLabel}>{ `${this.props.voteLabel} -` }</div>
+      <NavLink to={"/vote/voteDetails/" + this.props.index + "/"} className={styles.vote}>
+        <div className={styles.voteLabel}>{`${this.props.voteLabel} -`}</div>
         <div className={styles.container}>
-          <div className={styles.title}>{ this.props.voteTitle }</div>
+          <div className={styles.title}>{this.props.voteTitle}</div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}>Last Block : </span>
             <span className={styles.subVal}>{this.props.lastBlock.toLocaleString()}</span>
@@ -30,7 +27,7 @@ class Vote extends Component {
             <span className={styles.subVal}>{this.props.totalVote.toLocaleString()} TRX</span>
           </div>
         </div>
-      </div>
+      </NavLink>
     );
   }
 }

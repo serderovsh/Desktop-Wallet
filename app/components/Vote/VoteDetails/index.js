@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './VoteDetails.css';
+import { Dropdown, Form } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { Dropdown, Input, Form, Button } from 'semantic-ui-react';
+import styles from './VoteDetails.css';
 import buttonStyles from '../../Button.css';
 
 import Secondary from '../../Content/Secondary';
@@ -10,7 +11,7 @@ import Header from '../../Header';
 import VoteAmountSlider from './VoteAmountSlider';
 import { ArrowRightIcon } from '../../Icons';
 
-export default class VoteDetails extends Component {
+class VoteDetails extends Component {
   constructor(props) {
     super(props);
 
@@ -30,37 +31,48 @@ export default class VoteDetails extends Component {
       }
     };
 
-    if (this.state.wallets.length > 0) this.state.selectedWallet = this.state.wallets[0];
+    if (this.state.wallets.length > 0) this.state.selectedWallet = this.state.wallets[ 0 ];
   }
 
   selectWallet = (e, { value }) => {
     let wallet = this.state.wallets.filter((wallet) => wallet.value == value);
-    this.setState({ selectedWallet: wallet[0] });
+    this.setState({ selectedWallet: wallet[ 0 ] });
   }
 
   render() {
     return (
       <Secondary className={styles.container}>
-      <div className={styles.headerContainer}>
-        <Header headerName="Votes" />
-        <div className={styles.headerTP}>{ this.state.selectedWallet.tp.toLocaleString() }<span>TP</span></div>
-        <div className={styles.headerText}>Earn More TronPower by freezing Tron</div>
-      </div>
-      <div className={styles.subContainer}>
-        <div className={styles.votingFor}>YOUR ARE VOTING FOR : <span>{ this.state.rep.name }</span></div>
-        <div className={styles.dropdown}>
-          <ArrowRightIcon />
-          <Dropdown fluid selection
-            onChange={this.selectWallet}
-            defaultValue={this.state.wallets.length > 0 ? this.state.wallets[0].value : ''}
-            placeholder='Choose Wallet'
-            options={this.state.wallets}
-          />
+        <div className={styles.headerContainer}>
+          <Header headerName="Votes" />
+          <div className={styles.headerTP}>{this.state.selectedWallet.tp.toLocaleString()}<span>TP</span></div>
+          <div className={styles.headerText}>Earn More TronPower by freezing Tron</div>
         </div>
-        <VoteAmountSlider totalTP={ this.state.selectedWallet.tp }/>
-        <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit Your Vote</Form.Button>
-      </div>
+        <div className={styles.subContainer}>
+          <div className={styles.votingFor}>YOUR ARE VOTING FOR : <span>{this.state.rep.name}</span></div>
+          <div className={styles.dropdown}>
+            <ArrowRightIcon />
+            <Dropdown fluid selection
+                      onChange={this.selectWallet}
+                      defaultValue={this.state.wallets.length > 0 ? this.state.wallets[ 0 ].value : ''}
+                      placeholder='Choose Wallet'
+                      options={this.state.wallets}
+            />
+          </div>
+          <VoteAmountSlider totalTP={this.state.selectedWallet.tp} />
+          <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>
+            Submit Your Vote
+          </Form.Button>
+        </div>
       </Secondary>
     );
   }
 }
+
+export default withRouter(connect(
+  state => ({ wallet: state.wallet, witnesses: state.witnesses }),
+  dispatch => ({
+    loadWitnesses: (props) => {
+      dispatch(loadWitnesses(props));
+    }
+  })
+)(VoteDetails));

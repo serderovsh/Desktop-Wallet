@@ -35,7 +35,6 @@ class VoteList extends Component {
   }
 
   renderWitnesses(witnesses) {
-    console.log("onRenderWitnesses");
     let { searchString } = this.props;
     witnesses = filter(witnesses, w => w.url.toUpperCase().indexOf(searchString) !== -1);
     witnesses = sortBy(witnesses, w => w.url);
@@ -44,15 +43,16 @@ class VoteList extends Component {
       <div className={styles.votesContainer}>
         {witnesses.length < 1 ? (<div className={styles.noResults}>No Witnesses Found</div>) : ''}
         {
-          witnesses.map((rep, index) =>
+          witnesses.map((rep, i) =>
             <Vote
-              key={index}
-              voteLabel={index + 1}
+              key={i}
+              voteLabel={i + 1}
               voteTitle={rep.url}
               lastBlock={rep.latestblocknum}
               blocksProduced={rep.totalproduced}
               blocksMissed={rep.totalmissed}
               totalVote={rep.votecount}
+              index={rep.address}
             />)
         }
       </div>
@@ -65,8 +65,8 @@ class VoteList extends Component {
 
     return (
       <div className={styles.container}>
-        <Header className={styles.header} text="REPRESENTATIVE LISTING :"/>
-        <input className={styles.input} placeholder="Search for a Witness here..." onChange={this.filterTokens}/>
+        <Header className={styles.header} text="REPRESENTATIVE LISTING :" />
+        <input className={styles.input} placeholder="Search for a Witness here..." onChange={this.filterTokens} />
         {this.renderWitnesses(witnesses)}
       </div>
     );
