@@ -1,50 +1,66 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from './ViewToken.css';
+import styles from './TokenView.css';
 
+import { Dropdown, Input, Form, Button } from 'semantic-ui-react';
+import buttonStyles from '../../Button.css';
+
+import Secondary from '../../Content/Secondary';
 import Header from '../../Header';
+import AmountSlider from './AmountSlider';
+import { ArrowRightIcon } from '../../Icons';
 
-import { TronIcon } from '../../Icons';
-
-export default class ViewToken extends Component {
+export default class TokenView extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       token: {
-        name: 'SuperCoolToken',
-        url: 'http://google.com/',
-        totalSupply: 1000,
-        issuer: '27bPtyJH26gKgLzhGCGuzmvmNJWGVgPkCAN',
-        startDate: Date.now(),
+        name: 'FlottPay'
+      },
+      wallets: [
+        { text: 'Personal Wallet', value: 'wallet-id-1', trx: 5336.82 },
+        { text: 'Business Wallet', value: 'wallet-id-2', trx: 266434534 },
+        { text: 'New Wallet', value: 'wallet-id-3', trx: 0 }
+      ],
+      selectedWallet: {
+        text: 'Select a Wallet',
+        value: '',
+        tp: 0,
       }
-    }
+    };
+
+    if (this.state.wallets.length > 0) this.state.selectedWallet = this.state.wallets[0];
+  }
+
+  selectWallet = (e, { value }) => {
+    let wallet = this.state.wallets.filter((wallet) => wallet.value == value);
+    this.setState({ selectedWallet: wallet[0] });
   }
 
   render() {
-    let { token } = this.state;
     return (
-      <div className={styles.container}>
-        <Header className={styles.white} headerName="Token Information" />
-        <div className={`${styles.subContainer} ${this.props.className}`}>
-          <div className={styles.headerBG}></div>
-          <TronIcon className={styles.logo}/>
-          <div className={styles.tokenName}>{ token.name }</div>
-          <div className={styles.tokenInfoContainer}>
-            <div className={styles.tokenHeader}>Website :</div>
-            <div className={styles.tokenHeaderText}>{ token.url }</div>
-            <div className={styles.divider}></div>
-            <div className={styles.tokenHeader}>Total Supply :</div>
-            <div className={styles.tokenHeaderText}>{ token.totalSupply.toLocaleString() }</div>
-            <div className={styles.divider}></div>
-            <div className={styles.tokenHeader}>Issuer :</div>
-            <div className={styles.tokenHeaderText}>{ token.issuer }</div>
-            <div className={styles.divider}></div>
-            <div className={styles.tokenHeader}>Start Date :</div>
-            <div className={styles.tokenHeaderText}>{ new Date(token.startDate).toLocaleString() }</div>
-          </div>
-        </div>
+      <Secondary className={styles.container}>
+      <div className={styles.headerContainer}>
+        <Header headerName="Buy Token" />
+        <div className={styles.headerTP}>{ this.state.selectedWallet.trx.toLocaleString() }<span>TRX</span></div>
+        <div className={styles.headerText}>Use TRX to purchase tokens below.</div>
       </div>
+      <div className={styles.subContainer}>
+        <div className={styles.votingFor}>TOKEN NAME : <span>{ this.state.token.name }</span></div>
+        <div className={styles.dropdown}>
+          <ArrowRightIcon />
+          <Dropdown fluid selection
+            onChange={this.selectWallet}
+            defaultValue={this.state.wallets.length > 0 ? this.state.wallets[0].value : ''}
+            placeholder='Choose Wallet'
+            options={this.state.wallets}
+          />
+        </div>
+        <AmountSlider totalTRX={ this.state.selectedWallet.trx }/>
+        <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Purchase</Form.Button>
+      </div>
+      </Secondary>
     );
   }
 }

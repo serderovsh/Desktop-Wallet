@@ -8,24 +8,71 @@ import buttonStyles from '../Button.css';
 
 import { loadTokens } from '../../actions/tokens';
 
+import Token from './Token';
 import Header from '../ContentPrimaryHeader';
-import Overview from './Overview';
-import Participants from './Participants';
+
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 
-const panes = [
-  { menuItem: 'Overview', render: () => <Tab.Pane attached={false}><Overview /></Tab.Pane> },
-  { menuItem: 'Participants', render: () => <Tab.Pane attached={false}><Participants /></Tab.Pane> }
-];
-
 class TokenList extends Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      filterValue: '',
+      tokens: this.props.tokens,
+    }
+    this.props.loadTokens()
+  }
+
+  filterTokens = (e) => {
+    let filtered = this.props.tokens.filter((token) => {
+      console.log(token.name.includes(e.target.value))
+      return token.name.includes(e.target.value);
+    });
+
+    this.setState({
+      tokens: filtered,
+    });
+  }
+
+  renderTokens() {
+    let { searchString } = this.props;
+    let { tokens } = this.state;
+
+    return (
+      <div className={styles.tokensContainer}>
+        { this.state.tokens.length < 1 ? (<div className={styles.noResults}>No Tokens Found</div>) : '' }
+        {
+          this.state.tokens.map((token, index) => {
+            return (
+              <Token
+                key={index}
+                tokenName={token.name}
+                tokenURL={token.url}
+                totalIssued={token.totalIssued || 0}
+                totalSupply={token.total_supply}
+                endTime={token.end_time}
+              />
+            )
+          })
+        }
+      </div>
+    );
+  }
 
   render() {
     return (
       <div className={styles.container}>
         <Header text="TOKENS :" />
-        <Tab className={`${styles.tabContainer} blue`} menu={{ secondary: true }} panes={panes} />
+        <div className={styles.subContainer}>
+          <input className={styles.input} placeholder="Search for a token here..." onChange={this.filterTokens}/>
+          { this.renderTokens() }
+          <div className={styles.buttonContainer}>
+            <NavLink to="/tokens/createtoken">
+              <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Token</Button>
+            </NavLink>
+          </div>
+        </div>
       </div>
     );
   }

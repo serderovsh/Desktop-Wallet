@@ -1,12 +1,13 @@
 .token {
     position: relative;
     display: flex;
+    flex-direction: column;
     background-color: rgba(255,255,255,0.05);
     border-radius: 5px;
     margin-top: 5px;
     transition: background-color 300ms;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 20px 20px 15px 20px;
     box-sizing: border-box;
     font-size: 12px;
 }
@@ -17,41 +18,31 @@
 }
 
 .token:first-child {
-    margin-top: 85px;
+    margin-top: 0px;
 }
 
 .token:last-child {
-    margin-bottom: 85px;
+    margin-bottom: 55px;
 }
 
-.container {
+.topBar {
     display: flex;
-    flex-direction: column;
-    min-width: 0;
-    flex-grow: 1;
-}
-
-.title {
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    color: #fff;
-    margin: 10px 0px;
+    justify-content: space-between;
     font-size: 11px;
 }
 
-.subContainer {
-    display: flex;
-    justify-content: space-between;
-    margin: 2px 0px;
+.topBar a {
+    color: #828282;
 }
 
-.subTitle {
-    color: grey;
-}
-
-.subVal {
+.tokenName {
     color: #fff;
-    font-weight: 300;
+}
+
+.filler {
+    flex-grow: 1;
+}
+
+.tokenBar {
+    margin-top: 20px;
 }
