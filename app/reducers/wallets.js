@@ -1,11 +1,18 @@
-import { UPDATE_TRANSACTIONS, UPDATE_ALL_ACCOUNTS,FINISH_INITIALIZATION, WALLET_STATE, SET_TOKEN_BALANCES, INIT } from '../actions/wallet';
+import {
+  UPDATE_TRANSACTIONS,
+  UPDATE_ALL_ACCOUNTS,
+  FINISH_INITIALIZATION,
+  WALLET_STATE,
+  SET_TOKEN_BALANCES,
+  INIT
+} from '../actions/wallet';
 
 const initialState = {
-    persistent : {
+  persistent: {
 
-        accounts: []
-    },
-    wallet_state : WALLET_STATE.NEEDS_LOADING,
+    accounts: []
+  },
+  wallet_state: WALLET_STATE.NEEDS_LOADING,
 };
 
 export function walletReducer(state = initialState, action) {
@@ -13,35 +20,35 @@ export function walletReducer(state = initialState, action) {
 
     case INIT : {
       return {
-          ...state,
-          ...action
+        ...state,
+        ...action
       };
     }
 
-  case FINISH_INITIALIZATION:{
+    case FINISH_INITIALIZATION: {
       return {
-          ...state,
-          persistent: action.persistent,
-          wallet_state: action.wallet_state
+        ...state,
+        persistent: action.persistent,
+        wallet_state: action.wallet_state
       }
-  }
+    }
 
-  case UPDATE_ALL_ACCOUNTS:{
+    case UPDATE_ALL_ACCOUNTS: {
       console.log("update all accounts");
       console.log(action);
       return {
-          ...state,
-          persistent: action.persistent
+        ...state,
+        persistent: action.persistent
       }
-  }
+    }
 
-  case UPDATE_TRANSACTIONS:{
+    case UPDATE_TRANSACTIONS: {
       let newState = {
-          ...state
+        ...state
       };
-      newState.persistent.accounts[action.accountId].transactions = action.transactions;
+      newState.persistent.accounts[ action.accountId ].transactions = action.transactions;
       return newState;
-  }
+    }
 
 
     default:

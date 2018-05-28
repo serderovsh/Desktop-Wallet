@@ -1,6 +1,8 @@
-import {SET_TOKENS} from '../actions/tokens';
+import {
+  SET_TOKENS
+} from '../actions/tokens';
 
-const initialState ={
+const initialState = {
   tokens: [],
 };
 
