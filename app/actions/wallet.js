@@ -43,10 +43,6 @@ function verifyPersistent(persistent){
         console.log("persistent.accounts missing");
         return false;
     }
-    if(!Array.isArray(persistent.accounts)){
-        console.log("persistent.accounts is not an array");
-        return false;
-    }
     if(!('walletType' in persistent)){
         console.log("persistent.walletType missing");
         return false;
@@ -85,11 +81,11 @@ function savePersistent(persistent, password=""){
 function addAccount(persistent, accountName = "Unnamed Wallet"){
     let newAccount = TronHttpTools.accounts.generateRandomBip39();
 
-    persistent.accounts.push({
+    persistent.accounts[newAccount.address] ={
         trx : 0,
         name : accountName,
-        publicKey : newAccount.pub,
-        privateKey: newAccount.priv,
+        publicKey : newAccount.address,
+        privateKey: newAccount.privateKey,
 
         tokens : [],
         transactions : [],
@@ -100,14 +96,14 @@ function addAccount(persistent, accountName = "Unnamed Wallet"){
         frozenBalance : 0,
         frozenExpireTime : 0,
         bandwidth : 0
-    });
+    };
 
     return persistent;
 }
 
 export const createWallet = (props, accountName="Unnamed Wallet") => {
     let newPersistent = {
-        accounts: [],
+        accounts: {},
         walletType : WALLET_TYPE.HOT
     };
 

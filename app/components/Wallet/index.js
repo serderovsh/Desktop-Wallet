@@ -20,6 +20,8 @@ class WalletList extends Component {
     }
 
   render() {
+        let accounts = this.props.wallet.persistent.accounts;
+        let accountKeys = Object.keys(accounts);
     return (
       <div className={styles.container}>
         <Header className={styles.header} text="MY WALLETS :">
@@ -42,14 +44,15 @@ class WalletList extends Component {
         </div>
         <div className={styles.walletContainer}>
           {
-            this.props.wallet.persistent.accounts.map((account, i) =>
+            accountKeys.map((key, i) =>
               // NavLink in Wallet Component
               <Wallet
-                key={i}
-                trx={account.trx}
-                name={account.name}
-                tokens={account.tokens}
-                index={account.index}
+                key={key}
+                pub={accounts[key].publicKey}
+                trx={accounts[key].trx}
+                name={accounts[key].name}
+                tokens={accounts[key].tokens}
+                index={accounts[key].publicKey}
               />)
           }
         </div>

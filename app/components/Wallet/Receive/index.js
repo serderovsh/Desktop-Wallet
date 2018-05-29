@@ -28,7 +28,7 @@ class Receive extends Component {
 
   render() {
     let { qrcode } = this.state;
-    let accountId = parseInt(this.props.match.params.account);
+    let accountId = this.props.match.params.account;
     let account = this.props.wallet.persistent.accounts[accountId];
     if (account) {
       QRCode.toDataURL(`${account.publicKey}`, (err, url) => {

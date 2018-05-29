@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   persistent: {
-    accounts: []
+    accounts: {}
   },
   persistent_encrypted : null,
   wallet_state: WALLET_STATE.NEEDS_LOADING,

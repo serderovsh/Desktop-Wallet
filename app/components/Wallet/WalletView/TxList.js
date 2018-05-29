@@ -14,7 +14,7 @@ const client = new TronHttpClient();
 class TxList extends Component {
 
     async componentDidMount(){
-        let accountId = parseInt(this.props.match.params.account);
+        let accountId = this.props.match.params.account;
         let address = this.props.wallet.persistent.accounts[accountId].publicKey;
         let transactions = await client.getTransactionsRelatedToThis(address);
 
@@ -41,7 +41,7 @@ class TxList extends Component {
     }
 
   render() {
-      let accountId = parseInt(this.props.match.params.account);
+      let accountId = this.props.match.params.account;
       let transactions = this.props.wallet.persistent.accounts[accountId].transactions;
       let filteredTransactions = [];
 

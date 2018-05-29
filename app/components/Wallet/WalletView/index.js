@@ -15,8 +15,10 @@ import TxList from './TxList';
 
 class WalletView extends Component {
   render() {
-    let accountId = parseInt(this.props.match.params.account);
-    let account = this.props.wallet.persistent.accounts[ accountId ];
+    let accountId = this.props.match.params.account;
+    console.log('accountid:' + accountId);
+    let account = this.props.wallet.persistent.accounts[accountId];
+    console.log(account);
 
     if (!account) {
       this.props.history.push('/wallets/');

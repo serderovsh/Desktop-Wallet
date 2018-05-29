@@ -21,7 +21,7 @@ class App extends React.Component {
   componentDidMount() {
     let language = 'en';
     this.props.setLanguage(language);
-    this.props.initFromStorage();
+    this.props.initFromStorage(this.props);
     this.props.loadTokens();
     this.props.loadWitnesses();
   }

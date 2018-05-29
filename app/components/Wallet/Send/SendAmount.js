@@ -26,7 +26,7 @@ class SendAmount extends Component {
     }
 
     onClickSend(){
-        let accountId = parseInt(this.props.match.params.account);
+        let accountId = this.props.match.params.account;
         let account = this.props.wallet.persistent.accounts[accountId];
         let client = new TronHttpClient();
         client.sendTrx(account.privateKey, this.state.address, this.state.amount);
