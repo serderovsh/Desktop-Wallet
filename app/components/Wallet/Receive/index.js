@@ -20,7 +20,7 @@ class Receive extends Component {
     };
   }
   copyAddress() {
-    var wallet = document.querySelector('#receiveCodeTextBox');
+    var wallet = document.querySelector('#receiveCode');
     wallet.focus();
     wallet.select();
     document.execCommand("copy");
@@ -38,7 +38,7 @@ class Receive extends Component {
       });
     }
     return (
-      <MainModal header="Generate Receive Code">
+      <MainModal header="Receive Code">
         <img src={qrcode} />
         <div className={styles.buttonContainer}>
           <Button className={`${buttonStyles.iconButton} ${buttonStyles.gradient}`}>
@@ -54,7 +54,7 @@ class Receive extends Component {
         </div>
         <div className={styles.addressContainer}>
           <div className={styles.addressLabel}>Your Wallet Address :</div>
-          <input onClick={this.copyAddress} id="receiveCodeTextBox" className={styles.textBox}
+          <input onClick={this.copyAddress} id="receiveCode" className={styles.textBox}
                  value={account.publicKey} readOnly />
           <Button onClick={this.copyAddress}
                   className={`${styles.copyBtn} ${buttonStyles.button} ${buttonStyles.gradient}`}>

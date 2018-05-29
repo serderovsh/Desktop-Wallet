@@ -1,6 +1,7 @@
 /* eslint flowtype-errors/show-errors: 0 */
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 
 import Navbar from './Navbar/';
@@ -9,16 +10,20 @@ import Main from './Main';
 
 import { languages } from '../translations';
 import { setLanguage } from '../actions/app';
+import { initFromStorage } from '../actions/wallet';
+import { loadTokens } from '../actions/tokens';
+import { loadWitnesses } from '../actions/witnesses';
 // Styles
 import styles from '../components/ContentMain.css';
-import { initFromStorage } from "../actions/wallet";
-import { withRouter } from "react-router-dom";
+
 
 class App extends React.Component {
   componentDidMount() {
     let language = 'en';
     this.props.setLanguage(language);
-    this.props.initFromStorage(this.props);
+    this.props.initFromStorage();
+    this.props.loadTokens();
+    this.props.loadWitnesses();
   }
   render() {
     let { activeLanguage } = this.props;
@@ -47,6 +52,12 @@ export default withRouter(connect(
     },
     setLanguage: (props) => {
       dispatch(setLanguage(props, dispatch));
+    },
+    loadWitnesses: (props) => {
+      dispatch(loadWitnesses(props, dispatch));
+    },
+    loadTokens: (props) => {
+      dispatch(loadTokens(props, dispatch));
     }
   })
 )(App));

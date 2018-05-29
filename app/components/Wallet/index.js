@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { Button, Dropdown } from 'semantic-ui-react';
 
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import Header from '../ContentPrimaryHeader';
 import Wallet from './Wallet';
 
@@ -45,7 +44,13 @@ class WalletList extends Component {
           {
             this.props.wallet.persistent.accounts.map((account, i) =>
               // NavLink in Wallet Component
-              <Wallet trx={account.trx} key={i} name={account.name} tokens={account.tokens} index={account.index} />)
+              <Wallet
+                key={i}
+                trx={account.trx}
+                name={account.name}
+                tokens={account.tokens}
+                index={account.index}
+              />)
           }
         </div>
       </div>

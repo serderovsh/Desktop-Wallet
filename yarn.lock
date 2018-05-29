@@ -507,7 +507,7 @@ assert-plus@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-0.2.0.tgz#d74e1b87e7affc0db8aadb7021f3fe48101ab234"
 
-assert@^1.1.1:
+assert@^1.1.1, assert@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/assert/-/assert-1.4.1.tgz#99912d591836b5a6f5b345c0f07eefc08fc65d91"
   dependencies:
@@ -8235,8 +8235,8 @@ rc@^1.0.1, rc@^1.1.2, rc@^1.1.6, rc@^1.1.7, rc@^1.2.1:
     strip-json-comments "~2.0.1"
 
 react-calendar@^2.14.0:
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.15.0.tgz#773b50c71f42c5b0ad45651314a192b44d9fd52a"
+  version "2.15.1"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.15.1.tgz#b390d22941a645e512035dbbe5201739ec5e8ed9"
   dependencies:
     lodash.once "^4.1.1"
     merge-class-names "^1.1.1"
@@ -8562,8 +8562,8 @@ redux-logger@^3.0.6:
     deep-diff "^0.3.5"
 
 redux-thunk@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
 
 redux@^3.7.2:
   version "3.7.2"
@@ -10173,17 +10173,18 @@ trim@0.0.1:
   resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
 
 tron-http-client@tronwatch/tron-http-client:
-  version "1.0.6"
-  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/e7da790f58e71f6265cc4545d68c1510379bcc7a"
+  version "1.0.7"
+  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/f4540cb3dc5bc2c8f06f538efd49b85bd2b68f39"
   dependencies:
     axios "^0.18.0"
     tron-http-tools tronwatch/tron-http-tools
 
 tron-http-tools@tronwatch/tron-http-tools:
-  version "1.0.4"
-  resolved "https://codeload.github.com/tronwatch/tron-http-tools/tar.gz/ec4978c035667e506515413df89bce97f0b69a68"
+  version "1.0.6"
+  resolved "https://codeload.github.com/tronwatch/tron-http-tools/tar.gz/8a1035636d1a369194404ada45a86c6f1d7526f9"
   dependencies:
     "@tronprotocol/wallet-api" "0.0.35"
+    assert "^1.4.1"
     bip39 "2.5.0"
     btoa "^1.2.1"
     sha256 "^0.2.0"

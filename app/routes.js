@@ -21,6 +21,7 @@ import Support from './components/Settings/Support';
 import AddressBook from './components/Settings/AddressBook';
 import Language from './components/Settings/Language';
 import Notifications from './components/Settings/Notifications';
+import Node from './components/Settings/Node';
 import CreateToken from './components/Tokens/CreateToken';
 
 export const routes = [
@@ -53,6 +54,10 @@ export const routes = [
     main: () => <Receive />,
   },
   {
+    path: "/wallets/transactionDetails/:account",
+    main: () => <ViewTransaction />,
+  },
+  {
     path: "/settings/",
     sidebar: () => <SettingList />,
   },
@@ -75,6 +80,10 @@ export const routes = [
   {
     path: "/settings/language",
     main: () => <Language />
+  },
+  {
+    path: "/settings/node",
+    main: () => <Node />
   },
   {
     path: "/vote",

@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './CreationContent.css';
-
+import { Checkbox, Input, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import {createWallet} from "../../../../actions/wallet";
-
-import { Checkbox, Input, Form, Button } from 'semantic-ui-react';
+import styles from './CreationContent.css';
+import { createWallet } from '../../../../actions/wallet';
 import buttonStyles from '../../../Button.css';
 
 class CreationContent extends Component {
-  state = {}
+  constructor() {
+    super();
+    this.onClickCreate = this.onClickCreate.bind(this);
+  }
+  state = {};
 
   // wallet types: 0-Hot, 1-Cold
   toggleRadio = (e, { value }) => this.setState({ value });
@@ -19,12 +20,7 @@ class CreationContent extends Component {
   setWalletCold = (type) => this.setState({ walletType: 1 });
   setWalletName = (e, { value }) => this.setState({ walletName: value });
 
-  constructor(){
-    super();
-    this.onClickCreate = this.onClickCreate.bind(this);
-  }
-
-  onClickCreate(){
+  onClickCreate() {
     console.log(this.state.walletName, this.state.walletType)
     this.props.createWallet(this.props, this.state.walletName, this.state.walletType);
   }
@@ -52,8 +48,8 @@ class CreationContent extends Component {
               <div className={styles.radioButton}>
                 <Checkbox
                   radio
-                  name='checkboxRadioGroup'
-                  value='0'
+                  name="checkboxRadioGroup"
+                  value="0"
                   checked={this.state.value === '0'}
                   onChange={this.toggleRadio}
                   onClick={this.setWalletHot}
@@ -72,8 +68,8 @@ class CreationContent extends Component {
               <div className={styles.radioButton}>
                 <Checkbox
                   radio
-                  name='checkboxRadioGroup'
-                  value='1'
+                  name="checkboxRadioGroup"
+                  value="1"
                   checked={this.state.value === '1'}
                   onChange={this.toggleRadio}
                   onClick={this.setWalletCold}
@@ -96,11 +92,11 @@ class CreationContent extends Component {
 }
 
 export default withRouter(connect(
-    state => ({ wallet: state.wallet }),
-    dispatch => ( {
-        createWallet : (props, walletName) => {
-            dispatch(createWallet(props, walletName));
-        }
-    } )
+  state => ({ wallet: state.wallet }),
+  dispatch => ({
+    createWallet: (props, walletName) => {
+      dispatch(createWallet(props, walletName));
+    }
+  })
 )(CreationContent));
 
