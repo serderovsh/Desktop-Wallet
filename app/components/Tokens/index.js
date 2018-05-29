@@ -35,39 +35,30 @@ class TokenList extends Component {
     });
   }
 
-  renderTokens() {
-    let { searchString } = this.props;
-    let { tokens } = this.state;
-
-    return (
-      <div className={styles.tokensContainer}>
-        { this.state.tokens.length < 1 ? (<div className={styles.noResults}>No Tokens Found</div>) : '' }
-        {
-          this.state.tokens.map((token, index) => {
-            return (
-              <Token
-                key={index}
-                tokenName={token.name}
-                tokenURL={token.url}
-                totalIssued={token.totalIssued || 0}
-                totalSupply={token.total_supply}
-                endTime={token.end_time}
-                index={token.name}
-              />
-            )
-          })
-        }
-      </div>
-    );
-  }
-
   render() {
     return (
       <div className={styles.container}>
         <Header text="TOKENS :" />
         <div className={styles.subContainer}>
           <input className={styles.input} placeholder="Search for a token here..." onChange={this.filterTokens}/>
-          { this.renderTokens() }
+          <div className={styles.tokensContainer}>
+            { this.state.tokens.length < 1 ? (<div className={styles.noResults}>No Tokens Found</div>) : '' }
+            {
+              this.state.tokens.map((token, i) => {
+                return (
+                  <Token
+                    key={i}
+                    tokenName={token.name}
+                    tokenURL={token.url}
+                    totalIssued={token.totalIssued || 0}
+                    totalSupply={token.total_supply}
+                    endTime={token.end_time}
+                    index={i}
+                  />
+                )
+              })
+            }
+          </div>
           <div className={styles.buttonContainer}>
             <NavLink to="/tokens/createtoken">
               <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Token</Button>

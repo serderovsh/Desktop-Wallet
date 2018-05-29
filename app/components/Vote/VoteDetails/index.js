@@ -35,10 +35,8 @@ class VoteDetails extends Component {
     let currentRep = parseInt(this.props.match.params.rep);
     let rep = this.props.witnesses.witnesses[currentRep];
 
-    if(!rep) {
-      this.props.history.push("/vote/");
-      return(<div></div>);
-    }
+    let accountId = parseInt(this.props.match.params.account);
+    let account = this.props.wallet.persistent.accounts[accountId];
 
 
     return (
