@@ -49,7 +49,7 @@ export const routes = [
     main: () => <SendAmount />,
   },
   {
-    path: "/wallets/receive",
+    path: "/wallets/receive/:account",
     main: () => <Receive />,
   },
   {

@@ -40,7 +40,7 @@ class TokenList extends Component {
       <div className={styles.container}>
         <Header text="TOKENS :" />
         <div className={styles.subContainer}>
-          <input className={styles.input} placeholder="Search for a token here..." onChange={this.filterTokens}/>
+          <input className={styles.input} placeholder="Search for a token here..." onChange={this.filterTokens} />
           <div className={styles.tokensContainer}>
             { this.state.tokens.length < 1 ? (<div className={styles.noResults}>No Tokens Found</div>) : '' }
             {
@@ -54,8 +54,7 @@ class TokenList extends Component {
                     totalSupply={token.total_supply}
                     endTime={token.end_time}
                     index={i}
-                  />
-                )
+                  />);
               })
             }
           </div>
