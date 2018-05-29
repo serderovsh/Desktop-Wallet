@@ -34,7 +34,11 @@ class VoteDetails extends Component {
   render() {
     let currentRep = parseInt(this.props.match.params.rep);
     let rep = this.props.witnesses.witnesses[currentRep];
-    console.log(currentRep);
+
+    if(!rep) {
+      this.props.history.push("/vote/");
+      return(<div></div>);
+    }
 
 
     return (
@@ -45,7 +49,7 @@ class VoteDetails extends Component {
           <div className={styles.headerText}>Earn More TronPower by freezing Tron</div>
         </div>
         <div className={styles.subContainer}>
-          <div className={styles.votingFor}>YOUR ARE VOTING FOR : <span>NAME TO CHANGE</span></div>
+          <div className={styles.votingFor}>YOUR ARE VOTING FOR : <span>{rep.url}</span></div>
           <div className={styles.dropdown}>
             <ArrowRightIcon />
             <Dropdown fluid selection
