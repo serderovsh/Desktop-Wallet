@@ -16,9 +16,7 @@ import TxList from './TxList';
 class WalletView extends Component {
   render() {
     let accountId = this.props.match.params.account;
-    console.log('accountid:' + accountId);
     let account = this.props.wallet.persistent.accounts[accountId];
-    console.log(account);
 
     if (!account) {
       this.props.history.push('/wallets/');
@@ -39,7 +37,7 @@ class WalletView extends Component {
               </Dropdown.Menu>
             </Dropdown>
           </Header>
-          <SubHeader tokens={account.tokens} trx={account.trx}/>
+          <SubHeader account={account} />
         </div>
         <div className={styles.buttonContainer}>
           <NavLink to={'/wallets/send/' + accountId + '/'}>
