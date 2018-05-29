@@ -96,6 +96,10 @@ function addAccount(persistent, accountName = "Unnamed Wallet"){
         votes : [],
 
         lastSync : 0, //timestamp with last sync
+
+        frozenBalance : 0,
+        frozenExpireTime : 0,
+        bandwidth : 0
     });
     return persistent;
 }
@@ -130,10 +134,6 @@ async function getAccountsInfo(persistent){
     return await client.getAccounts(addresses);
 }
 
-export const sendAmount = (props, dispatch) =>{
-
-};
-
 export const updateAllAccounts = (persistent) =>{
     return {
         type : UPDATE_ALL_ACCOUNTS,
@@ -167,6 +167,13 @@ function startUpdateAccountsAsync(persistent, dispatch){
             if(info){
                 persistent.accounts[i].trx = info.trx;
                 persistent.accounts[i].tokens = info.tokens;
+                persistent.frozenBalance = info.frozen_balance;
+                persistent.frozenExpireTime = info.frozen_expire_time;
+                if(info.net){
+                    persistent.bandwidth = info.net.netlimit - info.net.netused;
+                }else{
+                    persistent.bandwidth = 0;
+                }
             }
         }
         dispatch(updateAllAccounts(persistent));
