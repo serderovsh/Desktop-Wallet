@@ -53,6 +53,10 @@ export const routes = [
     main: () => <Receive />,
   },
   {
+    path: "/wallets/transactionDetails/:account",
+    main: () => <ViewTransaction />,
+  },
+  {
     path: "/settings/",
     sidebar: () => <SettingList />,
   },
