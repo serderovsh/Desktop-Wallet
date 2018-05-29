@@ -1,6 +1,7 @@
 const TronHttpClient = require('tron-http-client');
 const TronHttpTools = require('tron-http-tools');
 const client = new TronHttpClient();
+const Decimal = require('decimal.js').Decimal;
 
 export const SET_TOKEN_BALANCES = 'SET_TOKEN_BALANCES';
 export const INIT = 'INIT';
@@ -167,12 +168,12 @@ function startUpdateAccountsAsync(persistent, dispatch){
             if(info){
                 persistent.accounts[i].trx = info.trx;
                 persistent.accounts[i].tokens = info.tokens;
-                persistent.frozenBalance = info.frozen_balance;
-                persistent.frozenExpireTime = info.frozen_expire_time;
+                persistent.accounts[i].frozenBalance = info.frozen_balance;
+                persistent.accounts[i].frozenExpireTime = info.frozen_expire_time;
                 if(info.net){
-                    persistent.bandwidth = info.net.netlimit - info.net.netused;
+                    persistent.accounts[i].bandwidth = new Decimal(info.net.netlimit).sub(new Decimal(info.net.netused)).toString();
                 }else{
-                    persistent.bandwidth = 0;
+                    persistent.accounts[i].bandwidth = 0;
                 }
             }
         }
