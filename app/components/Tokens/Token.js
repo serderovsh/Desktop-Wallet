@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Token.css';
 
@@ -11,7 +11,7 @@ class Token extends Component {
       <NavLink to={"/tokens/tokenDetails/" + this.props.index} className={styles.token}>
         <div className={styles.topBar}>
           <div className={styles.tokenName}>{this.props.tokenName}</div>
-          {this.props.tokenURL ? <a src={this.props.tokenURL}>View Website</a> : <div className={styles.filler}></div>}
+          {this.props.tokenURL ? <Link to={this.props.tokenURL}>View Website</Link> : <div className={styles.filler}></div>}
         </div>
         <TokenProgressBar
           className={styles.tokenBar}

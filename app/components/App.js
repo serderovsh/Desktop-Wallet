@@ -1,7 +1,7 @@
 /* eslint flowtype-errors/show-errors: 0 */
 import React from 'react';
 import { connect } from 'react-redux';
-//import { IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl';
 
 import Navbar from './Navbar/';
 import Sidebar from './Sidebar';
@@ -11,12 +11,15 @@ import { languages } from '../translations';
 import { setLanguage } from '../actions/app';
 // Styles
 import styles from '../components/ContentMain.css';
+import { initFromStorage } from "../actions/wallet";
+import { withRouter } from "react-router-dom";
 
 class App extends React.Component {
-  // componentDidMount() {
-  //   let language = 'en';
-  //   this.props.setLanguage(language);
-  // }
+  componentDidMount() {
+    let language = 'en';
+    this.props.setLanguage(language);
+    this.props.initFromStorage(this.props);
+  }
   render() {
     let { activeLanguage } = this.props;
     return (
@@ -31,16 +34,20 @@ class App extends React.Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     activeLanguage: state.app.activeLanguage,
-//     availableLanguages: state.app.availableLanguages,
-//   };
-// }
-// const mapDispatchToProps = {
-//   setLanguage
-// };
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
 
-export default App;
+export default withRouter(connect(
+  state => ({
+    wallet: state.wallet,
+    activeLanguage: state.app.activeLanguage,
+    availableLanguages: state.app.availableLanguages
+  }),
+  dispatch => ({
+    initFromStorage: (props) => {
+      dispatch(initFromStorage(props, dispatch));
+    },
+    setLanguage: (props) => {
+      dispatch(setLanguage(props, dispatch));
+    }
+  })
+)(App));
+

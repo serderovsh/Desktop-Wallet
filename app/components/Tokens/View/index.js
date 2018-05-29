@@ -58,7 +58,7 @@ class TokenView extends Component {
             options={this.state.wallets}
           />
         </div>
-        <AmountSlider totalTRX={ this.state.selectedWallet.trx }/>
+        <AmountSlider totalTRX={ this.state.selectedWallet.trx } />
         <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Purchase</Form.Button>
       </div>
       </Secondary>
