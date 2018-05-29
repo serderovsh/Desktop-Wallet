@@ -14,7 +14,13 @@ let languages = [
   { text: 'English', value: 'en' },
 ]
 
+
 export default class Language extends Component {
+  state = {}
+
+  // sets language, returns value, ex. 'en'
+  setLanguage = (e, { value }) => this.setState({ value })
+
   render() {
     return (
       <Secondary>
@@ -25,7 +31,7 @@ export default class Language extends Component {
           <div className={styles.dropdown}>
             <ArrowRightIcon />
             <Form.Select fluid
-              onChange={this.selectWallet}
+              onChange={this.setLanguage}
               className={styles.selectLanguage}
               defaultValue={languages.length > 0 ? languages[0].value : ''}
               placeholder='Select Language...'

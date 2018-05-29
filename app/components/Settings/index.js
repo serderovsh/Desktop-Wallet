@@ -16,7 +16,7 @@ export default class SettingList extends Component {
         <Header text="MY SETTINGS :" />
         <CategoryHeader text="General">
           <CategoryChild text="Address Book" icon={<BookIcon />} routeTo="/settings/addressbook" />
-          <CategoryChild text="Help & Support" icon={<QuestionMarkIcon />} routeTo="/settings/help" />
+          <CategoryChild text="Feedback" icon={<QuestionMarkIcon />} routeTo="/settings/feedback" />
           <CategoryChild text="Share Tron Wallet" icon={<ShareIcon />} routeTo="/settings/share" />
         </CategoryHeader>
         <CategoryHeader text="Preferences">
