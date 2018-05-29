@@ -13,6 +13,46 @@ const TronHttpClient = require('tron-http-client');
 const client = new TronHttpClient();
 
 class CreateToken extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false,
+      isTokenCreated: false
+    };
+  }
+
+  isValid = ({
+    assetName,
+    assetAbbr,
+    totalSupply,
+    num,
+    trxNum,
+    endTime,
+    startTime,
+    description,
+    url,
+    confirmed
+  }) => {
+    let { loading } = this.state;
+    if (
+      loading ||
+      assetName.length === 0 ||
+      assetAbbr.length === 0 ||
+      totalSupply <= 0 ||
+      num <= 0 ||
+      trxNum <= 0 ||
+      !endTime ||
+      !startTime ||
+      description.length === 0 ||
+      url.length === 0
+    ) {
+      return false;
+    }
+
+    return confirmed;
+  };
+
   inputAlphanumeric(e)
   {
     if (!/^[a-zA-Z0-9]+$/.test(e.key)) {
@@ -26,27 +66,28 @@ class CreateToken extends Component {
   };
 
   render() {
-    let accountId = parseInt(this.props.match.params.accounts);
+    let accountId = parseInt(this.props.match.params.account);
     let accounts = this.props.wallet.persistent.accounts;
     let selectedWallet = this.props.wallet.persistent.accounts[accountId];
+
     console.log(accounts);
 
-    const submitToken = async CreateToken => {
-      let startTime = Date.now() + (60 * 1000);
-      let endTime = Date.now() + (60 * 1000 * 60 * 24);
-      let props = {
-        assetName: '',
-        assetAbbr: '',
-        totalSupply: 0,
-        num: 0,
-        trxNum: 0,
-        endTime: endTime,
-        startTime: startTime,
-        description: '',
-        url: ''
-      };
-      let response = await client.issueAsset(accounts.privateKey, props);
-      console.log(response);
+    const submitHandler = async formValues => {
+      let { accounts } = this.props;
+
+      this.setState({ loading: true });
+
+      formValues = { ...formValues, trxNum: formValues.trxNum * 1000000 };
+
+      try {
+        let result = await client.issueAsset(accounts.privateKey, formValues);
+
+        if (result) {
+          this.setState({ isTokenCreated: true });
+        }
+      } finally {
+        this.setState({ loading: false });
+      }
     };
 
     return (
