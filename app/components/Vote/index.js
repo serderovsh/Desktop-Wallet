@@ -16,14 +16,17 @@ class VoteList extends Component {
 
     this.state = {
       filterValue: '',
-      witnesses: this.props.witnesses
+      witnesses: this.props.witnesses.witnesses
     };
   }
 
   filterTokens = (e) => {
-    let filtered = this.props.witnesses.filter((witness) => {
+    console.log(this.props.witnesses.witnesses)
+    let filtered = this.props.witnesses.witnesses.filter((witness) => {
       return witness.url.toLowerCase().includes(e.target.value.toLowerCase());
     });
+
+    console.log(filtered)
 
     this.setState({
       witnesses: filtered,
@@ -37,7 +40,7 @@ class VoteList extends Component {
 
   render() {
 
-    let witnesses = this.props.witnesses.witnesses;
+    let witnesses = this.state.witnesses;
 
     return (
       <div className={styles.container}>
@@ -55,7 +58,7 @@ class VoteList extends Component {
                 blocksProduced={rep.totalproduced}
                 blocksMissed={rep.totalmissed}
                 totalVote={rep.votecount}
-                index={i}
+                address={rep.address}
               />)
           }
         </div>

@@ -15,10 +15,11 @@
     border-bottom: 1px solid #333;
     box-sizing: border-box;
     text-decoration: none;
-    transition: 200ms;
+    transition: 300ms;
 }
 
 .container:hover {
+    transition: 0ms;
     background: rgba(255,255,255,0.03);
 }
 
@@ -42,6 +43,7 @@
     transition: 75ms;
     margin: 10px 0px 0px 0px;
     background: rgba(255,255,255,0.08);
+    box-shadow: inset 0px 0px 10px #292929;
 }
 
 .text {

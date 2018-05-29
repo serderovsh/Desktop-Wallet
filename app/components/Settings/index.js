@@ -7,7 +7,7 @@ import CategoryHeader from './CategoryHeader';
 import CategoryChild from './CategoryChild';
 
 import { Dropdown } from 'semantic-ui-react'
-import { BookIcon, QuestionMarkIcon, ShareIcon, BellIcon, WebGlobeIcon } from '../Icons';
+import { BookIcon, QuestionMarkIcon, ShareIcon, BellIcon, WebGlobeIcon, WifiIcon } from '../Icons';
 
 export default class SettingList extends Component {
   render() {
@@ -22,6 +22,7 @@ export default class SettingList extends Component {
         <CategoryHeader text="Preferences">
           <CategoryChild text="Notifications" icon={<BellIcon />} routeTo="/settings/notifications" />
           <CategoryChild text="Language" subText="English" icon={<WebGlobeIcon />} routeTo="/settings/language" />
+          <CategoryChild text="Node" icon={<WifiIcon />} routeTo="/settings/node" />
         </CategoryHeader>
       </div>
     );

@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import styles from './VoteDetails.css';
 import buttonStyles from '../../Button.css';
 
+import { loadWitnesses } from '../../../actions/witnesses';
+
 import Secondary from '../../Content/Secondary';
 import Header from '../../Header';
 import VoteAmountSlider from './VoteAmountSlider';
@@ -25,32 +27,10 @@ class VoteDetails extends Component {
         tp: 0,
       }
     };
-
-    this.initializeData();
   }
 
-  initializeData = () => {
-    let accountId = parseInt(this.props.match.params.account);
-    let accounts = this.props.wallet.persistent.accounts
-    let selectedAccount = this.props.wallet.persistent.accounts[accountId];
-
-    let currentRep = parseInt(this.props.match.params.rep);
-    let rep = this.props.witnesses.witnesses[currentRep];
-
-    accounts.forEach((wallet, i) => {
-      let formattedObj = {
-        text: wallet.name,
-        value: wallet.publicKey,
-        tp: 0
-        // TODO: add tronpower support
-      }
-
-      this.state.dropdownWallets.push(formattedObj)
-    })
-
-    this.state.rep = rep;
-    this.state.wallets = accounts;
-    this.state.selectedWallet = selectedAccount;
+  componentDidMount() {
+    this.props.loadWitnesses();
   }
 
   selectWallet = (e, { value }) => {
@@ -59,7 +39,27 @@ class VoteDetails extends Component {
   }
 
   render() {
-    let { rep, wallets, selectedWallet, dropdownWallets } = this.state;
+    //let { rep, wallets, selectedWallet, dropdownWallets } = this.state;
+
+    let accountId = parseInt(this.props.match.params.account);
+    let accounts = this.props.wallet.persistent.accounts
+    let selectedWallet = this.props.wallet.persistent.accounts[accountId];
+
+    let currentRep = atob(this.props.match.params.rep);
+    let rep = this.props.witnesses.witnesses.find(w => w.address === currentRep);
+
+    let wallets = [];
+    accounts.forEach((wallet, i) => {
+      let formattedObj = {
+        text: wallet.name,
+        value: wallet.publicKey,
+        tp: 0
+        // TODO: add tronpower support
+      }
+
+      wallets.push(formattedObj)
+    });
+
     return (
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
@@ -75,7 +75,7 @@ class VoteDetails extends Component {
               onChange={this.selectWallet}
               defaultValue={wallets.length > 0 ? wallets[0].value : ''}
               placeholder='Choose Wallet'
-              options={dropdownWallets}
+              options={wallets}
             />
           </div>
           <VoteAmountSlider totalTP={/*selectedWallet.tp*/0} />
