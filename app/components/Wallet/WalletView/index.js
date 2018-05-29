@@ -43,7 +43,7 @@ class WalletView extends Component {
           <NavLink to={"/wallets/send/" + accountId + "/"}>
             <Button className={buttonStyles.button}><SendIcon />Send</Button>
           </NavLink>
-          <NavLink to="/wallets/receive">
+          <NavLink to={"/wallets/receive/" + accountId + "/"}>
             <Button className={buttonStyles.button}><QRScanIcon />Receive</Button>
           </NavLink>
           <NavLink to="/wallets/walletBackup">
