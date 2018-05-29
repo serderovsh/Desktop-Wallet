@@ -34,30 +34,6 @@ class VoteList extends Component {
     this.props.loadWitnesses();
   }
 
-  renderWitnesses(witnesses) {
-    let { searchString } = this.props;
-    witnesses = filter(witnesses, w => w.url.toUpperCase().indexOf(searchString) !== -1);
-    witnesses = sortBy(witnesses, w => w.url);
-
-    return (
-      <div className={styles.votesContainer}>
-        {witnesses.length < 1 ? (<div className={styles.noResults}>No Witnesses Found</div>) : ''}
-        {
-          witnesses.map((rep, i) =>
-            <Vote
-              key={i}
-              voteLabel={i + 1}
-              voteTitle={rep.url}
-              lastBlock={rep.latestblocknum}
-              blocksProduced={rep.totalproduced}
-              blocksMissed={rep.totalmissed}
-              totalVote={rep.votecount}
-              index={rep.address}
-            />)
-        }
-      </div>
-    );
-  }
 
   render() {
 
@@ -67,7 +43,22 @@ class VoteList extends Component {
       <div className={styles.container}>
         <Header className={styles.header} text="REPRESENTATIVE LISTING :" />
         <input className={styles.input} placeholder="Search for a Witness here..." onChange={this.filterTokens} />
-        {this.renderWitnesses(witnesses)}
+        <div className={styles.votesContainer}>
+          {witnesses.length < 1 ? (<div className={styles.noResults}>No Witnesses Found</div>) : ''}
+          {
+            witnesses.map((rep, i) =>
+              <Vote
+                key={i}
+                voteLabel={i + 1}
+                voteTitle={rep.url}
+                lastBlock={rep.latestblocknum}
+                blocksProduced={rep.totalproduced}
+                blocksMissed={rep.totalmissed}
+                totalVote={rep.votecount}
+                index={i}
+              />)
+          }
+        </div>
       </div>
     );
   }

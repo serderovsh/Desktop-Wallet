@@ -16,9 +16,6 @@ class VoteDetails extends Component {
     super(props);
 
     this.state = {
-      rep: {
-        name: 'FlottPay'
-      },
       wallets: [
         { text: 'Personal Wallet', value: 'wallet-id-1', tp: 533682 },
         { text: 'Business Wallet', value: 'wallet-id-2', tp: 266434534 },
@@ -34,12 +31,16 @@ class VoteDetails extends Component {
     if (this.state.wallets.length > 0) this.state.selectedWallet = this.state.wallets[ 0 ];
   }
 
-  selectWallet = (e, { value }) => {
-    let wallet = this.state.wallets.filter((wallet) => wallet.value == value);
-    this.setState({ selectedWallet: wallet[ 0 ] });
-  }
-
   render() {
+    let currentRep = parseInt(this.props.match.params.rep);
+    let rep = this.props.witnesses.witnesses[currentRep];
+
+    if(!rep) {
+      this.props.history.push("/vote/");
+      return(<div></div>);
+    }
+
+
     return (
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
@@ -48,7 +49,7 @@ class VoteDetails extends Component {
           <div className={styles.headerText}>Earn More TronPower by freezing Tron</div>
         </div>
         <div className={styles.subContainer}>
-          <div className={styles.votingFor}>YOUR ARE VOTING FOR : <span>{this.state.rep.name}</span></div>
+          <div className={styles.votingFor}>YOUR ARE VOTING FOR : <span>{rep.url}</span></div>
           <div className={styles.dropdown}>
             <ArrowRightIcon />
             <Dropdown fluid selection

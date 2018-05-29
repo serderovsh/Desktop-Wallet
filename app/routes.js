@@ -81,7 +81,7 @@ export const routes = [
     sidebar: () => <VoteList />,
   },
   {
-    path: "/vote/voteDetails/:witnesses?",
+    path: "/vote/voteDetails/:rep",
     main: () => <VoteDetails />
   },
   {
