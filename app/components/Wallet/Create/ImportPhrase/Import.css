@@ -96,3 +96,7 @@
 .word input:focus {
     outline: none;
 }
+
+.invalid {
+    color:red;
+}

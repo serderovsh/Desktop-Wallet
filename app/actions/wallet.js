@@ -43,10 +43,12 @@ function verifyPersistent(persistent){
         console.log("persistent.accounts missing");
         return false;
     }
+    /*
     if(!('walletType' in persistent)){
         console.log("persistent.walletType missing");
         return false;
     }
+    */
 
     return true;
 }
@@ -78,8 +80,9 @@ function savePersistent(persistent, password=""){
     }
 }
 
-function addAccount(persistent, accountName = "Unnamed Wallet"){
-    let newAccount = TronHttpTools.accounts.generateRandomBip39();
+function addAccount(persistent, accountName = "Unnamed Wallet", newAccount = null){
+    if(newAccount === null)
+        newAccount = TronHttpTools.accounts.generateRandomBip39();
 
     persistent.accounts[newAccount.address] ={
         trx : 0,
@@ -134,15 +137,14 @@ export const updateAllAccounts = (persistent) =>{
     }
 };
 
-export const createAccount = (props, accountName) => {
-    let persistent = addAccount(props.wallet.persistent, accountName);
+export const createAccount = (props, accountName, newAccount = null) => {
+    let persistent = addAccount(props.wallet.persistent, accountName, newAccount);
     savePersistent(persistent);
     return {
         type : UPDATE_ALL_ACCOUNTS,
         persistent: persistent
     }
 };
-
 
 export const updateTransactions = (accountId, transactions)=>{
     return {
