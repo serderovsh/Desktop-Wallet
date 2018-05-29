@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -16,10 +15,10 @@ class Wallet extends Component {
         <WalletIcon className={styles.walletIcon} />
         <ul className={styles.walletInfo}>
           <li className={styles.name}>{ this.props.name }</li>
-            <li> { this.props.trx} TRX</li>
+            <li className={styles.token}> { this.props.trx} TRX</li>
           {
             keys.map((k, i) =>
-              <li key={k}>{ this.props.tokens[k].amount } { k }</li>
+              <li className={styles.token} key={k}>{ this.props.tokens[k].amount } { k }</li>
             )
           }
         </ul>

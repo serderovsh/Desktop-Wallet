@@ -16,11 +16,9 @@ class VoteDetails extends Component {
     super(props);
 
     this.state = {
-      wallets: [
-        { text: 'Personal Wallet', value: 'wallet-id-1', tp: 533682 },
-        { text: 'Business Wallet', value: 'wallet-id-2', tp: 266434534 },
-        { text: 'New Wallet', value: 'wallet-id-3', tp: 0 }
-      ],
+      rep: {},
+      wallets: [],
+      dropdownWallets: [],
       selectedWallet: {
         text: 'Select a Wallet',
         value: '',
@@ -28,23 +26,45 @@ class VoteDetails extends Component {
       }
     };
 
-    if (this.state.wallets.length > 0) this.state.selectedWallet = this.state.wallets[ 0 ];
+    this.initializeData();
   }
 
-  render() {
+  initializeData = () => {
+    let accountId = parseInt(this.props.match.params.account);
+    let accounts = this.props.wallet.persistent.accounts
+    let selectedAccount = this.props.wallet.persistent.accounts[accountId];
+
     let currentRep = parseInt(this.props.match.params.rep);
     let rep = this.props.witnesses.witnesses[currentRep];
 
-    let accountId = parseInt(this.props.match.params.account);
-    let account = this.props.wallet.persistent.accounts[accountId];
-    let accounts = this.props.wallet.persistent.accounts
-    console.log(accounts)
+    accounts.forEach((wallet, i) => {
+      let formattedObj = {
+        text: wallet.name,
+        value: wallet.publicKey,
+        tp: 0
+        // TODO: add tronpower support
+      }
 
+      this.state.dropdownWallets.push(formattedObj)
+    })
+
+    this.state.rep = rep;
+    this.state.wallets = accounts;
+    this.state.selectedWallet = selectedAccount;
+  }
+
+  selectWallet = (e, { value }) => {
+     let wallet = this.state.wallets.filter((wallet) => wallet.value == value);
+     this.setState({ selectedWallet: wallet[0] });
+  }
+
+  render() {
+    let { rep, wallets, selectedWallet, dropdownWallets } = this.state;
     return (
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
           <Header headerName="Votes" />
-          <div className={styles.headerTP}>{this.state.selectedWallet.tp.toLocaleString()}<span>TP</span></div>
+          <div className={styles.headerTP}>{/*selectedWallet.tp.toLocaleString()*/0}<span>TP</span></div>
           <div className={styles.headerText}>Earn More TronPower by freezing Tron</div>
         </div>
         <div className={styles.subContainer}>
@@ -53,12 +73,12 @@ class VoteDetails extends Component {
             <ArrowRightIcon />
             <Dropdown fluid selection
               onChange={this.selectWallet}
-              defaultValue={this.state.wallets.length > 0 ? this.state.wallets[0].value : ''}
+              defaultValue={wallets.length > 0 ? wallets[0].value : ''}
               placeholder='Choose Wallet'
-              options={accounts}
+              options={dropdownWallets}
             />
           </div>
-          <VoteAmountSlider totalTP={this.state.selectedWallet.tp} />
+          <VoteAmountSlider totalTP={/*selectedWallet.tp*/0} />
           <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>
             Submit Your Vote
           </Form.Button>

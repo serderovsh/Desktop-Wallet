@@ -18,10 +18,8 @@ export default class AmountSlider extends Component {
 
   get sliderWidthCalc() {
     if (this.state.current == 0 || this.props.totalTRX == 0) {
-      console.log('test')
       return 0
     }
-    console.log('redraw')
     return Math.round((this.state.current / this.props.totalTRX) * 100);
   }
 

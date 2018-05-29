@@ -51,15 +51,25 @@
     flex-grow: 1;
 }
 
-.walletInfo > li {
+.token {
     font-family: 'Source Code Pro', monospace;
     color: #9B9B9B;
     margin-bottom: 5px;
+    text-decoration: none;
 }
 
 .walletInfo > .name {
     font-family: 'Roboto', sans-serif;
     color: #fff;
+    margin-bottom: 8px;
+}
+
+.publicKey {
+    font-size: 9px;
+    color: #5d5d5d;
+    text-overflow: ellipsis;
+    width: 100px;
+    overflow: hidden;
     margin-bottom: 8px;
 }
 
