@@ -50,6 +50,7 @@
 .warningHeader {
     color: red;
     font-family: 'Source Code Pro', monospace;
+    margin-bottom: 5px;
 }
 
 .warningText {
@@ -64,12 +65,27 @@
     font-family: 'Source Code Pro', monospace;
     font-size: 12px;
     text-align: center;
-    margin: 5px;
+    margin: 10px;
 }
 
 .warningSubText {
     color: red;
     font-family: 'Source Code Pro', monospace;
     font-size: 10px;
+    text-align: center;
+}
+
+.input {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.input input{
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 8px 20px;
+    font-size: 12px;
+    box-sizing: border-box;
     text-align: center;
 }

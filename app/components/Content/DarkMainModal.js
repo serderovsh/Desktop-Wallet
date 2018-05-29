@@ -6,15 +6,15 @@ import { withRouter } from 'react-router-dom';
 
 import Header from '../Header';
 
-import { CloseIcon } from '../Icons';
+import { BackArrowIcon } from '../Icons';
 
-class Backup extends Component {
+class DarkMainModal extends Component {
   render() {
 
     return (
       <div className={styles.container}>
         <Header className={styles.white} headerName={ this.props.header } />
-        <div onClick={this.props.history.goBack} className={styles.closeModal}><CloseIcon /></div>
+        <div onClick={this.props.history.goBack} className={styles.backArrow}><BackArrowIcon /></div>
         <div className={`${styles.subContainer} ${this.props.className}`}>
           { this.props.children }
         </div>
@@ -23,4 +23,4 @@ class Backup extends Component {
   }
 }
 
-export default withRouter((Backup));
+export default withRouter((DarkMainModal));

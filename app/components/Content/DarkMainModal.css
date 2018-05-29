@@ -40,3 +40,22 @@
     cursor: pointer;
     z-index: 10;
 }
+
+.backArrow {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    border-top: 2px solid #ED3F21;
+    border-left: 2px solid #ED3F21;
+    border-bottom: 2px solid #DC2C73;
+    border-right: 2px solid #DC2C73;
+    border-radius: 10px;
+    fill: #fff;
+    padding: 10px 10px 8px 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.backArrow:hover {
+    background: rgba(255,255,255,0.1);
+}

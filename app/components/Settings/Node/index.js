@@ -11,21 +11,30 @@ import buttonStyles from '../../Button.css';
 import { WifiIcon } from '../../Icons';
 
 export default class Node extends Component {
+  state = {};
+
+
+  updateValue = (e, { value }) => this.setState({ value })
+
+  setNode = (e) => {
+    console.log(value)
+  }
+
   render() {
     return (
       <Secondary>
         <Header headerName="Node" />
-        <div className={styles.container}>
+        <Form className={styles.container} onSubmit={this.setNode}>
           <WifiIcon className={styles.icon} />
           <div className={styles.warningHeader}>WARNING</div>
           <div className={styles.warningText}>TronWatch depends on YYY for the blockchain information, networking and synchronization.</div>
           <div className={styles.warningText}>The default configuration points to:</div>
           <div className={styles.warningLink}>https://api.tron.watch</div>
           <div className={styles.warningSubText}>(TronWatch public instance)</div>
-          <div className={styles.subText}>Change the Wallet Service URL below.</div>
-          <Input placeholder="https://api.tron.watch" />
           <div className={styles.divider} />
-        </div>
+          <div className={styles.subText}>Change the Wallet Service URL below.</div>
+          <Form.Input className={styles.input} placeholder="https://api.tron.watch" onChange={this.updateValue}/>
+        </Form>
       </Secondary>
     );
   }
