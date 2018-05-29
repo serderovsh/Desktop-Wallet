@@ -31,7 +31,9 @@ class WalletView extends Component {
         <Header headerName={account.name}>
           <Dropdown className={styles.moreMenu} icon={<MoreIcon />}>
             <Dropdown.Menu>
-              <Dropdown.Item text="Temp Dropdown One" icon={<VoteIcon />} />
+              <NavLink to="/wallets/walletBackup">
+                <Dropdown.Item text="Backup Wallet" icon={<DownloadIcon />} />
+              </NavLink>
               <Dropdown.Divider />
               <Dropdown.Item text="Temp Dropdown Two" icon={<CalendarIcon />} />
             </Dropdown.Menu>
@@ -45,9 +47,6 @@ class WalletView extends Component {
           </NavLink>
           <NavLink to={"/wallets/receive/" + accountId + "/"}>
             <Button className={buttonStyles.button}><QRScanIcon />Receive</Button>
-          </NavLink>
-          <NavLink to="/wallets/walletBackup">
-            <Button className={buttonStyles.button}><DownloadIcon />Backup</Button>
           </NavLink>
         </div>
         <DatePicker />
