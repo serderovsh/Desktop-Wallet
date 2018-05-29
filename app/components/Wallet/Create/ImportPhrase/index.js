@@ -52,7 +52,7 @@ class Import extends Component {
     onImport(){
         let mnemonic = this.state.words.join(" ");
         let newAccount = tools.accounts.accountFromMnemonicString(mnemonic);
-        this.props.createAccount(this.props, "imported account", newAccount);
+        this.props.createAccount(this.props, "Imported Account", newAccount);
     }
 
     render() {
