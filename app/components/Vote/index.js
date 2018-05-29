@@ -21,12 +21,9 @@ class VoteList extends Component {
   }
 
   filterTokens = (e) => {
-    console.log(this.props.witnesses.witnesses)
     let filtered = this.props.witnesses.witnesses.filter((witness) => {
       return witness.url.toLowerCase().includes(e.target.value.toLowerCase());
     });
-
-    console.log(filtered)
 
     this.setState({
       witnesses: filtered,

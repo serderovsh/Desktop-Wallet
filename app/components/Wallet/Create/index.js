@@ -6,11 +6,13 @@ import styles from './Creation.css';
 import Header from '../../Header';
 import Secondary from '../../Content/Secondary';
 import CreationContent from './Create';
-import ImportContent from './Import';
+import ImportPhrase from './ImportPhrase';
+import ImportKey from './ImportKey';
 
 const panes = [
   { menuItem: 'Create New Wallet', render: () => <Tab.Pane attached={false}><CreationContent /></Tab.Pane> },
-  { menuItem: 'Import Wallet', render: () => <Tab.Pane attached={false}><ImportContent /></Tab.Pane> }
+  { menuItem: 'Import Phrase', render: () => <Tab.Pane attached={false}><ImportPhrase /></Tab.Pane> },
+  { menuItem: 'Import Key', render: () => <Tab.Pane attached={false}><ImportKey /></Tab.Pane> }
 ];
 
 export default class Creation extends Component {

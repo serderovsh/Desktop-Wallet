@@ -5,7 +5,6 @@ import styles from './Vote.css';
 
 class Vote extends Component {
   render() {
-    console.log(this.props.address)
     return (
       // convert addres to base64 beccause address has a slash which screws up routing
       <NavLink to={"/vote/voteDetails/" + btoa(this.props.address) + "/"} className={styles.vote}>
