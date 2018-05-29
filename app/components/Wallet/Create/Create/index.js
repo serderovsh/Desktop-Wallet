@@ -12,7 +12,12 @@ import buttonStyles from '../../../Button.css';
 
 class CreationContent extends Component {
   state = {}
-  handleChange = (e, { value }) => this.setState({ value });
+
+  // wallet types: 0-Hot, 1-Cold
+  toggleRadio = (e, { value }) => this.setState({ value });
+  setWalletHot = (type) => this.setState({ walletType: 0 });
+  setWalletCold = (type) => this.setState({ walletType: 1 });
+  setWalletName = (e, { value }) => this.setState({ walletName: value });
 
   constructor(){
     super();
@@ -20,7 +25,8 @@ class CreationContent extends Component {
   }
 
   onClickCreate(){
-    this.props.createWallet(this.props);
+    console.log(this.state.walletName, this.state.walletType)
+    this.props.createWallet(this.props, this.state.walletName, this.state.walletType);
   }
 
   inputAlphanumeric(e) {
@@ -35,7 +41,11 @@ class CreationContent extends Component {
         <div className={styles.header}>CREATE A NEW WALLET :</div>
         <Form className={styles.form}>
           <Form.Field>
-            <Input placeholder="Enter Wallet Name" onKeyPress={this.inputAlphanumeric}/>
+            <Input
+              placeholder="Enter Wallet Name"
+              onKeyPress={this.inputAlphanumeric}
+              onChange={this.setWalletName}
+            />
           </Form.Field>
           <div className={styles.radioContainerMain}>
             <Form.Field className={styles.radioSection}>
@@ -45,7 +55,8 @@ class CreationContent extends Component {
                   name='checkboxRadioGroup'
                   value='0'
                   checked={this.state.value === '0'}
-                  onChange={this.handleChange}
+                  onChange={this.toggleRadio}
+                  onClick={this.setWalletHot}
                 />
               </div>
               <div className={styles.radioContainer}>
@@ -64,7 +75,8 @@ class CreationContent extends Component {
                   name='checkboxRadioGroup'
                   value='1'
                   checked={this.state.value === '1'}
-                  onChange={this.handleChange}
+                  onChange={this.toggleRadio}
+                  onClick={this.setWalletCold}
                 />
               </div>
               <div className={styles.radioContainer}>

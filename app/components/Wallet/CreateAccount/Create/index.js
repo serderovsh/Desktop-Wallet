@@ -20,7 +20,7 @@ class CreationContent extends Component {
   }
 
   onClickCreate(){
-      this.props.createAccount(this.props);
+      this.props.createAccount(this.props, this.state.value);
   }
 
   render() {
@@ -28,7 +28,7 @@ class CreationContent extends Component {
       <div className={styles.container}>
         <div className={styles.header}>CREATE A NEW WALLET :</div>
         <Form className={styles.form}>
-            <Input placeholder="Enter Wallet Name" />
+            <Input placeholder="Enter Wallet Name" onChange={this.handleChange}/>
           <Form.Button onClick={this.onClickCreate} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Send</Form.Button>
         </Form>
       </div>

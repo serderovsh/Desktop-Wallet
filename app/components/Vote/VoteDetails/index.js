@@ -37,7 +37,8 @@ class VoteDetails extends Component {
 
     let accountId = parseInt(this.props.match.params.account);
     let account = this.props.wallet.persistent.accounts[accountId];
-
+    let accounts = this.props.wallet.persistent.accounts
+    console.log(accounts)
 
     return (
       <Secondary className={styles.container}>
@@ -51,10 +52,10 @@ class VoteDetails extends Component {
           <div className={styles.dropdown}>
             <ArrowRightIcon />
             <Dropdown fluid selection
-                      onChange={this.selectWallet}
-                      defaultValue={this.state.wallets.length > 0 ? this.state.wallets[ 0 ].value : ''}
-                      placeholder='Choose Wallet'
-                      options={this.state.wallets}
+              onChange={this.selectWallet}
+              defaultValue={this.state.wallets.length > 0 ? this.state.wallets[0].value : ''}
+              placeholder='Choose Wallet'
+              options={accounts}
             />
           </div>
           <VoteAmountSlider totalTP={this.state.selectedWallet.tp} />
