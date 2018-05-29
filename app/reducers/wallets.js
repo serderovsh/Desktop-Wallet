@@ -3,7 +3,6 @@ import {
   UPDATE_ALL_ACCOUNTS,
   FINISH_INITIALIZATION,
   WALLET_STATE,
-  SET_TOKEN_BALANCES,
   INIT
 } from '../actions/wallet';
 
