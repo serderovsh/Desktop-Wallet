@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import { Tab } from 'semantic-ui-react';
 
 import styles from './Creation.css';
@@ -10,9 +9,9 @@ import CreationContent from './Create';
 import ImportContent from './Import';
 
 const panes = [
-  { menuItem: 'Create New Wallet', render: () => <Tab.Pane attached={false}><CreationContent/></Tab.Pane> },
-  { menuItem: 'Import Wallet', render: () => <Tab.Pane attached={false}><ImportContent/></Tab.Pane> }
-]
+  { menuItem: 'Create New Wallet', render: () => <Tab.Pane attached={false}><CreationContent /></Tab.Pane> },
+  { menuItem: 'Import Wallet', render: () => <Tab.Pane attached={false}><ImportContent /></Tab.Pane> }
+];
 
 export default class Creation extends Component {
   render() {
