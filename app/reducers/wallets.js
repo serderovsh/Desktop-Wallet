@@ -2,15 +2,16 @@ import {
   UPDATE_TRANSACTIONS,
   UPDATE_ALL_ACCOUNTS,
   FINISH_INITIALIZATION,
+  INITIALIZATION_NEED_DECRYPTION,
   WALLET_STATE,
   INIT
 } from '../actions/wallet';
 
 const initialState = {
   persistent: {
-
     accounts: []
   },
+  persistent_encrypted : null,
   wallet_state: WALLET_STATE.NEEDS_LOADING,
 };
 
@@ -23,6 +24,14 @@ export function walletReducer(state = initialState, action) {
         ...action
       };
     }
+
+      case INITIALIZATION_NEED_DECRYPTION: {
+          return {
+              ...state,
+              persistent_encrypted: action.persistent_encrypted,
+              wallet_state: action.wallet_state
+          }
+      }
 
     case FINISH_INITIALIZATION: {
       return {
