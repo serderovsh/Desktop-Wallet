@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Form } from 'semantic-ui-react';
+import { Dropdown, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -20,11 +20,10 @@ class VoteDetails extends Component {
     this.state = {
       rep: {},
       wallets: [],
-      dropdownWallets: [],
       selectedWallet: {
         text: 'Select a Wallet',
         value: '',
-        tp: 0,
+        frozenBalance: 0,
       }
     };
   }
@@ -34,29 +33,26 @@ class VoteDetails extends Component {
   }
 
   selectWallet = (e, { value }) => {
-     let wallet = this.state.wallets.filter((wallet) => wallet.value == value);
-     this.setState({ selectedWallet: wallet[0] });
+    let accounts = this.props.wallet.persistent.accounts;
+    let wallet = Object.keys(accounts).filter((wallet) => accounts[wallet].publicKey == value);
+    this.setState({ selectedWallet: accounts[wallet[0]] });
   }
 
   render() {
-    //let { rep, wallets, selectedWallet, dropdownWallets } = this.state;
+    let { selectedWallet } = this.state;
 
-    let accountId = parseInt(this.props.match.params.account);
-    let accounts = this.props.wallet.persistent.accounts
-    let selectedWallet = this.props.wallet.persistent.accounts[accountId];
+    let accountId = this.props.match.params.account;
+    let accounts = this.props.wallet.persistent.accounts;
 
     let currentRep = atob(this.props.match.params.rep);
     let rep = this.props.witnesses.witnesses.find(w => w.address === currentRep);
 
     let wallets = [];
-    accounts.forEach((wallet, i) => {
+    Object.keys(accounts).forEach((wallet, i) => {
       let formattedObj = {
-        text: wallet.name,
-        value: wallet.publicKey,
-        tp: 0
-        // TODO: add tronpower support
+        text: accounts[wallet].name,
+        value: accounts[wallet].publicKey
       }
-
       wallets.push(formattedObj)
     });
 
@@ -64,7 +60,7 @@ class VoteDetails extends Component {
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
           <Header headerName="Votes" />
-          <div className={styles.headerTP}>{/*selectedWallet.tp.toLocaleString()*/0}<span>TP</span></div>
+          <div className={styles.headerTP}>{selectedWallet.frozenBalance.toLocaleString()}<span>TP</span></div>
           <div className={styles.headerText}>Earn More TronPower by freezing Tron</div>
         </div>
         <div className={styles.subContainer}>
@@ -73,15 +69,12 @@ class VoteDetails extends Component {
             <ArrowRightIcon />
             <Dropdown fluid selection
               onChange={this.selectWallet}
-              defaultValue={wallets.length > 0 ? wallets[0].value : ''}
               placeholder='Choose Wallet'
               options={wallets}
             />
           </div>
-          <VoteAmountSlider totalTP={/*selectedWallet.tp*/0} />
-          <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>
-            Submit Your Vote
-          </Form.Button>
+          <VoteAmountSlider totalTP={selectedWallet.frozenBalance} />
+          <Button onClick={this.submitVote} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit Your Vote</Button>
         </div>
       </Secondary>
     );
