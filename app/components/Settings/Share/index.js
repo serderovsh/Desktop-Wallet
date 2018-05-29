@@ -11,6 +11,12 @@ import buttonStyles from '../../Button.css';
 import { ShareIcon, RedditIcon, TwitterIcon, FacebookIcon } from '../../Icons';
 
 export default class Share extends Component {
+
+  // replace with share links later
+  goToTwitter = () => require('electron').shell.openExternal('https://twitter.com/');
+  goToFacebook = () => require('electron').shell.openExternal('https://facebook.com/');
+  goToReddit = () => require('electron').shell.openExternal('https://reddit.com/');
+
   render() {
     return (
       <Secondary>
@@ -20,9 +26,9 @@ export default class Share extends Component {
           <div>Share Tron Wallet on social media.</div>
           <div className={styles.subText}>Click one of the buttons below to be taken to it's respective website to share a post.</div>
           <div className={styles.buttonContainer}>
-            <Button className={`${buttonStyles.iconButton} ${buttonStyles.gradient}`}><FacebookIcon /></Button>
-            <Button className={`${buttonStyles.iconButton} ${buttonStyles.gradient}`}><TwitterIcon /></Button>
-            <Button className={`${buttonStyles.iconButton} ${buttonStyles.gradient}`}><RedditIcon /></Button>
+            <Button onClick={this.goToFacebook} className={`${buttonStyles.iconButton} ${buttonStyles.gradient}`}><FacebookIcon /></Button>
+            <Button onClick={this.goToTwitter} className={`${buttonStyles.iconButton} ${buttonStyles.gradient}`}><TwitterIcon /></Button>
+            <Button onClick={this.goToReddit} className={`${buttonStyles.iconButton} ${buttonStyles.gradient}`}><RedditIcon /></Button>
           </div>
         </div>
       </Secondary>

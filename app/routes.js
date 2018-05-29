@@ -17,7 +17,7 @@ import WalletBackup from './components/Wallet/Backup/';
 import Share from './components/Settings/Share';
 import ContactDetails from './components/Contact/ContactDetails';
 import VoteDetails from './components/Vote/VoteDetails';
-import Support from './components/Settings/Support';
+import Feedback from './components/Settings/Feedback';
 import AddressBook from './components/Settings/AddressBook';
 import Language from './components/Settings/Language';
 import Notifications from './components/Settings/Notifications';
@@ -66,8 +66,8 @@ export const routes = [
     main: () => <AddressBook />,
   },
   {
-    path: "/settings/help",
-    main: () => <Support />,
+    path: "/settings/Feedback",
+    main: () => <Feedback />,
   },
   {
     path: "/settings/share",
