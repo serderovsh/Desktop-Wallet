@@ -13,5 +13,5 @@ export function trxToDrops(trx){
 }
 
 export function dropsToFiat(currencyState, trx, currency=CURRENCY.USD){
-    return dropsToTrx(trx).mul(new Decimal(currency[currency]));
+    return dropsToTrx(trx).mul(new Decimal(currency[currency])).toString();
 }
