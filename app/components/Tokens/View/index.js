@@ -39,6 +39,7 @@ class TokenView extends Component {
   render() {
     let currentToken = parseInt(this.props.match.params.token);
     let token = this.props.tokens.tokens[currentToken];
+    console.log(this.props.tokens.tokens)
 
     return (
       <Secondary className={styles.container}>

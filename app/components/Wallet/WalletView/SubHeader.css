@@ -22,11 +22,29 @@
     font-family: 'Source Code Pro', monospace;
     color: #fff;
     font-size: 20px;
-    margin: 40px 0px 20px 0px;
+    margin-top: 40px;
 }
 
 .mainAmount span {
     font-weight: 300;
+}
+
+.tronPower {
+    font-family: 'Source Code Pro', monospace;
+    color: #fff;
+    margin-top: 5px;
+}
+
+.tronPower span {
+    font-weight: 300;
+}
+
+.tpExpire {
+    font-family: 'Source Code Pro', monospace;
+    color: #fff;
+    font-size: 12px;
+    margin-top: 2px;
+    margin-bottom: 15px;
 }
 
 .container {
