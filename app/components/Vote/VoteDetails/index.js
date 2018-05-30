@@ -35,11 +35,11 @@ class VoteDetails extends Component {
     this.props.loadWitnesses();
   }
 
-  async submitVote() {
+  async submitVote(){
     let votes = [
       {
-        address: this.state.rep.address,
-        count: parseInt(this.state.current)
+        address : this.state.rep.address,
+        count : parseInt(this.state.current)
       }
     ];
 
@@ -54,7 +54,7 @@ class VoteDetails extends Component {
     this.setState({ selectedWallet: accounts[ wallet[ 0 ] ] });
   }
 
-  onSliderChange(amount) {
+  onSliderChange(amount){
     this.state.current = amount;
     console.log(`amount: ${amount}`);
   }
@@ -80,7 +80,7 @@ class VoteDetails extends Component {
       let formattedObj = {
         text: accounts[wallet].name,
         value: accounts[wallet].publicKey
-      }
+      };
       wallets.push(formattedObj);
     });
 
