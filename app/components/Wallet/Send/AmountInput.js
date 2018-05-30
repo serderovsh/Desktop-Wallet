@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './AmountInput.css';
 
 export default class AmountInput extends Component {
-
-  onChange(event){
+  onChange(event) {
     this.props.onSetAmount(event.target.value);
   }
 

@@ -22,7 +22,7 @@ class TxList extends Component {
       let newTransaction = {
         ...transaction,
         amount: transaction.amount,
-        date: 1526567116913,
+        date: transaction.timestamp,
         type: (transaction.owner_address === address) ? 1 : 0,
         asset: (transaction.asset_name) ? transaction.asset_name : 'TRX',
       };
