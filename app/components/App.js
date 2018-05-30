@@ -17,14 +17,13 @@ import {loadStorage} from "../actions/storage";
 // Styles
 import styles from '../components/ContentMain.css';
 
-
 class App extends React.Component {
-
 
     constructor(props) {
         super(props);
         this.state ={
             websocket : null,
+            userid: this.guid()
         }
     }
 
@@ -36,13 +35,33 @@ class App extends React.Component {
     websocketOnOpen(event){
         console.log('onOpen');
         console.log(event);
+        this.addWebsocketAlert("27d3byPxZXKQWfXX7sJvemJJuv5M65F3vjS");
+    }
+
+    checkWebsocket(){
+        if(this.state.websocket !== null && this.state.websocket.readyState === WebSocket.OPEN){
+            //do nothing, we're connected
+        }else if(this.state.websocket && this.state.websocket.readyState === WebSocket.CLOSED){
+            this.connectWebsocket();
+        }
+        setTimeout(this.checkWebsocket.bind(this), 5000);
+    }
+
+    addWebsocketAlert(address){
+        if (this.state.websocket.readyState === WebSocket.OPEN) {
+            this.state.websocket.send(JSON.stringify({
+                cmd: 'START_ALERT',
+                address : address,
+                userid : this.state.userid
+            }));
+        }
     }
 
     connectWebsocket(){
-        this.state.websocket = new WebSocket("ws://127.0.0.1:8089");
-        this.state.websocket.onopen = this.websocketOnOpen;
-        this.state.websocket.onmessage = this.websocketOnMessage;
-
+        console.log('connecting websocket');
+        this.state.websocket = new WebSocket("ws://ws.tron.watch:8089");
+        this.state.websocket.onopen = this.websocketOnOpen.bind(this);
+        this.state.websocket.onmessage = this.websocketOnMessage.bind(this);
     }
 
   componentDidMount() {
@@ -53,6 +72,7 @@ class App extends React.Component {
     this.props.loadWitnesses();
     this.props.loadStorage(this.props);
     this.connectWebsocket();
+    setTimeout(this.checkWebsocket.bind(this), 0);
   }
 
   render() {
@@ -72,8 +92,16 @@ class App extends React.Component {
       </IntlProvider>
     );
   }
-}
 
+    guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+}
 
 export default withRouter(connect(
   state => ({
