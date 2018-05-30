@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react';
+import { FormattedNumber } from 'react-intl';
 import styles from './VoteAmountSlider.css';
 
 export default class VoteDetails extends Component {
@@ -23,7 +24,7 @@ export default class VoteDetails extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.amount}>{parseInt(this.state.current)} TP</div>
+        <div className={styles.amount}><FormattedNumber value={parseInt(this.state.current)} /> TP</div>
         <div className={styles.sliderContainer}>
           <Input
             className={styles.slider}
@@ -33,12 +34,12 @@ export default class VoteDetails extends Component {
             type="range"
             value={this.state.current}
           />
-          <div className={styles.progress} style={{ width: this.sliderWidthCalc + '%' }}></div>
-          <div className={styles.sliderBG}></div>
+          <div className={styles.progress} style={{ width: this.sliderWidthCalc + '%' }} />
+          <div className={styles.sliderBG} />
         </div>
         <div className={styles.sliderRange}>
           <span>0 TP</span>
-          <span>{this.props.totalTP} TP</span>
+          <span><FormattedNumber value={this.props.totalTP} /> TP</span>
         </div>
       </div>
     );

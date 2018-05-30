@@ -18,7 +18,7 @@ export default class Node extends Component {
   setNode = (e) => {
     // handle changeNode here
     console.log(this.state.value)
-  }
+  };
 
   render() {
     return (
