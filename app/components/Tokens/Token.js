@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Token.css';
-
 import TokenProgressBar from './TokenProgressBar';
 
 class Token extends Component {
-
   // external redirect
   goToSite = () => require('electron').shell.openExternal(this.props.tokenURL);
 
@@ -28,4 +26,4 @@ class Token extends Component {
   }
 }
 
-export default Token;
+export default connect(state => ({ tokens: state.tokens.tokens }))(Token);

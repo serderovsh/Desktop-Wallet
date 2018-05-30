@@ -9,14 +9,12 @@ class Main extends React.Component {
     return (
       <div className={styles.contentSecondary}>
         {routes.map((route, index) => (
-          <Switch>
             <Route
               key={index}
               path={route.path}
               exact={route.exact}
               component={route.main}
             />
-          </Switch>
         ))}
       </div>
     );

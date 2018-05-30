@@ -8,16 +8,16 @@ class Sidebar extends React.Component {
   render() {
     return (
       <div className={styles.contentPrimary}>
-        {routes.map((route, index) => (
-          <Switch>
+        <Switch>
+          {routes.map((route, index) => (
             <Route
               key={index}
               path={route.path}
               exact={route.exact}
               component={route.sidebar}
             />
-          </Switch>
-        ))}
+          ))}
+        </Switch>
       </div>
     );
   }
