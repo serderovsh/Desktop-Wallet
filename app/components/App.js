@@ -28,6 +28,10 @@ class App extends React.Component {
   render() {
     let { activeLanguage } = this.props;
     return (
+      <IntlProvider
+        locale={activeLanguage}
+        messages={languages[activeLanguage]}
+      >
         <div className="interface">
           <Navbar />
           <div className={styles.container}>
@@ -35,6 +39,7 @@ class App extends React.Component {
             <Main />
           </div>
         </div>
+      </IntlProvider>
     );
   }
 }

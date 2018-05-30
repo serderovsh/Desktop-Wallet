@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Dropdown, Form } from 'semantic-ui-react';
+import { FormattedNumber } from 'react-intl';
 import styles from './TokenView.css';
 import buttonStyles from '../../Button.css';
 import Secondary from '../../Content/Secondary';
@@ -80,7 +81,9 @@ class TokenView extends Component {
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
           <Header headerName="Buy Token" />
-          <div className={styles.headerTP}>{selectedWallet.trx}<span>TRX</span></div>
+          <div className={styles.headerTP}>
+            <FormattedNumber value={selectedWallet.trx} /><span>TRX</span>
+          </div>
           <div className={styles.headerText}>Use TRX to purchase tokens below.</div>
         </div>
         <div className={styles.subContainer}>

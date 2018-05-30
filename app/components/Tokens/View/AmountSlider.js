@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedNumber } from 'react-intl';
 
 import { Input } from 'semantic-ui-react';
 import styles from './AmountSlider.css';
@@ -24,7 +25,7 @@ class AmountSlider extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.amount}>{ parseInt(this.state.current) } TRX</div>
+        <div className={styles.amount}><FormattedNumber value={parseInt(this.state.current)} /> TRX</div>
         <div className={styles.sliderContainer}>
           <Input
             className={styles.slider}
@@ -39,7 +40,7 @@ class AmountSlider extends Component {
         </div>
         <div className={styles.sliderRange}>
           <span>0 TRX</span>
-          <span>{ this.props.totalTRX } TRX</span>
+          <span><FormattedNumber value={ this.props.totalTRX } /> TRX</span>
         </div>
       </div>
     );
