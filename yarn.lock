@@ -10173,7 +10173,7 @@ trim@0.0.1:
 
 tron-http-client@tronwatch/tron-http-client:
   version "1.0.12"
-  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/31dd21a498e73d3607494e9443e2e5ebb9f26739"
+  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/a25ee023b9b62396f8421ccf754abe4c7144801a"
   dependencies:
     axios "^0.18.0"
     tron-http-tools tronwatch/tron-http-tools

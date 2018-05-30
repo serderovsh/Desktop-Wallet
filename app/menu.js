@@ -40,20 +40,6 @@ export default class MenuBuilder {
   }
 
   buildDarwinTemplate() {
-    const subMenuAbout = {
-      label: 'Electron',
-      submenu: [
-        { label: 'About ElectronReact', selector: 'orderFrontStandardAboutPanel:' },
-        { type: 'separator' },
-        { label: 'Services', submenu: [] },
-        { type: 'separator' },
-        { label: 'Hide ElectronReact', accelerator: 'Command+H', selector: 'hide:' },
-        { label: 'Hide Others', accelerator: 'Command+Shift+H', selector: 'hideOtherApplications:' },
-        { label: 'Show All', selector: 'unhideAllApplications:' },
-        { type: 'separator' },
-        { label: 'Quit', accelerator: 'Command+Q', click: () => { app.quit(); } }
-      ]
-    };
     const subMenuEdit = {
       label: 'Edit',
       submenu: [
@@ -70,7 +56,6 @@ export default class MenuBuilder {
       label: 'View',
       submenu: [
         { label: 'Reload', accelerator: 'Command+R', click: () => { this.mainWindow.webContents.reload(); } },
-        { label: 'Toggle Full Screen', accelerator: 'Ctrl+Command+F', click: () => { this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen()); } },
         { label: 'Toggle Developer Tools', accelerator: 'Alt+Command+I', click: () => { this.mainWindow.toggleDevTools(); } }
       ]
     };
@@ -95,7 +80,6 @@ export default class MenuBuilder {
       : subMenuViewProd;
 
     return [
-      subMenuAbout,
       subMenuEdit,
       subMenuView,
       subMenuWindow,
@@ -122,12 +106,6 @@ export default class MenuBuilder {
         accelerator: 'Ctrl+R',
         click: () => {
           this.mainWindow.webContents.reload();
-        }
-      }, {
-        label: 'Toggle &Full Screen',
-        accelerator: 'F11',
-        click: () => {
-          this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen());
         }
       }, {
         label: 'Toggle &Developer Tools',
