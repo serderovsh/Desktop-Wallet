@@ -19,7 +19,11 @@
 }
 
 .token:first-child {
-    margin-top: 0px;
+    background: #22282d;
+}
+
+.token:first-child:hover {
+    background: #2a3035;
 }
 
 .token:last-child {
@@ -46,4 +50,8 @@
 
 .tokenBar {
     margin-top: 20px;
+}
+
+.active {
+    background: red;
 }

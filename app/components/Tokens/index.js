@@ -13,6 +13,8 @@ import Header from '../ContentPrimaryHeader';
 
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 
+import { CSSTransitionGroup } from 'react-transition-group';
+
 class TokenList extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +29,7 @@ class TokenList extends Component {
   filterTokens = (e) => {
     let filtered = this.props.tokens.filter((token) => {
       console.log(token.name.includes(e.target.value))
-      return token.name.includes(e.target.value);
+      return token.name.toLowerCase().includes(e.target.value.toLowerCase());
     });
 
     this.setState({
@@ -42,21 +44,28 @@ class TokenList extends Component {
         <div className={styles.subContainer}>
           <input className={styles.input} placeholder="Search for a token here..." onChange={this.filterTokens} />
           <div className={styles.tokensContainer}>
-            { this.state.tokens.length < 1 ? (<div className={styles.noResults}>No Tokens Found</div>) : '' }
-            {
-              this.state.tokens.map((token, i) => {
-                return (
-                  <Token
-                    key={i}
-                    tokenName={token.name}
-                    tokenURL={token.url}
-                    totalIssued={token.totalIssued || 0}
-                    totalSupply={token.total_supply}
-                    endTime={token.end_time}
-                    tokenID={token._id}
-                  />);
-              })
-            }
+            {this.state.tokens.length < 1 ? <div className={styles.noResults}>No Tokens Found</div> : ''}
+            <CSSTransitionGroup
+              transitionName="fade"
+              transitionEnterTimeout={300}
+              transitionLeaveTimeout={300}
+            >
+              {
+                this.state.tokens.map((token, i) => {
+                  return (
+                      <Token
+                        key={token._id}
+                        tokenName={token.name}
+                        tokenURL={token.url}
+                        totalIssued={token.totalIssued || 0}
+                        totalSupply={token.total_supply}
+                        endTime={token.end_time}
+                        tokenID={token._id}
+                      />
+                    );
+                })
+              }
+            </CSSTransitionGroup >
           </div>
           <div className={styles.buttonContainer}>
             <NavLink to="/tokens/createtoken">

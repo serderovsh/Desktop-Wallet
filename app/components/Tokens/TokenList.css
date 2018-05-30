@@ -67,6 +67,10 @@
 }
 
 .noResults {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
   color: #444;
   font-family: 'Source Code Pro';
   font-size: 13px;
