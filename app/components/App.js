@@ -14,6 +14,8 @@ import { initFromStorage } from '../actions/wallet';
 import { loadTokens } from '../actions/tokens';
 import { loadWitnesses } from '../actions/witnesses';
 import {loadStorage} from "../actions/storage";
+import {setFiatPrice} from "../actions/currency";
+import {CURRENCY} from "../actions/currency";
 // Styles
 import styles from '../components/ContentMain.css';
 
@@ -28,13 +30,21 @@ class App extends React.Component {
     }
 
     websocketOnMessage(event){
-        console.log('onmessage');
-        console.log(event);
+        try{
+            let msg = JSON.parse(event.data);
+            if(msg.cmd == "ADDRESS_EVENT"){
+                console.log(`received address change notification: `);
+            }else if (msg.symbol == 'TRX' && msg['USD'].price){
+                this.props.setFiatPrice(CURRENCY.USD, msg['USD'].price);
+            }else{
+                console.log(`unknown message: `)
+            }
+        }catch (e) {
+            //console.log(e);
+        }
     }
 
     websocketOnOpen(event){
-        console.log('onOpen');
-        console.log(event);
         this.addWebsocketAlert("27d3byPxZXKQWfXX7sJvemJJuv5M65F3vjS");
     }
 
@@ -105,6 +115,7 @@ class App extends React.Component {
 
 export default withRouter(connect(
   state => ({
+    currency:state.currency,
     wallet: state.wallet,
     activeLanguage: state.app.activeLanguage,
     availableLanguages: state.app.availableLanguages
@@ -124,6 +135,9 @@ export default withRouter(connect(
     },
     loadStorage:(props)=>{
         dispatch(loadStorage(props));
+    },
+    setFiatPrice(currency, price){
+        dispatch(setFiatPrice(currency, price));
     }
 
   })
