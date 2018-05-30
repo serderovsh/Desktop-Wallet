@@ -32,7 +32,7 @@ class CreateToken extends Component {
         assetName: '',
         assetAbbr: '',
         totalSupply: 0,
-        assetNum: 0,
+        num: 0,
         trxNum: 0,
         endTime: 0,
         startTime: 0,
@@ -51,7 +51,7 @@ class CreateToken extends Component {
     assetName,
     assetAbbr,
     totalSupply,
-    assetNum,
+    num,
     trxNum,
     endTime,
     startTime,
@@ -60,14 +60,13 @@ class CreateToken extends Component {
     confirmed
   }) => {
     let { loading, selectedWallet } = this.state;
-    console.log(loading, selectedWallet)
     if (
       !selectedWallet ||
       loading ||
       assetName.length === 0 ||
       assetAbbr.length === 0 ||
       totalSupply <= 0 ||
-      assetNum <= 0 ||
+      num <= 0 ||
       trxNum <= 0 ||
       !endTime ||
       !startTime ||
@@ -107,9 +106,9 @@ class CreateToken extends Component {
     this.isValid(formValues);
     this.setState({ loading: true });
     // form sanitization here
-    /*
     try {
       let result = await client.issueAsset(selectedWallet.privateKey, formValues);
+      console.log(result);
 
       if (result) {
         this.setState({ isTokenCreated: true });
@@ -117,7 +116,7 @@ class CreateToken extends Component {
     } finally {
       this.setState({ loading: false });
     }
-    */
+
   };
 
   render() {
@@ -168,7 +167,7 @@ class CreateToken extends Component {
             participant will receive for every TRX they spend.
           </div>
           <div className={styles.divider}></div>
-          <div className={styles.headerSubText}>Participants will receive <span>{this.state.formValues.assetNum ? this.state.formValues.assetNum : '-'}</span> <span>Token</span> for every  <span>{this.state.formValues.trxNum ? this.state.formValues.trxNum : '-'}</span><span> TRX</span>.</div>
+          <div className={styles.headerSubText}>Participants will receive <span>{this.state.formValues.num ? this.state.formValues.num : '-'}</span> <span>Token</span> for every  <span>{this.state.formValues.trxNum ? this.state.formValues.trxNum : '-'}</span><span> TRX</span>.</div>
           <div className={styles.divider}></div>
           <div className={styles.textBoxContainer}>
             <span>TRX Amount</span>
@@ -176,7 +175,7 @@ class CreateToken extends Component {
           </div>
           <div className={styles.textBoxContainer}>
             <span>Token Amount</span>
-            <Input name="assetNum" type="number" onChange={this.handleInputChange} className={styles.input} />
+            <Input name="num" type="number" onChange={this.handleInputChange} className={styles.input} />
           </div>
           <div className={styles.dateHeaderCont}>
             <div className={styles.dateHeader}>Start Date</div>
