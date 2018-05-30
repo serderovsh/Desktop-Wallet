@@ -13,6 +13,7 @@ import { setLanguage } from '../actions/app';
 import { initFromStorage } from '../actions/wallet';
 import { loadTokens } from '../actions/tokens';
 import { loadWitnesses } from '../actions/witnesses';
+import {loadStorage} from "../actions/storage";
 // Styles
 import styles from '../components/ContentMain.css';
 
@@ -24,6 +25,7 @@ class App extends React.Component {
     this.props.initFromStorage(this.props);
     this.props.loadTokens();
     this.props.loadWitnesses();
+    this.props.loadStorage(this.props);
   }
   render() {
     let { activeLanguage } = this.props;
@@ -58,7 +60,11 @@ export default withRouter(connect(
     },
     loadTokens: (props) => {
       dispatch(loadTokens(props, dispatch));
+    },
+    loadStorage:(props)=>{
+        dispatch(loadStorage(props));
     }
+
   })
 )(App));
 

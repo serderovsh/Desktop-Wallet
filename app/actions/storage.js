@@ -18,6 +18,7 @@ export const saveStorage = (storage) =>{
 
 
 export const loadStorage = () =>{
+    console.log('loading storage');
     let loaded = null;
     try{
         loaded = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
@@ -36,9 +37,15 @@ export const loadStorage = () =>{
 };
 
 export const getValue = (storage, namespace, key, fallback)=>{
-    if(storage.settings[namespace] && storage.settings[namespace][key] !== undefined)
-        return storage.settings[namespace][key];
-    return fallback;
+    if(!storage.settings[namespace]){
+        console.log(`settings.${namespace} namespace not found`);
+        return fallback;
+    }
+    if(!storage.settings[namespace][key] !== undefined){
+        console.log(`settings.${namespace}.${key} key not found`);
+        return fallback;
+    }
+    return storage.settings[namespace][key];
 };
 
 export const setValue = (storage, namespace, key, newValue, dispatch) => {
