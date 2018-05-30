@@ -18,8 +18,7 @@ class TokenProgressBar extends Component {
         </div>
         <progress className={styles.progress} value={this.props.tokenCurrent} max={this.props.tokenMax} />
         <div className={`${styles.bottom} ${styles.green}`}>ends on :
-          <FormattedDate value={this.props.endTime} year="numeric" month="2-digit" day="2-digit" />
-          <FormattedTime value={this.props.endTime} hour="2-digit" minute="2-digit" second="2-digit" />
+          <FormattedDate value={this.props.endTime} year="numeric" month="2-digit" day="2-digit" /> <FormattedTime value={this.props.endTime} hour="2-digit" minute="2-digit" second="2-digit" />
         </div>
       </div>
     );
