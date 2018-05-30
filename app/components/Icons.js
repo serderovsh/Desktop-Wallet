@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Anime from 'react-anime';
+
 export class TronIcon extends Component {
   render() {
     return (
@@ -361,5 +363,84 @@ export class WifiIcon extends Component {
   }
 }
 
+export class CheckMarkBoxAnimation extends Component {
+  render() {
+    return (
+      <Anime scale={[0.1, .9]} duration={300} delay={150}>
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <Anime
+          easing="easeInOutSine"
+          duration={3000}
+          loop={false}
+          delay={(el, index) => index * 500}
+          strokeDashoffset={ (el) => {
+            var pathLength = 0;
+            if (el.getTotalLength) {
+               pathLength = el.getTotalLength();
+               el.setAttribute('stroke-dasharray', pathLength);
+            }
+            return [pathLength, 0];
+          }}
+        >
+          <path d="M19,19H5V5H15V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V11H19M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z" />
+        </Anime>
+      </svg>
+      </Anime>
+    )
+  }
+}
 
+export class WarningCircleAnimation extends Component {
+  render() {
+    return (
+      <Anime scale={[0.1, .9]} duration={300} delay={150}>
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <Anime
+          easing="easeInOutSine"
+          duration={3000}
+          loop={false}
+          delay={(el, index) => index * 500}
+          strokeDashoffset={ (el) => {
+            var pathLength = 0;
+            if (el.getTotalLength) {
+               pathLength = el.getTotalLength();
+               el.setAttribute('stroke-dasharray', pathLength);
+            }
+            return [pathLength, 0];
+          }}
+        >
+          <path d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z" />
+        </Anime>
+      </svg>
+      </Anime>
+    )
+  }
+}
+
+export class QuestionMarkAnimation extends Component {
+  render() {
+    return (
+      <Anime scale={[0.1, .9]} duration={300} delay={150}>
+      <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
+        <Anime
+          easing="easeInOutSine"
+          duration={3000}
+          loop={false}
+          delay={(el, index) => index * 500}
+          strokeDashoffset={ (el) => {
+            var pathLength = 0;
+            if (el.getTotalLength) {
+               pathLength = el.getTotalLength();
+               el.setAttribute('stroke-dasharray', pathLength);
+            }
+            return [pathLength, 0];
+          }}
+        >
+          <path d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z" />
+        </Anime>
+      </svg>
+      </Anime>
+    )
+  }
+}
 
