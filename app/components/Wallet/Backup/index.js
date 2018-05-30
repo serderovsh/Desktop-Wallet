@@ -24,7 +24,7 @@ class Backup extends Component {
       let output = [];
       for(let i = 0;i<words.length;i++){
           output.push(
-              <div className={styles.word}><span>{start + i}: </span>{ words[i] }</div>
+              <div key={i} className={styles.word}><span>{start + i}: </span>{ words[i] }</div>
           )
       }
       return output;
@@ -56,19 +56,11 @@ class Backup extends Component {
       }
 
     return (
-      <MainModal header="Bh all goodackup Wallet" className={styles.container}>
+      <MainModal header="Backup Wallet" className={styles.container}>
         <div className={styles.subHeader}>CAREFULLY WRITE DOWN THESE WORDS :</div>
         {this.renderWords(account)}
-
-          <div className={styles.subHeader}>SEED :</div>
-          <div className={styles.privatekey}>
-              {account.privateKey}
-          </div>
-          <div className={styles.checkboxContainer}>
-            <Checkbox className={styles.checkbox} />
-            <span className={styles.checkboxLabel}>I have written it down</span>
-        </div>
-        <Button className={`${buttonStyles.button} ${buttonStyles.black}`}>Backup</Button>
+        <div className={styles.seedHeader}>PRIVATE KEY :</div>
+        <div className={styles.privatekey}>{account.privateKey}</div>
       </MainModal>
     );
   }

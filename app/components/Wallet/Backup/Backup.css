@@ -22,18 +22,15 @@
     box-sizing: border-box;
 }
 
-.subContainer button {
-    margin-top: auto;
-}
-
 .wordContainer {
     display: flex;
     background: #fff;
     font-size: 12px;
     border: 2px solid #ED3F21;
     border-radius: 5px;
-    padding: 20px;
-    margin-top: 30px;
+    padding: 20px 30px;
+    margin-top: 15px;
+    margin-bottom: 5px;
     width: 100%;
     box-sizing: border-box;
     font-family: 'Source Code Pro', monospace;
@@ -51,7 +48,6 @@
 }
 
 .word {
-    margin-top: 5px;
     flex-grow: 1;
 }
 
@@ -81,6 +77,12 @@
 }
 
 .subHeader {
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.seedHeader {
+    margin-top: 10px;
     font-size: 13px;
 }
 
@@ -110,15 +112,21 @@
     margin-left: 10px;
     font-size: 14px;
 }
-.privatekey{
-    margin-top:15px;
-    margin-bottom:15px;
+
+.privatekey {
+    font-size: 13px;
+    background: rgba(0, 0, 0, 0.08);
+    font-family: 'Source Code Pro', monospace;
+    margin-top: 15px;
     word-wrap: break-word;
     width: 100%;
     text-align: left;
-    -moz-user-select: text;
-    -khtml-user-select: text;
-    -webkit-user-select: text;
-    -ms-user-select: text;
     user-select: text;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border-top: 2px solid #ED3F21;
+    border-left: 2px solid #ED3F21;
+    border-bottom: 2px solid #DC2C73;
+    border-right: 2px solid #DC2C73;
 }
