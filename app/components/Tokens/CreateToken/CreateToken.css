@@ -1,6 +1,5 @@
 .container {
-    position: relative;
-    overflow-y: overlay;
+
 }
 
 .createContainer {
@@ -13,6 +12,8 @@
     text-align: left;
     max-width: 580px;
     border-radius: 5px;
+    position: relative;
+    overflow-y: overlay;
 }
 
 .header {
