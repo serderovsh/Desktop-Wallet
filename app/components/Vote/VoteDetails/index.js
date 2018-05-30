@@ -78,7 +78,7 @@ class VoteDetails extends Component {
                 sendProperties: {},
                 showConfirmModal: false,
                 showFailureModal: true,
-                modalFailureText: "Transaction failed"
+                modalFailureText: "Voting failed"
             });
 
         } else if (response.result != true) {
@@ -87,7 +87,7 @@ class VoteDetails extends Component {
                 sendProperties: {},
                 showConfirmModal: false,
                 showFailureModal: true,
-                modalFailureText: "Transaction failed: " + response.message
+                modalFailureText: "Voting failed: " + response.message
             });
         } else {
             this.setState({
@@ -95,7 +95,7 @@ class VoteDetails extends Component {
                 sendProperties: {},
                 showConfirmModal: false,
                 showSuccessModal: true,
-                modalSuccessText: "Transaction Successful!"
+                modalSuccessText: "Vote Successful!"
             });
         }
 
