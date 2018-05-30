@@ -23,16 +23,16 @@ class Transaction extends Component {
 
   txAmount() {
     if (this.props.type === enums.Received) {
-      return <div className={`${styles.txAmount} ${styles.green}`}>+ {(this.props.amount / 100000000).toFixed(8)} {this.props.asset}</div>;
+      return <div className={`${styles.txAmount} ${styles.green}`}>+ {(this.props.amount / 1000000).toFixed(8)} {this.props.asset}</div>;
     } else {
-      return <div className={`${styles.txAmount} ${styles.red}`}>- {(this.props.amount / 100000000).toFixed(8)} {this.props.asset}</div>;
+      return <div className={`${styles.txAmount} ${styles.red}`}>- {(this.props.amount / 1000000).toFixed(8)} {this.props.asset}</div>;
     }
   }
 
   render() {
     let accountId = this.props.match.params.account;
     let transactions = this.props.wallet.persistent.accounts[accountId].transactions;
-    
+
     return (
       <NavLink to={"/wallets/transactionDetails/" +  accountId + "/" + this.props.txID + "/"} className={styles.tx}>
         <div className={styles.txType}>

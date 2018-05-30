@@ -9,7 +9,7 @@ import Secondary from '../../Content/Secondary';
 import Header from '../../Header';
 import { MoreIcon, CalendarIcon, VoteIcon } from '../../Icons';
 
-export default class AmountSlider extends Component {
+class AmountSlider extends Component {
   state = {
     current: 0,
   }
@@ -17,7 +17,7 @@ export default class AmountSlider extends Component {
   handleChange = (e, { value }) => this.setState({ current: value });
 
   get sliderWidthCalc() {
-    if (this.state.current == 0 || this.props.totalTRX == 0) {
+    if (this.state.current === 0 || this.props.totalTRX === 0) {
       return 0
     }
     return Math.round((this.state.current / this.props.totalTRX) * 100);
@@ -26,7 +26,7 @@ export default class AmountSlider extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.amount}>{ parseInt(this.state.current).toLocaleString() } TP</div>
+        <div className={styles.amount}>{ parseInt(this.state.current) } TRX</div>
         <div className={styles.sliderContainer}>
           <Input
             className={ styles.slider }
@@ -41,9 +41,11 @@ export default class AmountSlider extends Component {
         </div>
         <div className={styles.sliderRange}>
           <span>0 TP</span>
-          <span>{ this.props.totalTRX.toLocaleString() } TP</span>
+          <span>{ this.props.totalTRX } TRX</span>
         </div>
       </div>
     );
   }
 }
+
+export default AmountSlider;
