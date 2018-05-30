@@ -41,6 +41,7 @@ class SendAmount extends Component {
     }
 
   render() {
+        let token = (this.props.match.params.token ? this.props.match.params.token : "TRX");
     return (
       <div className={styles.container}>
         <Header className={styles.white} headerName="Enter Amount" />
@@ -50,7 +51,7 @@ class SendAmount extends Component {
                 <ContactIcon />
                 <input onChange={this.onSetAddress.bind(this)} placeholder="Recipient Address" className={styles.address} value={this.props.address}/>
             </div>
-            <AmountDisplay onSetAmount={this.onSetAmount.bind(this)}/>
+            <AmountDisplay token={token} onSetAmount={this.onSetAmount.bind(this)}/>
             <Button onClick={this.onClickSend.bind(this)} className={`${buttonStyles.button} ${buttonStyles.black}`}>Send</Button>
         </div>
       </div>

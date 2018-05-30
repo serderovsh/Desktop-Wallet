@@ -10172,15 +10172,15 @@ trim@0.0.1:
   resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
 
 tron-http-client@tronwatch/tron-http-client:
-  version "1.0.10"
-  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/e9e34711a5f786b07521c59152c16764dd9fdb19"
+  version "1.0.12"
+  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/31dd21a498e73d3607494e9443e2e5ebb9f26739"
   dependencies:
     axios "^0.18.0"
     tron-http-tools tronwatch/tron-http-tools
 
 tron-http-tools@tronwatch/tron-http-tools:
-  version "1.0.11"
-  resolved "https://codeload.github.com/tronwatch/tron-http-tools/tar.gz/458c98b13ca781bd378b3948cfd94647ec42741c"
+  version "1.0.12"
+  resolved "https://codeload.github.com/tronwatch/tron-http-tools/tar.gz/0d06cf42ab9fa0495e5859a8f356f2fe717c182f"
   dependencies:
     "@tronprotocol/wallet-api" "0.0.35"
     assert "^1.4.1"

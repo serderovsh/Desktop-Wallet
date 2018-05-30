@@ -23,6 +23,7 @@ class WalletView extends Component {
       return (<div></div>);
     }
 
+    let token =(this.props.match.params.token ? this.props.match.params.token : "");
     return (
       <Secondary>
         <div className={styles.headerContainer}>
@@ -40,7 +41,7 @@ class WalletView extends Component {
           <SubHeader account={account} />
         </div>
         <div className={styles.buttonContainer}>
-          <NavLink to={'/wallets/send/' + accountId + '/'}>
+          <NavLink to={'/wallets/send/' + accountId + '/' + token}>
             <Button className={buttonStyles.button}><SendIcon/>Send</Button>
           </NavLink>
           <NavLink to={'/wallets/receive/' + accountId + '/'}>
