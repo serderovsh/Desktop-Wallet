@@ -14,7 +14,12 @@ export default class VoteDetails extends Component {
     current: 0,
   }
 
-  handleChange = (e, { value }) => this.setState({ current: value });
+  handleChange = (e, { value }) => {
+    handleChange = (e, { value }) => this.setState({ current: value });
+    //if(this.onSliderChange)
+    this.props.onSliderChange(value);
+    this.setState({ current: value });
+  };
 
   get sliderWidthCalc() {
     if (this.state.current == 0 || this.props.totalTP == 0) {
@@ -29,19 +34,19 @@ export default class VoteDetails extends Component {
         <div className={styles.amount}>{parseInt(this.state.current).toLocaleString()} TP</div>
         <div className={styles.sliderContainer}>
           <Input
-            className={ styles.slider }
+            className={styles.slider}
             min={0}
             max={this.props.totalTP}
             onChange={this.handleChange}
             type="range"
             value={this.state.current}
           />
-          <div className={styles.progress} style={{width: this.sliderWidthCalc + '%'}}></div>
+          <div className={styles.progress} style={{ width: this.sliderWidthCalc + '%' }}></div>
           <div className={styles.sliderBG}></div>
         </div>
         <div className={styles.sliderRange}>
           <span>0 TP</span>
-          <span>{ this.props.totalTP.toLocaleString() } TP</span>
+          <span>{this.props.totalTP.toLocaleString()} TP</span>
         </div>
       </div>
     );
