@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { FormattedNumber } from 'react-intl';
 
 import styles from './Wallet.css';
 
 import { WalletIcon, ArrowRightIcon } from '../Icons';
 
 class Wallet extends Component {
-
-
   render() {
     let keys = Object.keys(this.props.tokens);
     return (
@@ -15,12 +14,13 @@ class Wallet extends Component {
         <WalletIcon className={styles.walletIcon} />
         <ul className={styles.walletInfo}>
           <li className={styles.name}>{ this.props.name }</li>
-            <li className={styles.token}> { (this.props.trx / 100000000).toFixed(8)} TRX</li>
-            {
-              keys.map((k, i) =>
-                <li className={styles.token} key={k}>{ this.props.tokens[k] } { k }</li>
-              )
-            }
+          <li className={styles.token}>
+            <FormattedNumber value={(this.props.trx / 1000000).toFixed(3)} /> TRX
+          </li>
+          {
+            keys.map((k, i) =>
+              <li className={styles.token} key={k}><FormattedNumber formatNumber="decimal" value={this.props.tokens[k]} /> { k }</li>)
+          }
         </ul>
         <ArrowRightIcon className={styles.arrowIcon} />
       </NavLink>
