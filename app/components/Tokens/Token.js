@@ -12,7 +12,7 @@ class Token extends Component {
 
   render() {
     return (
-      <NavLink to={"/tokens/tokenDetails/" + this.props.index} className={styles.token}>
+      <NavLink to={"/tokens/tokenDetails/" + this.props.tokenID + "/"} className={styles.token}>
         <div className={styles.topBar}>
           <div className={styles.tokenName}>{this.props.tokenName}</div>
           {this.props.tokenURL ? <div className={styles.website} onClick={this.goToSite}>View Website</div> : <div className={styles.filler}></div>}

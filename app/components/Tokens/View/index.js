@@ -32,20 +32,31 @@ class TokenView extends Component {
   }
 
   selectWallet = (e, { value }) => {
-    let wallet = this.state.wallets.filter((wallet) => wallet.value == value);
-    this.setState({ selectedWallet: wallet[0] });
+    let accounts = this.props.wallet.persistent.accounts;
+    let wallet = Object.keys(accounts).filter((wallet) => accounts[wallet].publicKey == value);
+    this.setState({ selectedWallet: accounts[wallet[0]] });
   }
 
   render() {
-    let currentToken = parseInt(this.props.match.params.token);
-    let token = this.props.tokens.tokens[currentToken];
-    console.log(this.props.tokens.tokens)
+    let { selectedWallet } = this.state;
+    let accounts = this.props.wallet.persistent.accounts;
+    let currentToken = this.props.match.params.token;
+    let token = this.props.tokens.tokens.find(t => t._id === currentToken);
+
+    let wallets = [];
+    Object.keys(accounts).forEach((wallet, i) => {
+      let formattedObj = {
+        text: accounts[wallet].name,
+        value: accounts[wallet].publicKey
+      }
+      wallets.push(formattedObj)
+    });
 
     return (
       <Secondary className={styles.container}>
       <div className={styles.headerContainer}>
         <Header headerName="Buy Token" />
-        <div className={styles.headerTP}>{ this.state.selectedWallet.trx.toLocaleString() }<span>TRX</span></div>
+        <div className={styles.headerTP}>{ selectedWallet.trx.toLocaleString() }<span>TRX</span></div>
         <div className={styles.headerText}>Use TRX to purchase tokens below.</div>
       </div>
       <div className={styles.subContainer}>
@@ -54,12 +65,11 @@ class TokenView extends Component {
           <ArrowRightIcon />
           <Dropdown fluid selection
             onChange={this.selectWallet}
-            defaultValue={this.state.wallets.length > 0 ? this.state.wallets[0].value : ''}
             placeholder='Choose Wallet'
-            options={this.state.wallets}
+            options={wallets}
           />
         </div>
-        <AmountSlider totalTRX={ this.state.selectedWallet.trx } />
+        <AmountSlider totalTRX={ selectedWallet.trx } />
         <Form.Button className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Purchase</Form.Button>
       </div>
       </Secondary>
