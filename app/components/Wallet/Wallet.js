@@ -18,7 +18,7 @@ class Wallet extends Component {
             <li className={styles.token}> { (this.props.trx / 100000000).toFixed(8)} TRX</li>
             {
               keys.map((k, i) =>
-                <li className={styles.token} key={k}>{ (this.props.tokens[k].amount / 100000000).toFixed(8) } { k }</li>
+                <li className={styles.token} key={k}>{ this.props.tokens[k] } { k }</li>
               )
             }
         </ul>
