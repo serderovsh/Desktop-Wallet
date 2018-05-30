@@ -35,21 +35,31 @@ class SendAmount extends Component {
     let accountId = this.props.match.params.account;
     let account = this.props.wallet.persistent.accounts[ accountId ];
 
-    this.state.sendProperties = {
-        privateKey : account.privateKey,
-        recipient : this.state.address,
-        amount : this.state.amount
-    };
-    this.state.showConfirmModal = true;
-    console.log("SET!");
+    this.setState({
+        ...this.state,
+        sendProperties : {
+            privateKey : account.privateKey,
+            recipient : this.state.address.trim(),
+            amount : parseInt(this.state.amount)
+        },
+        showConfirmModal : true,
+        modalConfirmText: `Send ${this.state.amount} ${this.state.tokenStr} to ${this.state.address}?`
+    });
+
   }
 
   onSetAmount(amount) {
-    this.state.amount = amount;
+      this.setState({
+          ...this.state,
+          amount : amount
+      })
   }
 
   onSetAddress(event) {
-    this.state.address = event.target.value;
+      this.setState({
+          ...this.state,
+          address : event.target.value
+      });
   }
 
   async modalConfirm(){
@@ -62,22 +72,32 @@ class SendAmount extends Component {
               this.state.sendProperties.amount,
               this.props.match.params.token);
       } else {
-          response = await client.sendToken(
+          console.log(this.state.sendProperties);
+          response = await client.sendTrx(
               this.state.sendProperties.privateKey,
               this.state.sendProperties.recipient,
               this.state.sendProperties.amount);
       }
 
+      this.setState({
+          ...this.state,
+          sendProperties:{},
+          showConfirmModal:false
+      });
+
       console.log(response);
   }
 
   modalDecline(){
-      this.state.sendProperties = {};
+      this.setState({
+          ...this.state,
+          sendProperties:{},
+          showConfirmModal:false
+      });
   }
 
   modalClose(){
       this.state.showConfirmModal = false;
-
   }
 
   render() {
@@ -107,9 +127,9 @@ class SendAmount extends Component {
 
 
           <PopupModal
-            success
+            confirmation
             modalVis={this.state.showConfirmModal}
-            modalText="Are you sure you wanna do this?"
+            modalText={this.state.modalConfirmText}
             closeModalFunction={this.modalClose.bind(this)}
             modalConfirm={this.modalConfirm.bind(this)}
             modalDecline={this.modalDecline.bind(this)}
