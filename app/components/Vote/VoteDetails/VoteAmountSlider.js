@@ -14,7 +14,11 @@ export default class VoteDetails extends Component {
     current: 0,
   }
 
-  handleChange = (e, { value }) => this.setState({ current: value });
+  handleChange = (e, { value }) => {
+      //if(this.onSliderChange)
+    this.props.onSliderChange(value);
+    this.setState({ current: value });
+  };
 
   get sliderWidthCalc() {
     if (this.state.current == 0 || this.props.totalTP == 0) {

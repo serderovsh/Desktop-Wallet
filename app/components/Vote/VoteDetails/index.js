@@ -13,6 +13,8 @@ import Header from '../../Header';
 import VoteAmountSlider from './VoteAmountSlider';
 import { ArrowRightIcon } from '../../Icons';
 
+const TronHttpClient = require('tron-http-client');
+
 class VoteDetails extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +22,7 @@ class VoteDetails extends Component {
     this.state = {
       rep: {},
       wallets: [],
+        current : 0,
       selectedWallet: {
         text: 'Select a Wallet',
         value: '',
@@ -32,10 +35,28 @@ class VoteDetails extends Component {
     this.props.loadWitnesses();
   }
 
+  async submitVote(){
+      let votes = [
+          {
+              address : this.state.rep.address,
+              count : parseInt(this.state.current)
+          }
+      ];
+
+      let client = new TronHttpClient();
+      let response = await client.vote(this.state.selectedWallet.privateKey, votes);
+      console.log(response);
+  }
+
   selectWallet = (e, { value }) => {
     let accounts = this.props.wallet.persistent.accounts;
     let wallet = Object.keys(accounts).filter((wallet) => accounts[wallet].publicKey == value);
     this.setState({ selectedWallet: accounts[wallet[0]] });
+  }
+
+  onSliderChange(amount){
+    this.state.current = amount;
+    console.log(`amount: ${amount}`);
   }
 
   render() {
@@ -46,13 +67,20 @@ class VoteDetails extends Component {
 
     let currentRep = atob(this.props.match.params.rep);
     let rep = this.props.witnesses.witnesses.find(w => w.address === currentRep);
+    this.state.rep = rep;
+
+    if(!rep){
+      return (
+        <div>not loaded</div>
+      )
+    }
 
     let wallets = [];
     Object.keys(accounts).forEach((wallet, i) => {
       let formattedObj = {
         text: accounts[wallet].name,
         value: accounts[wallet].publicKey
-      }
+      };
       wallets.push(formattedObj)
     });
 
@@ -73,8 +101,8 @@ class VoteDetails extends Component {
               options={wallets}
             />
           </div>
-          <VoteAmountSlider totalTP={selectedWallet.frozenBalance} />
-          <Button onClick={this.submitVote} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit Your Vote</Button>
+          <VoteAmountSlider onSliderChange={this.onSliderChange.bind(this)} totalTP={selectedWallet.frozenBalance} />
+          <Button onClick={this.submitVote.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit Your Vote</Button>
         </div>
       </Secondary>
     );
