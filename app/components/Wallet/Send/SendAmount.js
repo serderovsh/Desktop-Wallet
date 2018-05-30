@@ -25,11 +25,17 @@ class SendAmount extends Component {
         }
     }
 
-    onClickSend(){
+    async onClickSend(){
         let accountId = this.props.match.params.account;
         let account = this.props.wallet.persistent.accounts[accountId];
         let client = new TronHttpClient();
-        client.sendTrx(account.privateKey, this.state.address, this.state.amount);
+        let response = null;
+        if(this.props.match.params.token){
+            response = await client.sendToken(account.privateKey, this.state.address, this.state.amount, this.props.match.params.token);
+        }else{
+            response = await client.sendTrx(account.privateKey, this.state.address, this.state.amount);
+        }
+        console.log(response);
     }
 
     onSetAmount(amount){
