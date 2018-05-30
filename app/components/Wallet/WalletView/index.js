@@ -29,7 +29,7 @@ class WalletView extends Component {
           <Header headerName={account.name}>
             <Dropdown className={styles.moreMenu} icon={<MoreIcon/>}>
               <Dropdown.Menu>
-                <NavLink to="/wallets/walletBackup">
+                <NavLink to={"/wallets/walletBackup/" + accountId}>
                   <Dropdown.Item text="Backup Wallet" icon={<DownloadIcon/>}/>
                 </NavLink>
                 <Dropdown.Divider/>

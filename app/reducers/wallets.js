@@ -54,7 +54,7 @@ export function walletReducer(state = initialState, action) {
       let newState = {
         ...state
       };
-      newState.persistent.accounts[ action.accountId ].transactions = action.transactions;
+      newState.persistent.accounts[action.accountId].transactions = action.transactions;
       return newState;
     }
 

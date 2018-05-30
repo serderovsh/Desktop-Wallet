@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import styles from './Import.css';
 
+import {createAccount} from "../../../../actions/wallet";
 import { Checkbox, Input, Form, Button } from 'semantic-ui-react';
 import buttonStyles from '../../../Button.css';
 
-export default class Import extends Component {
-  state = {}
+const tools = require('tron-http-tools');
+
+class Import extends Component {
+  state = {};
   updateValue = (e, { value }) => this.setState({ value });
 
   importKey = () => {
-    console.log(this.state.value);
-  }
+    let value = this.state.value.trim();
+    let newAccount = tools.accounts.accountFromPrivateKey(value);
+    this.props.createAccount(this.props, "Imported Account", newAccount);
+  };
 
-  inputAlphanumeric(e) {
+  static inputAlphanumeric(e) {
     if (!/^[a-zA-Z0-9]+$/.test(e.key)) {
       e.preventDefault();
     }
@@ -34,3 +41,16 @@ export default class Import extends Component {
     );
   }
 }
+
+export default withRouter(connect(
+    state => ({
+        wallet: state.wallet,
+        activeLanguage: state.app.activeLanguage,
+        availableLanguages: state.app.availableLanguages
+    }),
+    dispatch => ({
+        createAccount : (props, accountName, newAccount) =>{
+            dispatch(createAccount(props, accountName, newAccount));
+        }
+    })
+)(Import));

@@ -43,10 +43,12 @@ function verifyPersistent(persistent){
         console.log("persistent.accounts missing");
         return false;
     }
+    /*
     if(!('walletType' in persistent)){
         console.log("persistent.walletType missing");
         return false;
     }
+    */
 
     return true;
 }
@@ -78,14 +80,16 @@ function savePersistent(persistent, password=""){
     }
 }
 
-function addAccount(persistent, accountName = "Unnamed Wallet"){
-    let newAccount = TronHttpTools.accounts.generateRandomBip39();
+function addAccount(persistent, accountName = "Unnamed Wallet", newAccount = null){
+    if(newAccount === null)
+        newAccount = TronHttpTools.accounts.generateRandomBip39();
 
     persistent.accounts[newAccount.address] ={
         trx : 0,
         name : accountName,
         publicKey : newAccount.address,
         privateKey: newAccount.privateKey,
+        words : (newAccount.words ? newAccount.words : false),
 
         tokens : [],
         transactions : [],
@@ -120,11 +124,8 @@ export const createWallet = (props, accountName="Unnamed Wallet") => {
 };
 
 async function getAccountsInfo(persistent){
-    let addresses = [];
-    for(let i = 0;i<persistent.accounts.length;i++){
-        addresses.push(persistent.accounts[i].publicKey);
-    }
-    return await client.getAccounts(addresses);
+    console.log(persistent);
+    return await client.getAccounts(Object.keys(persistent.accounts));
 }
 
 export const updateAllAccounts = (persistent) =>{
@@ -134,15 +135,14 @@ export const updateAllAccounts = (persistent) =>{
     }
 };
 
-export const createAccount = (props, accountName) => {
-    let persistent = addAccount(props.wallet.persistent, accountName);
+export const createAccount = (props, accountName, newAccount = null) => {
+    let persistent = addAccount(props.wallet.persistent, accountName, newAccount);
     savePersistent(persistent);
     return {
         type : UPDATE_ALL_ACCOUNTS,
         persistent: persistent
     }
 };
-
 
 export const updateTransactions = (accountId, transactions)=>{
     return {
@@ -155,7 +155,9 @@ export const updateTransactions = (accountId, transactions)=>{
 function startUpdateAccountsAsync(persistent, dispatch){
     setTimeout(async ()=>{
         let accountsInfo = await getAccountsInfo(persistent);
-        for(let i = 0;i<persistent.accounts.length;i++){
+        let accountIds = Object.keys(persistent.accounts);
+        for(let j = 0;j<accountIds.length;j++){
+            let i = accountIds[j];
             let info = accountsInfo[persistent.accounts[i].publicKey];
             if(info){
                 persistent.accounts[i].trx = info.trx;
@@ -187,6 +189,7 @@ function decryptPersistent(persistent, password="", dispatch){
     try{
         decrypted = JSON.parse(decrypt(persistent, password));
         dispatch(populateDecryptedPersistent(decrypted));
+        startUpdateAccountsAsync(decrypted, dispatch);
         return true;
     }catch (e) {
         console.log(e);

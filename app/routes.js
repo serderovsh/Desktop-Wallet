@@ -34,7 +34,7 @@ export const routes = [
     main: () => <WalletView />
   },
   {
-    path: "/wallets/walletBackup/",
+    path: "/wallets/walletBackup/:account",
     main: () => <WalletBackup />
   },
   {

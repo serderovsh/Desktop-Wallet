@@ -30,7 +30,7 @@ class Transaction extends Component {
   }
 
   render() {
-    let accountId = parseInt(this.props.match.params.account);
+    let accountId = this.props.match.params.account;
     let transactions = this.props.wallet.persistent.accounts[accountId].transactions;
 
     return (
