@@ -19,3 +19,14 @@
     flex-grow: 1;
     background: linear-gradient(0deg, #cac3c5 0%, #BFBFBF 100%);
 }
+
+.routerAnimate {
+    position: relative;
+    transition: 300ms;
+    height: 100%;
+}
+
+.routerAnimate > div {
+    position: absolute;
+    height: 100%;
+}
