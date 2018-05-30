@@ -162,7 +162,7 @@ function startUpdateAccountsAsync(persistent, dispatch){
             if(info){
                 persistent.accounts[i].trx = info.trx;
                 persistent.accounts[i].tokens = info.tokens;
-                persistent.accounts[i].frozenBalance = info.frozen_balance;
+                persistent.accounts[i].frozenBalance = parseInt(info.frozen_balance/1000000);
                 persistent.accounts[i].frozenExpireTime = info.frozen_expire_time;
                 if(info.net){
                     persistent.accounts[i].bandwidth = new Decimal(info.net.netlimit).sub(new Decimal(info.net.netused)).toString();

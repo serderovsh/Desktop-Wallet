@@ -10,7 +10,7 @@ class SubHeaderToken extends Component {
     render() {
         return (
             <NavLink to={"/wallets/walletDetails/" + this.props.match.params.account + "/" + this.props.token} className={styles.coinContainer} activeClassName={styles.active}>
-                <div className={styles.coinAmount}>{(this.props.amount / 1000000).toFixed(8)}</div>
+                <div className={styles.coinAmount}>{(this.props.amount / 100000000).toFixed(8)}</div>
                 <div className={styles.coinType}>{this.props.token}</div>
             </NavLink>
         );
