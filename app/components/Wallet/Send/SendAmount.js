@@ -27,13 +27,21 @@ class SendAmount extends Component {
 
         sendProperties : {
 
-        }
+        },
+
+        showFailureModal : false,
+        modalFailureText : "Transaction Failed",
+
+        showSuccessModal: false,
+        modalSuccessText : "Success",
+        accountAddress : ""
     };
   }
 
   async onClickSend() {
     let accountId = this.props.match.params.account;
-    let account = this.props.wallet.persistent.accounts[ accountId ];
+    let account = this.props.wallet.persistent.accounts[accountId];
+
 
     this.setState({
         ...this.state,
@@ -42,6 +50,7 @@ class SendAmount extends Component {
             recipient : this.state.address.trim(),
             amount : parseInt(this.state.amount)
         },
+        accountAddress : account.publicKey,
         showConfirmModal : true,
         modalConfirmText: `Send ${this.state.amount} ${this.state.tokenStr} to ${this.state.address}?`
     });
@@ -70,20 +79,41 @@ class SendAmount extends Component {
               this.state.sendProperties.privateKey,
               this.state.sendProperties.recipient,
               this.state.sendProperties.amount,
-              this.props.match.params.token);
+              this.props.match.params.token).catch(x => null);
       } else {
           console.log(this.state.sendProperties);
           response = await client.sendTrx(
               this.state.sendProperties.privateKey,
               this.state.sendProperties.recipient,
-              this.state.sendProperties.amount);
+              this.state.sendProperties.amount).catch(x => null);
       }
 
-      this.setState({
-          ...this.state,
-          sendProperties:{},
-          showConfirmModal:false
-      });
+      if(response === null){
+          this.setState({
+              ...this.state,
+              sendProperties:{},
+              showConfirmModal:false,
+              showFailureModal:true,
+              modalFailureText : "Transaction failed"
+          });
+
+      }else if (response.response == false){
+          this.setState({
+              ...this.state,
+              sendProperties:{},
+              showConfirmModal:false,
+              showFailureModal:true,
+              modalFailureText : "Transaction failed: " + response.message
+          });
+      }else{
+          this.setState({
+              ...this.state,
+              sendProperties:{},
+              showConfirmModal:false,
+              showSuccessModal:true,
+              modalSuccessText: "Transaction Successful!"
+          });
+      }
 
       console.log(response);
   }
@@ -93,6 +123,21 @@ class SendAmount extends Component {
           ...this.state,
           sendProperties:{},
           showConfirmModal:false
+      });
+  }
+
+  modalFailureClose(){
+      this.setState({
+          ...this.state,
+          showFailureModal:false
+      });
+  }
+
+  modalSuccessClose(){
+      this.props.history.push("/wallets/walletDetails/" + this.state.accountAddress);
+      this.setState({
+          ...this.state,
+          showSuccessModal:false
       });
   }
 
@@ -135,6 +180,21 @@ class SendAmount extends Component {
             modalDecline={this.modalDecline.bind(this)}
         />
 
+            <PopupModal
+                failure
+                modalVis={this.state.showFailureModal}
+                modalText={this.state.modalFailureText}
+                closeModalFunction={this.modalFailureClose.bind(this)}
+                modalConfirm={this.modalFailureClose.bind(this)}
+            />
+
+            <PopupModal
+                success
+                modalVis={this.state.showSuccessModal}
+                modalText={this.state.modalSuccessText}
+                closeModalFunction={this.modalSuccessClose.bind(this)}
+                modalConfirm={this.modalSuccessClose.bind(this)}
+            />
         </div>
       </div>
     );
