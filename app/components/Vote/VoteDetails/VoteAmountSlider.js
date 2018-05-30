@@ -15,7 +15,6 @@ export default class VoteDetails extends Component {
   }
 
   handleChange = (e, { value }) => {
-    handleChange = (e, { value }) => this.setState({ current: value });
     //if(this.onSliderChange)
     this.props.onSliderChange(value);
     this.setState({ current: value });
