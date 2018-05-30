@@ -89,6 +89,7 @@ function addAccount(persistent, accountName = "Unnamed Wallet", newAccount = nul
         name : accountName,
         publicKey : newAccount.address,
         privateKey: newAccount.privateKey,
+        words : (newAccount.words ? newAccount.words : false),
 
         tokens : [],
         transactions : [],

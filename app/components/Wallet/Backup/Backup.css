@@ -110,3 +110,15 @@
     margin-left: 10px;
     font-size: 14px;
 }
+.privatekey{
+    margin-top:15px;
+    margin-bottom:15px;
+    word-wrap: break-word;
+    width: 100%;
+    text-align: left;
+    -moz-user-select: text;
+    -khtml-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
