@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Tab } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
+import { CSSTransitionGroup } from 'react-transition-group';
 import styles from './TokenList.css';
-
 import buttonStyles from '../Button.css';
-
 import { loadTokens } from '../../actions/tokens';
-
 import Token from './Token';
 import Header from '../ContentPrimaryHeader';
 
-import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
-
-import { CSSTransitionGroup } from 'react-transition-group';
 
 class TokenList extends Component {
   constructor(props) {
@@ -23,19 +18,18 @@ class TokenList extends Component {
       filterValue: '',
       tokens: this.props.tokens,
     }
-    this.props.loadTokens()
+    this.props.loadTokens();
   }
 
   filterTokens = (e) => {
     let filtered = this.props.tokens.filter((token) => {
-      console.log(token.name.includes(e.target.value))
       return token.name.toLowerCase().includes(e.target.value.toLowerCase());
     });
 
     this.setState({
       tokens: filtered,
     });
-  }
+  };
 
   render() {
     return (
@@ -57,7 +51,7 @@ class TokenList extends Component {
                         key={token._id}
                         tokenName={token.name}
                         tokenURL={token.url}
-                        totalIssued={token.totalIssued || 0}
+                        totalIssued={((token.bought / token.trx_num) * token.num)}
                         totalSupply={token.total_supply}
                         endTime={token.end_time}
                         tokenID={token._id}
@@ -80,7 +74,7 @@ class TokenList extends Component {
 
 
 export default connect(
-  state => ({ tokens: state.tokens.tokens, searchString: state.app.searchString, }),
+  state => ({ tokens: state.tokens.tokens }),
   dispatch => ({
     loadTokens: () => {
       dispatch(loadTokens(dispatch));

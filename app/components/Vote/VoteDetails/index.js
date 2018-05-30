@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { Dropdown, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import styles from './VoteDetails.css';
 import buttonStyles from '../../Button.css';
-
 import { loadWitnesses } from '../../../actions/witnesses';
-
 import Secondary from '../../Content/Secondary';
 import Header from '../../Header';
 import VoteAmountSlider from './VoteAmountSlider';
@@ -35,7 +32,7 @@ class VoteDetails extends Component {
     this.props.loadWitnesses();
   }
 
-  async submitVote(){
+  async submitVote() {
     let votes = [
       {
         address : this.state.rep.address,
@@ -51,10 +48,10 @@ class VoteDetails extends Component {
   selectWallet = (e, { value }) => {
     let accounts = this.props.wallet.persistent.accounts;
     let wallet = Object.keys(accounts).filter((wallet) => accounts[wallet].publicKey === value);
-    this.setState({ selectedWallet: accounts[ wallet[ 0 ] ] });
+    this.setState({ selectedWallet: accounts[wallet[0]] });
   }
 
-  onSliderChange(amount){
+  onSliderChange(amount) {
     this.state.current = amount;
     console.log(`amount: ${amount}`);
   }
@@ -71,7 +68,7 @@ class VoteDetails extends Component {
 
     if (!rep) {
       return (
-        <div>note loaded</div>
+        <div>not loaded</div>
       );
     }
 
@@ -88,7 +85,7 @@ class VoteDetails extends Component {
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
           <Header headerName="Votes" />
-          <div className={styles.headerTP}>{selectedWallet.frozenBalance.toLocaleString()}<span>TP</span></div>
+          <div className={styles.headerTP}>{selectedWallet.frozenBalance}<span>TP</span></div>
           <div className={styles.headerText}>Earn More TronPower by freezing Tron</div>
         </div>
         <div className={styles.subContainer}>
@@ -97,7 +94,7 @@ class VoteDetails extends Component {
             <ArrowRightIcon />
             <Dropdown fluid selection
                       onChange={this.selectWallet}
-                      placeholder='Choose Wallet'
+                      placeholder="Choose Wallet"
                       options={wallets}
             />
           </div>

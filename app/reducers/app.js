@@ -5,12 +5,12 @@ const initialState = {
     usd: 0,
     percentage: 0,
   },
-  searchString: '',
   availableLanguages: {
     en: 'English',
     fr: 'Français',
   },
-  activeLanguage: 'en'
+  activeLanguage: 'en',
+  //activeLanguage: window.localStorage.get('language', 'en'),
 };
 
 export function appReducer(state = initialState, action) {
@@ -40,6 +40,8 @@ export function appReducer(state = initialState, action) {
       if (typeof state.availableLanguages[action.language] === 'undefined') {
         language = 'en';
       }
+      //window.localStorage.set('language', language);
+
       return {
         ...state,
         activeLanguage: language,

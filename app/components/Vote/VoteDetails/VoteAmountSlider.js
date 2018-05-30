@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Input } from 'semantic-ui-react';
 import styles from './VoteAmountSlider.css';
-
-import { Input, Progress } from 'semantic-ui-react';
-import buttonStyles from '../../Button.css';
-
-import Secondary from '../../Content/Secondary';
-import Header from '../../Header';
-import { MoreIcon, CalendarIcon, VoteIcon } from '../../Icons';
 
 export default class VoteDetails extends Component {
   state = {
     current: 0,
-  }
+  };
 
   handleChange = (e, { value }) => {
     //if(this.onSliderChange)
@@ -21,8 +14,8 @@ export default class VoteDetails extends Component {
   };
 
   get sliderWidthCalc() {
-    if (this.state.current == 0 || this.props.totalTP == 0) {
-      return 0
+    if (this.state.current === 0 || this.props.totalTP === 0) {
+      return 0;
     }
     return Math.round((this.state.current / this.props.totalTP) * 100);
   }
@@ -30,7 +23,7 @@ export default class VoteDetails extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.amount}>{parseInt(this.state.current).toLocaleString()} TP</div>
+        <div className={styles.amount}>{parseInt(this.state.current)} TP</div>
         <div className={styles.sliderContainer}>
           <Input
             className={styles.slider}
@@ -45,7 +38,7 @@ export default class VoteDetails extends Component {
         </div>
         <div className={styles.sliderRange}>
           <span>0 TP</span>
-          <span>{this.props.totalTP.toLocaleString()} TP</span>
+          <span>{this.props.totalTP} TP</span>
         </div>
       </div>
     );
