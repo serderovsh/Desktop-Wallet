@@ -8,7 +8,7 @@ import TokenProgressBar from './TokenProgressBar';
 class Token extends Component {
 
   // external redirect
-  goToSite = () => require('electron').shell.openExternal(this.props.url);
+  goToSite = () => require('electron').shell.openExternal(this.props.tokenURL);
 
   render() {
     return (

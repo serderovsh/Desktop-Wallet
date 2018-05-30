@@ -1,13 +1,3 @@
-.container button {
-    margin-top: auto;
-    width: 100%;
-    height: 100%;
-    background: none;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
 .container button:focus {
     outline: none;
 }
