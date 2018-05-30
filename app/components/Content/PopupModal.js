@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom';
 
 import { CheckMarkBoxAnimation, WarningCircleAnimation, QuestionMarkAnimation } from '../Icons';
 
-class PopupModal extends Component {
+export class PopupModal extends Component {
 
   modalVis() {
     if (!this.props.modalVis) {
@@ -68,7 +68,7 @@ class PopupModal extends Component {
   }
 }
 
-export default withRouter((PopupModal));
+//export default withRouter((PopupModal));
 
 
 /*
