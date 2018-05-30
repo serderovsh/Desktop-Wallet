@@ -54,7 +54,7 @@ export const routes = [
     main: () => <Receive />,
   },
   {
-    path: "/wallets/transactionDetails/:account",
+    path: "/wallets/transactionDetails/:account/:txid",
     main: () => <ViewTransaction />,
   },
   {
