@@ -97,7 +97,7 @@ class SendAmount extends Component {
               modalFailureText : "Transaction failed"
           });
 
-      }else if (response.response == false){
+      }else if (response.result != true){
           this.setState({
               ...this.state,
               sendProperties:{},
@@ -178,7 +178,7 @@ class SendAmount extends Component {
             closeModalFunction={this.modalClose.bind(this)}
             modalConfirm={this.modalConfirm.bind(this)}
             modalDecline={this.modalDecline.bind(this)}
-        />
+            />
 
             <PopupModal
                 failure
