@@ -9,7 +9,7 @@ class Wallet extends Component {
 
 
   render() {
-      let keys = Object.keys(this.props.tokens);
+    let keys = Object.keys(this.props.tokens);
     return (
       <NavLink to={"/wallets/walletDetails/" + this.props.index} className={styles.wallet} activeClassName={styles.active}>
         <WalletIcon className={styles.walletIcon} />
@@ -18,7 +18,7 @@ class Wallet extends Component {
             <li className={styles.token}> { this.props.trx} TRX</li>
           {
             keys.map((k, i) =>
-              <li className={styles.token} key={k}>{ this.props.tokens[k].amount } { k }</li>
+              <li className={styles.token} key={k}>{ this.props.tokens[k]} { k }</li>
             )
           }
         </ul>
