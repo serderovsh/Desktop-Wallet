@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { FormattedNumber, FormattedDate, FormattedTime } from 'react-intl';
 import styles from './Transaction.css';
-
 import { TopRightArrow } from '../../Icons';
-import { updateTransactions } from "../../../actions/wallet";
-import { connect } from "react-redux";
+import { updateTransactions } from '../../../actions/wallet';
 
 const enums = {
   Received: 0,
@@ -23,16 +23,16 @@ class Transaction extends Component {
 
   txAmount() {
     if (this.props.type === enums.Received) {
-      return <div className={`${styles.txAmount} ${styles.green}`}>+ {(this.props.amount / 100000000).toFixed(8)} {this.props.asset}</div>;
+      return <div className={`${styles.txAmount} ${styles.green}`}>+ <FormattedNumber value={this.props.amount / 1000000} /> {this.props.asset}</div>;
     } else {
-      return <div className={`${styles.txAmount} ${styles.red}`}>- {(this.props.amount / 100000000).toFixed(8)} {this.props.asset}</div>;
+      return <div className={`${styles.txAmount} ${styles.red}`}>- <FormattedNumber value={this.props.amount / 1000000} /> {this.props.asset}</div>;
     }
   }
 
   render() {
     let accountId = this.props.match.params.account;
     let transactions = this.props.wallet.persistent.accounts[accountId].transactions;
-    
+
     return (
       <NavLink to={"/wallets/transactionDetails/" +  accountId + "/" + this.props.txID + "/"} className={styles.tx}>
         <div className={styles.txType}>
@@ -41,7 +41,7 @@ class Transaction extends Component {
         </div>
         <div className={styles.txInfo}>
           {this.txAmount()}
-          <div className={styles.txDate}>{this.formattedDate()}</div>
+          <div className={styles.txDate}> <FormattedDate value={this.props.date} /> <FormattedTime value={this.props.date} /></div>
         </div>
       </NavLink>
     );
