@@ -19,6 +19,32 @@ import styles from '../components/ContentMain.css';
 
 
 class App extends React.Component {
+
+
+    constructor(props) {
+        super(props);
+        this.state ={
+            websocket : null,
+        }
+    }
+
+    websocketOnMessage(event){
+        console.log('onmessage');
+        console.log(event);
+    }
+
+    websocketOnOpen(event){
+        console.log('onOpen');
+        console.log(event);
+    }
+
+    connectWebsocket(){
+        this.state.websocket = new WebSocket("ws://127.0.0.1:8089");
+        this.state.websocket.onopen = this.websocketOnOpen;
+        this.state.websocket.onmessage = this.websocketOnMessage;
+
+    }
+
   componentDidMount() {
     let language = 'en';
     this.props.setLanguage(language);
@@ -26,7 +52,9 @@ class App extends React.Component {
     this.props.loadTokens();
     this.props.loadWitnesses();
     this.props.loadStorage(this.props);
+    this.connectWebsocket();
   }
+
   render() {
     let { activeLanguage } = this.props;
     return (
