@@ -130,7 +130,7 @@ class Transfer extends Component {
           <AmountDisplay token={token} onSetAmount={this.onSetAmount.bind(this)}/>
           <Button
             onClick={this.onClickSend.bind(this)}
-            className={`${buttonStyles.button} ${buttonStyles.black}`}>Send
+            className={`${buttonStyles.button} ${buttonStyles.black}`}>Create
           </Button>
 
             <TextArea placeholder="Output..." class={styles.textArea} value={this.state.outputText}/>

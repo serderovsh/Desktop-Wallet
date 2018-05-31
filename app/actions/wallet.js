@@ -84,6 +84,8 @@ export const onSetPassword = (props, newPassword)=>{
 
 export const addAccount = async(props, accountName, dispatch, newAccount = null)=>{
     console.log('adding account with name: ' + accountName);
+    if(accountName === "")
+        accountName = "Unnamed Account";
     let persistent =props.wallet.persistent;
 
     if(newAccount === null)
