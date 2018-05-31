@@ -25,8 +25,8 @@ export class PopupModal extends Component {
     if (this.props.confirmation) {
       return (
       <div className={styles.buttonContainer}>
-        <Button onClick={this.props.modalConfirm} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Confirm</Button>
         <Button onClick={this.props.modalDecline} className={`${buttonStyles.button} ${buttonStyles.black}`}>Decline</Button>
+        <Button onClick={this.props.modalConfirm} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Confirm</Button>
       </div>
       );
     } else {
