@@ -82,7 +82,8 @@ export const onSetPassword = (props, newPassword)=>{
     }
 };
 
-export const addAccount = async(props, accountName = "Unnamed Wallet", dispatch, newAccount = null)=>{
+export const addAccount = async(props, accountName, dispatch, newAccount = null)=>{
+    console.log('adding account with name: ' + accountName);
     let persistent =props.wallet.persistent;
 
     if(newAccount === null)
@@ -106,7 +107,12 @@ export const addAccount = async(props, accountName = "Unnamed Wallet", dispatch,
         bandwidth : 0
     };
 
+
     let newWalletState = (props.wallet.pw === null) ? WALLET_STATE.NEEDS_USER_PASSWORD : WALLET_STATE.READY;
+    console.log("HERE!");
+    console.log(newWalletState);
+    console.log(props.wallet.pw);
+
     dispatch(broadcastPersistent(persistent, newWalletState));
     if(newWalletState === WALLET_STATE.READY){
         savePersistent(persistent, props.wallet.pw);
@@ -194,13 +200,12 @@ export const populateDecryptedPersistent = (persistent, pw)=>{
 };
 
 export const decryptPersistent = (persistent, password, dispatch)=>{
-    console.log("attempting decryption");
+    console.log("decryptPersistent");
     let decrypted = null;
     try{
         decrypted = JSON.parse(decrypt(persistent, password));
         dispatch(populateDecryptedPersistent(decrypted, password));
         startUpdateAccountsAsync(decrypted, dispatch);
-        return true;
     }catch (e) {
         console.log(e);
         return false;
