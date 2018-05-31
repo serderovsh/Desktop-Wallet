@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FormattedNumber } from 'react-intl';
+import {updateTransferTransactions} from "../../actions/wallet";
+
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import styles from './Wallet.css';
 
 import { WalletIcon, ArrowRightIcon } from '../Icons';
 
 class Wallet extends Component {
+
+    constructor(props){
+        super(props);
+    }
+
+  onClick(){
+      this._this.props.updateTransactions(this.address);
+  }
+
   render() {
     let keys = Object.keys(this.props.tokens);
     return (
-      <NavLink to={"/wallets/walletDetails/" + this.props.index} className={styles.wallet} activeClassName={styles.active}>
+      <NavLink onClick={this.onClick.bind({_this:this, address:this.props.index})} to={"/wallets/walletDetails/" + this.props.index} className={styles.wallet} activeClassName={styles.active}>
         <WalletIcon className={styles.walletIcon} />
         <ul className={styles.walletInfo}>
           <li className={styles.name}>{ this.props.name }</li>
@@ -28,4 +41,11 @@ class Wallet extends Component {
   }
 }
 
-export default Wallet;
+export default withRouter(connect(
+    state => ({}),
+    dispatch => ({
+        updateTransactions: (address) => {
+            updateTransferTransactions(address, dispatch);
+        }
+    })
+)(Wallet));

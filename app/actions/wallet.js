@@ -144,6 +144,31 @@ export const createAccount = (props, accountName, newAccount = null) => {
     }
 };
 
+export const updateTransferTransactions = async (address, dispatch) => {
+    let transactions = await client.getTransactionsRelatedToThis(address);
+
+    let cleanedTransactions = [];
+    for (let i = 0; i < transactions.length; i++) {
+        let transaction = transactions[i];
+
+        let newTransaction = {
+            ...transaction,
+            amount: transaction.amount,
+            date: transaction.timestamp,
+            type: (transaction.owner_address === address) ? 1 : 0,
+            asset: (transaction.asset_name) ? transaction.asset_name : 'TRX',
+        };
+
+        if (transactions[i].contract_desc === 'TransferContract' ||
+            transactions[i].contract_desc === 'ParticipateAssetIssueContract' ||
+            transactions[i].contract_desc === 'TransferAssetContract') {
+            cleanedTransactions.push(newTransaction);
+        }
+    }
+
+    dispatch(updateTransactions(address, cleanedTransactions));
+}
+
 export const updateTransactions = (accountId, transactions)=>{
     return {
         type : UPDATE_TRANSACTIONS,
