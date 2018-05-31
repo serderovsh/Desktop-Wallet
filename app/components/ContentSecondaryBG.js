@@ -4,7 +4,7 @@ import styles from './ContentSecondaryBG.css';
 export default class Background extends Component {
   render() {
     return (
-      <svg className={styles.bg} viewBox="0 0 386 768">
+      <svg className={`${styles.bg} ${this.props.className}`} viewBox="0 0 386 768">
           <defs>
               <polygon id="path-1" points="0.303781874 0.335 289 0.335 289 632.0994 0.303781874 632.0994"></polygon>
               <polygon id="path-3" points="0.281242037 0.335 284 0.335 284 665.2399 0.281242037 665.2399"></polygon>

@@ -29,22 +29,41 @@
     font-weight: 300;
 }
 
-.tronPower {
+.subContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.subAmountContainer {
+    min-width: 175px;
+    margin: 0px 50px;
+}
+
+.subAmountHeader {
+    color: #fff;
+    font-size: 12px;
+    border-bottom: 1px solid white;
+    text-align: center;
+    display: inline-block;
+}
+
+.subAmount {
     font-family: 'Source Code Pro', monospace;
     color: #fff;
     margin-top: 5px;
 }
 
-.tronPower span {
+.subAmount span {
     font-weight: 300;
 }
 
 .tpExpire {
     font-family: 'Source Code Pro', monospace;
     color: #fff;
-    font-size: 12px;
+    font-size: 10px;
     margin-top: 2px;
-    margin-bottom: 15px;
 }
 
 .container {
