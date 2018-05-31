@@ -23,7 +23,6 @@ import styles from '../components/ContentMain.css';
 import {WALLET_STATE} from "../actions/wallet";
 
 class App extends React.Component {
-
     constructor(props) {
         super(props);
         this.state ={

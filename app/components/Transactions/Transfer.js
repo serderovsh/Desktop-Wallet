@@ -8,10 +8,19 @@ import AmountDisplay from './AmountDisplay';
 import buttonStyles from '../Button.css';
 import { ContactIcon, BackArrowIcon } from '../Icons';
 import { PopupModal } from '../Content/PopupModal';
+import { TextArea } from 'semantic-ui-react';
 
 import { trxToDrops } from '../../utils/currency';
 
 import TronHttpClient from 'tron-http-client';
+const client = new TronHttpClient();
+const tools = require('tron-http-tools');
+
+function toHexString(byteArray) {
+    return Array.from(byteArray, function(byte) {
+        return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('')
+}
 
 class Transfer extends Component {
   constructor(props) {
@@ -35,27 +44,30 @@ class Transfer extends Component {
 
       showSuccessModal: false,
       modalSuccessText: "Success",
-      accountAddress: ""
+      accountAddress: "",
+        outputText : ""
     };
   }
 
   async onClickSend() {
-    let accountId = this.props.match.params.account;
-    let account = this.props.wallet.persistent.accounts[ accountId ];
+      try{
+          let transaction = await tools.transactions.createUnsignedTransferTransaction({
+              sender : this.state.userAddress,
+              recipient : this.state.recipientAddress,
+              amount : parseInt(trxToDrops(this.state.amount)),
+          }, await client.getLastBlock());
 
+          let hex = toHexString(transaction.serializeBinary());
 
-    this.setState({
-      ...this.state,
-      sendProperties: {
-        privateKey: account.privateKey,
-        recipient: this.state.address.trim(),
-        amount: parseInt(this.state.amount)
-      },
-      accountAddress: account.publicKey,
-      showConfirmModal: true,
-      modalConfirmText: `Send ${this.state.amount} TRX to ${this.state.address}?`
-    });
-
+          this.setState({
+              outputText: hex
+          })
+          console.log(hex);
+      }catch (e) {
+          this.setState({
+              outputText: "Something went wrong. Make sure to input valid values."
+          })
+      }
   }
 
   onSetAmount(amount) {
@@ -77,78 +89,11 @@ class Transfer extends Component {
     });
   }
 
-  async modalConfirm() {
-    let client = new TronHttpClient();
-    let response = null;
-    if (this.props.match.params.token) {
-      response = await client.sendToken(
-        this.state.sendProperties.privateKey,
-        this.state.sendProperties.recipient,
-        this.state.sendProperties.amount,
-        this.props.match.params.token).catch(x => null);
-    } else {
-      console.log(this.state.sendProperties);
-      response = await client.sendTrx(
-        this.state.sendProperties.privateKey,
-        this.state.sendProperties.recipient,
-        parseInt(trxToDrops(this.state.sendProperties.amount))).catch(x => null);
-    }
-
-    if (response === null) {
-      this.setState({
-        ...this.state,
-        sendProperties: {},
-        showConfirmModal: false,
-        showFailureModal: true,
-        modalFailureText: "Transaction failed"
-      });
-
-    } else if (response.result != true) {
-      this.setState({
-        ...this.state,
-        sendProperties: {},
-        showConfirmModal: false,
-        showFailureModal: true,
-        modalFailureText: "Transaction failed: " + response.message
-      });
-    } else {
-      this.setState({
-        ...this.state,
-        sendProperties: {},
-        showConfirmModal: false,
-        showSuccessModal: true,
-        modalSuccessText: "Transaction Successful!"
-      });
-    }
-
-    console.log(response);
-  }
-
-  modalDecline() {
-    this.setState({
-      ...this.state,
-      sendProperties: {},
-      showConfirmModal: false
-    });
-  }
-
   modalFailureClose() {
     this.setState({
       ...this.state,
       showFailureModal: false
     });
-  }
-
-  modalSuccessClose() {
-    this.props.history.push("/wallets/walletDetails/" + this.state.accountAddress);
-    this.setState({
-      ...this.state,
-      showSuccessModal: false
-    });
-  }
-
-  modalClose() {
-    this.state.showConfirmModal = false;
   }
 
   render() {
@@ -161,11 +106,14 @@ class Transfer extends Component {
           <BackArrowIcon/>
         </div>
         <div className={styles.subContainer}>
+            <p>
+                This tool creates raw transfer transactions which you can sign on other devices and then broadcast to the network.
+            </p>
           <div className={styles.addressContainer}>
             <ContactIcon/>
             <input
               onChange={this.onSetUserAddress.bind(this)}
-              placeholder="Your Address"
+              placeholder="Sender Address"
               className={styles.address}
               value={this.props.userAddress}
             />
@@ -185,14 +133,7 @@ class Transfer extends Component {
             className={`${buttonStyles.button} ${buttonStyles.black}`}>Send
           </Button>
 
-          <PopupModal
-            confirmation
-            modalVis={this.state.showConfirmModal}
-            modalText={this.state.modalConfirmText}
-            closeModalFunction={this.modalClose.bind(this)}
-            modalConfirm={this.modalConfirm.bind(this)}
-            modalDecline={this.modalDecline.bind(this)}
-          />
+            <TextArea placeholder="Output..." class={styles.textArea} value={this.state.outputText}/>
 
           <PopupModal
             failure
@@ -201,18 +142,10 @@ class Transfer extends Component {
             closeModalFunction={this.modalFailureClose.bind(this)}
             modalConfirm={this.modalFailureClose.bind(this)}
           />
-
-          <PopupModal
-            success
-            modalVis={this.state.showSuccessModal}
-            modalText={this.state.modalSuccessText}
-            closeModalFunction={this.modalSuccessClose.bind(this)}
-            modalConfirm={this.modalSuccessClose.bind(this)}
-          />
         </div>
       </div>
     );
   }
 }
 
-export default withRouter(connect(state => ({ wallet: state.wallet }))(SendAmount));
+export default withRouter(connect(state => ({ wallet: state.wallet }))(Transfer));

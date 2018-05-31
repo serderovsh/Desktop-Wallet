@@ -10,13 +10,39 @@ import buttonStyles from '../../Button.css';
 import Secondary from '../../Content/Secondary';
 import Header from '../../Header';
 
-export default class OfflineSignature extends Component {
+const tools = require('tron-http-tools');
+const TronHttpClient = require('tron-http-client');
+const client = new TronHttpClient();
 
+
+function toHexString(byteArray) {
+    return Array.from(byteArray, function(byte) {
+        return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('')
+}
+
+class OfflineSignature extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            hex:"",
+            hexAfter:""
+        };
+    }
   setHex = (e, { value }) => this.setState({ hex: value })
 
-  submitHex = () => {
-    console.log(this.state.hex);
-  }
+  submitHex = async () => {
+    let account = this.props.wallet.persistent.accounts[this.props.match.params.account];
+    let transaction = tools.transactions.transactionFromBase64(new Buffer(this.state.hex, 'hex').toString('base64'));
+    let signed = tools.transactions.signTransaction(account.privateKey, transaction);
+    this.setState({
+       hexAfter : toHexString(signed.serializeBinary())
+    });
+
+    console.log(transaction.toObject());
+
+  };
 
   render() {
     return (
@@ -24,13 +50,22 @@ export default class OfflineSignature extends Component {
         <div className={styles.container}>
           <Header headerName="Offline Signature" />
           <div className={styles.subContainer}>
-            <div className={styles.header}>TRANSACTION HEX :</div>
-            <div className={styles.headerSubText}>Here you can paste a transaction hex to inspect the contents of a transaction. The transaction can then be broadcasted to the network.</div>
-            <TextArea placeholder="Write your message here..." className={styles.textArea} onChange={this.setHex}/>
-            <Button onClick={this.submitHex} className={`${buttonStyles.button} ${buttonStyles.black}`}>Load Transaction</Button>
+            <div className={styles.header}>Sign Transactions:</div>
+            <TextArea placeholder="Paste unsigned transaction here..." className={styles.textArea} onChange={this.setHex}/>
+            <TextArea placeholder="Output..." className={styles.textArea} value={this.state.hexAfter}/>
+            <Button onClick={this.submitHex.bind(this)} className={`${buttonStyles.button} ${buttonStyles.black}`}>Load Transaction</Button>
           </div>
         </div>
       </Secondary>
     );
   }
 }
+
+export default withRouter(connect(
+    state => ({wallet:state.wallet}),
+    dispatch => ({
+        updateTransactions: (address) => {
+            updateTransferTransactions(address, dispatch);
+        }
+    })
+)(OfflineSignature));

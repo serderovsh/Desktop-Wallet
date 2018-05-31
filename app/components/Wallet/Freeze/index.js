@@ -11,7 +11,6 @@ import { PopupModal } from '../../Content/PopupModal';
 import AmountDisplay from './AmountDisplay';
 
 import { trxToDrops } from '../../../utils/currency';
-
 import TronHttpClient from 'tron-http-client';
 
 class Freeze extends Component {
@@ -35,6 +34,7 @@ class Freeze extends Component {
     };
   }
   async onClickFreezeTrx() {
+      consele.log("sup");
     let accountId = this.props.match.params.account;
     let account = this.props.wallet.persistent.accounts[accountId];
 
@@ -93,7 +93,7 @@ class Freeze extends Component {
           After this period you can unfreeze the TRX and trade the tokens.</div>
         <AmountDisplay onSetAmount={this.onSetAmount.bind(this)}/>
         <div className={styles.buttonContainer}>
-          <Button onClick={this.onClickFreeze} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Unfreeze</Button>
+          <Button onClick={this.onClickFreezeTrx} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Unfreeze</Button>
           <Button onClick={this.onClickUnFreeze} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Freeze</Button>
         </div>
 

@@ -25,6 +25,9 @@ class WalletList extends Component {
               <NavLink to="/wallets/create">
                 <Dropdown.Item text="Create Wallet" icon={<WalletIcon />} />
               </NavLink>
+                <NavLink to="/wallets/createtransfer">
+                    <Dropdown.Item text="Create Raw Transfer" icon={<WalletIcon />} />
+                </NavLink>
             </Dropdown.Menu>
           </Dropdown>
         </Header>

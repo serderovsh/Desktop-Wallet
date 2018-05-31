@@ -25,6 +25,7 @@ import Notifications from './components/Settings/Notifications';
 import Node from './components/Settings/Node';
 import CreateToken from './components/Tokens/CreateToken';
 import OfflineSignature from './components/Wallet/OfflineSignature';
+import Transfer from './components/Transactions/Transfer'
 
 export const routes = [
   {
@@ -58,6 +59,10 @@ export const routes = [
   {
     path: "/wallets/offline/:account",
     main: () => <OfflineSignature />,
+  },
+  {
+    path: "/wallets/createtransfer/",
+    main: () => <Transfer/>,
   },
   {
     path: "/wallets/freeze/:account",
