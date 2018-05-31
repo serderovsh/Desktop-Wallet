@@ -13,7 +13,7 @@ export default class AmountDisplay extends Component {
           <div className={styles.amountMain}>
             <AmountInput onSetAmount={this.props.onSetAmount} /><span>{this.props.token}</span>
           </div>
-          <div className={styles.amountSub}>00,000.00 USD</div>
+          <div className={styles.amountSub}>{this.props.usd} USD</div>
         </div>
       </div>
     );

@@ -9,7 +9,7 @@ import buttonStyles from '../../Button.css';
 import { ContactIcon, BackArrowIcon } from '../../Icons';
 import { PopupModal } from '../../Content/PopupModal';
 
-import { trxToDrops } from '../../../utils/currency';
+import { trxToDrops, dropsToFiat } from '../../../utils/currency';
 
 import TronHttpClient from 'tron-http-client';
 
@@ -34,7 +34,9 @@ class SendAmount extends Component {
 
       showSuccessModal: false,
       modalSuccessText: "Success",
-      accountAddress: ""
+      accountAddress: "",
+
+        usdAmount : 0
     };
   }
 
@@ -60,7 +62,8 @@ class SendAmount extends Component {
   onSetAmount(amount) {
     this.setState({
       ...this.state,
-      amount: amount
+      amount: amount,
+        usdAmount:dropsToFiat(this.props.currency, parseInt(amount)*1000000)
     })
   }
 
@@ -164,7 +167,7 @@ class SendAmount extends Component {
               value={this.props.address}
             />
           </div>
-          <AmountDisplay token={token} onSetAmount={this.onSetAmount.bind(this)}/>
+          <AmountDisplay usd={this.state.usdAmount} token={token} onSetAmount={this.onSetAmount.bind(this)}/>
           <Button
             onClick={this.onClickSend.bind(this)}
             className={`${buttonStyles.button} ${buttonStyles.black}`}>Send
@@ -200,4 +203,4 @@ class SendAmount extends Component {
   }
 }
 
-export default withRouter(connect(state => ({ wallet: state.wallet }))(SendAmount));
+export default withRouter(connect(state => ({ wallet: state.wallet, currency:state.currency }))(SendAmount));
