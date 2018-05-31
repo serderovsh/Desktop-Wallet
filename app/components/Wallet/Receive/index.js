@@ -68,9 +68,5 @@ class Receive extends Component {
 
 export default withRouter(connect(
   state => ({ wallet: state.wallet }),
-  dispatch => ({
-    initFromStorage: (props) => {
-      dispatch(initFromStorage(props));
-    }
-  })
+  dispatch => ({ })
 )(Receive));

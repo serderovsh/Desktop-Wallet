@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import styles from './Import.css';
 
-import {createAccount} from "../../../../actions/wallet";
+import {addAccount} from "../../../../actions/wallet";
 import { Checkbox, Input, Form, Button } from 'semantic-ui-react';
 import buttonStyles from '../../../Button.css';
 
@@ -17,7 +17,7 @@ class Import extends Component {
   importKey = () => {
     let value = this.state.value.trim();
     let newAccount = tools.accounts.accountFromPrivateKey(value);
-    this.props.createAccount(this.props, "Imported Account", newAccount);
+    this.props.addAccount(this.props, "Imported Account", newAccount);
   };
 
   static inputAlphanumeric(e) {
@@ -49,8 +49,8 @@ export default withRouter(connect(
         availableLanguages: state.app.availableLanguages
     }),
     dispatch => ({
-        createAccount : (props, accountName, newAccount) =>{
-            dispatch(createAccount(props, accountName, newAccount));
+        addAccount: (props, accountName, newAccount) =>{
+            return addAccount(props, accountName, dispatch, newAccount);
         }
     })
 )(Import));

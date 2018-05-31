@@ -6,7 +6,7 @@ import styles from './Import.css';
 
 import { Checkbox, Input, Form, Button } from 'semantic-ui-react';
 import buttonStyles from '../../../Button.css';
-import {createAccount} from "../../../../actions/wallet";
+import {addAccount} from "../../../../actions/wallet";
 
 const bip39 = require('bip39');
 const tools = require('tron-http-tools');
@@ -52,7 +52,7 @@ class Import extends Component {
     onImport(){
         let mnemonic = this.state.words.join(" ");
         let newAccount = tools.accounts.accountFromMnemonicString(mnemonic);
-        this.props.createAccount(this.props, "Imported Account", newAccount);
+        this.props.addAccount(this.props, "Imported Account", newAccount);
     }
 
     render() {
@@ -82,8 +82,8 @@ export default withRouter(connect(
         availableLanguages: state.app.availableLanguages
     }),
     dispatch => ({
-        createAccount : (props, accountName, newAccount) =>{
-            dispatch(createAccount(props, accountName, newAccount));
+        addAccount: (props, accountName, newAccount) =>{
+            addAccount(props, accountName,dispatch, newAccount);
         }
     })
 )(Import));

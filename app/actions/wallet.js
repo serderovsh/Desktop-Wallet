@@ -14,15 +14,12 @@ export const UPDATE_TRANSACTIONS = 'UPDATE_TRANSACTIONS';
 const LOCALSTORAGE_KEY = "TRON_WATCH";
 const algorithm = 'aes-256-ctr';
 
-export const WALLET_TYPE = {
-    HOT : 0,
-    COLD : 1
-};
 export const WALLET_STATE = {
-    NEEDS_LOADING : 0,
-    NO_WALLET : 1,
-    NEEDS_USER_UNLOCK : 2,
-    READY : 3
+    NEEDS_LOADING : 'NEEDS_LOADING',
+    NO_WALLET : 'NO_WALLET',
+    NEEDS_USER_PASSWORD : 'NEEDS_USER_PASSWORD',
+    NEEDS_USER_UNLOCK : 'NEEDS_USER_UNLOCK',
+    READY : 'READY'
 };
 
 export const setTokenBalances = (tokens = [], frozen = {}) => ({
@@ -31,28 +28,15 @@ export const setTokenBalances = (tokens = [], frozen = {}) => ({
   frozen,
 });
 
-export const loadTokenBalances = (password) => async (dispatch) => {
-  let { balances, frozen } = await Client.getAccountBalances(password);
-  dispatch(setTokenBalances(balances, frozen));
-};
 
-
-/*makes sure a persistent object has all required properties*/
 function verifyPersistent(persistent){
     if(!('accounts' in persistent)){
         console.log("persistent.accounts missing");
         return false;
     }
-    /*
-    if(!('walletType' in persistent)){
-        console.log("persistent.walletType missing");
-        return false;
-    }
-    */
 
     return true;
 }
-
 
 function encrypt(text, password){
     let cipher = crypto.createCipher(algorithm,password)
@@ -68,7 +52,7 @@ function decrypt(text, password){
     return dec;
 }
 
-function savePersistent(persistent, password=""){
+function savePersistent(persistent, password){
     if(verifyPersistent(persistent)){
         let persistentString = JSON.stringify(persistent);
         let encryptedString = encrypt(persistentString, password);
@@ -80,7 +64,27 @@ function savePersistent(persistent, password=""){
     }
 }
 
-function addAccount(persistent, accountName = "Unnamed Wallet", newAccount = null){
+export const broadcastPersistent = (persistent, newState, pw)=>{
+    return {
+        type : FINISH_INITIALIZATION,
+        persistent : persistent,
+        wallet_state : newState
+    }
+};
+
+export const onSetPassword = (props, newPassword)=>{
+    savePersistent(props.wallet.persistent, newPassword);
+    return {
+        type :FINISH_INITIALIZATION,
+        persistent : props.wallet.persistent,
+        wallet_state : WALLET_STATE.READY,
+        pw : newPassword
+    }
+};
+
+export const addAccount = async(props, accountName = "Unnamed Wallet", dispatch, newAccount = null)=>{
+    let persistent =props.wallet.persistent;
+
     if(newAccount === null)
         newAccount = TronHttpTools.accounts.generateRandomBip39();
 
@@ -102,25 +106,12 @@ function addAccount(persistent, accountName = "Unnamed Wallet", newAccount = nul
         bandwidth : 0
     };
 
-    return persistent;
-}
-
-export const createWallet = (props, accountName="Unnamed Wallet") => {
-    let newPersistent = {
-        accounts: {},
-        walletType : WALLET_TYPE.HOT
-    };
-
-    newPersistent = addAccount(newPersistent, accountName);
-    if(savePersistent(newPersistent)){
-        return {
-            type : FINISH_INITIALIZATION,
-            wallet_state : WALLET_STATE.READY,
-            persistent : newPersistent
-        };
-    }else{
-        throw 'create wallet failed on step: savePersistent';
+    let newWalletState = (props.wallet.pw === null) ? WALLET_STATE.NEEDS_USER_PASSWORD : WALLET_STATE.READY;
+    dispatch(broadcastPersistent(persistent, newWalletState));
+    if(newWalletState === WALLET_STATE.READY){
+        savePersistent(persistent, props.wallet.pw);
     }
+    startUpdateAccountsAsync(persistent, dispatch);
 };
 
 async function getAccountsInfo(persistent){
@@ -135,14 +126,6 @@ export const updateAllAccounts = (persistent) =>{
     }
 };
 
-export const createAccount = (props, accountName, newAccount = null) => {
-    let persistent = addAccount(props.wallet.persistent, accountName, newAccount);
-    savePersistent(persistent);
-    return {
-        type : UPDATE_ALL_ACCOUNTS,
-        persistent: persistent
-    }
-};
 
 export const updateTransferTransactions = async (address, dispatch) => {
     let transactions = await client.getTransactionsRelatedToThis(address);
@@ -200,27 +183,29 @@ function startUpdateAccountsAsync(persistent, dispatch){
     }, 0);
 }
 
-export const populateDecryptedPersistent = (persistent)=>{
+export const populateDecryptedPersistent = (persistent, pw)=>{
+    console.log('populatePersistenet');
     return {
         type : FINISH_INITIALIZATION,
         wallet_state : WALLET_STATE.READY,
-        persistent : persistent
+        persistent : persistent,
+        pw : pw
     };
 };
 
-function decryptPersistent(persistent, password="", dispatch){
+export const decryptPersistent = (persistent, password, dispatch)=>{
     console.log("attempting decryption");
     let decrypted = null;
     try{
         decrypted = JSON.parse(decrypt(persistent, password));
-        dispatch(populateDecryptedPersistent(decrypted));
+        dispatch(populateDecryptedPersistent(decrypted, password));
         startUpdateAccountsAsync(decrypted, dispatch);
         return true;
     }catch (e) {
         console.log(e);
         return false;
     }
-}
+};
 
 export const initFromStorage = (props, dispatch) =>{
     let persistent = window.localStorage.getItem(LOCALSTORAGE_KEY);
@@ -231,9 +216,11 @@ export const initFromStorage = (props, dispatch) =>{
             console.log(persistent);
 
             //testing
+            /*
             setTimeout(()=>{
                 decryptPersistent(persistent, "", dispatch);
             },0);
+            */
             return {
                 type : INITIALIZATION_NEED_DECRYPTION,
                 wallet_state : WALLET_STATE.NEEDS_USER_UNLOCK,
@@ -247,13 +234,15 @@ export const initFromStorage = (props, dispatch) =>{
 
             props.history.push("/wallets/create");
             return {
-                type : INIT
+                type : INIT,
+                wallet_state : WALLET_STATE.NO_WALLET
             };
         }
     }else{
         props.history.push("/wallets/create");
         return {
-            type : INIT
+            type : INIT,
+            wallet_state : WALLET_STATE.NO_WALLET
         };
     }
 };

@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import styles from './CreationContent.css';
-import { createWallet } from '../../../../actions/wallet';
+import { createWallet, addAccount} from '../../../../actions/wallet';
 import buttonStyles from '../../../Button.css';
+
 
 class CreationContent extends Component {
   constructor() {
@@ -20,9 +21,9 @@ class CreationContent extends Component {
   setWalletCold = (type) => this.setState({ walletType: 1 });
   setWalletName = (e, { value }) => this.setState({ walletName: value });
 
-  onClickCreate() {
-    console.log(this.state.walletName, this.state.walletType)
-    this.props.createWallet(this.props, this.state.walletName, this.state.walletType);
+  async onClickCreate() {
+      console.log("clicaaaaaaaaaaaaaaaaaaaaaak");
+      await this.props.addAccount(this.props, "test123");
   }
 
   inputAlphanumeric(e) {
@@ -96,6 +97,9 @@ export default withRouter(connect(
   dispatch => ({
     createWallet: (props, walletName) => {
       dispatch(createWallet(props, walletName));
+    },
+    addAccount: (props, walletName) => {
+        addAccount(props, walletName, dispatch);
     }
   })
 )(CreationContent));
