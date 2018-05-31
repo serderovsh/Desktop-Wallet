@@ -3,7 +3,7 @@ import styles from './PasswordModal.css';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import OWASP from 'owasp-password-strength-test';
-import { Form } from 'semantic-ui-react';
+import { Input, Button } from 'semantic-ui-react';
 import buttonStyles from '../Button.css';
 import { LockIcon } from '../Icons';
 
@@ -62,9 +62,7 @@ class PasswordModal extends Component {
 
     renderResetPart(){
         return (
-            <div>
-                <Form.Button onClick={this.onUserPwReset.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Reset Password</Form.Button>
-            </div>
+            <Button onClick={this.onUserPwReset.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Reset Password</Button>
         );
     }
     renderEnterPassword(){
@@ -72,12 +70,15 @@ class PasswordModal extends Component {
         <div className={styles.container}>
             <div className={styles.subContainer}>
                 <div className={styles.modalHeader}>Enter Password</div>
-                <Form className={styles.modalContainer}>
+                <div className={styles.modalContainer}>
                     <LockIcon className={styles.icon}/>
-                    <Form.Input onChange={this.setPw.bind(this)} type="password" placeholder="Enter your Password..." className={styles.passwordInput} />
-                    <Form.Button onClick={this.onClick.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit</Form.Button>
-                    {this.props.userHasEnteredWrongPw ? this.renderResetPart() : ""}
-                </Form>
+                    <Input onChange={this.setPw.bind(this)} type="password" placeholder="Enter your Password..." className={styles.passwordInput} />
+                    <p className={styles.status}>{this.props.userHasEnteredWrongPw ? 'Wrong Password' : ''}</p>
+                    <div className={styles.buttonContainer}>
+                        <Button onClick={this.onClick.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit</Button>
+                        {this.props.userHasEnteredWrongPw ? this.renderResetPart() : ""}
+                    </div>
+                </div>
             </div>
         </div>
         );
@@ -103,12 +104,12 @@ class PasswordModal extends Component {
             <div className={styles.container}>
                 <div className={styles.subContainer}>
                     <div className={styles.modalHeader}>Set a secure Password</div>
-                    <Form className={styles.modalContainer}>
+                    <div className={styles.modalContainer}>
                         <p className={styles.status}>Password Strength: {this.getPasswordEvaluation(this.state.pw)} {this.state.matcherror}</p>
-                        <Form.Input onChange={this.setPw.bind(this)} type="password" placeholder="Enter your Password..." className={styles.passwordInput2} />
+                        <Input onChange={this.setPw.bind(this)} type="password" placeholder="Enter your Password..." className={styles.passwordInput2} />
                         {(this.props.newPass !== undefined) ? <Form.Input onChange={this.setConfirm.bind(this)} type="password" placeholder="Repeat Password" className={styles.passwordInput2} /> : ''}
-                        <Form.Button onClick={this.onClick.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit</Form.Button>
-                    </Form>
+                        <Button onClick={this.onClick.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit</Button>
+                    </div>
                 </div>
             </div>
         )

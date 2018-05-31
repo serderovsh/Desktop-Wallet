@@ -22,9 +22,6 @@ class WalletList extends Component {
         <Header className={styles.header} text="MY WALLETS :">
           <Dropdown icon={<MoreIcon />}>
             <Dropdown.Menu>
-              <NavLink to="/wallets/create">
-                <Dropdown.Item text="Create Wallet" icon={<WalletIcon />} />
-              </NavLink>
                 <NavLink to="/wallets/createtransfer">
                     <Dropdown.Item text="Create Raw Transfer" icon={<SendIcon />} />
                 </NavLink>
@@ -32,7 +29,7 @@ class WalletList extends Component {
           </Dropdown>
         </Header>
         <div className={styles.buttonContainer}>
-          <NavLink to="/wallets/createAccount">
+          <NavLink to="/wallets/create">
             <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Wallet</Button>
           </NavLink>
         </div>
