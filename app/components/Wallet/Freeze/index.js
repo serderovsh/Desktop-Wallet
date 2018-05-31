@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Input } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -7,8 +7,10 @@ import styles from './Freeze.css';
 import buttonStyles from '../../Button.css';
 
 import MainModal from '../../Content/DarkMainModal';
-import AmountInput from './AmountInput';
 import { PopupModal } from '../../Content/PopupModal';
+import AmountDisplay from './AmountDisplay';
+
+import { trxToDrops } from '../../../utils/currency';
 
 import TronHttpClient from 'tron-http-client';
 
@@ -48,25 +50,78 @@ class Freeze extends Component {
     });
   }
 
+  onSetAmount(amount) {
+    this.setState({amount: amount})
+  }
+
+  async modalConfirm() {
+    // actually call here
+  }
+
+  modalDecline() {
+    this.setState({
+      showConfirmModal: false
+    });
+  }
+
+  modalFailureClose() {
+    this.setState({
+      showFailureModal: false
+    });
+  }
+
+  modalSuccessClose() {
+    this.props.history.push("/wallets/walletDetails/" + this.state.accountAddress);
+    this.setState({
+      showSuccessModal: false
+    });
+  }
+
+  modalClose() {
+    this.state.showConfirmModal = false;
+  }
+
   render() {
     let accountId = this.props.match.params.account;
     let account = this.props.wallet.persistent.accounts[accountId];
 
     return (
       <MainModal header="Freeze TRX">
-        <p>TRX can be frozen/locked to gain Tron Power and enable additional features. For example, with Tron Power you
+        <div className={styles.headerSubText}>TRX can be frozen/locked to gain Tron Power and enable additional features. For example, with Tron Power you
           can vote for Super Representatives.
           Frozen tokens are "locked" for a period of 3 days. During this period the frozen TRX cannot be traded.
-          After this period you can unfreeze the TRX and trade the tokens.</p>
-        <input id="amount" className={styles.textBox} value={this.amount} />
+          After this period you can unfreeze the TRX and trade the tokens.</div>
+        <AmountDisplay onSetAmount={this.onSetAmount.bind(this)}/>
         <div className={styles.buttonContainer}>
-          <Button onClick={this.onClickFreeze} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>
-            Unfreeze
-          </Button>
-          <Button onClick={this.onClickUnFreeze} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>
-            Freeze
-          </Button>
+          <Button onClick={this.onClickFreeze} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Unfreeze</Button>
+          <Button onClick={this.onClickUnFreeze} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Freeze</Button>
         </div>
+
+        <PopupModal
+          confirmation
+          modalVis={this.state.showConfirmModal}
+          modalText={this.state.modalConfirmText}
+          closeModalFunction={this.modalClose.bind(this)}
+          modalConfirm={this.modalConfirm.bind(this)}
+          modalDecline={this.modalDecline.bind(this)}
+        />
+
+        <PopupModal
+          failure
+          modalVis={this.state.showFailureModal}
+          modalText={this.state.modalFailureText}
+          closeModalFunction={this.modalFailureClose.bind(this)}
+          modalConfirm={this.modalFailureClose.bind(this)}
+        />
+
+        <PopupModal
+          success
+          modalVis={this.state.showSuccessModal}
+          modalText={this.state.modalSuccessText}
+          closeModalFunction={this.modalSuccessClose.bind(this)}
+          modalConfirm={this.modalSuccessClose.bind(this)}
+        />
+
       </MainModal>
     );
   }

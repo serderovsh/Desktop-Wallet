@@ -1,39 +1,42 @@
-.subHeader {
-  font-size: 13px;
+.container {
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    background-color: #0B0F12;
+}
+
+.header {
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.headerSubText {
+    font-size: 13px;
+    color: #3e3e3e;
+    margin-bottom: 50px;
+}
+
+.subContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    max-width: 400px;
+    width: 100%;
+    margin: 20px auto;
+    border-radius: 10px;
+    padding: 40px;
+    box-sizing: border-box;
 }
 
 .buttonContainer {
+  margin-top: auto;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 175px;
-  margin-top: 20px;
-}
-
-.addressContainer {
-  margin: 50px 0px;
   width: 100%;
 }
 
-.copyBtn {
-  margin-top: 10px !important;
-}
-
-.addressLabel {
-  margin-bottom: 5px;
-  font-size: 12px;
-}
-
-.textBox {
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid grey;
-  padding: 10px 20px;
-  font-size: 12px;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-.textBox:focus {
-  outline: none;
+.buttonContainer button:first-child {
+margin-right: 10px;
 }
