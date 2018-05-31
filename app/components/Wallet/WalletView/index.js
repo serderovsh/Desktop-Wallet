@@ -49,7 +49,7 @@ class WalletView extends Component {
             <Button className={buttonStyles.button}><SnowIcon />Freeze TRX</Button>
           </NavLink>
         </div>
-        <DatePicker/>
+        {/*<DatePicker/>*/}
         <TxList/>
       </Secondary>
     );
