@@ -9,6 +9,7 @@ import ContactList from './components/Contact/';
 import SettingList from './components/Settings/';
 import SendAmount from './components/Wallet/Send/SendAmount';
 import Receive from './components/Wallet/Receive/';
+import Freeze from './components/Wallet/Freeze';
 import Create from './components/Wallet/Create/';
 import CreateAccount from './components/Wallet/CreateAccount/';
 import WalletView from './components/Wallet/WalletView/';
@@ -54,6 +55,10 @@ export const routes = [
     main: () => <Receive />,
   },
   {
+    path: "/wallets/freeze/:account",
+    main: () => <Freeze />,
+  },
+  {
     path: "/wallets/transactionDetails/:account/:txid",
     main: () => <ViewTransaction />,
   },
@@ -86,7 +91,7 @@ export const routes = [
     main: () => <Node />
   },
   {
-    path: "/vote",
+    path: "/vote/",
     sidebar: () => <VoteList />,
   },
   {
@@ -94,7 +99,7 @@ export const routes = [
     main: () => <VoteDetails />
   },
   {
-    path: "/tokens",
+    path: "/tokens/",
     sidebar: () => <TokenList />,
   },
   {

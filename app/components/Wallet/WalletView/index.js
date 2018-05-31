@@ -4,7 +4,7 @@ import { Dropdown, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import styles from './WalletView.css';
 
-import { MoreIcon, CalendarIcon, SendIcon, QRScanIcon, DownloadIcon } from '../../Icons';
+import { MoreIcon, CalendarIcon, SendIcon, QRScanIcon, DownloadIcon, SnowIcon } from '../../Icons';
 import buttonStyles from '../../Button.css';
 
 import Secondary from '../../Content/Secondary';
@@ -33,8 +33,8 @@ class WalletView extends Component {
                 <NavLink to={"/wallets/walletBackup/" + accountId}>
                   <Dropdown.Item text="Backup Wallet" icon={<DownloadIcon/>}/>
                 </NavLink>
-                <Dropdown.Divider/>
-                <Dropdown.Item text="Temp Dropdown Two" icon={<CalendarIcon/>}/>
+                <Dropdown.Divider />
+                <Dropdown.Item text="Freeze TRX" icon={<SnowIcon />}/>
               </Dropdown.Menu>
             </Dropdown>
           </Header>
@@ -42,10 +42,13 @@ class WalletView extends Component {
         </div>
         <div className={styles.buttonContainer}>
           <NavLink to={'/wallets/send/' + accountId + '/' + token}>
-            <Button className={buttonStyles.button}><SendIcon/>Send</Button>
+            <Button className={buttonStyles.button}><SendIcon />Send</Button>
           </NavLink>
           <NavLink to={'/wallets/receive/' + accountId + '/'}>
-            <Button className={buttonStyles.button}><QRScanIcon/>Receive</Button>
+            <Button className={buttonStyles.button}><QRScanIcon />Receive</Button>
+          </NavLink>
+          <NavLink to={'/wallets/freeze/' + accountId + '/' + token}>
+            <Button className={buttonStyles.button}><SnowIcon />Freeze TRX</Button>
           </NavLink>
         </div>
         <DatePicker/>
