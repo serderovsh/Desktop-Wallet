@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { filter, sortBy } from 'lodash';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import { loadWitnesses } from '../../actions/witnesses';
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 
 import Header from '../ContentPrimaryHeader';
 import Vote from './Vote';
-
-import { CSSTransitionGroup } from 'react-transition-group';
 
 import styles from './VoteList.css';
 
@@ -73,7 +71,7 @@ class VoteList extends Component {
 }
 
 export default connect(
-  state => ({ witnesses: state.witnesses, searchString: state.app.searchString }),
+  state => ({ witnesses: state.witnesses, searchString: state.app.searchString, router: state.router }),
   dispatch => ({
     loadWitnesses: () => {
       dispatch(loadWitnesses(dispatch));
