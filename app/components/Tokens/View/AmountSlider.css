@@ -54,6 +54,7 @@
     top: -6px;
     z-index: 4;
     height: 30px;
+    min-width: 330px;
 }
 
 .input input {
@@ -65,4 +66,5 @@
     height: 30px;
     outline: none;
     border: none;
+    min-width: 330px;
 }
