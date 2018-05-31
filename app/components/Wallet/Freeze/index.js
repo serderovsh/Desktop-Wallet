@@ -12,6 +12,7 @@ import AmountDisplay from './AmountDisplay';
 
 import { trxToDrops } from '../../../utils/currency';
 import TronHttpClient from 'tron-http-client';
+const client = new TronHttpClient();
 
 class Freeze extends Component {
   constructor(props) {
@@ -33,21 +34,32 @@ class Freeze extends Component {
       accountAddress: ""
     };
   }
-  async onClickFreezeTrx() {
-      consele.log("sup");
-    let accountId = this.props.match.params.account;
-    let account = this.props.wallet.persistent.accounts[accountId];
 
-    this.setState({
-      ...this.state,
-      freezeTrx: {
-        privateKey: account.privateKey,
-        amount: parseInt(this.state.amount)
-      },
-      accountAddress: account.publicKey,
-      showConfirmModal: true,
-      modalConfirmText: 'Do you Confirm?'
-    });
+
+  async onShow(isFreeze){
+      let accountId = this.props.match.params.account;
+      let account = this.props.wallet.persistent.accounts[accountId];
+
+      let amount =  parseInt(this.state.amount);
+      this.setState({
+          ...this.state,
+          freezeTrx: {
+              privateKey: account.privateKey,
+              amount: parseInt(this.state.amount),
+              isFreeze : isFreeze
+          },
+          accountAddress: account.publicKey,
+          showConfirmModal: true,
+          modalConfirmText: (isFreeze ? `Freeze ${amount} TRX?` : 'Unfreeze All?')
+      });
+  }
+
+  async onClickUnfreezeTrx(isFreeze){
+      this.onShow(false)
+  }
+
+  async onClickFreezeTrx() {
+      this.onShow(true)
   }
 
   onSetAmount(amount) {
@@ -55,7 +67,47 @@ class Freeze extends Component {
   }
 
   async modalConfirm() {
-    // actually call here
+      if(this.state.freezeTrx.isFreeze){
+          let response = await client.freezeTrx(
+              this.state.freezeTrx.privateKey,
+              this.state.freezeTrx.amount*1000000
+          );
+
+          if(response && response.result == true){
+              this.setState({
+                  showConfirmModal: false,
+                  showSuccessModal: true,
+                  modalFailureText: "Freezing Successful!"
+              });
+
+          }else{
+              this.setState({
+                  showConfirmModal: false,
+                  showFailureModal : true,
+                  modalFailureText: "Freezing Failed " + (response && response.message ? response.message : "")
+              });
+          }
+      }else{
+          let response = await client.freezeTrx(
+              this.state.freezeTrx.privateKey,
+              this.state.freezeTrx.amount*1000000
+          );
+
+          if(response && response.result == true){
+              this.setState({
+                  showConfirmModal: false,
+                  showSuccessModal: true,
+                  modalFailureText: "Unfreezing Successful!"
+              });
+          }else{
+              this.setState({
+                  showConfirmModal: false,
+                  showFailureModal : true,
+                  modalFailureText: "Unfreezing failed. Has it been 3 days? '" + (response && response.message ? response.message : "'")
+              });
+          }
+
+      }
   }
 
   modalDecline() {
@@ -93,8 +145,8 @@ class Freeze extends Component {
           After this period you can unfreeze the TRX and trade the tokens.</div>
         <AmountDisplay onSetAmount={this.onSetAmount.bind(this)}/>
         <div className={styles.buttonContainer}>
-          <Button onClick={this.onClickFreezeTrx} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Unfreeze</Button>
-          <Button onClick={this.onClickUnFreeze} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Freeze</Button>
+          <Button onClick={this.onClickUnfreezeTrx.bind(this)} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Unfreeze</Button>
+          <Button onClick={this.onClickFreezeTrx.bind(this)} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Freeze</Button>
         </div>
 
         <PopupModal
