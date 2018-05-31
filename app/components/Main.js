@@ -1,8 +1,7 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 import { routes } from "../routes";
-import styles from '../components/ContentMain.css';
-
+import styles from "../components/ContentMain.css";
 
 class Main extends React.Component {
   render() {

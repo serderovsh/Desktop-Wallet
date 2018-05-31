@@ -1,15 +1,17 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { createHashHistory } from 'history';
-import { routerMiddleware, routerActions } from 'react-router-redux';
-import { createLogger } from 'redux-logger';
-import rootReducer from '../reducers';
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import { createHashHistory } from "history";
+import { routerMiddleware, routerActions } from "react-router-redux";
+import { createLogger } from "redux-logger";
+import * as walletActions from "../actions/wallet";
+import * as tokensActions from "../actions/tokens";
+import * as witnessesActions from "../actions/witnesses";
 
-//import * as loadTokenBalances from '../actions/wallet';
+import rootReducer from "../reducers";
 
 const history = createHashHistory();
 
-const configureStore = (initialState) => {
+const configureStore = initialState => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
@@ -19,12 +21,12 @@ const configureStore = (initialState) => {
 
   // Logging Middleware
   const logger = createLogger({
-    level: 'info',
+    level: "info",
     collapsed: true
   });
 
   // Skip redux logs in console during the tests
-  if (process.env.NODE_ENV !== 'test') {
+  if (process.env.NODE_ENV !== "test") {
     middleware.push(logger);
   }
 
@@ -34,16 +36,18 @@ const configureStore = (initialState) => {
 
   // Redux DevTools Configuration
   const actionCreators = {
-    // ...loadTokenBalances,
-    ...routerActions,
+    ...walletActions,
+    ...tokensActions,
+    ...witnessesActions,
+    ...routerActions
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle */
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
-      actionCreators,
-    })
+        // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
+        actionCreators
+      })
     : compose;
   /* eslint-enable no-underscore-dangle */
 
@@ -55,8 +59,9 @@ const configureStore = (initialState) => {
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {
-    module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers'))); // eslint-disable-line global-require
+    module.hot.accept("../reducers", () =>
+      store.replaceReducer(require("../reducers"))
+    ); // eslint-disable-line global-require
   }
 
   return store;

@@ -1,36 +1,71 @@
-import { SET_TOKEN_BALANCES } from '../actions/wallet';
+import {
+  UPDATE_TRANSACTIONS,
+  UPDATE_ALL_ACCOUNTS,
+  FINISH_INITIALIZATION,
+  INITIALIZATION_NEED_DECRYPTION,
+  WALLET_STATE,
+  INIT
+} from "../actions/wallet";
 
 const initialState = {
-  walletName: '',
-  tokens: [],
-  trxBalance: 0,
-  entropy: {
-    total: 0,
-    balances: [],
+  persistent: {
+    accounts: {}
   },
-  tronPower: {
-    total: 0,
-    balances: [],
-  },
-  unfreezeDeadline: '',
-  privateKey: '',
-  publicKey: ''
+  persistent_encrypted: null,
+  wallet_state: WALLET_STATE.NEEDS_LOADING,
+  pw: null
 };
 
 export function walletReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_TOKEN_BALANCES: {
-
-      let { balance: trxBalance = 0} = find(action.tokens, tb => tb.name.toUpperCase() === 'TRX' ) || {};
-
+    case INIT: {
       return {
         ...state,
-        tokens: action.tokens,
-        trxBalance,
-        frozen: {
-          ...action.frozen,
-        }
+        ...action
       };
+    }
+
+    case INITIALIZATION_NEED_DECRYPTION: {
+      return {
+        ...state,
+        persistent_encrypted: action.persistent_encrypted,
+        wallet_state: action.wallet_state
+      };
+    }
+
+    case FINISH_INITIALIZATION: {
+      if (action.pw !== undefined) {
+        return {
+          ...state,
+          persistent: action.persistent,
+          wallet_state: action.wallet_state,
+          pw: action.pw
+        };
+      } else {
+        return {
+          ...state,
+          persistent: action.persistent,
+          wallet_state: action.wallet_state
+        };
+      }
+    }
+
+    case UPDATE_ALL_ACCOUNTS: {
+      console.log("update all accounts");
+      console.log(action);
+      return {
+        ...state,
+        persistent: action.persistent
+      };
+    }
+
+    case UPDATE_TRANSACTIONS: {
+      let newState = {
+        ...state
+      };
+      newState.persistent.accounts[action.accountId].transactions =
+        action.transactions;
+      return newState;
     }
 
     default:

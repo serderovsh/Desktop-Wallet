@@ -1,80 +1,62 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Button, Dropdown } from 'semantic-ui-react';
-import styles from './WalletList.css';
+import React, { Component } from "react";
+import { NavLink, withRouter } from "react-router-dom";
+import { Button, Dropdown } from "semantic-ui-react";
 
-import buttonStyles from '../Button.css';
+import { connect } from "react-redux";
+import Header from "../ContentPrimaryHeader";
+import Wallet from "./Wallet";
 
-import Header from '../ContentPrimaryHeader';
+import { tu } from "../../utils/i18n";
 
-import Wallet from './Wallet';
+import { MoreIcon, WalletIcon, DownloadIcon, SendIcon } from "../Icons";
+import styles from "./WalletList.css";
+import buttonStyles from "../Button.css";
 
-import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
-
-const wallets = [
-  {
-    name: 'Personal Wallet',
-    tokens: [ { name: 'TRX', amount: '0.48999850' }, { name: 'tkn1', amount: '0.48999850' }, {
-      name: 'tkn2',
-      amount: '0.48999850'
-    } ]
-  },
-  {
-    name: 'Personal Wallet',
-    tokens: [ { name: 'TRX', amount: '0.48999850' }, { name: 'tkn1', amount: '0.48999850' }, {
-      name: 'tkn2',
-      amount: '0.48999850'
-    } ]
-  },
-  {
-    name: 'Personal Wallet',
-    tokens: [ { name: 'TRX', amount: '0.48999850' }, { name: 'tkn1', amount: '0.48999850' }, {
-      name: 'tkn2',
-      amount: '0.48999850'
-    } ]
-  },
-  {
-    name: 'Personal Wallet',
-    tokens: [ { name: 'TRX', amount: '0.48999850' }, { name: 'tkn1', amount: '0.48999850' }, {
-      name: 'tkn2',
-      amount: '0.48999850'
-    } ]
-  }
-];
-
-export default class WalletList extends Component {
+class WalletList extends Component {
   render() {
+    let accounts = this.props.wallet.persistent.accounts;
+    let accountKeys = Object.keys(accounts);
     return (
       <div className={styles.container}>
         <Header className={styles.header} text="MY WALLETS :">
           <Dropdown icon={<MoreIcon />}>
             <Dropdown.Menu>
-              <NavLink to="/wallets/create">
-                <Dropdown.Item text='New Wallet' icon={<WalletIcon />} />
-              </NavLink>
-              <Dropdown.Divider />
-              <NavLink to="/wallets/import">
-                <Dropdown.Item text='Import Wallet' icon={<DownloadIcon />} />
+              <NavLink to="/wallets/createtransfer">
+                <Dropdown.Item text="Create Raw Transfer" icon={<SendIcon />} />
               </NavLink>
             </Dropdown.Menu>
           </Dropdown>
         </Header>
         <div className={styles.buttonContainer}>
           <NavLink to="/wallets/create">
-            <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Wallet</Button>
+            <Button
+              className={`${buttonStyles.button} ${buttonStyles.gradient}`}
+            >
+              Create New Wallet
+            </Button>
           </NavLink>
         </div>
-          <div className={styles.walletContainer}>
-            <NavLink to="/wallets/walletDetails">
-            {
-              wallets.map((wallet, i) =>
-                <Wallet key={i} name={wallet.name} tokens={wallet.tokens} />
-              )
-            }
-            </NavLink>
-          </div>
-
+        <div className={styles.walletContainer}>
+          {accountKeys.map((key, i) => (
+            // NavLink in Wallet Component
+            <Wallet
+              key={key}
+              pub={accounts[key].publicKey}
+              trx={accounts[key].trx}
+              name={accounts[key].name}
+              tokens={accounts[key].tokens}
+              index={accounts[key].publicKey}
+            />
+          ))}
+        </div>
       </div>
     );
   }
 }
+
+export default withRouter(
+  connect(
+    state => ({ wallet: state.wallet }),
+    dispatch => ({})
+  )(WalletList)
+);

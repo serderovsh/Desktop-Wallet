@@ -1,4 +1,12 @@
-.ui.radio {
-    border-radius: 5px;
-    border: 2px solid #EA3C2D;
+.ui.radio,
+.ui.checkbox {
+  border-radius: 5px;
+  border: 2px solid #d0d0d0;
+  transition: 200ms;
+}
+
+.ui.radio.checked,
+.ui.checkbox.checked {
+  border-radius: 5px;
+  border: 2px solid #ea3c2d;
 }

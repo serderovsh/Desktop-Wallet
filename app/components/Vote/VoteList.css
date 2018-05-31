@@ -1,14 +1,16 @@
 .container {
-    position: relative;
-    min-width: 350px;
-    flex-basis: 33%;
-    box-sizing: border-box;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 350px;
+  flex-basis: 33%;
+  box-sizing: border-box;
+  height: 100vh;
 }
 
 .votesContainer {
-    height: 100%;
-    overflow-y: overlay;
+  height: 100%;
+  overflow-y: overlay;
 }
 
 .votesContainer::-webkit-scrollbar {
@@ -21,21 +23,48 @@
 }
 
 .header {
-    position: absolute;
-    left: 0;
-    right: 10px;
+  position: absolute;
+  left: 0;
+  right: 10px;
 }
 
 .buttonContainer {
-    position: absolute;
-    right: 10px;
-    left: 0;
-    bottom: 0;
-    padding: 20px 30px 20px 40px;
-    z-index: 5;
-    box-sizing: border-box;
+  position: absolute;
+  right: 10px;
+  left: 0;
+  bottom: 0;
+  padding: 20px 30px 20px 40px;
+  z-index: 5;
+  box-sizing: border-box;
 }
 
 .buttonContainer > div {
-    box-shadow: 0px 0px 7px #212121;
+  box-shadow: 0px 0px 7px #212121;
+}
+
+.input {
+  min-height: 32px;
+  background: #12181d;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  width: 100%;
+  text-indent: 10px;
+  color: #fff;
+  width: 290px;
+  margin: 80px auto 10px auto;
+}
+
+.input:focus {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  outline: none;
+}
+
+.noResults {
+  position: absolute;
+  left: 0;
+  right: 0;
+  color: #444;
+  font-family: "Source Code Pro";
+  font-size: 13px;
+  text-shadow: 0px 0px 5px #131313;
 }

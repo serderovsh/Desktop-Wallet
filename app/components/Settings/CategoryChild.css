@@ -1,53 +1,55 @@
 .container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 50px;
-    color: #fff;
-    font-size: 13px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px 10px 0px 10px;
-    padding: 0px 10px;
-    border-top: 2px solid transparent;
-    border-left: 2px solid transparent;
-    border-right: 2px solid transparent;
-    border-bottom: 1px solid #333;
-    box-sizing: border-box;
-    text-decoration: none;
-    transition: 200ms;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 10px 0px 10px;
+  padding: 0px 10px;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-bottom: 1px solid #333;
+  box-sizing: border-box;
+  text-decoration: none;
+  transition: 300ms;
 }
 
 .container:hover {
-    background: rgba(255,255,255,0.03);
+  transition: 0ms;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .container svg {
-    fill: #fff;
+  fill: #fff;
 }
 
 .container > div {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .container:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .active {
-    border-top: 2px solid #ED3F21;
-    border-left: 2px solid #ED3F21;
-    border-bottom: 2px solid #DC2C73 !important;
-    border-right: 2px solid #DC2C73;
-    transition: 75ms;
-    margin: 10px 0px 0px 0px;
-    background: rgba(255,255,255,0.08);
+  border-top: 2px solid #ed3f21;
+  border-left: 2px solid #ed3f21;
+  border-bottom: 2px solid #dc2c73 !important;
+  border-right: 2px solid #dc2c73;
+  transition: 75ms;
+  margin: 10px 0px 0px 0px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0px 0px 10px #292929;
 }
 
 .text {
-    margin: 4px 0px;
+  margin: 4px 0px;
 }
 
 .subText {
-    font-size: 10px;
+  font-size: 10px;
 }

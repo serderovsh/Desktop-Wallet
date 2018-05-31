@@ -1,45 +1,34 @@
-export const ADD_CONTACT = 'CONTACTS_0';
+import {
+  ADD_CONTACT,
+  REMOVE_CONTACT,
+  UPDATE_CONTACT
+} from "../actions/contacts";
 
-// get default state from local storage
-export default (state = {
-  logos: {
-    binance: require('app/assets/images/logos/binance.png')
-  },
-  contacts: {
-    Binance: {
-      logo: 'binance', // false, or logo ID from list of logos i.e. 'binance'
-      addresses: [
-        '27gHpUAzpvzt6gPctGKzWwxcGMy7RNzZQ9W'
-      ]
-    },
-    Coinbase: {
-      logo: false,
-      addresses: [
-        '27gHpUAzpvzt6gPctGKzWwxcGMy7RNzZQ9W'
-      ]
-    }
-  }
-}, action) => {
-  switch(action.type) {
-    case ADD_CONTACT:
+const initialState = {
+  contactID: "",
+  contactName: "",
+  contactAddress: "",
+  contactImage: ""
+};
+
+export function contactReducer(state = initialState, action) {
+  switch (action.type) {
+    case ADD_CONTACT: {
       return {
-        ...state,
-        contacts: {
-          ...state.contacts,
-          [action.state.contactID]: action.state.contact
-        }
-      }
+        ...state
+      };
+    }
+    case REMOVE_CONTACT: {
+      return {
+        ...state
+      };
+    }
+    case UPDATE_CONTACT: {
+      return {
+        ...state
+      };
+    }
     default:
       return state;
-  }
-}
-
-export function addContact(contactID, contact) {
-  return {
-    type: ADD_CONTACT,
-    state: {
-      contactID,
-      contact
-    }
   }
 }

@@ -1,17 +1,42 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from '../../Wallet/Send/Send.css';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import styles from "./Language.css";
 
-import Secondary from '../../Content/Secondary';
-import Header from '../../Header';
-import Background from '../../ContentSecondaryBG';
-import { MoreIcon, CalendarIcon, VoteIcon } from '../../Icons';
+import Secondary from "../../Content/Secondary";
+import Header from "../../Header";
+
+import { Form, TextArea, Button } from "semantic-ui-react";
+import buttonStyles from "../../Button.css";
+
+import { TranslateIcon, ArrowRightIcon } from "../../Icons";
+
+let languages = [{ text: "English", value: "en" }];
 
 export default class Language extends Component {
+  state = {};
+
+  // sets language, returns value, ex. 'en'
+  setLanguage = (e, { value }) => this.setState({ value });
+
   render() {
     return (
-      <Secondary className={styles.container}>
+      <Secondary>
         <Header headerName="Language" />
+        <Form className={styles.container}>
+          <TranslateIcon className={styles.icon} />
+          <div>Select a language below.</div>
+          <div className={styles.dropdown}>
+            <ArrowRightIcon />
+            <Form.Select
+              fluid
+              onChange={this.setLanguage}
+              className={styles.selectLanguage}
+              defaultValue={languages.length > 0 ? languages[0].value : ""}
+              placeholder="Select Language..."
+              options={languages}
+            />
+          </div>
+        </Form>
       </Secondary>
     );
   }

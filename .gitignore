@@ -53,3 +53,6 @@ npm-debug.log.*
 
 # Remove the editor Configuration so everyone can use the config they want.
 .editorconfig
+
+# Remove yarn.lock
+yarn.lock

@@ -1,48 +1,94 @@
 .button {
-    font-size: 13px;
-    height: 45px;
-    border-radius: 10px;
-    text-align: center;
-    line-height: 45px;
-    cursor: pointer;
-    width: 100%;
-    border: none;
-    transition: 100ms;
+  font-family: "Source Code Pro";
+  font-weight: 500;
+  font-size: 13px;
+  height: 45px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 45px;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  transition: 100ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
 }
 
 .button:hover {
-    transition: 0ms;
+  transition: 0ms;
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .button:focus {
-    outline: none;
+  outline: none;
 }
 
 .black {
-    background-color: #0B0F12;
-    color: #eee;
+  background-color: #0b0f12;
+  color: #eee;
 }
 
 .gradient {
-    color: #fff;
-    background: linear-gradient(270deg, #ED3F21 0%, #DC2C73 100%);
+  color: #fff;
+  background: linear-gradient(270deg, #ed3f21 0%, #dc2c73 100%);
 }
 
 .black:hover {
-    color: #fff;
-    background-color: #060606;
+  color: #fff;
+  background-color: #060606;
 }
 
 .black:active {
-    color: #aaa;
-    opacity: 0.9;
+  color: #aaa;
+  opacity: 0.9;
 }
 
 .gradient:hover {
-    background: linear-gradient(270deg, #e0472c 0%, #da3678 100%);
+  background: linear-gradient(270deg, #e0472c 0%, #da3678 100%);
 }
 
 .gradient:active {
-    color: #efefef;
-    opacity: 0.9;
+  color: #efefef;
+  opacity: 0.9;
+}
+
+.button svg {
+  fill: #000;
+  margin-top: -4px;
+  margin-right: 10px;
+}
+
+.black svg {
+  fill: #fff;
+  margin-top: -4px;
+  margin-right: 10px;
+}
+
+.gradient svg {
+  fill: #fff;
+  margin-top: -4px;
+  margin-right: 10px;
+}
+
+.iconButton {
+  height: 45px;
+  width: 45px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: 100ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconButton svg {
+  fill: #fff;
+  margin: 0 !important;
+}
+
+.iconButton:focus {
+  outline: none;
 }
