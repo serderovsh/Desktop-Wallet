@@ -44,7 +44,7 @@ class CreationContent extends Component {
               onChange={this.setWalletName}
             />
           </Form.Field>
-          <Form.Button onClick={this.onClickCreate} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Send</Form.Button>
+          <Form.Button onClick={this.onClickCreate} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Create</Form.Button>
         </Form>
       </div>
     );
