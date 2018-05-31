@@ -128,7 +128,7 @@ class PasswordModal extends Component {
               className={styles.passwordInput2}
             />
             {this.props.newPass !== undefined ? (
-              <Form.Input
+              <Input
                 onChange={this.setConfirm.bind(this)}
                 type="password"
                 placeholder="Repeat Password"
