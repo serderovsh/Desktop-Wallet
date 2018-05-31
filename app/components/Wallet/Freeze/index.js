@@ -106,7 +106,6 @@ class Freeze extends Component {
                   modalFailureText: "Unfreezing failed. Has it been 3 days? '" + (response && response.message ? response.message : "'")
               });
           }
-
       }
   }
 

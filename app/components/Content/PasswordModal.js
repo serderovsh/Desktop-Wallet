@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import styles from './PasswordModal.css';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-
+import OWASP from 'owasp-password-strength-test';
 import { Form } from 'semantic-ui-react';
 import buttonStyles from '../Button.css';
 import { LockIcon } from '../Icons';
@@ -15,25 +14,39 @@ class PasswordModal extends Component {
 
         this.state = {
             pw : "",
-            confirm : ""
+            confirm : "",
+            matcherror : ""
+
         }
     }
 
     onClick(){
-        console.log(this.state);
-        this.props.onPassword(this.state.pw);
+        if(this.props.newPass !== undefined){
+            if(this.state.pw === this.state.confirm){
+                this.props.onPassword(this.state.pw);
+                this.setState({
+                    matcherror:""
+                });
+            }else{
+                this.setState({
+                    matcherror:" -- Passwords don't match."
+                });
+            }
+        }else{
+            this.props.onPassword(this.state.pw);
+        }
     }
 
     setPw(e){
         this.setState({
-            pw : e.target.value
+            pw : e.target.value.trim()
         });
         console.log(this.state);
     }
 
     setConfirm(e){
         this.setState({
-            confirm: e.target.value
+            confirm: e.target.value.trim()
         });
         console.log(this.state);
 
@@ -70,15 +83,30 @@ class PasswordModal extends Component {
         );
     }
 
+    getPasswordEvaluation(pw){
+        let result = OWASP.test(this.state.pw);
+        if(result.failedTests.length === 0)
+            return (<span className={styles.perfect}>PERFECT</span>)
+        if(result.failedTests.length === 1)
+            return (<span className={styles.strong}>BETTER</span>)
+        if(result.failedTests.length === 2)
+            return (<span className={styles.good}>GOOD</span>)
+        if(result.failedTests.length === 3)
+            return (<span className={styles.ok}>OK</span>)
+        else
+            return (<span className={styles.weak}>WEAK</span>)
+
+    }
+
     renderCreatePassword(){
         return(
             <div className={styles.container}>
                 <div className={styles.subContainer}>
                     <div className={styles.modalHeader}>Set a secure Password</div>
                     <Form className={styles.modalContainer}>
-                        <LockIcon className={styles.icon}/>
-                        <Form.Input onChange={this.setPw.bind(this)} type="password" placeholder="Enter your Password..." className={styles.passwordInput} />
-                        {(this.props.newPass !== undefined) ? <Form.Input onChange={this.setConfirm.bind(this)} type="password" placeholder="Enter your Password..." className={styles.passwordInput} /> : ''}
+                        <p className={styles.status}>Password Strength: {this.getPasswordEvaluation(this.state.pw)} {this.state.matcherror}</p>
+                        <Form.Input onChange={this.setPw.bind(this)} type="password" placeholder="Enter your Password..." className={styles.passwordInput2} />
+                        {(this.props.newPass !== undefined) ? <Form.Input onChange={this.setConfirm.bind(this)} type="password" placeholder="Repeat Password" className={styles.passwordInput2} /> : ''}
                         <Form.Button onClick={this.onClick.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Submit</Form.Button>
                     </Form>
                 </div>
