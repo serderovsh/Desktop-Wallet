@@ -65,7 +65,7 @@ class WebsocketContainer extends Component {
     }
 
     render(){
-        return(<div>a</div>);
+        return(<div></div>);
     }
 
     guid() {

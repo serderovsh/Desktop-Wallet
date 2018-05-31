@@ -2,24 +2,37 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './DatePicker.css';
 
-import DateSelect from 'react-date-picker';
+import DatePickerReact from 'react-datepicker';
+import moment from 'moment';
 
 import { CalendarIcon, ArrowLeftIcon, ArrowRightIcon } from '../../Icons';
 
 export default class DatePicker extends Component {
   state = {
-    dateFrom: new Date(),
-    dateTo: new Date()
+    startDate: moment().subtract(1, "years"),
+    endDate: moment().add(5, "years")
   }
 
-  onChangeFrom = date => this.setState({ dateFrom: date })
-  onChangeTo = date => this.setState({ dateTo: date })
+  handleChangeStart = date => this.setState({ startDate: date })
+  handleChangeEnd = date => this.setState({ endDate: date })
 
   render() {
     return (
       <div className={styles.datePicker}>
-        <DateSelect onChange={ this.onChangeFrom } value={ this.state.dateFrom }/>
-        <DateSelect onChange={ this.onChangeTo } value={ this.state.dateTo }/>
+        <DatePickerReact
+            selected={this.state.startDate}
+            selectsStart
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}
+            onChange={this.handleChangeStart}
+        />
+        <DatePickerReact
+            selected={this.state.endDate}
+            selectsEnd
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}
+            onChange={this.handleChangeEnd}
+        />
       </div>
     );
   }

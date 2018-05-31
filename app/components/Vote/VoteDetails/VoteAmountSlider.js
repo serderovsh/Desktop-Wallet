@@ -24,7 +24,9 @@ export default class VoteDetails extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.amount}><FormattedNumber value={parseInt(this.state.current)} /> TP</div>
+        <div className={styles.amount}>
+          <FormattedNumber value={parseInt(this.state.current)} /> TP
+        </div>
         <div className={styles.sliderContainer}>
           <Input
             className={styles.slider}

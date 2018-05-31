@@ -17,7 +17,6 @@ import {PopupModal} from "../../Content/PopupModal";
 import {CalendarIcon, ArrowLeftIcon, ArrowRightIcon} from '../../Icons';
 
 const TronHttpClient = require('tron-http-client');
-
 const client = new TronHttpClient();
 
 class CreateToken extends Component {
@@ -195,19 +194,7 @@ if((Math.floor(exchangeToken) != exchangeToken) || exchangeToken < 1)
     }
 
     testNotif() {
-        let myNotification = new Notification('Title', {
-            body: 'Lorem Ipsum Dolor Sit Amet'
-          })
-          
-          myNotification.onclick = () => {
-            console.log('Notification clicked')
-          }/*
-        const ipcNotifierOptions = {
-          message: 'Your message',
-          duration: '3600000',
-          extraArg1: 'If you need to pass additional data'
-        };
-        require('electron').ipcRenderer.send('notification', ipcNotifierOptions);*/
+
     }
 
     render() {
