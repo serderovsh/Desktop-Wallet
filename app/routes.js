@@ -125,4 +125,8 @@ export const routes = [
     sidebar: () => <ContactList />,
     main: () => <ContactDetails />
   },
+  {
+    path: "/",
+    sidebar: () => <WalletList />,
+  }
 ];
