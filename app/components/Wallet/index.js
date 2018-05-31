@@ -20,8 +20,8 @@ class WalletList extends Component {
     }
 
   render() {
-        let accounts = this.props.wallet.persistent.accounts;
-        let accountKeys = Object.keys(accounts);
+    let accounts = this.props.wallet.persistent.accounts;
+    let accountKeys = Object.keys(accounts);
     return (
       <div className={styles.container}>
         <Header className={styles.header} text="MY WALLETS :">
@@ -29,10 +29,6 @@ class WalletList extends Component {
             <Dropdown.Menu>
               <NavLink to="/wallets/create">
                 <Dropdown.Item text="Create Wallet" icon={<WalletIcon />} />
-              </NavLink>
-              <Dropdown.Divider />
-              <NavLink to="/wallets/import">
-                <Dropdown.Item text="Import Wallet" icon={<DownloadIcon />} />
               </NavLink>
             </Dropdown.Menu>
           </Dropdown>

@@ -33,8 +33,6 @@ class WalletView extends Component {
                 <NavLink to={"/wallets/walletBackup/" + accountId}>
                   <Dropdown.Item text="Backup Wallet" icon={<DownloadIcon/>}/>
                 </NavLink>
-                <Dropdown.Divider />
-                <Dropdown.Item text="Freeze TRX" icon={<SnowIcon />}/>
               </Dropdown.Menu>
             </Dropdown>
           </Header>
