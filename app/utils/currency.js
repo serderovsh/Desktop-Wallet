@@ -9,7 +9,7 @@ export function dropsToTrx(drops){
 }
 
 export function trxToDrops(trx){
-    return new Decimal(drops).mul(DROPS_PER_TRX).toFixed(8).toString();
+    return new Decimal(trx).mul(DROPS_PER_TRX).toFixed(8).toString();
 }
 
 export function dropsToFiat(currencyState, trx, currency=CURRENCY.USD){

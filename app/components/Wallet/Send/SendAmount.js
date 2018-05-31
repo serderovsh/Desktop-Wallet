@@ -9,6 +9,8 @@ import buttonStyles from '../../Button.css';
 import {ContactIcon, BackArrowIcon} from '../../Icons';
 import {PopupModal} from '../../Content/PopupModal';
 
+import { trxToDrops } from '../../../utils/currency'; 
+
 import TronHttpClient from 'tron-http-client';
 
 class SendAmount extends Component {
@@ -83,7 +85,7 @@ class SendAmount extends Component {
             response = await client.sendTrx(
                 this.state.sendProperties.privateKey,
                 this.state.sendProperties.recipient,
-                this.state.sendProperties.amount).catch(x => null);
+                parseInt(trxToDrops(this.state.sendProperties.amount))).catch(x => null);
         }
 
         if (response === null) {

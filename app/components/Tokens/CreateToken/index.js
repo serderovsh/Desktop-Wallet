@@ -194,6 +194,22 @@ if((Math.floor(exchangeToken) != exchangeToken) || exchangeToken < 1)
         this.state.showConfirmModal = false;
     }
 
+    testNotif() {
+        let myNotification = new Notification('Title', {
+            body: 'Lorem Ipsum Dolor Sit Amet'
+          })
+          
+          myNotification.onclick = () => {
+            console.log('Notification clicked')
+          }/*
+        const ipcNotifierOptions = {
+          message: 'Your message',
+          duration: '3600000',
+          extraArg1: 'If you need to pass additional data'
+        };
+        require('electron').ipcRenderer.send('notification', ipcNotifierOptions);*/
+    }
+
     render() {
         let accountId = this.props.match.params.account;
         let accounts = this.props.wallet.persistent.accounts;
@@ -211,7 +227,7 @@ if((Math.floor(exchangeToken) != exchangeToken) || exchangeToken < 1)
             <Secondary className={styles.container}>
                 <Header headerName="Create New Token"/>
                 <div className={styles.createContainer}>
-                    <div className={styles.header}>ISSUE A NEW TOKEN :</div>
+                    <div onClick={this.testNotif} className={styles.header}>ISSUE A NEW TOKEN :</div>
                     <div className={styles.textBoxContainer}>
                         <span>Token Name</span>
                         <Input name="assetName" onChange={this.handleInputChange} className={styles.input}
