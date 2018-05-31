@@ -35,7 +35,7 @@ export function walletReducer(state = initialState, action) {
       }
 
     case FINISH_INITIALIZATION: {
-        if(action.pw){
+        if(action.pw !== undefined){
             return {
                 ...state,
                 persistent: action.persistent,

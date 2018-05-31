@@ -32,9 +32,9 @@ class Import extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.header}>TYPE PRIVATE KEY TO IMPORT :</div>
+        <div className={styles.header}>PASTE PRIVATE KEY TO IMPORT :</div>
         <div className={styles.form}>
-          <Input onKeyPress={this.inputAlphanumeric} className={styles.input} placeholder="Type Private Key..." onChange={this.updateValue}/>
+          <Input onKeyPress={this.inputAlphanumeric} className={styles.input} placeholder="Private Key..." onChange={this.updateValue}/>
           <Button onClick={this.importKey}className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Import</Button>
         </div>
       </div>
