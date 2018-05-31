@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { FormattedNumber } from 'react-intl';
+import React, { Component } from "react";
+import { FormattedNumber } from "react-intl";
 
-import { Input } from 'semantic-ui-react';
-import styles from './AmountSlider.css';
+import { Input } from "semantic-ui-react";
+import styles from "./AmountSlider.css";
 
-import { dropsToTrx } from '../../../utils/currency';
+import { dropsToTrx } from "../../../utils/currency";
 
 class AmountSlider extends Component {
   state = {
-    current: 0,
+    current: 0
   };
 
   handleChange = (e, { value }) => {
@@ -23,7 +23,7 @@ class AmountSlider extends Component {
   };
 
   get sliderWidthCalc() {
-    console.log(this.state.current, this.props.totalTRX)
+    console.log(this.state.current, this.props.totalTRX);
     if (this.state.current === 0 || this.props.totalTRX === 0) {
       return 0;
     }
@@ -31,13 +31,28 @@ class AmountSlider extends Component {
   }
   /*<FormattedNumber value={parseInt(this.state.current)} />*/
   render() {
-    console.log(this.props.assetNum, dropsToTrx(this.props.trxNum), dropsToTrx(this.props.totalTRX))
+    console.log(
+      this.props.assetNum,
+      dropsToTrx(this.props.trxNum),
+      dropsToTrx(this.props.totalTRX)
+    );
     this.state.ratio = this.props.assetNum / dropsToTrx(this.props.trxNum);
-    this.state.assetPossible = this.state.ratio * dropsToTrx(this.props.totalTRX);
+    this.state.assetPossible =
+      this.state.ratio * dropsToTrx(this.props.totalTRX);
     console.log(this.state.ratio, this.state.assetPossible);
     return (
       <div className={styles.container}>
-        <div className={styles.amount}><Input type="number" min={0} max={this.state.assetPossible} className={styles.input} value={this.state.current} onChange={this.handleChange}/> {this.props.tokenLabel}</div>
+        <div className={styles.amount}>
+          <Input
+            type="number"
+            min={0}
+            max={this.state.assetPossible}
+            className={styles.input}
+            value={this.state.current}
+            onChange={this.handleChange}
+          />{" "}
+          {this.props.tokenLabel}
+        </div>
         <div className={styles.sliderContainer}>
           <Input
             className={styles.slider}
@@ -47,12 +62,18 @@ class AmountSlider extends Component {
             type="range"
             value={this.state.current}
           />
-          <div className={styles.progress} style={{width: this.sliderWidthCalc + '%'}}></div>
-          <div className={styles.sliderBG}></div>
+          <div
+            className={styles.progress}
+            style={{ width: this.sliderWidthCalc + "%" }}
+          />
+          <div className={styles.sliderBG} />
         </div>
         <div className={styles.sliderRange}>
           <span>0 {this.props.tokenLabel}</span>
-          <span><FormattedNumber value={ this.state.assetPossible } /> {this.props.tokenLabel}</span>
+          <span>
+            <FormattedNumber value={this.state.assetPossible} />{" "}
+            {this.props.tokenLabel}
+          </span>
         </div>
       </div>
     );

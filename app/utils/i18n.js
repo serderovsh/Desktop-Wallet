@@ -1,6 +1,6 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { upperFirst } from 'lodash';
+import React from "react";
+import { FormattedMessage } from "react-intl";
+import { upperFirst } from "lodash";
 
 export function t(id) {
   return <FormattedMessage id={id} />;
@@ -21,7 +21,7 @@ export function tv(id, values) {
 export function tup(id) {
   return (
     <FormattedMessage id={id}>
-      {txt => <p style={{ whiteSpace: 'pre-line' }}>{upperFirst(txt)}</p>}
+      {txt => <p style={{ whiteSpace: "pre-line" }}>{upperFirst(txt)}</p>}
     </FormattedMessage>
   );
 }

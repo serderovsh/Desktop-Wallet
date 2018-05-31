@@ -1,7 +1,7 @@
-import { SET_WITNESSES } from '../actions/witnesses';
+import { SET_WITNESSES } from "../actions/witnesses";
 
 const initialState = {
-  witnesses: [],
+  witnesses: []
 };
 
 export function witnessesReducer(state = initialState, action) {
@@ -9,7 +9,7 @@ export function witnessesReducer(state = initialState, action) {
     case SET_WITNESSES: {
       return {
         ...state,
-        witnesses: action.witnesses,
+        witnesses: action.witnesses
       };
     }
     default:

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { routes } from '../routes';
-import styles from '../components/ContentMain.css';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { routes } from "../routes";
+import styles from "../components/ContentMain.css";
 
 class Sidebar extends React.Component {
   render() {

@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { Checkbox, Input, Form } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { Checkbox, Input, Form } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import styles from './CreationContent.css';
-import { createWallet, addAccount} from '../../../../actions/wallet';
-import buttonStyles from '../../../Button.css';
-
+import styles from "./CreationContent.css";
+import { createWallet, addAccount } from "../../../../actions/wallet";
+import buttonStyles from "../../../Button.css";
 
 class CreationContent extends Component {
   constructor() {
@@ -17,12 +16,12 @@ class CreationContent extends Component {
 
   // wallet types: 0-Hot, 1-Cold
   toggleRadio = (e, { value }) => this.setState({ value });
-  setWalletHot = (type) => this.setState({ walletType: 0 });
-  setWalletCold = (type) => this.setState({ walletType: 1 });
+  setWalletHot = type => this.setState({ walletType: 0 });
+  setWalletCold = type => this.setState({ walletType: 1 });
   setWalletName = (e, { value }) => this.setState({ walletName: value });
 
   async onClickCreate() {
-      await this.props.addAccount(this.props, this.state.walletName);
+    await this.props.addAccount(this.props, this.state.walletName);
   }
 
   inputAlphanumeric(e) {
@@ -37,29 +36,37 @@ class CreationContent extends Component {
         <div className={styles.header}>CREATE A NEW WALLET :</div>
         <Form className={styles.form}>
           <Form.Field>
-            < Input
+            <Input
               className={styles.input}
               placeholder="Enter Wallet Name"
               onKeyPress={this.inputAlphanumeric}
               onChange={this.setWalletName}
             />
           </Form.Field>
-          <Form.Button onClick={this.onClickCreate} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Create</Form.Button>
+          <Form.Button
+            onClick={this.onClickCreate}
+            className={`${styles.btn} ${buttonStyles.button} ${
+              buttonStyles.black
+            }`}
+          >
+            Create
+          </Form.Button>
         </Form>
       </div>
     );
   }
 }
 
-export default withRouter(connect(
-  state => ({ wallet: state.wallet }),
-  dispatch => ({
-    createWallet: (props, walletName) => {
-      dispatch(createWallet(props, walletName));
-    },
-    addAccount: (props, walletName) => {
+export default withRouter(
+  connect(
+    state => ({ wallet: state.wallet }),
+    dispatch => ({
+      createWallet: (props, walletName) => {
+        dispatch(createWallet(props, walletName));
+      },
+      addAccount: (props, walletName) => {
         addAccount(props, walletName, dispatch);
-    }
-  })
-)(CreationContent));
-
+      }
+    })
+  )(CreationContent)
+);

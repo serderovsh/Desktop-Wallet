@@ -1,60 +1,60 @@
 .token {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(255,255,255,0.05);
-    border-radius: 5px;
-    margin-top: 5px;
-    transition: background-color 300ms;
-    cursor: pointer;
-    padding: 20px 20px 15px 20px;
-    box-sizing: border-box;
-    font-size: 12px;
-    text-decoration: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  margin-top: 5px;
+  transition: background-color 300ms;
+  cursor: pointer;
+  padding: 20px 20px 15px 20px;
+  box-sizing: border-box;
+  font-size: 12px;
+  text-decoration: none;
 }
 
 .token:hover {
-    transition: 0s;
-    background-color: rgba(255,255,255,0.08);
+  transition: 0s;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .token:first-child {
-    background: #22282d;
+  background: #22282d;
 }
 
 .token:first-child:hover {
-    background: #2a3035;
+  background: #2a3035;
 }
 
 .token:last-child {
-    margin-bottom: 55px;
+  margin-bottom: 55px;
 }
 
 .topBar {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
 }
 
 .website {
-    color: #828282;
+  color: #828282;
 }
 
 .tokenName {
-    color: #fff;
+  color: #fff;
 }
 
 .filler {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .tokenBar {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .active {
-  border-top: 2px solid #ED3F21;
-  border-left: 2px solid #ED3F21;
-  border-bottom: 2px solid #DC2C73 !important;
-  border-right: 2px solid #DC2C73;
+  border-top: 2px solid #ed3f21;
+  border-left: 2px solid #ed3f21;
+  border-bottom: 2px solid #dc2c73 !important;
+  border-right: 2px solid #dc2c73;
 }

@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react';
-import styles from './Transfer.css';
-import Header from '../Header';
-import AmountDisplay from './AmountDisplay';
-import buttonStyles from '../Button.css';
-import { ContactIcon, BackArrowIcon } from '../Icons';
-import { PopupModal } from '../Content/PopupModal';
-import { TextArea } from 'semantic-ui-react';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { Button } from "semantic-ui-react";
+import styles from "./Transfer.css";
+import Header from "../Header";
+import AmountDisplay from "./AmountDisplay";
+import buttonStyles from "../Button.css";
+import { ContactIcon, BackArrowIcon } from "../Icons";
+import { PopupModal } from "../Content/PopupModal";
+import { TextArea } from "semantic-ui-react";
 
-import { trxToDrops } from '../../utils/currency';
+import { trxToDrops } from "../../utils/currency";
 
-import TronHttpClient from 'tron-http-client';
+import TronHttpClient from "tron-http-client";
 const client = new TronHttpClient();
-const tools = require('tron-http-tools');
+const tools = require("tron-http-tools");
 
 function toHexString(byteArray) {
-    return Array.from(byteArray, function(byte) {
-        return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-    }).join('')
+  return Array.from(byteArray, function(byte) {
+    return ("0" + (byte & 0xff).toString(16)).slice(-2);
+  }).join("");
 }
 
 class Transfer extends Component {
@@ -28,8 +28,8 @@ class Transfer extends Component {
 
     this.state = {
       amount: 0,
-      userAddress: '',
-      recipientAddress: '',
+      userAddress: "",
+      recipientAddress: "",
 
       showConfirmModal: false,
       modalConfirmText: "",
@@ -45,36 +45,39 @@ class Transfer extends Component {
       showSuccessModal: false,
       modalSuccessText: "Success",
       accountAddress: "",
-        outputText : ""
+      outputText: ""
     };
   }
 
   async onClickSend() {
-      try{
-          let transaction = await tools.transactions.createUnsignedTransferTransaction({
-              sender : this.state.userAddress,
-              recipient : this.state.recipientAddress,
-              amount : parseInt(trxToDrops(this.state.amount)),
-          }, await client.getLastBlock());
+    try {
+      let transaction = await tools.transactions.createUnsignedTransferTransaction(
+        {
+          sender: this.state.userAddress,
+          recipient: this.state.recipientAddress,
+          amount: parseInt(trxToDrops(this.state.amount))
+        },
+        await client.getLastBlock()
+      );
 
-          let hex = toHexString(transaction.serializeBinary());
+      let hex = toHexString(transaction.serializeBinary());
 
-          this.setState({
-              outputText: hex
-          })
-          console.log(hex);
-      }catch (e) {
-          this.setState({
-              outputText: "Something went wrong. Make sure to input valid values."
-          })
-      }
+      this.setState({
+        outputText: hex
+      });
+      console.log(hex);
+    } catch (e) {
+      this.setState({
+        outputText: "Something went wrong. Make sure to input valid values."
+      });
+    }
   }
 
   onSetAmount(amount) {
     this.setState({
       ...this.state,
       amount: amount
-    })
+    });
   }
 
   onSetUserAddress(event) {
@@ -97,20 +100,21 @@ class Transfer extends Component {
   }
 
   render() {
-    let token = 'TRX';
+    let token = "TRX";
     this.state.tokenStr = token;
     return (
       <div className={styles.container}>
-        <Header className={styles.white} headerName="Enter Amount"/>
+        <Header className={styles.white} headerName="Enter Amount" />
         <div onClick={this.props.history.goBack} className={styles.backArrow}>
-          <BackArrowIcon/>
+          <BackArrowIcon />
         </div>
         <div className={styles.subContainer}>
-            <p>
-                This tool creates raw transfer transactions which you can sign on other devices and then broadcast to the network.
-            </p>
+          <p>
+            This tool creates raw transfer transactions which you can sign on
+            other devices and then broadcast to the network.
+          </p>
           <div className={styles.addressContainer}>
-            <ContactIcon/>
+            <ContactIcon />
             <input
               onChange={this.onSetUserAddress.bind(this)}
               placeholder="Sender Address"
@@ -119,7 +123,7 @@ class Transfer extends Component {
             />
           </div>
           <div className={styles.addressContainer}>
-            <ContactIcon/>
+            <ContactIcon />
             <input
               onChange={this.onSetRecipientAddress.bind(this)}
               placeholder="Recipient Address"
@@ -127,13 +131,22 @@ class Transfer extends Component {
               value={this.props.recipientAddress}
             />
           </div>
-          <AmountDisplay token={token} onSetAmount={this.onSetAmount.bind(this)}/>
+          <AmountDisplay
+            token={token}
+            onSetAmount={this.onSetAmount.bind(this)}
+          />
           <Button
             onClick={this.onClickSend.bind(this)}
-            className={`${buttonStyles.button} ${buttonStyles.black}`}>Create
+            className={`${buttonStyles.button} ${buttonStyles.black}`}
+          >
+            Create
           </Button>
 
-            <TextArea placeholder="Output..." class={styles.textArea} value={this.state.outputText}/>
+          <TextArea
+            placeholder="Output..."
+            class={styles.textArea}
+            value={this.state.outputText}
+          />
 
           <PopupModal
             failure
@@ -148,4 +161,6 @@ class Transfer extends Component {
   }
 }
 
-export default withRouter(connect(state => ({ wallet: state.wallet }))(Transfer));
+export default withRouter(
+  connect(state => ({ wallet: state.wallet }))(Transfer)
+);

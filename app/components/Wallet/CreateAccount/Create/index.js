@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './CreationContent.css';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import styles from "./CreationContent.css";
 
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import {createAccount} from "../../../../actions/wallet";
+import { createAccount } from "../../../../actions/wallet";
 
-import { Checkbox, Input, Form, Button } from 'semantic-ui-react';
-import buttonStyles from '../../../Button.css';
+import { Checkbox, Input, Form, Button } from "semantic-ui-react";
+import buttonStyles from "../../../Button.css";
 
 class CreationContent extends Component {
-  state = {}
+  state = {};
   handleChange = (e, { value }) => this.setState({ value });
 
-  constructor(){
+  constructor() {
     super();
     this.onClickCreate = this.onClickCreate.bind(this);
   }
 
-  onClickCreate(){
-      this.props.createAccount(this.props, this.state.value);
+  onClickCreate() {
+    this.props.createAccount(this.props, this.state.value);
   }
 
   render() {
@@ -28,20 +28,28 @@ class CreationContent extends Component {
       <div className={styles.container}>
         <div className={styles.header}>CREATE A NEW WALLET :</div>
         <Form className={styles.form}>
-            <Input placeholder="Enter Wallet Name" onChange={this.handleChange}/>
-          <Form.Button onClick={this.onClickCreate} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Send</Form.Button>
+          <Input placeholder="Enter Wallet Name" onChange={this.handleChange} />
+          <Form.Button
+            onClick={this.onClickCreate}
+            className={`${styles.btn} ${buttonStyles.button} ${
+              buttonStyles.black
+            }`}
+          >
+            Send
+          </Form.Button>
         </Form>
       </div>
     );
   }
 }
 
-export default withRouter(connect(
+export default withRouter(
+  connect(
     state => ({ wallet: state.wallet }),
-    dispatch => ( {
-        createAccount: (props, accountName) => {
-            dispatch(createAccount(props, accountName));
-        }
-    } )
-)(CreationContent));
-
+    dispatch => ({
+      createAccount: (props, accountName) => {
+        dispatch(createAccount(props, accountName));
+      }
+    })
+  )(CreationContent)
+);

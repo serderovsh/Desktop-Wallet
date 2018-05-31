@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import styles from './LoadingFull.css';
+import React, { Component } from "react";
+import styles from "./LoadingFull.css";
 
-import { SquareLoadingIcon } from '../Icons';
+import { SquareLoadingIcon } from "../Icons";
 
 export default class LoadingFull extends Component {
   render() {

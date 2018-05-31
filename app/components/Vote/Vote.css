@@ -1,71 +1,71 @@
 .vote {
-    position: relative;
-    display: flex;
-    background-color: rgba(255,255,255,0.05);
-    border-radius: 5px;
-    margin: 5px 30px 0px 30px;
-    transition: background-color 300ms;
-    cursor: pointer;
-    padding: 10px 20px 10px 10px;
-    box-sizing: border-box;
-    font-size: 12px;
+  position: relative;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  margin: 5px 30px 0px 30px;
+  transition: background-color 300ms;
+  cursor: pointer;
+  padding: 10px 20px 10px 10px;
+  box-sizing: border-box;
+  font-size: 12px;
 }
 
 .vote:hover {
-    transition: 0s;
-    background-color: rgba(255,255,255,0.08);
+  transition: 0s;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .vote:first-child {
-    margin: 5px 30px 0px 30px;
+  margin: 5px 30px 0px 30px;
 }
 
 .vote:last-child {
-    margin: 5px 30px 45px 30px;
+  margin: 5px 30px 45px 30px;
 }
 
 .voteLabel {
-    color: #fff;
-    min-width: 30px;
-    margin: 10px 0px;
-    font-size: 11px;
+  color: #fff;
+  min-width: 30px;
+  margin: 10px 0px;
+  font-size: 11px;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex-grow: 1;
 }
 
 .title {
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    color: #fff;
-    margin: 10px 0px;
-    font-size: 11px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+  margin: 10px 0px;
+  font-size: 11px;
 }
 
 .subContainer {
-    display: flex;
-    justify-content: space-between;
-    margin: 2px 0px;
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 0px;
 }
 
 .subTitle {
-    color: grey;
+  color: grey;
 }
 
 .subVal {
-    color: #fff;
-    font-weight: 300;
+  color: #fff;
+  font-weight: 300;
 }
 
 .active {
-  border-top: 2px solid #ED3F21;
-  border-left: 2px solid #ED3F21;
-  border-bottom: 2px solid #DC2C73 !important;
-  border-right: 2px solid #DC2C73;
+  border-top: 2px solid #ed3f21;
+  border-left: 2px solid #ed3f21;
+  border-bottom: 2px solid #dc2c73 !important;
+  border-right: 2px solid #dc2c73;
 }

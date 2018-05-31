@@ -1,70 +1,70 @@
 .container {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
-.slider input[type=range] {
-    width: 100%;
+.slider input[type="range"] {
+  width: 100%;
 }
 
 .amount {
-    font-family: 'Source Code Pro', monospace;
-    font-size: 20px;
-    font-weight: 600;
-    float: right;
-    margin-bottom: 10px;
+  font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+  font-weight: 600;
+  float: right;
+  margin-bottom: 10px;
 }
 
 .sliderRange {
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Source Code Pro', monospace;
-    margin-top: 5px;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Source Code Pro", monospace;
+  margin-top: 5px;
+  margin-bottom: 30px;
 }
 
 .sliderRange span {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .sliderContainer {
-    position: relative;
+  position: relative;
 }
 
 .progress {
-    position: absolute;
-    bottom: 10px;
-    height: 6px;
-    background: #DC2C73 ;
-    z-index: -1;
+  position: absolute;
+  bottom: 10px;
+  height: 6px;
+  background: #dc2c73;
+  z-index: -1;
 }
 
 .sliderBG {
-    position: absolute;
-    bottom: 10px;
-    height: 6px;
-    background: rgba(0,0,0,0.05) ;
-    z-index: -1;
-    width: 100%;
+  position: absolute;
+  bottom: 10px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.05);
+  z-index: -1;
+  width: 100%;
 }
 
 .input {
-    position: absolute;
-    right: 45px;
-    top: -6px;
-    z-index: 4;
-    height: 30px;
-    min-width: 330px;
+  position: absolute;
+  right: 45px;
+  top: -6px;
+  z-index: 4;
+  height: 30px;
+  min-width: 330px;
 }
 
 .input input {
-    font-family: 'Source Code Pro', monospace;
-    font-size: 20px;
-    font-weight: 600;
-    text-align:right;
-    background: transparent;
-    height: 30px;
-    outline: none;
-    border: none;
-    min-width: 330px;
+  font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: right;
+  background: transparent;
+  height: 30px;
+  outline: none;
+  border: none;
+  min-width: 330px;
 }

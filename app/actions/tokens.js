@@ -1,12 +1,12 @@
-const TronHttpClient = require('tron-http-client');
+const TronHttpClient = require("tron-http-client");
 
 const client = new TronHttpClient();
 
-export const SET_TOKENS = 'SET_TOKENS';
+export const SET_TOKENS = "SET_TOKENS";
 
 export const setTokens = (tokens = []) => ({
   type: SET_TOKENS,
-  tokens,
+  tokens
 });
 
 export const loadTokens = () => async (dispatch, getState) => {

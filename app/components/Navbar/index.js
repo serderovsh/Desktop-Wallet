@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
-
-import * as Icons from '../Icons';
-import styles from './Navbar.css';
+import * as Icons from "../Icons";
+import styles from "./Navbar.css";
 
 const links = [
-	{ route: '/wallets', text: 'Wallets', icon: Icons.WalletIcon },
-  { route: '/tokens', text: 'Tokens', icon: Icons.TokensIcon },
-	{ route: '/vote', text: 'Vote', icon: Icons.VoteIcon },
+  { route: "/wallets", text: "Wallets", icon: Icons.WalletIcon },
+  { route: "/tokens", text: "Tokens", icon: Icons.TokensIcon },
+  { route: "/vote", text: "Vote", icon: Icons.VoteIcon },
   // { route: '/contact', text: 'Contact', icon: Icons.ContactIcon },
-	{ route: '/settings', text: 'Settings', icon: Icons.SettingsIcon },
+  { route: "/settings", text: "Settings", icon: Icons.SettingsIcon }
 ];
 
 class Navbar extends Component {
@@ -21,16 +20,21 @@ class Navbar extends Component {
           <Icons.TronIcon />
         </div>
 
-        {
-          links.map((link, i) =>
-            <NavLink to={link.route} key={i} activeClassName={styles.active} className={styles.link}>
-      			  <link.icon />
-      			  <div>{link.text}</div>
-      			</NavLink>
-      		)
-	    	}
+        {links.map((link, i) => (
+          <NavLink
+            to={link.route}
+            key={i}
+            activeClassName={styles.active}
+            className={styles.link}
+          >
+            <link.icon />
+            <div>{link.text}</div>
+          </NavLink>
+        ))}
 
-        <div className={`${styles.link} ${styles.bottom}`}>{/*<Icons.SearchIcon />*/}</div>
+        <div className={`${styles.link} ${styles.bottom}`}>
+          {/*<Icons.SearchIcon />*/}
+        </div>
       </nav>
     );
   }

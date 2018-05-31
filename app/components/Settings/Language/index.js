@@ -1,25 +1,22 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './Language.css';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import styles from "./Language.css";
 
-import Secondary from '../../Content/Secondary';
-import Header from '../../Header';
+import Secondary from "../../Content/Secondary";
+import Header from "../../Header";
 
-import { Form, TextArea, Button } from 'semantic-ui-react'
-import buttonStyles from '../../Button.css';
+import { Form, TextArea, Button } from "semantic-ui-react";
+import buttonStyles from "../../Button.css";
 
-import { TranslateIcon, ArrowRightIcon } from '../../Icons';
+import { TranslateIcon, ArrowRightIcon } from "../../Icons";
 
-let languages = [
-  { text: 'English', value: 'en' },
-]
-
+let languages = [{ text: "English", value: "en" }];
 
 export default class Language extends Component {
-  state = {}
+  state = {};
 
   // sets language, returns value, ex. 'en'
-  setLanguage = (e, { value }) => this.setState({ value })
+  setLanguage = (e, { value }) => this.setState({ value });
 
   render() {
     return (
@@ -30,11 +27,12 @@ export default class Language extends Component {
           <div>Select a language below.</div>
           <div className={styles.dropdown}>
             <ArrowRightIcon />
-            <Form.Select fluid
+            <Form.Select
+              fluid
               onChange={this.setLanguage}
               className={styles.selectLanguage}
-              defaultValue={languages.length > 0 ? languages[0].value : ''}
-              placeholder='Select Language...'
+              defaultValue={languages.length > 0 ? languages[0].value : ""}
+              placeholder="Select Language..."
               options={languages}
             />
           </div>

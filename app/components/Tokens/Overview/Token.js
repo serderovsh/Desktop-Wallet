@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-import styles from './Token.css';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import styles from "./Token.css";
 
 class Token extends Component {
   render() {
     return (
       <NavLink to="/tokens/tokendetails" className={styles.token}>
         <div className={styles.container}>
-          <div className={styles.title}>{ this.props.tokenName }</div>
+          <div className={styles.title}>{this.props.tokenName}</div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}>Total Supply : </span>
-            <span className={styles.subVal}>{this.props.totalSupply.toLocaleString()}</span>
+            <span className={styles.subVal}>
+              {this.props.totalSupply.toLocaleString()}
+            </span>
           </div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}>Total Sold : </span>
@@ -19,7 +21,9 @@ class Token extends Component {
           </div>
           <div className={styles.subContainer}>
             <span className={styles.subTitle}>Registered :</span>
-            <span className={styles.subVal}>{(new Date(this.props.registered)).toLocaleString()}</span>
+            <span className={styles.subVal}>
+              {new Date(this.props.registered).toLocaleString()}
+            </span>
           </div>
         </div>
       </NavLink>

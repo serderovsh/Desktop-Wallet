@@ -1,82 +1,82 @@
 .wallet {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    background-color: rgba(255,255,255,0.05);
-    border-radius: 5px;
-    margin: 5px 30px 0px 30px;
-    transition: background-color 300ms;
-    cursor: pointer;
-    padding: 20px 0px;
-    box-sizing: border-box;
-    border:2px transparent;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  margin: 5px 30px 0px 30px;
+  transition: background-color 300ms;
+  cursor: pointer;
+  padding: 20px 0px;
+  box-sizing: border-box;
+  border: 2px transparent;
 }
 
 .wallet:hover {
-    transition: 0s;
-    background-color: rgba(255,255,255,0.08);
+  transition: 0s;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .wallet:first-child {
-    margin: 85px 30px 0px 30px;
+  margin: 85px 30px 0px 30px;
 }
 
 .wallet:last-child {
-    margin: 5px 30px 85px 30px;
+  margin: 5px 30px 85px 30px;
 }
 
 .wallet:first-child:last-child {
-    margin: 85px 30px 0px 30px;
+  margin: 85px 30px 0px 30px;
 }
 
 .wallet > .walletIcon {
-    fill: #9B9B9B;
-    font-size: 25px;
-    padding: 0px 20px;
+  fill: #9b9b9b;
+  font-size: 25px;
+  padding: 0px 20px;
 }
 
 .wallet > .arrowIcon {
-    fill: #fff;
-    font-size: 30px;
-    padding: 15px;
+  fill: #fff;
+  font-size: 30px;
+  padding: 15px;
 }
 
 .wallet svg {
-    margin: auto 0px;
+  margin: auto 0px;
 }
 
 .walletInfo {
-    font-size: 12px;
-    text-align: left;
-    flex-grow: 1;
+  font-size: 12px;
+  text-align: left;
+  flex-grow: 1;
 }
 
 .token {
-    font-family: 'Source Code Pro', monospace;
-    color: #9B9B9B;
-    margin-bottom: 5px;
-    text-decoration: none;
+  font-family: "Source Code Pro", monospace;
+  color: #9b9b9b;
+  margin-bottom: 5px;
+  text-decoration: none;
 }
 
 .walletInfo > .name {
-    font-family: 'Roboto', sans-serif;
-    color: #fff;
-    margin-bottom: 8px;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  margin-bottom: 8px;
 }
 
 .publicKey {
-    font-size: 9px;
-    color: #5d5d5d;
-    text-overflow: ellipsis;
-    width: 100px;
-    overflow: hidden;
-    margin-bottom: 8px;
+  font-size: 9px;
+  color: #5d5d5d;
+  text-overflow: ellipsis;
+  width: 100px;
+  overflow: hidden;
+  margin-bottom: 8px;
 }
 
 .active {
-    background-color: rgba(255,255,255,0.1);
-    border-top: 2px solid #ED3F21;
-    border-left: 2px solid #ED3F21;
-    border-bottom: 2px solid #DC2C73 !important;
-    border-right: 2px solid #DC2C73;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-top: 2px solid #ed3f21;
+  border-left: 2px solid #ed3f21;
+  border-bottom: 2px solid #dc2c73 !important;
+  border-right: 2px solid #dc2c73;
 }

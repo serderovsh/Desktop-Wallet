@@ -1,30 +1,65 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './SettingList.css';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import styles from "./SettingList.css";
 
-import Header from '../ContentPrimaryHeader';
-import CategoryHeader from './CategoryHeader';
-import CategoryChild from './CategoryChild';
+import Header from "../ContentPrimaryHeader";
+import CategoryHeader from "./CategoryHeader";
+import CategoryChild from "./CategoryChild";
 
-import { Dropdown } from 'semantic-ui-react'
-import { BookIcon, QuestionMarkIcon, ShareIcon, BellIcon, WebGlobeIcon, WifiIcon, PencilIcon } from '../Icons';
+import { Dropdown } from "semantic-ui-react";
+import {
+  BookIcon,
+  QuestionMarkIcon,
+  ShareIcon,
+  BellIcon,
+  WebGlobeIcon,
+  WifiIcon,
+  PencilIcon
+} from "../Icons";
 
 export default class SettingList extends Component {
-  goToSupport = () => require('electron').shell.openExternal('https://support.tron.watch/');
+  goToSupport = () =>
+    require("electron").shell.openExternal("https://support.tron.watch/");
   render() {
     return (
       <div className={styles.container}>
         <Header text="MY SETTINGS :" />
         <CategoryHeader text="General">
-          <CategoryChild text="Share Tron Wallet" icon={<ShareIcon />} routeTo="/settings/share" />
-          <CategoryChild text="Support (Temporary disable)" icon={<QuestionMarkIcon />} onClick={this.goToSupport} routeTo="#" />
+          <CategoryChild
+            text="Share Tron Wallet"
+            icon={<ShareIcon />}
+            routeTo="/settings/share"
+          />
+          <CategoryChild
+            text="Support (Temporary disable)"
+            icon={<QuestionMarkIcon />}
+            onClick={this.goToSupport}
+            routeTo="#"
+          />
           {/*<CategoryChild text="Address Book" icon={<BookIcon />} routeTo="/settings/addressbook" />*/}
-          <CategoryChild text="Feedback" icon={<PencilIcon />} routeTo="/settings/feedback" />
+          <CategoryChild
+            text="Feedback"
+            icon={<PencilIcon />}
+            routeTo="/settings/feedback"
+          />
         </CategoryHeader>
         <CategoryHeader text="Preferences">
-          <CategoryChild text="Notifications" icon={<BellIcon />} routeTo="/settings/notifications" />
-          <CategoryChild text="Language" subText="English" icon={<WebGlobeIcon />} routeTo="/settings/language" />
-          <CategoryChild text="Node" icon={<WifiIcon />} routeTo="/settings/node" />
+          <CategoryChild
+            text="Notifications"
+            icon={<BellIcon />}
+            routeTo="/settings/notifications"
+          />
+          <CategoryChild
+            text="Language"
+            subText="English"
+            icon={<WebGlobeIcon />}
+            routeTo="/settings/language"
+          />
+          <CategoryChild
+            text="Node"
+            icon={<WifiIcon />}
+            routeTo="/settings/node"
+          />
         </CategoryHeader>
       </div>
     );

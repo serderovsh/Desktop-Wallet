@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { FormattedNumber } from 'react-intl';
-import styles from './AmountDisplay.css';
+import React, { Component } from "react";
+import { FormattedNumber } from "react-intl";
+import styles from "./AmountDisplay.css";
 
-import AmountInput from './AmountInput';
+import AmountInput from "./AmountInput";
 
 export default class AmountDisplay extends Component {
   render() {
@@ -11,7 +11,8 @@ export default class AmountDisplay extends Component {
         <div className={styles.amountTag}>Amount :</div>
         <div className={styles.amountInput}>
           <div className={styles.amountMain}>
-            <AmountInput onSetAmount={this.props.onSetAmount} /><span>{this.props.token}</span>
+            <AmountInput onSetAmount={this.props.onSetAmount} />
+            <span>{this.props.token}</span>
           </div>
           <div className={styles.amountSub}>{this.props.usd} USD</div>
         </div>

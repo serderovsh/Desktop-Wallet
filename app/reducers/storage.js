@@ -1,9 +1,7 @@
-import {SAVE_STORAGE, LOAD_FAILED} from "../actions/storage";
+import { SAVE_STORAGE, LOAD_FAILED } from "../actions/storage";
 
 const initialState = {
-    settings : {
-
-    }
+  settings: {}
 };
 
 export function storageReducer(state = initialState, action) {

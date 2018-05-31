@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  background: linear-gradient(0deg, #31353E 0%, #192028 51.21%, #0B0F12 100%);
+  background: linear-gradient(0deg, #31353e 0%, #192028 51.21%, #0b0f12 100%);
   min-width: 350px;
   box-sizing: border-box;
   height: 100%;
@@ -41,18 +41,18 @@
 }
 
 .tokensContainer::-webkit-scrollbar {
-    border-left: 5px solid rgba(255, 255, 255, 0.08);
-    width: 10px;
+  border-left: 5px solid rgba(255, 255, 255, 0.08);
+  width: 10px;
 }
 
 .tokensContainer::-webkit-scrollbar-thumb {
-    border-left: 5px solid rgba(255, 255, 255, 0.2);
+  border-left: 5px solid rgba(255, 255, 255, 0.2);
 }
 
 .input {
   height: 32px;
   background: #12181d;
-  border: 2px solid rgba(255,255,255,0.1);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 5px;
   width: 100%;
   text-indent: 10px;
@@ -62,7 +62,7 @@
 }
 
 .input:focus {
-  border: 2px solid rgba(255,255,255,0.15);
+  border: 2px solid rgba(255, 255, 255, 0.15);
   outline: none;
 }
 
@@ -72,7 +72,7 @@
   left: 0;
   right: 0;
   color: #444;
-  font-family: 'Source Code Pro';
+  font-family: "Source Code Pro";
   font-size: 13px;
   text-shadow: 0px 0px 5px #131313;
 }

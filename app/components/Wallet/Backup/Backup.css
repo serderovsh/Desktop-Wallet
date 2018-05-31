@@ -1,132 +1,132 @@
 .container {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 
 .white {
-    color: #fff;
+  color: #fff;
 }
 
 .subContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background: #fff;
-    max-height: 580px;
-    max-width: 400px;
-    height: 100%;
-    width: 100%;
-    min-width: 385px;
-    margin: 40px auto;
-    border-radius: 10px;
-    padding: 40px;
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: #fff;
+  max-height: 580px;
+  max-width: 400px;
+  height: 100%;
+  width: 100%;
+  min-width: 385px;
+  margin: 40px auto;
+  border-radius: 10px;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 .wordContainer {
-    display: flex;
-    background: #fff;
-    font-size: 12px;
-    border: 2px solid #ED3F21;
-    border-radius: 5px;
-    padding: 20px 30px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: 'Source Code Pro', monospace;
+  display: flex;
+  background: #fff;
+  font-size: 12px;
+  border: 2px solid #ed3f21;
+  border-radius: 5px;
+  padding: 20px 30px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Source Code Pro", monospace;
 }
 
 .wordColumn {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: 1;
 }
 
 .wordColumn:first-child {
-    margin-right: 4px;
+  margin-right: 4px;
 }
 
 .word {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .word span {
-    display: inline-block;
-    white-space: nowrap;
-    line-height: 20px;
-    font-weight: 700;
-    color: #ed3f21;
-    margin-right: 5px;
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 20px;
+  font-weight: 700;
+  color: #ed3f21;
+  margin-right: 5px;
 }
 
 .word > div {
-    display: inline-block;
+  display: inline-block;
 }
 
 .word input {
-    width: 100px;
-    border: 1px solid #eaeaea;
-    border-radius: 3px;
-    margin-left: 5px;
-    font-family: 'Source Code Pro', monospace;
+  width: 100px;
+  border: 1px solid #eaeaea;
+  border-radius: 3px;
+  margin-left: 5px;
+  font-family: "Source Code Pro", monospace;
 }
 
 .word input:focus {
-    outline: none;
+  outline: none;
 }
 
 .subHeader {
-    margin-top: 10px;
-    font-size: 13px;
+  margin-top: 10px;
+  font-size: 13px;
 }
 
 .seedHeader {
-    margin-top: 10px;
-    font-size: 13px;
+  margin-top: 10px;
+  font-size: 13px;
 }
 
 .closeModal {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    border-radius: 10px;
-    fill: #fff;
-    padding: 10px 10px 8px 10px;
-    cursor: pointer;
-    z-index: 10;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  border-radius: 10px;
+  fill: #fff;
+  padding: 10px 10px 8px 10px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .checkboxContainer {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .checkbox {
-    display: inline-block;
+  display: inline-block;
 }
 
 .checkboxLabel {
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 14px;
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 14px;
 }
 
 .privatekey {
-    font-size: 13px;
-    background: rgba(0, 0, 0, 0.08);
-    font-family: 'Source Code Pro', monospace;
-    margin-top: 15px;
-    word-wrap: break-word;
-    width: 100%;
-    text-align: left;
-    user-select: text;
-    padding: 10px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border-top: 2px solid #ED3F21;
-    border-left: 2px solid #ED3F21;
-    border-bottom: 2px solid #DC2C73;
-    border-right: 2px solid #DC2C73;
+  font-size: 13px;
+  background: rgba(0, 0, 0, 0.08);
+  font-family: "Source Code Pro", monospace;
+  margin-top: 15px;
+  word-wrap: break-word;
+  width: 100%;
+  text-align: left;
+  user-select: text;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border-top: 2px solid #ed3f21;
+  border-left: 2px solid #ed3f21;
+  border-bottom: 2px solid #dc2c73;
+  border-right: 2px solid #dc2c73;
 }

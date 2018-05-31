@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react';
-import styles from './SendAmount.css';
-import Header from '../../Header';
-import AmountDisplay from './AmountDisplay';
-import buttonStyles from '../../Button.css';
-import { ContactIcon, BackArrowIcon } from '../../Icons';
-import { PopupModal } from '../../Content/PopupModal';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { Button } from "semantic-ui-react";
+import styles from "./SendAmount.css";
+import Header from "../../Header";
+import AmountDisplay from "./AmountDisplay";
+import buttonStyles from "../../Button.css";
+import { ContactIcon, BackArrowIcon } from "../../Icons";
+import { PopupModal } from "../../Content/PopupModal";
 
-import { trxToDrops, dropsToFiat } from '../../../utils/currency';
+import { trxToDrops, dropsToFiat } from "../../../utils/currency";
 
-import TronHttpClient from 'tron-http-client';
+import TronHttpClient from "tron-http-client";
 
 class SendAmount extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class SendAmount extends Component {
 
     this.state = {
       amount: 0,
-      address: '',
+      address: "",
 
       showConfirmModal: false,
       modalConfirmText: "",
@@ -36,14 +36,13 @@ class SendAmount extends Component {
       modalSuccessText: "Success",
       accountAddress: "",
 
-        usdAmount : 0
+      usdAmount: 0
     };
   }
 
   async onClickSend() {
     let accountId = this.props.match.params.account;
-    let account = this.props.wallet.persistent.accounts[ accountId ];
-
+    let account = this.props.wallet.persistent.accounts[accountId];
 
     this.setState({
       ...this.state,
@@ -54,17 +53,18 @@ class SendAmount extends Component {
       },
       accountAddress: account.publicKey,
       showConfirmModal: true,
-      modalConfirmText: `Send ${this.state.amount} ${this.state.tokenStr} to ${this.state.address}?`
+      modalConfirmText: `Send ${this.state.amount} ${this.state.tokenStr} to ${
+        this.state.address
+      }?`
     });
-
   }
 
   onSetAmount(amount) {
     this.setState({
       ...this.state,
       amount: amount,
-        usdAmount:dropsToFiat(this.props.currency, parseInt(amount)*1000000)
-    })
+      usdAmount: dropsToFiat(this.props.currency, parseInt(amount) * 1000000)
+    });
   }
 
   onSetAddress(event) {
@@ -78,17 +78,23 @@ class SendAmount extends Component {
     let client = new TronHttpClient();
     let response = null;
     if (this.props.match.params.token) {
-      response = await client.sendToken(
-        this.state.sendProperties.privateKey,
-        this.state.sendProperties.recipient,
-        this.state.sendProperties.amount,
-        this.props.match.params.token).catch(x => null);
+      response = await client
+        .sendToken(
+          this.state.sendProperties.privateKey,
+          this.state.sendProperties.recipient,
+          this.state.sendProperties.amount,
+          this.props.match.params.token
+        )
+        .catch(x => null);
     } else {
       console.log(this.state.sendProperties);
-      response = await client.sendTrx(
-        this.state.sendProperties.privateKey,
-        this.state.sendProperties.recipient,
-        parseInt(trxToDrops(this.state.sendProperties.amount))).catch(x => null);
+      response = await client
+        .sendTrx(
+          this.state.sendProperties.privateKey,
+          this.state.sendProperties.recipient,
+          parseInt(trxToDrops(this.state.sendProperties.amount))
+        )
+        .catch(x => null);
     }
 
     if (response === null) {
@@ -99,7 +105,6 @@ class SendAmount extends Component {
         showFailureModal: true,
         modalFailureText: "Transaction failed"
       });
-
     } else if (response.result != true) {
       this.setState({
         ...this.state,
@@ -137,7 +142,9 @@ class SendAmount extends Component {
   }
 
   modalSuccessClose() {
-    this.props.history.push("/wallets/walletDetails/" + this.state.accountAddress);
+    this.props.history.push(
+      "/wallets/walletDetails/" + this.state.accountAddress
+    );
     this.setState({
       ...this.state,
       showSuccessModal: false
@@ -149,17 +156,19 @@ class SendAmount extends Component {
   }
 
   render() {
-    let token = (this.props.match.params.token ? this.props.match.params.token : 'TRX');
+    let token = this.props.match.params.token
+      ? this.props.match.params.token
+      : "TRX";
     this.state.tokenStr = token;
     return (
       <div className={styles.container}>
-        <Header className={styles.white} headerName="Enter Amount"/>
+        <Header className={styles.white} headerName="Enter Amount" />
         <div onClick={this.props.history.goBack} className={styles.backArrow}>
-          <BackArrowIcon/>
+          <BackArrowIcon />
         </div>
         <div className={styles.subContainer}>
           <div className={styles.addressContainer}>
-            <ContactIcon/>
+            <ContactIcon />
             <input
               onChange={this.onSetAddress.bind(this)}
               placeholder="Recipient Address"
@@ -167,10 +176,16 @@ class SendAmount extends Component {
               value={this.props.address}
             />
           </div>
-          <AmountDisplay usd={this.state.usdAmount} token={token} onSetAmount={this.onSetAmount.bind(this)}/>
+          <AmountDisplay
+            usd={this.state.usdAmount}
+            token={token}
+            onSetAmount={this.onSetAmount.bind(this)}
+          />
           <Button
             onClick={this.onClickSend.bind(this)}
-            className={`${buttonStyles.button} ${buttonStyles.black}`}>Send
+            className={`${buttonStyles.button} ${buttonStyles.black}`}
+          >
+            Send
           </Button>
 
           <PopupModal
@@ -203,4 +218,8 @@ class SendAmount extends Component {
   }
 }
 
-export default withRouter(connect(state => ({ wallet: state.wallet, currency:state.currency }))(SendAmount));
+export default withRouter(
+  connect(state => ({ wallet: state.wallet, currency: state.currency }))(
+    SendAmount
+  )
+);

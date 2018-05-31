@@ -1,51 +1,78 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './PopupModal.css';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import styles from "./PopupModal.css";
 
-import Anime from 'react-anime';
-import { Button } from 'semantic-ui-react';
-import buttonStyles from '../Button.css';
+import Anime from "react-anime";
+import { Button } from "semantic-ui-react";
+import buttonStyles from "../Button.css";
 
-import { CSSTransitionGroup } from 'react-transition-group';
+import { CSSTransitionGroup } from "react-transition-group";
 
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
-import { CheckMarkBoxAnimation, WarningCircleAnimation, QuestionMarkAnimation } from '../Icons';
+import {
+  CheckMarkBoxAnimation,
+  WarningCircleAnimation,
+  QuestionMarkAnimation
+} from "../Icons";
 
 export class PopupModal extends Component {
-
   modalVis() {
     if (!this.props.modalVis) {
       return styles.hidden;
     }
-    return '';
+    return "";
   }
 
   renderButtons() {
     if (this.props.confirmation) {
       return (
-      <div className={styles.buttonContainer}>
-        <Button onClick={this.props.modalDecline} className={`${buttonStyles.button} ${buttonStyles.black}`}>Decline</Button>
-        <Button onClick={this.props.modalConfirm} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Confirm</Button>
-      </div>
+        <div className={styles.buttonContainer}>
+          <Button
+            onClick={this.props.modalDecline}
+            className={`${buttonStyles.button} ${buttonStyles.black}`}
+          >
+            Decline
+          </Button>
+          <Button
+            onClick={this.props.modalConfirm}
+            className={`${buttonStyles.button} ${buttonStyles.gradient}`}
+          >
+            Confirm
+          </Button>
+        </div>
       );
     } else {
       if (this.props.buttonText) {
-        return <Button onClick={this.props.closeModalFunction} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>{ this.props.buttonText }</Button>
+        return (
+          <Button
+            onClick={this.props.closeModalFunction}
+            className={`${buttonStyles.button} ${buttonStyles.gradient}`}
+          >
+            {this.props.buttonText}
+          </Button>
+        );
       } else {
-        return <Button onClick={this.props.closeModalFunction} className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Close</Button>
+        return (
+          <Button
+            onClick={this.props.closeModalFunction}
+            className={`${buttonStyles.button} ${buttonStyles.gradient}`}
+          >
+            Close
+          </Button>
+        );
       }
     }
   }
 
   renderSymbol() {
     if (this.props.confirmation) {
-      return <QuestionMarkAnimation className={styles.warning} />
+      return <QuestionMarkAnimation className={styles.warning} />;
     } else {
       if (this.props.success) {
-        return <CheckMarkBoxAnimation className={styles.success} />
+        return <CheckMarkBoxAnimation className={styles.success} />;
       } else if (this.props.failure) {
-        return <WarningCircleAnimation className={styles.failure} />
+        return <WarningCircleAnimation className={styles.failure} />;
       }
     }
   }
@@ -64,12 +91,11 @@ export class PopupModal extends Component {
         </div>
       );
     }
-    return '';
+    return "";
   }
 }
 
 //export default withRouter((PopupModal));
-
 
 /*
         this.state = {

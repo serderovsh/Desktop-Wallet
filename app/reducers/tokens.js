@@ -1,9 +1,7 @@
-import {
-  SET_TOKENS
-} from '../actions/tokens';
+import { SET_TOKENS } from "../actions/tokens";
 
 const initialState = {
-  tokens: [],
+  tokens: []
 };
 
 export function tokensReducer(state = initialState, action) {
@@ -11,7 +9,7 @@ export function tokensReducer(state = initialState, action) {
     case SET_TOKENS: {
       return {
         ...state,
-        tokens: action.tokens,
+        tokens: action.tokens
       };
     }
     default:

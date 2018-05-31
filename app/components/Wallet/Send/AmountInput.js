@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export default class AmountInput extends Component {
   onChange(event) {
@@ -7,7 +7,12 @@ export default class AmountInput extends Component {
 
   render() {
     return (
-      <input onChange={this.onChange.bind(this)} type="number" placeholder="0.00000000" required />
+      <input
+        onChange={this.onChange.bind(this)}
+        type="number"
+        placeholder="0.00000000"
+        required
+      />
     );
   }
 }

@@ -1,33 +1,33 @@
-import React, { Component } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Button, Dropdown } from 'semantic-ui-react';
-import { filter, sortBy } from 'lodash';
+import React, { Component } from "react";
+import { NavLink, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { Button, Dropdown } from "semantic-ui-react";
+import { filter, sortBy } from "lodash";
 
-import styles from './Overview.css';
+import styles from "./Overview.css";
 
-import buttonStyles from '../../Button.css';
+import buttonStyles from "../../Button.css";
 
-import Token from './Token';
-import { loadTokens } from '../../../actions/tokens';
+import Token from "./Token";
+import { loadTokens } from "../../../actions/tokens";
 
 class Overview extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      filterValue: '',
+      filterValue: "",
       tokens: this.props.tokens
     };
   }
 
-  filterTokens = (e) => {
-    let filtered = this.props.tokens.filter((token) => {
+  filterTokens = e => {
+    let filtered = this.props.tokens.filter(token => {
       return token.name.includes(e.target.value);
     });
 
     this.setState({
-      tokens: filtered,
+      tokens: filtered
     });
   };
 
@@ -45,21 +45,27 @@ class Overview extends Component {
       );
     }
 
-    tokens = filter(tokens, t => t.name.toUpperCase().indexOf(searchString) !== -1);
+    tokens = filter(
+      tokens,
+      t => t.name.toUpperCase().indexOf(searchString) !== -1
+    );
     tokens = sortBy(tokens, t => t.name);
 
     return (
       <div className={styles.tokensContainer}>
-        { this.state.tokens.length < 1 ? (<div className={styles.noResults}>No Tokens Found</div>) : '' }
-        {
-          this.state.tokens.map((token, index) =>
-            <Token
-              key={index}
-              tokenName={token.name}
-              totalSupply={token.total_supply}
-              registered={token.start_time}
-            />)
-        }
+        {this.state.tokens.length < 1 ? (
+          <div className={styles.noResults}>No Tokens Found</div>
+        ) : (
+          ""
+        )}
+        {this.state.tokens.map((token, index) => (
+          <Token
+            key={index}
+            tokenName={token.name}
+            totalSupply={token.total_supply}
+            registered={token.start_time}
+          />
+        ))}
       </div>
     );
   }
@@ -67,11 +73,19 @@ class Overview extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <input className={styles.input} placeholder="Search for a token here..." onChange={this.filterTokens} />
-          {this.renderToken()}
+        <input
+          className={styles.input}
+          placeholder="Search for a token here..."
+          onChange={this.filterTokens}
+        />
+        {this.renderToken()}
         <div className={styles.buttonContainer}>
           <NavLink to="/tokens/createtoken">
-            <Button className={`${buttonStyles.button} ${buttonStyles.gradient}`}>Create New Token</Button>
+            <Button
+              className={`${buttonStyles.button} ${buttonStyles.gradient}`}
+            >
+              Create New Token
+            </Button>
           </NavLink>
         </div>
       </div>
@@ -79,11 +93,16 @@ class Overview extends Component {
   }
 }
 
-export default withRouter(connect(
-  state => ({ tokens: state.tokens.tokens, searchString: state.app.searchString, }),
-  dispatch => ({
-    loadTokens: (props) => {
-      dispatch(loadTokens(props));
-    }
-  })
-)(Overview));
+export default withRouter(
+  connect(
+    state => ({
+      tokens: state.tokens.tokens,
+      searchString: state.app.searchString
+    }),
+    dispatch => ({
+      loadTokens: props => {
+        dispatch(loadTokens(props));
+      }
+    })
+  )(Overview)
+);
