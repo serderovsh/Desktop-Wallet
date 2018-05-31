@@ -4,7 +4,7 @@ import { Dropdown, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import styles from './WalletView.css';
 
-import { MoreIcon, CalendarIcon, SendIcon, QRScanIcon, DownloadIcon, SnowIcon } from '../../Icons';
+import { MoreIcon, CalendarIcon, SendIcon, QRScanIcon, DownloadIcon, SnowIcon, PencilIcon } from '../../Icons';
 import buttonStyles from '../../Button.css';
 
 import Secondary from '../../Content/Secondary';
@@ -49,7 +49,7 @@ class WalletView extends Component {
             <Button className={buttonStyles.button}><SnowIcon />Freeze TRX</Button>
           </NavLink>
           <NavLink to={'/wallets/offline/' + accountId }>
-            <Button className={buttonStyles.button}><SnowIcon />Offline Sign</Button>
+            <Button className={buttonStyles.button}><PencilIcon />Offline Sign</Button>
           </NavLink>
         </div>
         {/*<DatePicker/>*/}

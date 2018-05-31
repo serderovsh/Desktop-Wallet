@@ -353,7 +353,7 @@ export class SnowIcon extends Component {
   }
 }
 
-export class WifiIcon extends Component {
+export class PencilIcon extends Component {
   render() {
     return (
       <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
@@ -363,7 +363,7 @@ export class WifiIcon extends Component {
   }
 }
 
-export class PencilIcon extends Component {
+export class WifiIcon extends Component {
   render() {
     return (
       <svg className={this.props.className} width="24" height="24" viewBox="0 0 24 24">
