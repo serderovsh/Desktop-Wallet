@@ -16,7 +16,6 @@ export const saveStorage = (storage) =>{
     }
 };
 
-
 export const loadStorage = () =>{
     console.log('loading storage');
     let loaded = null;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {setFiatPrice} from "../actions/currency";
 import {CURRENCY} from "../actions/currency";
+import {startUpdateAccountsAsync} from "../actions/wallet";
 
 class WebsocketContainer extends Component {
 
@@ -10,16 +11,19 @@ class WebsocketContainer extends Component {
         super(props);
         this.state ={
             websocket : null,
-            userid: this.guid()
+            userid: this.guid(),
+            requested : {}
         }
     }
 
     websocketOnMessage(event){
+        console.log(event);
         try{
             let msg = JSON.parse(event.data);
-            if(msg.cmd == "ADDRESS_EVENT"){
+            if(msg.cmd === "ADDRESS_EVENT"){
                 console.log(`received address change notification: `);
-            }else if (msg.symbol == 'TRX' && msg['USD'].price){
+                this.props.startUpdating(this.props.wallet.persistent);
+            }else if (msg.symbol === 'TRX' && msg['USD'].price){
                 this.props.setFiatPrice(CURRENCY.USD, msg['USD'].price);
             }else{
                 console.log(`unknown message: `)
@@ -29,8 +33,14 @@ class WebsocketContainer extends Component {
         }
     }
 
+    addAllInWallet(){
+
+    }
+
     websocketOnOpen(event){
-        this.addWebsocketAlert("27d3byPxZXKQWfXX7sJvemJJuv5M65F3vjS");
+        this.state.requested = {};
+        let keys =Object.keys(this.props.wallet.persistent.accounts);
+        this.addAddresses(keys);
     }
 
     checkWebsocket(){
@@ -44,11 +54,13 @@ class WebsocketContainer extends Component {
 
     addWebsocketAlert(address){
         if (this.state.websocket.readyState === WebSocket.OPEN) {
+            console.log(`requesting alerts for ${address}`);
             this.state.websocket.send(JSON.stringify({
                 cmd: 'START_ALERT',
                 address : address,
                 userid : this.state.userid
             }));
+            this.state.requested[address] = 1;
         }
     }
 
@@ -64,8 +76,20 @@ class WebsocketContainer extends Component {
         setTimeout(this.checkWebsocket.bind(this), 0);
     }
 
+    addAddresses(list){
+        for(let i = 0;i<list.length;i++){
+            let addr = list[i]
+            if(!this.state.requested[addr]){
+                this.addWebsocketAlert(addr);
+            }
+        }
+    }
+
     render(){
-        return(<div></div>);
+        let keys =Object.keys(this.props.wallet.persistent.accounts);
+        this.addAddresses(keys);
+
+        return(<div keepAlive={keys.count}></div>);
     }
 
     guid() {
@@ -81,10 +105,15 @@ class WebsocketContainer extends Component {
 export default withRouter(connect(
     state => ({
         currency: state.currency,
+        wallet : state.wallet
     }),
     dispatch => ({
         setFiatPrice(currency, price){
             dispatch(setFiatPrice(currency, price));
+        },
+        startUpdating(persistent){
+            console.log('starting update');
+            startUpdateAccountsAsync(persistent, dispatch);
         }
     })
 )(WebsocketContainer));

@@ -156,7 +156,7 @@ export const updateTransferTransactions = async (address, dispatch) => {
     }
 
     dispatch(updateTransactions(address, cleanedTransactions));
-}
+};
 
 export const updateTransactions = (accountId, transactions)=>{
     return {
@@ -166,7 +166,7 @@ export const updateTransactions = (accountId, transactions)=>{
     }
 };
 
-function startUpdateAccountsAsync(persistent, dispatch){
+export const startUpdateAccountsAsync = (persistent, dispatch) => {
     setTimeout(async ()=>{
         let accountsInfo = await getAccountsInfo(persistent);
         let accountIds = Object.keys(persistent.accounts);
