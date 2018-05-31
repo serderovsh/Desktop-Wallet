@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Dropdown, Form } from 'semantic-ui-react';
+import { Dropdown, Button } from 'semantic-ui-react';
 import { FormattedNumber } from 'react-intl';
 import styles from './TokenView.css';
 import buttonStyles from '../../Button.css';
@@ -10,6 +10,8 @@ import AmountSlider from './AmountSlider';
 import { ArrowRightIcon } from '../../Icons';
 import { loadTokens } from '../../../actions/tokens';
 import {PopupModal} from "../../Content/PopupModal";
+
+import { dropsToTrx } from '../../../utils/currency';
 
 const TronHttpClient = require('tron-http-client');
 
@@ -46,11 +48,12 @@ class TokenView extends Component {
           assetName: this.state.token.name,
           amount: this.getDropFromCurrent()
       };
+      let { token } = this.state;
       this.setState({
           ...this.state,
           sendProperties:tokens,
           showConfirmModal:true,
-          modalConfirmText : `Are you sure you want to buy ${this.state.current} ${this.props.match.params.token} for ${drops}?`
+          modalConfirmText : `Are you sure you want to buy ${this.state.current} ${token.abbr ? token.abbr : token.name} ${this.props.match.params.token} for ${dropsToTrx(drops)} TRX?`
       });
   }
 
@@ -133,6 +136,7 @@ class TokenView extends Component {
     let currentToken = this.props.match.params.token;
     let token = this.props.tokens.tokens.find(t => t._id === currentToken);
     this.state.token = token;
+    console.log(token)
 
     if (!token) {
       return (
@@ -154,7 +158,7 @@ class TokenView extends Component {
         <div className={styles.headerContainer}>
           <Header headerName="Buy Token" />
           <div className={styles.headerTP}>
-            <FormattedNumber value={selectedWallet.trx} /><span>TRX</span>
+            <FormattedNumber value={dropsToTrx(selectedWallet.trx)} /><span>TRX</span>
           </div>
           <div className={styles.headerText}>Use TRX to purchase tokens below.</div>
         </div>
@@ -168,8 +172,14 @@ class TokenView extends Component {
               options={wallets}
             />
           </div>
-          <AmountSlider onSliderChange={this.onSliderChange.bind(this)} totalTRX={selectedWallet.trx} />
-          <Form.Button onClick={this.submitTokenPurchase.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Purchase</Form.Button>
+          <AmountSlider
+            onSliderChange={this.onSliderChange.bind(this)}
+            tokenLabel={token.abbr ? token.abbr : token.name}
+            assetNum={token.num}
+            trxNum={token.trx_num}
+            totalTRX={selectedWallet.trx}
+          />
+          <Button onClick={this.submitTokenPurchase.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Purchase</Button>
         </div>
 
           <PopupModal
