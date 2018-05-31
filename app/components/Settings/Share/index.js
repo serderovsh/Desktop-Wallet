@@ -5,7 +5,7 @@ import styles from './Share.css';
 import Secondary from '../../Content/Secondary';
 import Header from '../../Header';
 
-import { Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react';
 import buttonStyles from '../../Button.css';
 
 import { ShareIcon, RedditIcon, TwitterIcon, FacebookIcon } from '../../Icons';

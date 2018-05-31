@@ -7,17 +7,19 @@ import CategoryHeader from './CategoryHeader';
 import CategoryChild from './CategoryChild';
 
 import { Dropdown } from 'semantic-ui-react'
-import { BookIcon, QuestionMarkIcon, ShareIcon, BellIcon, WebGlobeIcon, WifiIcon } from '../Icons';
+import { BookIcon, QuestionMarkIcon, ShareIcon, BellIcon, WebGlobeIcon, WifiIcon, PencilIcon } from '../Icons';
 
 export default class SettingList extends Component {
+  goToSupport = () => require('electron').shell.openExternal('https://support.tron.watch/');
   render() {
     return (
       <div className={styles.container}>
         <Header text="MY SETTINGS :" />
         <CategoryHeader text="General">
           <CategoryChild text="Share Tron Wallet" icon={<ShareIcon />} routeTo="/settings/share" />
+          <CategoryChild text="Support (Temporary disable)" icon={<QuestionMarkIcon />} onClick={this.goToSupport} routeTo="#" />
           {/*<CategoryChild text="Address Book" icon={<BookIcon />} routeTo="/settings/addressbook" />*/}
-          <CategoryChild text="Feedback" icon={<QuestionMarkIcon />} routeTo="/settings/feedback" />
+          <CategoryChild text="Feedback" icon={<PencilIcon />} routeTo="/settings/feedback" />
         </CategoryHeader>
         <CategoryHeader text="Preferences">
           <CategoryChild text="Notifications" icon={<BellIcon />} routeTo="/settings/notifications" />
