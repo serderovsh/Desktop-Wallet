@@ -8,7 +8,7 @@ import Wallet from './Wallet';
 
 import { tu } from '../../utils/i18n';
 
-import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
+import { MoreIcon, WalletIcon, DownloadIcon, SendIcon } from '../Icons';
 import styles from './WalletList.css';
 import buttonStyles from '../Button.css';
 
@@ -26,7 +26,7 @@ class WalletList extends Component {
                 <Dropdown.Item text="Create Wallet" icon={<WalletIcon />} />
               </NavLink>
                 <NavLink to="/wallets/createtransfer">
-                    <Dropdown.Item text="Create Raw Transfer" icon={<WalletIcon />} />
+                    <Dropdown.Item text="Create Raw Transfer" icon={<SendIcon />} />
                 </NavLink>
             </Dropdown.Menu>
           </Dropdown>
