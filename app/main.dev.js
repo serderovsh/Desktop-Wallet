@@ -64,7 +64,7 @@ app.on('ready', async () => {
     width: 1024,
     height: 768,
     minHeight: 768,
-    minWidth: 1024,
+    minWidth: 1076,
     icon: __dirname + '/assets/icons/64x64.png'
   });
 
