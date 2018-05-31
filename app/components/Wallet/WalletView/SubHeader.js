@@ -8,6 +8,7 @@ export default class SubHeader extends Component {
     return (
       <div className={styles.main}>
         <div className={styles.mainAmount}><FormattedNumber value={this.props.account.trx / 1000000} /> <span>TRX</span></div>
+        <div className={styles.tronPower}><FormattedNumber value={this.props.account.bandwidth} /> <span>Bandwidth</span></div>
         <div className={styles.tronPower}><FormattedNumber value={this.props.account.frozenBalance} /> <span>TP</span></div>
         <div className={styles.tpExpire}>Expires: <FormattedDate value={this.props.account.frozenExpireTime} /> <FormattedTime value={this.props.account.frozenExpireTime} /> <span> </span></div>
         <div className={styles.scroll}>
