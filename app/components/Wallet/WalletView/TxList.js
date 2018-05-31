@@ -3,39 +3,13 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './TxList.css';
 import Transaction from './Transaction';
-import { updateTransactions } from '../../../actions/wallet';
+import { updateTransferTransactions} from '../../../actions/wallet';
 
 const TronHttpClient = require('tron-http-client');
 
 const client = new TronHttpClient();
 
 class TxList extends Component {
-  async componentDidMount() {
-    let accountId = this.props.match.params.account;
-    let address = this.props.wallet.persistent.accounts[accountId].publicKey;
-    let transactions = await client.getTransactionsRelatedToThis(address);
-
-    let cleanedTransactions = [];
-    for (let i = 0; i < transactions.length; i++) {
-      let transaction = transactions[i];
-
-      let newTransaction = {
-        ...transaction,
-        amount: transaction.amount,
-        date: transaction.timestamp,
-        type: (transaction.owner_address === address) ? 1 : 0,
-        asset: (transaction.asset_name) ? transaction.asset_name : 'TRX',
-      };
-
-      if (transactions[i].contract_desc === 'TransferContract' ||
-        transactions[i].contract_desc === 'ParticipateAssetIssueContract' ||
-        transactions[i].contract_desc === 'TransferAssetContract') {
-        cleanedTransactions.push(newTransaction);
-      }
-    }
-
-    this.props.updateTransactions(accountId, cleanedTransactions);
-  }
 
   render() {
     let accountId = this.props.match.params.account;
@@ -87,8 +61,8 @@ class TxList extends Component {
 export default withRouter(connect(
   state => ({ wallet: state.wallet }),
   dispatch => ({
-    updateTransactions: (accountId, transactions) => {
-      dispatch(updateTransactions(accountId, transactions));
+    updateTransactions: (address) => {
+        updateTransferTransactions(address, dispatch);
     }
   })
 )(TxList));

@@ -5,6 +5,7 @@ import { FormattedNumber, FormattedDate, FormattedTime } from 'react-intl';
 import styles from './Transaction.css';
 import { TopRightArrow } from '../../Icons';
 import { updateTransactions } from '../../../actions/wallet';
+import {dropsToTrx} from "../../../utils/currency";
 
 const enums = {
   Received: 0,
@@ -23,9 +24,9 @@ class Transaction extends Component {
 
   txAmount() {
     if (this.props.type === enums.Received) {
-      return <div className={`${styles.txAmount} ${styles.green}`}>+ <FormattedNumber value={this.props.amount / 1000000} /> {this.props.asset}</div>;
+      return <div className={`${styles.txAmount} ${styles.green}`}>+ <FormattedNumber value={dropsToTrx(this.props.amount)} /> {this.props.asset}</div>;
     } else {
-      return <div className={`${styles.txAmount} ${styles.red}`}>- <FormattedNumber value={this.props.amount / 1000000} /> {this.props.asset}</div>;
+      return <div className={`${styles.txAmount} ${styles.red}`}>- <FormattedNumber value={dropsToTrx(this.props.amount) } /> {this.props.asset}</div>;
     }
   }
 

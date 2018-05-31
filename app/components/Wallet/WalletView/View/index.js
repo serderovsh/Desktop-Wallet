@@ -7,15 +7,24 @@ import DarkMainModal from '../../../Content/DarkMainModal';
 import { TopRightArrow, WalletIcon } from '../../../Icons';
 import { updateTransactions } from '../../../../actions/wallet';
 
+import {dropsToTrx, dropsToFiat} from "../../../../utils/currency";
 
 class ViewTransaction extends Component {
   render() {
     let accountId = this.props.match.params.account;
     let txID = this.props.match.params.txid;
-    let transactions = this.props.wallet.persistent.accounts[accountId].transactions;
+    let account = this.props.wallet.persistent.accounts[accountId];
+    if(!account){
+        this.props.history.push("/wallets/walletDetails/" + accountId);
+        return (
+            <div></div>
+        );
+    }
+    let transactions = account.transactions;
 
     let tx = transactions.find((tx) => tx._id === txID);
 
+      let usdValue = dropsToFiat(this.props.currency,tx.amount);
     return (
       <DarkMainModal className={styles.container}>
         <div className={`${styles.subContainer} ${this.props.className}`}>
@@ -23,15 +32,13 @@ class ViewTransaction extends Component {
             <TopRightArrow className={tx.type === 0 ? styles.headerIcon : `${styles.headerIcon} ${styles.rotate}`} />
             <div className={styles.headerType}>{ tx.type === 0 ? 'Sent' : 'Received'} :</div>
             <div className={styles.headerAmount}> <FormattedNumber value={tx.amount / 1000000} /> { tx.asset }</div>
-            <div className={styles.headerCurrency}>00,000.00 USD</div>
+            <div className={styles.headerCurrency}>{usdValue} USD</div>
           </div>
           <div className={styles.tokenInfoContainer}>
            <div className={styles.tokenHeader}>Fee :</div>
            <div className={styles.feeContainer}>
-             <div className={styles.feeAmount}><FormattedNumber value={/*tx.fee*/(0 / 100000000).toFixed(8)} /> TRX</div>
-             <div className={styles.feePercentage}><FormattedNumber value={ /*(tx.fee / tx.amount * 100).toFixed(2)*/0.08 } />%</div>
+             <div className={styles.feeAmount}><FormattedNumber value={tx.txsize} /> Bandwidth</div>
            </div>
-            <div className={styles.feeAmount}>00,000.00 USD</div>
             <div className={styles.divider}></div>
             <div className={styles.tokenHeader}>{ tx.type === 0 ? 'Sent to' : 'Received From'} :</div>
             <div className={styles.tokenHeaderText}>{ tx.owner_address }</div>
@@ -52,7 +59,7 @@ class ViewTransaction extends Component {
 }
 
 export default withRouter(connect(
-  state => ({ wallet: state.wallet }),
+  state => ({ wallet: state.wallet , currency:state.currency}),
   dispatch => ({
     updateTransactions: (accountId, transactions) => {
       dispatch(updateTransactions(accountId, transactions));
