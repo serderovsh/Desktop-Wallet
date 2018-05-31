@@ -214,7 +214,8 @@ if((Math.floor(exchangeToken) != exchangeToken) || exchangeToken < 1)
             <Secondary className={styles.container}>
                 <Header headerName="Create New Token"/>
                 <div className={styles.createContainer}>
-                    <div onClick={this.testNotif} className={styles.header}>ISSUE A NEW TOKEN :</div>
+                    <div className={styles.mainHeader}>ISSUE A NEW TOKEN :</div>
+                    <div className={styles.headerCost}>Creating a token consumes 1024 TRX and bandwidth.</div>
                     <div className={styles.textBoxContainer}>
                         <span>Token Name</span>
                         <Input name="assetName" onChange={this.handleInputChange} className={styles.input}

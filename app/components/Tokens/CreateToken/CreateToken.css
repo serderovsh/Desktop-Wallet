@@ -21,6 +21,17 @@
     margin-bottom: 15px;
 }
 
+.mainHeader {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.headerCost {
+    font-size: 12px;
+    color: #3e3e3e;
+    margin-bottom: 10px;
+}
+
 .headerSubText {
     font-size: 13px;
     color: #3e3e3e;
