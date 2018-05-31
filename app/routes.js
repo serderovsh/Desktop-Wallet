@@ -24,6 +24,7 @@ import Language from './components/Settings/Language';
 import Notifications from './components/Settings/Notifications';
 import Node from './components/Settings/Node';
 import CreateToken from './components/Tokens/CreateToken';
+import OfflineSignature from './components/Wallet/OfflineSignature';
 
 export const routes = [
   {
@@ -53,6 +54,10 @@ export const routes = [
   {
     path: "/wallets/receive/:account",
     main: () => <Receive />,
+  },
+  {
+    path: "/wallets/offline/:account",
+    main: () => <OfflineSignature />,
   },
   {
     path: "/wallets/freeze/:account",

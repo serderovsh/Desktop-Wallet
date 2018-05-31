@@ -48,6 +48,9 @@ class WalletView extends Component {
           <NavLink to={'/wallets/freeze/' + accountId + '/' + token}>
             <Button className={buttonStyles.button}><SnowIcon />Freeze TRX</Button>
           </NavLink>
+          <NavLink to={'/wallets/offline/' + accountId }>
+            <Button className={buttonStyles.button}><SnowIcon />Sign Trx</Button>
+          </NavLink>
         </div>
         {/*<DatePicker/>*/}
         <TxList/>

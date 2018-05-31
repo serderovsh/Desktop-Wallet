@@ -26,4 +26,4 @@ class Token extends Component {
   }
 }
 
-export default connect(state => ({ tokens: state.tokens.tokens }))(Token);
+export default connect(state => ({ tokens: state.tokens.tokens, router: state.router }))(Token);
