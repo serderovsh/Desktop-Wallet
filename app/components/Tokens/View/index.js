@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'; import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Dropdown, Form } from 'semantic-ui-react';
 import { FormattedNumber } from 'react-intl';
@@ -10,6 +9,7 @@ import Header from '../../Header';
 import AmountSlider from './AmountSlider';
 import { ArrowRightIcon } from '../../Icons';
 import { loadTokens } from '../../../actions/tokens';
+import {PopupModal} from "../../Content/PopupModal";
 
 const TronHttpClient = require('tron-http-client');
 
@@ -24,22 +24,34 @@ class TokenView extends Component {
         text: 'Select a Wallet',
         value: '',
         trx: 0,
-      }
+      },
+
+      sendProperties:{}
+
     };
   }
+
   componentDidMount() {
     this.props.loadTokens();
   }
 
+  getDropFromCurrent(){
+      return (parseInt(this.state.current) * parseInt(this.state.token.trx_num)) / parseInt(this.state.token.num)
+  }
+
   async submitTokenPurchase() {
-    let tokens = {
-      recipient: this.state.token.owner_address,
-      assetName: this.state.token.name,
-      amount: parseInt((this.state.current * this.state.token.trx_num) / this.state.token.num)
-    };
-    let client = new TronHttpClient();
-    let response = await client.participateToken(this.state.selectedWallet.privateKey, tokens);
-    console.log(response);
+      let drops = this.getDropFromCurrent();
+      let tokens = {
+          recipient: this.state.token.owner_address,
+          assetName: this.state.token.name,
+          amount: this.getDropFromCurrent()
+      };
+      this.setState({
+          ...this.state,
+          sendProperties:tokens,
+          showConfirmModal:true,
+          modalConfirmText : `Are you sure you want to buy ${this.state.current} ${this.props.match.params.token} for ${drops}?`
+      });
   }
 
   selectWallet = (e, { value }) => {
@@ -49,9 +61,69 @@ class TokenView extends Component {
   };
 
   onSliderChange(amount) {
-    this.state.current = amount;
+    this.state.current = parseInt(amount);
   }
 
+    async modalConfirm() {
+        let client = new TronHttpClient();
+        let response = await client.participateToken(this.state.selectedWallet.privateKey, this.state.sendProperties);
+
+        if (response === null) {
+            this.setState({
+                ...this.state,
+                sendProperties: {},
+                showConfirmModal: false,
+                showFailureModal: true,
+                modalFailureText: "Buy failed"
+            });
+
+        } else if (response.result != true) {
+            this.setState({
+                ...this.state,
+                sendProperties: {},
+                showConfirmModal: false,
+                showFailureModal: true,
+                modalFailureText: "Buy failed: " + response.message
+            });
+        } else {
+            this.setState({
+                ...this.state,
+                sendProperties: {},
+                showConfirmModal: false,
+                showSuccessModal: true,
+                modalSuccessText: "Buy Successful!"
+            });
+        }
+
+        console.log(response);
+    }
+
+    modalDecline() {
+        this.setState({
+            ...this.state,
+            sendProperties: {},
+            showConfirmModal: false
+        });
+    }
+
+    modalFailureClose() {
+        this.setState({
+            ...this.state,
+            showFailureModal: false
+        });
+    }
+
+    modalSuccessClose() {
+        this.props.history.push("/wallets/walletDetails/" + this.state.accountAddress);
+        this.setState({
+            ...this.state,
+            showSuccessModal: false
+        });
+    }
+
+    modalClose() {
+        this.state.showConfirmModal = false;
+    }
   render() {
     let { selectedWallet } = this.state;
 
@@ -99,6 +171,31 @@ class TokenView extends Component {
           <AmountSlider onSliderChange={this.onSliderChange.bind(this)} totalTRX={selectedWallet.trx} />
           <Form.Button onClick={this.submitTokenPurchase.bind(this)} className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}>Purchase</Form.Button>
         </div>
+
+          <PopupModal
+              confirmation
+              modalVis={this.state.showConfirmModal}
+              modalText={this.state.modalConfirmText}
+              closeModalFunction={this.modalClose.bind(this)}
+              modalConfirm={this.modalConfirm.bind(this)}
+              modalDecline={this.modalDecline.bind(this)}
+          />
+
+          <PopupModal
+              failure
+              modalVis={this.state.showFailureModal}
+              modalText={this.state.modalFailureText}
+              closeModalFunction={this.modalFailureClose.bind(this)}
+              modalConfirm={this.modalFailureClose.bind(this)}
+          />
+
+          <PopupModal
+              success
+              modalVis={this.state.showSuccessModal}
+              modalText={this.state.modalSuccessText}
+              closeModalFunction={this.modalSuccessClose.bind(this)}
+              modalConfirm={this.modalSuccessClose.bind(this)}
+          />
       </Secondary>
     );
   }
