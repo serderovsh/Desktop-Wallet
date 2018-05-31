@@ -1,5 +1,5 @@
 .container {
-
+    position: relative;
 }
 
 .createContainer {
@@ -7,7 +7,7 @@
     background: #fff;
     padding: 40px 80px;
     box-sizing: border-box;
-    margin: 30px auto;
+    margin: 30px auto 0px auto;
     z-index: 2;
     text-align: left;
     max-width: 580px;
@@ -118,4 +118,16 @@
 
 .dateHeader {
 
+}
+
+@media (max-width: 1310px) {
+    .createContainer {
+        margin: 0px auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
+    }
 }

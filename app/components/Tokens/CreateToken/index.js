@@ -8,7 +8,10 @@ import {loadTokens} from '../../../actions/tokens';
 import styles from './CreateToken.css';
 import Secondary from '../../Content/Secondary';
 import Header from '../../Header';
-import DateSelect from 'react-date-picker';
+
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
 import {PopupModal} from "../../Content/PopupModal";
 
 import {CalendarIcon, ArrowLeftIcon, ArrowRightIcon} from '../../Icons';
@@ -24,6 +27,7 @@ class CreateToken extends Component {
         this.state = {
             loading: false,
             isTokenCreated: false,
+            showSuccessModal: false,
             selectedWallet: {
                 text: 'Select a Wallet',
                 value: '',
@@ -35,8 +39,8 @@ class CreateToken extends Component {
                 totalSupply: 0,
                 num: 0,
                 trxNum: 0,
-                endTime: 0,
-                startTime: 0,
+                endTime: moment(),
+                startTime: moment(),
                 description: '',
                 url: '',
                 confirmed: false,
@@ -48,17 +52,46 @@ class CreateToken extends Component {
     setDateEnd = date => this.setState({formValues: {...this.state.formValues, endTime: date}})
 
 
+/*
+if(!(/^([A-Za-z0-9]{3,32})$/.test(name)))
+    errors.push('name');
+
+if(!(/^([A-Za-z]{1,5})$/.test(abbreviation)))
+    errors.push('abbreviation');
+
+if((Math.floor(supply) != supply) || supply < 1)
+    errors.push('supply');
+
+if(description.trim().length > 200 || !description.trim().length)
+    errors.push('description');
+
+if(url.trim().length > 256 || !url.trim().length)
+    errors.push('url');
+
+if(frozenSupply && ((Math.floor(frozenSupply) != frozenSupply) || frozenSupply < 1))
+    errors.push('frozen');
+
+if(frozenDuration && ((Math.floor(frozenDuration) != frozenDuration) || frozenDuration < 1))
+    errors.push('frozen');
+
+if((Math.floor(exchangeTRX) != exchangeTRX) || exchangeTRX < 1)
+    errors.push('exchange');
+  
+if((Math.floor(exchangeToken) != exchangeToken) || exchangeToken < 1)
+    errors.push('exchange');
+*/
+
     isValid = ({ assetName, assetAbbr, totalSupply, num, trxNum, endTime, startTime, description, url, confirmed }) => {
         let {loading, selectedWallet} = this.state;
         if (!selectedWallet ||
             loading ||
-            assetName.length === 0 ||
-            assetAbbr.length === 0 ||
+            !(/^([A-Za-z0-9]{3,32})$/.test(assetName)) ||
+            !(/^([A-Za-z]{1,5})$/.test(assetAbbr)) ||
             totalSupply <= 0 ||
             num <= 0 ||
             trxNum <= 0 ||
-            !endTime ||
-            !startTime ||
+            Date.parse(endTime._d) <= Date.now() ||
+            Date.parse(startTime._d) <= Date.now() ||
             description.length === 0 ||
             url.length === 0 ||
             confirmed) {
@@ -68,7 +101,7 @@ class CreateToken extends Component {
         return true;
     };
 
-    static inputAlphanumeric(e) {
+    inputAlphanumeric(e) {
         if (!/^[a-zA-Z0-9]+$/.test(e.key)) {
             e.preventDefault();
         }
@@ -88,39 +121,39 @@ class CreateToken extends Component {
         let {accounts} = this.props;
         let {selectedWallet, formValues} = this.state;
 
-        formValues = {
-            ...formValues,
-            startTime: Date.parse(formValues.startTime),
-            endTime: Date.parse(formValues.endTime),
-            trxNum: formValues.trxNum * 1000000
-        };
-
-        this.isValid(formValues);
-        this.setState({loading: true});
-
-
-        this.setState({
-            ...this.state,
-            formValues : formValues,
-            showConfirmModal : true,
-            modalConfirmText : "create?"
-        });
-
+        if (this.isValid(formValues)) {
+            this.setState({loading: true});
+            this.setState({
+                showConfirmModal : true,
+                modalConfirmText : "create?"
+            });
+        } else {
+            this.setState({
+                showFailureModal: true,
+                modalFailureText: "Invalid field Inputs."
+            });
+        }
     };
 
     async modalConfirm() {
         console.log(this.state.formValues);
-        let response = await client.issueAsset(this.state.selectedWallet.privateKey, this.state.formValues);
-        console.log(result);
 
-        if (result) {
-            this.setState({isTokenCreated: true});
+        let {formValues} = this.state;
+
+        let obj = {
+            ...formValues,
+            startTime: Date.parse(formValues.startTime._d),
+            endTime: Date.parse(formValues.endTime._d),
+            trxNum: formValues.trxNum * 1000000
         }
+
+        console.log(obj);
+
+        let response = await client.issueAsset(this.state.selectedWallet.privateKey, obj);
+        console.log('res', response);
 
         if (response === null) {
             this.setState({
-                ...this.state,
-                sendProperties: {},
                 showConfirmModal: false,
                 showFailureModal: true,
                 modalFailureText: "Creating Token failed"
@@ -128,19 +161,16 @@ class CreateToken extends Component {
 
         } else if (response.result != true) {
             this.setState({
-                ...this.state,
-                sendProperties: {},
                 showConfirmModal: false,
                 showFailureModal: true,
                 modalFailureText: "Creating Token failed: " + response.message
             });
         } else {
             this.setState({
-                ...this.state,
-                sendProperties: {},
                 showConfirmModal: false,
                 showSuccessModal: true,
-                modalSuccessText: "Token created successully!!"
+                modalSuccessText: "Token created successully!!",
+                isTokenCreated: true
             });
         }
 
@@ -148,26 +178,16 @@ class CreateToken extends Component {
     }
 
     modalDecline() {
-        this.setState({
-            ...this.state,
-            sendProperties: {},
-            showConfirmModal: false
-        });
+        this.setState({ showConfirmModal: false });
     }
 
     modalFailureClose() {
-        this.setState({
-            ...this.state,
-            showFailureModal: false
-        });
+        this.setState({ showFailureModal: false });
     }
 
     modalSuccessClose() {
         this.props.history.push("/wallets/walletDetails/" + this.state.accountAddress);
-        this.setState({
-            ...this.state,
-            showSuccessModal: false
-        });
+        this.setState({ showSuccessModal: false });
     }
 
     modalClose() {
@@ -247,10 +267,26 @@ class CreateToken extends Component {
                         <div className={styles.dateHeader}>End Date</div>
                     </div>
                     <div className={styles.datePicker}>
-                        <DateSelect minDate={new Date()} onChange={this.setDateStart}
-                                    value={this.state.formValues.startTime}/>
-                        <DateSelect minDate={new Date()} onChange={this.setDateEnd}
-                                    value={this.state.formValues.endTime}/>
+                        <DatePicker
+                            selected={this.state.formValues.startTime}
+                            onChange={this.setDateStart}
+                            minDate={moment().add(5, 'minutes')}
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            timeIntervals={15}
+                            dateFormat="LLL"
+                            timeCaption="time"
+                        />
+                        <DatePicker
+                            selected={this.state.formValues.endTime}
+                            onChange={this.setDateEnd}
+                            minDate={moment().add(30, 'days')}
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            timeIntervals={15}
+                            dateFormat="LLL"
+                            timeCaption="time"
+                        />
                     </div>
                     <div className={styles.dropdown}>
                         <ArrowRightIcon/>
