@@ -25,7 +25,8 @@ import Notifications from './components/Settings/Notifications';
 import Node from './components/Settings/Node';
 import CreateToken from './components/Tokens/CreateToken';
 import OfflineSignature from './components/Wallet/OfflineSignature';
-import Transfer from './components/Transactions/Transfer'
+import Transfer from './components/Transactions/Transfer';
+import Tronwatch from './components/Content/Tronwatch';
 
 export const routes = [
   {
@@ -128,5 +129,6 @@ export const routes = [
   {
     path: "/",
     sidebar: () => <WalletList />,
+    main: () => <Tronwatch />
   }
 ];
