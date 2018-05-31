@@ -13,6 +13,7 @@ const initialState = {
   },
   persistent_encrypted : null,
   wallet_state: WALLET_STATE.NEEDS_LOADING,
+  pw : null
 };
 
 export function walletReducer(state = initialState, action) {
@@ -34,11 +35,21 @@ export function walletReducer(state = initialState, action) {
       }
 
     case FINISH_INITIALIZATION: {
-      return {
-        ...state,
-        persistent: action.persistent,
-        wallet_state: action.wallet_state
-      }
+        if(action.pw){
+            return {
+                ...state,
+                persistent: action.persistent,
+                wallet_state: action.wallet_state,
+                pw : action.pw
+            }
+        }else{
+            return {
+                ...state,
+                persistent: action.persistent,
+                wallet_state: action.wallet_state,
+            }
+
+        }
     }
 
     case UPDATE_ALL_ACCOUNTS: {

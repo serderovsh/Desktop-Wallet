@@ -11,13 +11,8 @@ import { tu } from '../../utils/i18n';
 import { MoreIcon, WalletIcon, DownloadIcon } from '../Icons';
 import styles from './WalletList.css';
 import buttonStyles from '../Button.css';
-import {initFromStorage} from "../../actions/wallet";
 
 class WalletList extends Component {
-
-    componentDidMount() {
-        this.props.initFromStorage(this.props);
-    }
 
   render() {
         let accounts = this.props.wallet.persistent.accounts;
@@ -63,9 +58,5 @@ class WalletList extends Component {
 
 export default withRouter(connect(
     state => ({ wallet: state.wallet }),
-    dispatch => ( {
-        initFromStorage: (props) => {
-            dispatch(initFromStorage(props, dispatch));
-        }
-    } )
+    dispatch => ( { } )
 )(WalletList));
