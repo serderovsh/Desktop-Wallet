@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import styles from './Wallet.css';
 
 import { WalletIcon, ArrowRightIcon } from '../Icons';
+import {dropsToTrx} from "../../utils/currency";
 
 class Wallet extends Component {
 
@@ -28,7 +29,7 @@ class Wallet extends Component {
         <ul className={styles.walletInfo}>
           <li className={styles.name}>{ this.props.name }</li>
           <li className={styles.token}>
-            <FormattedNumber value={(this.props.trx / 1000000).toFixed(3)} /> TRX
+            <FormattedNumber value={dropsToTrx(this.props.trx)} /> TRX
           </li>
           {
             keys.map((k, i) =>
