@@ -30,12 +30,6 @@ export default class SettingList extends Component {
             icon={<ShareIcon />}
             routeTo="/settings/share"
           />
-          <CategoryChild
-            text="Support (Temporary disable)"
-            icon={<QuestionMarkIcon />}
-            onClick={this.goToSupport}
-            routeTo="#"
-          />
           {/*<CategoryChild text="Address Book" icon={<BookIcon />} routeTo="/settings/addressbook" />*/}
           <CategoryChild
             text="Feedback"
