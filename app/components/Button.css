@@ -9,7 +9,7 @@
   cursor: pointer;
   width: 100%;
   border: none;
-  transition: 100ms;
+  transition: 200ms;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,6 +19,10 @@
 .button:hover {
   transition: 0ms;
   background: rgba(0, 0, 0, 0.05);
+}
+
+.button:active {
+  transform: scale(0.98);
 }
 
 .button:focus {

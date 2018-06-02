@@ -28,8 +28,7 @@ export default class Node extends Component {
           <WifiIcon className={styles.icon} />
           <div className={styles.warningHeader}>WARNING</div>
           <div className={styles.warningText}>
-            TronWatch depends on YYY for the blockchain information, networking
-            and synchronization.
+            TronWatch depends on our Tron Wallet Service for the blockchain information, networking and synchronization.
           </div>
           <div className={styles.warningText}>
             The default configuration points to:
