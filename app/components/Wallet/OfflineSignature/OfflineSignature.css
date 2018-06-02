@@ -56,6 +56,20 @@
   color: #3e3e3e;
 }
 
+.sub-header {
+  width: 100%;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.selectable{
+  -moz-user-select: text;
+  -khtml-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 .textArea,
 .textArea textarea {
   margin-top: 20px;
