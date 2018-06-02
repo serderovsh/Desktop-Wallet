@@ -41,8 +41,7 @@ class CreateToken extends Component {
         endTime: moment(),
         startTime: moment(),
         description: "",
-        url: "",
-        confirmed: false
+        url: ""
       }
     };
   }
@@ -83,36 +82,32 @@ class CreateToken extends Component {
       errors.push('exchange');
   */
 
-  isValid = ({
-    assetName,
-    assetAbbr,
-    totalSupply,
-    num,
-    trxNum,
-    endTime,
-    startTime,
-    description,
-    url,
-    confirmed
-  }) => {
+  isValid = ({ assetName, assetAbbr, totalSupply, num, trxNum, endTime, startTime, description, url}) => {
     let { loading, selectedWallet } = this.state;
-    if (
-      !selectedWallet ||
-      loading ||
-      !/^([A-Za-z0-9]{3,32})$/.test(assetName) ||
-      !/^([A-Za-z]{1,5})$/.test(assetAbbr) ||
-      totalSupply <= 0 ||
-      num <= 0 ||
-      trxNum <= 0 ||
-      Date.parse(endTime._d) <= Date.now() ||
-      Date.parse(startTime._d) <= Date.now() ||
-      description.length === 0 ||
-      url.length === 0 ||
-      confirmed
-    ) {
-      return false;
-    }
 
+    console.log(assetName);
+    if ( !selectedWallet)
+      return "Select a Wallet";
+    if( loading )
+      return "Still loading";
+    if( !/^([A-Za-z0-9]{3,32})$/.test(assetName) || assetName.length <= 0 )
+      "Invalid Asset Name";
+    if(!/^([A-Za-z]{1,5})$/.test(assetAbbr))
+      return "Invalid Abbreviation";
+    if( totalSupply <= 0 )
+      return "Invalid Supply";
+    if( num <= 0 )
+      return "Invalid num per Trx";
+    if( trxNum <= 0 )
+      return "Invalid Trx";
+    if( Date.parse(endTime._d) <= Date.now() )
+      return "Invalid end time";
+    if( Date.parse(startTime._d) <= Date.now() )
+      return "Invalid start time";
+    if( description.length === 0 )
+      return "Invalid description";
+    if( url.length === 0 )
+      return "invalid url";
     return true;
   };
 
@@ -138,7 +133,8 @@ class CreateToken extends Component {
     let { accounts } = this.props;
     let { selectedWallet, formValues } = this.state;
 
-    if (this.isValid(formValues)) {
+    let valid = this.isValid(formValues);
+    if (valid === true) {
       this.setState({ loading: true });
       this.setState({
         showConfirmModal: true,
@@ -147,7 +143,7 @@ class CreateToken extends Component {
     } else {
       this.setState({
         showFailureModal: true,
-        modalFailureText: "Invalid field Inputs."
+        modalFailureText: "Invalid field Inputs: " + valid
       });
     }
   };
@@ -197,16 +193,16 @@ class CreateToken extends Component {
   }
 
   modalDecline() {
-    this.setState({ showConfirmModal: false });
+    this.setState({ showConfirmModal: false, loading:false });
   }
 
   modalFailureClose() {
-    this.setState({ showFailureModal: false });
+    this.setState({ showFailureModal: false, loading:false});
   }
 
   modalSuccessClose() {
     this.props.history.push(
-      "/wallets/walletDetails/" + this.state.accountAddress
+      "/wallets/walletDetails/" + this.state.selectedWallet.publicKey
     );
     this.setState({ showSuccessModal: false });
   }
