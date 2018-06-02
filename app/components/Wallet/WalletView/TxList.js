@@ -48,6 +48,7 @@ class TxList extends Component {
             key={i}
             txID={tx._id}
             amount={tx.amount}
+            isToken={(tx.asset !== "TRX")}
             date={tx.date}
             type={tx.type}
             asset={tx.asset}

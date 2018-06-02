@@ -26,17 +26,20 @@ class Transaction extends Component {
   }
 
   txAmount() {
+    let amount = dropsToTrx(this.props.amount);
+    if(this.props.isToken === true)
+      amount = this.props.amount;
     if (this.props.type === enums.Received) {
       return (
         <div className={`${styles.txAmount} ${styles.green}`}>
-          + <FormattedNumber value={dropsToTrx(this.props.amount)} />{" "}
+          + <FormattedNumber value={amount} />{" "}
           {this.props.asset}
         </div>
       );
     } else {
       return (
         <div className={`${styles.txAmount} ${styles.red}`}>
-          - <FormattedNumber value={dropsToTrx(this.props.amount)} />{" "}
+          - <FormattedNumber value={amount} />{" "}
           {this.props.asset}
         </div>
       );

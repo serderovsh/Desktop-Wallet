@@ -8,6 +8,7 @@ import AmountDisplay from "./AmountDisplay";
 import buttonStyles from "../../Button.css";
 import {ContactIcon, BackArrowIcon} from "../../Icons";
 import {PopupModal} from "../../Content/PopupModal";
+import BackButton from '../../Content/BackButton';
 
 import {trxToDrops, dropsToFiat} from "../../../utils/currency";
 
@@ -49,7 +50,7 @@ class SendAmount extends Component {
             sendProperties: {
                 privateKey: account.privateKey,
                 recipient: this.state.address.trim(),
-                amount: parseInt(this.state.amount)
+                amount: (this.state.amount)
             },
             accountAddress: account.publicKey,
             showConfirmModal: true,
@@ -82,7 +83,7 @@ class SendAmount extends Component {
                 .sendToken(
                     this.state.sendProperties.privateKey,
                     this.state.sendProperties.recipient,
-                    this.state.sendProperties.amount,
+                    parseInt(this.state.sendProperties.amount),
                     this.props.match.params.token
                 )
                 .catch(x => null);
@@ -141,10 +142,14 @@ class SendAmount extends Component {
         });
     }
 
-    modalSuccessClose() {
+    goToAccount(){
         this.props.history.push(
-            "/wallets/walletDetails/" + this.state.accountAddress
+            "/wallets/walletDetails/" + this.props.match.params.account
         );
+    }
+
+    modalSuccessClose() {
+        this.goToAccount();
         this.setState({
             ...this.state,
             showSuccessModal: false
@@ -163,9 +168,8 @@ class SendAmount extends Component {
         return (
             <div className={styles.container}>
                 <Header className={styles.white} headerName="Enter Amount"/>
-                <div onClick={this.props.history.goBack} className={styles.backArrow}>
-                    <BackArrowIcon/>
-                </div>
+
+                <BackButton/>
                 <div className={styles.subContainer}>
                     <div className={styles.addressContainer}>
                         <ContactIcon/>

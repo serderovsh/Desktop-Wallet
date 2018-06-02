@@ -13,6 +13,8 @@ import { TextArea } from "semantic-ui-react";
 import { trxToDrops } from "../../utils/currency";
 
 import TronHttpClient from "tron-http-client";
+import BackButton from '../Content/BackButton';
+
 const client = new TronHttpClient();
 const tools = require("tron-http-tools");
 
@@ -104,6 +106,7 @@ class Transfer extends Component {
     this.state.tokenStr = token;
     return (
       <div className={styles.container}>
+        <BackButton/>
         <Header className={styles.white} headerName="Enter Amount" />
         <div onClick={this.props.history.goBack} className={styles.backArrow}>
           <BackArrowIcon />

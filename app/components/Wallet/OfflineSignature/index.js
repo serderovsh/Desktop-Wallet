@@ -12,7 +12,7 @@ import {
   DownloadIcon
 } from "../../Icons";
 import buttonStyles from "../../Button.css";
-
+import BackButton from '../../Content/BackButton';
 import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
 
@@ -58,6 +58,7 @@ class OfflineSignature extends Component {
     return (
       <Secondary>
         <div className={styles.container}>
+          <BackButton/>
           <Header headerName="Offline Signature" />
           <div className={styles.subContainer}>
             <div className={styles.header}>Sign Transactions:</div>
