@@ -27,6 +27,7 @@ import CreateToken from "./components/Tokens/CreateToken";
 import OfflineSignature from "./components/Wallet/OfflineSignature";
 import Transfer from "./components/Transactions/Transfer";
 import Tronwatch from "./components/Content/Tronwatch";
+import Broadcast from './components/Transactions/Broadcast';
 
 export const routes = [
   {
@@ -60,10 +61,6 @@ export const routes = [
   {
     path: "/wallets/offline/:account",
     main: () => <OfflineSignature />
-  },
-  {
-    path: "/wallets/createtransfer/",
-    main: () => <Transfer />
   },
   {
     path: "/wallets/freeze/:account",
@@ -126,6 +123,16 @@ export const routes = [
     sidebar: () => <ContactList />,
     main: () => <ContactDetails />
   },
+  /* OFFLINE SIGNING STUFF*/
+  {
+    path: "/wallets/createtransfer/",
+    main: () => <Transfer />
+  },
+  {
+    path: "/wallets/broadcast/",
+    main: () => <Broadcast/>
+  },
+
   {
     path: "/",
     sidebar: () => <WalletList />,
