@@ -10,10 +10,10 @@ import buttonStyles from "../../Button.css";
 import {ContactIcon, BackArrowIcon} from "../../Icons";
 import {PopupModal} from "../../Content/PopupModal";
 import BackButton from '../../Content/BackButton';
-import commonStyles from '../WalletCommon.css'
 
 import {trxToDrops, dropsToFiat} from "../../../utils/currency";
 
+import commonStyles from '../WalletCommon.css'
 import TronHttpClient from "tron-http-client";
 import {toHexString} from "../../../utils/hex";
 const tools = require("tron-http-tools");

@@ -136,6 +136,10 @@ export const routes = [
     path: "/wallets/createassettransfer/",
     main: () => <SendAmount isCold='true'/>
   },
+  {
+    path: "/wallets/createfreeze",
+    main: () => <Freeze isCold='true'/>
+  },
 
   {
     path: "/",
