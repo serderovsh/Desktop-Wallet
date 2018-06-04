@@ -107,7 +107,7 @@ class Transfer extends Component {
     return (
       <div className={styles.container}>
         <BackButton/>
-        <Header className={styles.white} headerName="Enter Amount" />
+        <Header className={styles.white} headerName="Create Raw Transfer" />
         <div onClick={this.props.history.goBack} className={styles.backArrow}>
           <BackArrowIcon />
         </div>
