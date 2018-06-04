@@ -124,9 +124,8 @@ class Freeze extends Component {
         });
       }
     } else {
-      let response = await client.freezeTrx(
-        this.state.freezeTrx.privateKey,
-        this.state.freezeTrx.amount * 1000000
+      let response = await client.unfreezeTrx(
+        this.state.freezeTrx.privateKey
       );
 
       if (response && response.result == true) {
