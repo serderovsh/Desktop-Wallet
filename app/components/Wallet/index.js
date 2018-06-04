@@ -25,8 +25,12 @@ class WalletList extends Component {
               <NavLink to="/wallets/broadcast">
                 <Dropdown.Item text="Broadcast Raw Transaction" icon={<SendIcon />} />
               </NavLink>
+
               <NavLink to="/wallets/createtransfer">
                 <Dropdown.Item text="Create Raw Transfer" icon={<SendIcon />} />
+              </NavLink>
+              <NavLink to="/wallets/createassettransfer">
+                <Dropdown.Item text="Create Raw Asset Transfer" icon={<SendIcon />} />
               </NavLink>
 
             </Dropdown.Menu>

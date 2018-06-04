@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {Button} from "semantic-ui-react";
+import { TextArea } from "semantic-ui-react";
 import styles from "./SendAmount.css";
 import Header from "../../Header";
 import AmountDisplay from "./AmountDisplay";
@@ -9,10 +10,13 @@ import buttonStyles from "../../Button.css";
 import {ContactIcon, BackArrowIcon} from "../../Icons";
 import {PopupModal} from "../../Content/PopupModal";
 import BackButton from '../../Content/BackButton';
+import commonStyles from '../WalletCommon.css'
 
 import {trxToDrops, dropsToFiat} from "../../../utils/currency";
 
 import TronHttpClient from "tron-http-client";
+import {toHexString} from "../../../utils/hex";
+const tools = require("tron-http-tools");
 
 class SendAmount extends Component {
     constructor(props) {
@@ -37,27 +41,48 @@ class SendAmount extends Component {
             modalSuccessText: "Success",
             accountAddress: "",
 
+            coldOutputString : "",
+
             usdAmount: 0
         };
     }
 
     async onClickSend() {
-        let accountId = this.props.match.params.account;
-        let account = this.props.wallet.persistent.accounts[accountId];
+        if(this.props.isCold){
 
-        this.setState({
+          let client = new TronHttpClient();
+          let transaction = await tools.transactions.createUnsignedTransferAssetTransaction(
+            {
+              recipient : this.state.address.trim(),
+              sender : this.state.senderAddress.trim(),
+              amount : this.state.amount,
+              assetName : this.state.assetName
+            },
+            await client.getLastBlock()
+          );
+          let hex = toHexString(transaction.serializeBinary());
+          this.setState({
+            coldOutputString:hex
+          })
+
+        }else{
+          let accountId = this.props.match.params.account;
+          let account = this.props.wallet.persistent.accounts[accountId];
+
+          this.setState({
             ...this.state,
             sendProperties: {
-                privateKey: account.privateKey,
-                recipient: this.state.address.trim(),
-                amount: (this.state.amount)
+              privateKey: account.privateKey,
+              recipient: this.state.address.trim(),
+              amount: (this.state.amount)
             },
             accountAddress: account.publicKey,
             showConfirmModal: true,
             modalConfirmText: `Send ${this.state.amount} ${this.state.tokenStr} to ${
-                this.state.address
-                }?`
-        });
+              this.state.address
+              }?`
+          });
+        }
     }
 
     onSetAmount(amount) {
@@ -160,6 +185,63 @@ class SendAmount extends Component {
         this.state.showConfirmModal = false;
     }
 
+    onSetSenderAddress(e){
+        this.setState({
+          senderAddress : e.target.value
+        });
+    }
+
+    onSetAssetName(e){
+      this.setState({
+        assetName: e.target.value
+      });
+    }
+
+    renderColdwalletOwnerInput(){
+      if(!this.props.isCold)
+        return "";
+
+      return(
+        <div className={styles.addressContainer}>
+          <ContactIcon/>
+          <input
+            onChange={this.onSetSenderAddress.bind(this)}
+            placeholder="Sender Address"
+            className={styles.address}
+            value={this.props.address}
+          />
+        </div>
+      );
+    }
+
+    renderColdwalletAssetName(){
+      if(!this.props.isCold)
+        return "";
+
+      return(
+        <div className={styles.addressContainer}>
+          <ContactIcon/>
+          <input
+            onChange={this.onSetAssetName.bind(this)}
+            placeholder="Token Name"
+            className={styles.address}
+          />
+        </div>
+      );
+
+    }
+
+    renderColdwalletOutput(){
+        if(!this.props.isCold)
+            return "";
+        return (<TextArea
+            placeholder="Output..."
+            class={commonStyles.textArea}
+            value={this.state.coldOutputString}
+          />
+        );
+    }
+
     render() {
         let token = this.props.match.params.token
             ? this.props.match.params.token
@@ -171,6 +253,7 @@ class SendAmount extends Component {
 
                 <BackButton/>
                 <div className={styles.subContainer}>
+                    {this.renderColdwalletOwnerInput()}
                     <div className={styles.addressContainer}>
                         <ContactIcon/>
                         <input
@@ -180,17 +263,19 @@ class SendAmount extends Component {
                             value={this.props.address}
                         />
                     </div>
+                    {this.renderColdwalletAssetName()}
                     <AmountDisplay
-                        usd={this.state.usdAmount}
-                        token={token}
+                        usd={this.props.isCold ? 0 : this.state.usdAmount}
+                        token={this.props.isCold ? "" : token}
                         onSetAmount={this.onSetAmount.bind(this)}
                     />
                     <Button
                         onClick={this.onClickSend.bind(this)}
                         className={`${buttonStyles.button} ${buttonStyles.black}`}
                     >
-                        Send
+                      {this.props.isCold ? "Create" : "Send"}
                     </Button>
+                    {this.renderColdwalletOutput()}
 
                     <PopupModal
                         confirmation
