@@ -9,25 +9,38 @@ import Vote from "./Vote";
 
 //const client = new TronHttpClient();
 
-export default class voteList extends Component {
+class voteList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       filterValue: "",
-      voteHistory: [
-        { '_id': '36346agd3b6364', url: 'http://google.com/', amount: 58896, date: Date.now() },
-        { '_id': '36346agd363z64', url: 'http://yahoo.com/', amount: 2, date: Date.now() },
-        { '_id': '36346agd3c6364', url: 'http://tron.com/', amount: 11113, date: Date.now() },
-        { '_id': '3n6346agd36364', url: 'http://twitter.com/', amount: 425, date: Date.now() },
-      ]
     };
   }
 
   render() {
+    let addresses = Object.keys(this.props.wallet.persistent.accounts);
+    let votes = [];
+    for(let i = 0;i<addresses.length;i++){
+      let address = addresses[i];
+      let account = this.props.wallet.persistent.accounts[address];
+      for(let j = 0;j<account.transactions.length;j++){
+        let transaction = account.transactions[j];
+        if(transaction.contract_desc === 'VoteWitnessContract'){
+          votes.push({
+            _id : transaction._id,
+            url : transaction.votes.length > 0 ? transaction.votes[0].vote_address: "",
+            amount : transaction.votes.length > 0 ? transaction.votes[0].vote_count : 0,
+            date : transaction.timestamp
+          });
+        }else{
+        }
+      }
+    }
+
     return (
       <div className={styles.voteList}>
-        {this.state.voteHistory.map((vote, i) => (
+        {votes.map((vote, i) => (
           <Vote
             key={vote._id}
             txID={vote._id}
@@ -40,15 +53,11 @@ export default class voteList extends Component {
     );
   }
 }
-/*
+
+
 export default withRouter(
   connect(
     state => ({ wallet: state.wallet }),
-    dispatch => ({
-      updateTransactions: address => {
-        updateTransferTransactions(address, dispatch);
-      }
-    })
-  )(TxList)
+    dispatch => ({ })
+  )(voteList)
 );
-*/

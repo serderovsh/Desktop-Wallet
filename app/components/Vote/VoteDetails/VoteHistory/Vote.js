@@ -23,6 +23,9 @@ export default class Vote extends Component {
     let transactions = this.props.wallet.persistent.accounts[accountId]
       .transactions;
     */
+    let amount = 0;
+    if(this.props.amount)
+      amount = this.props.amount.toLocaleString();
     return (
       <div className={styles.vote}>
         <div className={styles.voteType}>
@@ -30,7 +33,7 @@ export default class Vote extends Component {
           <div>Vote</div>
         </div>
         <div className={styles.voteInfo}>
-          <div className={styles.voteAmount}>- {this.props.amount.toLocaleString()} TP</div>
+          <div className={styles.voteAmount}> {amount} TP</div>
           <div className={styles.voteDate}>
             <FormattedDate value={this.props.date} />
             {' '}
