@@ -23,6 +23,11 @@ class ViewTransaction extends Component {
     let tx = transactions.find(tx => tx._id === txID);
 
     let usdValue = dropsToFiat(this.props.currency, tx.amount);
+    if (tx.asset !== "TRX") {
+      let token = this.props.tokens.find(token => token.name === tx.asset);
+      usdValue = dropsToFiat(this.props.currency, tx.amount * token.trx_num);
+    }
+
     return (
       <DarkMainModal className={styles.container}>
         <div className={`${styles.subContainer} ${this.props.className}`}>
@@ -82,7 +87,7 @@ class ViewTransaction extends Component {
 
 export default withRouter(
   connect(
-    state => ({ wallet: state.wallet, currency: state.currency }),
+    state => ({ wallet: state.wallet, currency: state.currency, tokens: state.tokens.tokens }),
     dispatch => ({
       updateTransactions: (accountId, transactions) => {
         dispatch(updateTransactions(accountId, transactions));
