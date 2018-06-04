@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Dropdown, Button } from "semantic-ui-react";
-import { withRouter } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import styles from "./VoteDetails.css";
 import buttonStyles from "../../Button.css";
@@ -169,6 +169,9 @@ class VoteDetails extends Component {
           </div>
           <div className={styles.headerText}>
             Earn More TronPower by freezing Tron
+          </div>
+          <div className={styles.headerSubText}>
+            You can do this by clicking on "Freeze TRX" after selecting a wallet.
           </div>
         </div>
         <div className={styles.subContainer}>

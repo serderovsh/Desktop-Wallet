@@ -23,6 +23,12 @@
   font-size: 11px;
   color: #fff;
   margin-top: 10px;
+}
+
+.headerSubText {
+  font-size: 11px;
+  color: #fff;
+  margin-top: 2px;
   margin-bottom: 20px;
 }
 
