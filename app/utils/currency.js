@@ -24,3 +24,7 @@ export function dropsToFiat(currencyState, trx, currency = CURRENCY.USD) {
     .toFixed(2)
     .toString();
 }
+
+export function participationToTokens(participationTrx, num, numTrx){
+  return new Decimal(participationTrx).mul(new Decimal(num)).div(new Decimal(numTrx)).toFixed(0).toString();
+}

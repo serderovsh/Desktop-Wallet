@@ -6,6 +6,7 @@ import Transaction from "./Transaction";
 import { updateTransferTransactions } from "../../../actions/wallet";
 
 const TronHttpClient = require("tron-http-client");
+import {participationToTokens} from "../../../utils/currency";
 
 const client = new TronHttpClient();
 
@@ -28,11 +29,9 @@ class TxList extends Component {
       } else {
         for (let i = 0; i < transactions.length; i++) {
           let transaction = transactions[i];
-          if (
-            (transaction.contract_desc === "ParticipateAssetIssueContract" ||
-              transaction.contract_desc === "TransferAssetContract") &&
-            transaction.asset === highlightedToken
-          ) {
+          if (transaction.contract_desc === "ParticipateAssetIssueContract"){
+            filteredTransactions.push(transaction);
+          }else if (transaction.contract_desc === "TransferAssetContract"){
             filteredTransactions.push(transaction);
           }
         }
@@ -41,13 +40,26 @@ class TxList extends Component {
       filteredTransactions = transactions;
     }
 
+    for(let i = filteredTransactions.length-1;i>=0;i--){
+      if (filteredTransactions[i].contract_desc === "ParticipateAssetIssueContract") {
+        if (filteredTransactions[i].asset_issue_contract) {
+          filteredTransactions[i].amount_tokens = participationToTokens(
+            filteredTransactions[i].amount,
+            filteredTransactions[i].asset_issue_contract.num,
+            filteredTransactions[i].asset_issue_contract.trx_num);
+        }else{
+          filteredTransactions.splice(i,1);
+        }
+      }
+    }
+
     return (
       <div className={styles.txList}>
         {filteredTransactions.map((tx, i) => (
           <Transaction
             key={i}
             txID={tx._id}
-            amount={tx.amount}
+            amount={tx.amount_tokens ? tx.amount_tokens : tx.amount}
             isToken={(tx.asset !== "TRX")}
             date={tx.date}
             type={tx.type}
