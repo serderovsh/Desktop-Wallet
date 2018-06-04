@@ -69,10 +69,10 @@ class AmountSlider extends Component {
           <div className={styles.sliderBG} />
         </div>
         <div className={styles.sliderRange}>
-          <span>0 {this.props.tokenLabel}</span>
+          <span>0 TRX</span>
           <span>
             <FormattedNumber value={this.state.assetPossible} />{" "}
-            {this.props.tokenLabel}
+            TRX
           </span>
         </div>
       </div>
