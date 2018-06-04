@@ -11,6 +11,8 @@ import VoteAmountSlider from "./VoteAmountSlider";
 import { ArrowRightIcon } from "../../Icons";
 import { PopupModal } from "../../Content/PopupModal";
 
+import VoteHistory from './VoteHistory';
+
 const TronHttpClient = require("tron-http-client");
 
 class VoteDetails extends Component {
@@ -201,7 +203,8 @@ class VoteDetails extends Component {
             Submit Your Vote
           </Button>
         </div>
-
+        <div className={styles.voteHistory}>Vote History</div>
+        <VoteHistory />
         <PopupModal
           confirmation
           modalVis={this.state.showConfirmModal}

@@ -31,15 +31,8 @@ class AmountSlider extends Component {
   }
   /*<FormattedNumber value={parseInt(this.state.current)} />*/
   render() {
-    console.log(
-      this.props.assetNum,
-      dropsToTrx(this.props.trxNum),
-      dropsToTrx(this.props.totalTRX)
-    );
     this.state.ratio = this.props.assetNum / dropsToTrx(this.props.trxNum);
-    this.state.assetPossible =
-      this.state.ratio * dropsToTrx(this.props.totalTRX);
-    console.log(this.state.ratio, this.state.assetPossible);
+    this.state.assetPossible = this.state.ratio * dropsToTrx(this.props.totalTRX);
     return (
       <div className={styles.container}>
         <div className={styles.amount}>
