@@ -10,9 +10,12 @@ import { dropsToTrx } from "../../../utils/currency";
 const enums = {
   Received: 0,
   Sent: 1,
+  tokenCreated: 2,
+
 
   0: "Received",
-  1: "Sent"
+  1: "Sent",
+  2: "Token Created"
 };
 
 class Transaction extends Component {

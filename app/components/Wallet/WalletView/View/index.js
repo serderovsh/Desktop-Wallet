@@ -38,8 +38,12 @@ class ViewTransaction extends Component {
               {tx.type === 0 ? "Sent" : "Received"} :
             </div>
             <div className={styles.headerAmount}>
-              {" "}
-              <FormattedNumber value={tx.amount / 1000000} /> {tx.asset}
+              {
+                tx.asset === "TRX" ?
+                  <FormattedNumber value={tx.amount / 1000000} />
+                :
+                  <FormattedNumber value={tx.amount} />
+              }{' ' + tx.asset}
             </div>
             <div className={styles.headerCurrency}>{usdValue} USD</div>
           </div>
