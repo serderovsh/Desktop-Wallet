@@ -6,6 +6,7 @@ import AmountInput from "./AmountInput";
 
 export default class AmountDisplay extends Component {
   render() {
+    console.log(this.props.usd) 
     return (
       <div className={styles.container}>
         <div className={styles.amountTag}>Amount :</div>
@@ -14,7 +15,7 @@ export default class AmountDisplay extends Component {
             <AmountInput onSetAmount={this.props.onSetAmount} />
             <span>{this.props.token}</span>
           </div>
-          <div className={styles.amountSub}>{this.props.usd} USD</div>
+          <div className={styles.amountSub}>{parseFloat(this.props.usd).toLocaleString()} USD</div>
         </div>
       </div>
     );

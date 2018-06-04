@@ -7,6 +7,7 @@
   margin: 0 auto 20px auto;
   background-color: #fff;
   z-index: 100;
+  text-align: center;
 }
 
 .datePicker > div:last-child {
