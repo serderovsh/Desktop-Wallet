@@ -10,36 +10,52 @@ import {participationToTokens} from "../../../utils/currency";
 
 const client = new TronHttpClient();
 
-class TxList extends Component {
-  render() {
-    let accountId = this.props.match.params.account;
-    let transactions = this.props.wallet.persistent.accounts[accountId]
-      .transactions;
-    let filteredTransactions = [];
 
-    let highlightedToken = this.props.match.params.token;
-    if (highlightedToken) {
-      if (highlightedToken === "TRX") {
-        for (let i = 0; i < transactions.length; i++) {
-          let transaction = transactions[i];
-          if (transaction.contract_desc === "TransferContract") {
-            filteredTransactions.push(transaction);
-          }
-        }
-      } else {
-        for (let i = 0; i < transactions.length; i++) {
-          let transaction = transactions[i];
-          if (transaction.contract_desc === "ParticipateAssetIssueContract"){
-            filteredTransactions.push(transaction);
-          }else if (transaction.contract_desc === "TransferAssetContract"){
-            filteredTransactions.push(transaction);
-          }
-        }
+class TxList extends Component {
+
+  /*we want to only show trx transactions*/
+  getTrxTransactions(transactions){
+    let filteredTransactions = [];
+    for (let i = 0; i < transactions.length; i++) {
+      let transaction = transactions[i];
+      if (transaction.contract_desc === "TransferContract") {
+        filteredTransactions.push(transaction);
       }
+    }
+    return filteredTransactions;
+  }
+
+  /*we want to show transactions in connection with a certain token*/
+  getTokenTransactions(transactions){
+    let filteredTransactions = [];
+    for (let i = 0; i < transactions.length; i++) {
+      let transaction = transactions[i];
+      if(!(
+        transaction.contract_desc === "ParticipateAssetIssueContract" ||
+        transaction.contract_desc === "TransferAssetContract"
+      )){
+        continue;
+      }
+      if(transaction.name === this.props.match.params.token ||
+         transaction.asset_name === this.props.match.params.token){
+        filteredTransactions.push(transaction);
+      }
+    }
+    return filteredTransactions;
+  }
+
+  getHighlightedTokenTransactions(transactions){
+    if (this.props.match.params.token === "TRX") {
+      return this.getTrxTransactions(transactions);
     } else {
-      filteredTransactions = transactions;
+      return this.getTokenTransactions(transactions);
     }
 
+  }
+
+  /*adds amount_token to the transactions if they're a participation contract
+  * removes invalid participation contracts */
+  calculateParticipateAssetIssueContractPrices(filteredTransactions){
     for(let i = filteredTransactions.length-1;i>=0;i--){
       if (filteredTransactions[i].contract_desc === "ParticipateAssetIssueContract") {
         if (filteredTransactions[i].asset_issue_contract) {
@@ -52,6 +68,22 @@ class TxList extends Component {
         }
       }
     }
+    return filteredTransactions;
+  }
+
+  render() {
+    let accountId = this.props.match.params.account;
+    let transactions = this.props.wallet.persistent.accounts[accountId].transactions;
+    let filteredTransactions = [];
+
+    let highlightedToken = this.props.match.params.token;
+    if (highlightedToken) {
+      filteredTransactions = this.getHighlightedTokenTransactions(transactions);
+    } else {
+      filteredTransactions = transactions;
+    }
+    filteredTransactions = this.calculateParticipateAssetIssueContractPrices(filteredTransactions);
+
 
     return (
       <div className={styles.txList}>
@@ -65,6 +97,7 @@ class TxList extends Component {
             type={tx.type}
             asset={tx.asset}
             contract_desc={tx.contract_desc}
+            is_owner={tx.owner_address === accountId}
           />
         ))}
       </div>

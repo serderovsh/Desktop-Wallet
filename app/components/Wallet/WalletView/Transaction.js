@@ -29,24 +29,53 @@ class Transaction extends Component {
   }
 
   txAmount() {
-    let amount = dropsToTrx(this.props.amount);
-    if(this.props.isToken === true)
-      amount = this.props.amount;
-    if (this.props.type === enums.Received) {
+    switch (this.props.contract_desc){
+      case "TransferContract" : {
+        let amount = dropsToTrx(this.props.amount);
+        if(this.props.is_owner){
+          //sent
+          return (
+            <div className={`${styles.txAmount} ${styles.red}`}>
+              - <FormattedNumber value={amount} />{" "}
+              {this.props.asset}
+            </div>
+          );
+        }else{
+          return (
+            <div className={`${styles.txAmount} ${styles.green}`}>
+              + <FormattedNumber value={amount} />{" "}
+              {this.props.asset}
+            </div>
+          );
+        }
+      }
+      case "TransferAssetContract" : {
+        if(this.props.is_owner){
+          //sent
+          return (
+            <div className={`${styles.txAmount} ${styles.red}`}>
+              - <FormattedNumber value={this.props.amount} />{" "}
+              {this.props.asset}
+            </div>
+          );
+        }else{
+          return (
+            <div className={`${styles.txAmount} ${styles.green}`}>
+              + <FormattedNumber value={this.props.amount} />{" "}
+              {this.props.asset}
+            </div>
+          );
+        }
+      }
+      default:
+
       return (
-        <div className={`${styles.txAmount} ${styles.green}`}>
-          + <FormattedNumber value={amount} />{" "}
-          {this.props.asset}
-        </div>
-      );
-    } else {
-      return (
-        <div className={`${styles.txAmount} ${styles.red}`}>
-          - <FormattedNumber value={amount} />{" "}
-          {this.props.asset}
+        <div>
+          type {this.props.contract_desc} not implemented
         </div>
       );
     }
+
   }
 
   render() {
