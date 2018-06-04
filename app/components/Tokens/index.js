@@ -31,6 +31,7 @@ class TokenList extends Component {
   };
 
   render() {
+    console.log(this.state.tokens[0])
     return (
       <div className={styles.container}>
         <Header text="TOKENS :" />
@@ -59,6 +60,7 @@ class TokenList extends Component {
                     tokenURL={token.url}
                     totalIssued={(token.bought / token.trx_num) * token.num}
                     totalSupply={token.total_supply}
+                    startTime={token.start_time}
                     endTime={token.end_time}
                     tokenID={token._id}
                   />

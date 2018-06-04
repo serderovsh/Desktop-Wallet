@@ -38,3 +38,13 @@
 .green {
   color: #50e3c2;
 }
+
+.dateLabel {
+  font-family: 'Roboto', sans-serif;
+  float: left;
+}
+
+.dateMain {
+  float: right;
+  color: #5cb7a3;
+}
