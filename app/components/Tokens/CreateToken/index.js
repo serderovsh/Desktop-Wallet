@@ -55,36 +55,7 @@ class CreateToken extends Component {
   setDateEnd = date =>
     this.setState({ formValues: { ...this.state.formValues, endTime: date } });
 
-  /*
-  if(!(/^([A-Za-z0-9]{3,32})$/.test(name)))
-      errors.push('name');
-
-  if(!(/^([A-Za-z]{1,5})$/.test(abbreviation)))
-      errors.push('abbreviation');
-
-  if((Math.floor(supply) != supply) || supply < 1)
-      errors.push('supply');
-
-  if(description.trim().length > 200 || !description.trim().length)
-      errors.push('description');
-
-  if(url.trim().length > 256 || !url.trim().length)
-      errors.push('url');
-
-  if(frozenSupply && ((Math.floor(frozenSupply) != frozenSupply) || frozenSupply < 1))
-      errors.push('frozen');
-
-  if(frozenDuration && ((Math.floor(frozenDuration) != frozenDuration) || frozenDuration < 1))
-      errors.push('frozen');
-
-  if((Math.floor(exchangeTRX) != exchangeTRX) || exchangeTRX < 1)
-      errors.push('exchange');
-
-  if((Math.floor(exchangeToken) != exchangeToken) || exchangeToken < 1)
-      errors.push('exchange');
-  */
-
-  isValid = ({ assetName, assetAbbr, totalSupply, num, trxNum, endTime, startTime, description, url, amount, days}) => {
+  isValid = ({ assetName, assetAbbr, totalSupply, num, trxNum, endTime, startTime, description, url, frozenSupply, frozenDuration}) => {
     let { loading, selectedWallet } = this.state;
 
     console.log(assetName);
