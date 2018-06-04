@@ -17,9 +17,9 @@
   flex-direction: column;
   align-items: center;
   background: #fff;
+  min-height: 0px;
   max-height: 580px;
   max-width: 400px;
-  height: 100%;
   width: 100%;
   min-width: 385px;
   margin: 40px auto;

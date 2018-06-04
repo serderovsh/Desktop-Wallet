@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./PopupModal.css";
 
-import Anime from "react-anime";
+import Anime from "../Animation/react-anime";
 import { Button } from "semantic-ui-react";
 import buttonStyles from "../Button.css";
 
 import { CSSTransitionGroup } from "react-transition-group";
-
-import { withRouter } from "react-router-dom";
 
 import {
   CheckMarkBoxAnimation,
