@@ -78,13 +78,11 @@ export class PopupModal extends Component {
     if (this.props.modalVis) {
       return (
         <div className={`${styles.container} ${this.modalVis()}`}>
-          <Anime scale={[0.7, 1]} duration={500} delay={100}>
-            <div className={`${styles.subContainer} ${this.props.className}`}>
-              {this.renderSymbol()}
-              <div className={styles.modalText}>{this.props.modalText}</div>
-              {this.renderButtons()}
-            </div>
-          </Anime>
+          <div className={`${styles.subContainer} ${this.props.className}`}>
+            {this.renderSymbol()}
+            <div className={styles.modalText}>{this.props.modalText}</div>
+            {this.renderButtons()}
+          </div>
         </div>
       );
     }
