@@ -42,10 +42,8 @@ class CreateToken extends Component {
         startTime: moment(),
         description: "",
         url: "",
-        frozenSupply: {
-          amount: 0,
-          days: 0
-        }
+        frozenSupply: 0,
+        frozenDuration: 0,
       }
     };
   }
@@ -86,7 +84,7 @@ class CreateToken extends Component {
       errors.push('exchange');
   */
 
-  isValid = ({ assetName, assetAbbr, totalSupply, num, trxNum, endTime, startTime, description, url}) => {
+  isValid = ({ assetName, assetAbbr, totalSupply, num, trxNum, endTime, startTime, description, url, amount, days}) => {
     let { loading, selectedWallet } = this.state;
 
     console.log(assetName);
@@ -161,6 +159,8 @@ class CreateToken extends Component {
       ...formValues,
       startTime: Date.parse(formValues.startTime._d),
       endTime: Date.parse(formValues.endTime._d),
+      frozenSupply: parseInt(formValues.frozenSupply),
+      frozenDuration: parseInt(formValues.frozenDuration),
       trxNum: formValues.trxNum * 1000000
     };
 
@@ -303,7 +303,7 @@ class CreateToken extends Component {
             <div className={styles.textBoxContainer}>
               <span>Amount</span>
               <Input
-                name="amount"
+                name="frozenSupply"
                 type="number"
                 onChange={this.handleInputChange}
                 className={styles.input}
@@ -312,7 +312,7 @@ class CreateToken extends Component {
             <div className={styles.textBoxContainer}>
               <span>Days to Freeze</span>
               <Input
-                name="days"
+                name="frozenDuration"
                 type="number"
                 onChange={this.handleInputChange}
                 className={styles.input}

@@ -9971,8 +9971,8 @@ trim@0.0.1:
   resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
 
 tron-http-client@tronwatch/tron-http-client:
-  version "1.0.21"
-  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/00faf75f3e0fa4422ddc858e00a53d2c1f5e0cf3"
+  version "1.0.22"
+  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/9ad982d782e90958375ca3ab8b1b416b9c2231c1"
   dependencies:
     axios "^0.18.0"
     qs "^6.5.2"
