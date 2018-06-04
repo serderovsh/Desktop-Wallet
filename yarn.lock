@@ -223,10 +223,6 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-animejs@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/animejs/-/animejs-2.2.0.tgz#35eefdfc535b81949c9cb06f0b3e60c02e6fdc80"
-
 ansi-align@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-2.0.0.tgz#c36aeccba563b89ceb556f3690f0b1d9e3547f7f"
@@ -8044,13 +8040,6 @@ rc@^1.0.1, rc@^1.1.2, rc@^1.1.6, rc@^1.1.7, rc@^1.2.1:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-anime@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-anime/-/react-anime-2.0.1.tgz#9035ffcc17e1d633485f0370f73b2a479e2657e2"
-  dependencies:
-    animejs "^2.2.0"
-    lodash.isequal "^4.5.0"
-
 react-calendar@^2.14.0:
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-2.15.1.tgz#b390d22941a645e512035dbbe5201739ec5e8ed9"
@@ -9982,16 +9971,16 @@ trim@0.0.1:
   resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
 
 tron-http-client@tronwatch/tron-http-client:
-  version "1.0.20"
-  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/f6b46fc1bf5b5b772d4f6a99a9f63096c69a2397"
+  version "1.0.22"
+  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/9ad982d782e90958375ca3ab8b1b416b9c2231c1"
   dependencies:
     axios "^0.18.0"
     qs "^6.5.2"
     tron-http-tools tronwatch/tron-http-tools
 
 tron-http-tools@tronwatch/tron-http-tools:
-  version "1.0.20"
-  resolved "https://codeload.github.com/tronwatch/tron-http-tools/tar.gz/390a1bf2c01d95bf84413728e7e4f01453702a7a"
+  version "1.0.21"
+  resolved "https://codeload.github.com/tronwatch/tron-http-tools/tar.gz/d0276030aa73e33f62942f48c4eaa5ac545121a7"
   dependencies:
     assert "^1.4.1"
     bip39 "2.3.0"

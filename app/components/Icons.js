@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Anime from "react-anime";
+import Anime from "./Animation/react-anime";
 
 export class TronIcon extends Component {
   render() {

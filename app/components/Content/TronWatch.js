@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./TronWatch.css";
-
-import Anime from "react-anime";
-
 import { CSSTransitionGroup } from "react-transition-group";
 
 import { TronWatchIcon } from "../Icons";
