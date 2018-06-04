@@ -14,7 +14,7 @@ import moment from "moment";
 
 import { PopupModal } from "../../Content/PopupModal";
 
-import { CalendarIcon, ArrowLeftIcon, ArrowRightIcon } from "../../Icons";
+import { ArrowRightIcon } from "../../Icons";
 
 const TronHttpClient = require("tron-http-client");
 const client = new TronHttpClient();
@@ -41,7 +41,11 @@ class CreateToken extends Component {
         endTime: moment(),
         startTime: moment(),
         description: "",
-        url: ""
+        url: "",
+        frozenSupply: {
+          amount: 0,
+          days: 0
+        }
       }
     };
   }
@@ -286,6 +290,34 @@ class CreateToken extends Component {
           </div>
           <div className={styles.inputSubText}>
             A website where users can find more information about the token.
+          </div>
+          <div className={styles.divider} />
+          <div className={styles.header}>Frozen Supply :</div>
+          <div className={styles.headerSubText}>
+            The amount of supply can be specified and must be frozen for a minimum of 1 day.
+            The frozen supply can manually be unfrozen after start date + frozen days has been reached.
+            <div className={styles.divider} />
+            <div className={styles.headerSubText}>
+              Freezing supply is not required.
+            </div>
+            <div className={styles.textBoxContainer}>
+              <span>Amount</span>
+              <Input
+                name="amount"
+                type="number"
+                onChange={this.handleInputChange}
+                className={styles.input}
+              />
+            </div>
+            <div className={styles.textBoxContainer}>
+              <span>Days to Freeze</span>
+              <Input
+                name="days"
+                type="number"
+                onChange={this.handleInputChange}
+                className={styles.input}
+              />
+            </div>
           </div>
           <div className={styles.divider} />
           <div className={styles.header}>EXCHANGE RATE :</div>
