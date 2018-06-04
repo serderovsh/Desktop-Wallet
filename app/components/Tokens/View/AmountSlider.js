@@ -50,8 +50,8 @@ class AmountSlider extends Component {
             className={styles.input}
             value={this.state.current}
             onChange={this.handleChange}
-          />{" "}
-          {this.props.tokenLabel}
+          />
+          <div className={styles.amountLabel}>{this.props.tokenLabel}</div>
         </div>
         <div className={styles.sliderContainer}>
           <Input
