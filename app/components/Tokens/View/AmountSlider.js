@@ -14,7 +14,8 @@ export default class AmountSlider extends Component {
   handleChange = (e, { value }) => {
     //if(this.onSliderChange)
     if (value) {
-      this.props.onSliderChange(this.state.ratio * value);
+      console.log(this.state.ratio, value, this.state.ratio * value)
+      this.props.onSliderChange(value, this.state.ratio);
       this.setState({ current: value });
     } else {
       this.props.onSliderChange(0);
@@ -31,16 +32,18 @@ export default class AmountSlider extends Component {
 
   renderUsd(amount){
     if(amount <= 0)
-      return "";
-
+      return "0.00 USD";
+    console.log(this.props.usd)
     return (
       <div className={styles.amountSub}>{parseFloat(amount).toLocaleString()} USD</div>
     );
   }
 
   render() {
-    this.state.ratio = this.props.assetNum / dropsToTrx(this.props.trxNum);
-    this.state.assetPossible = this.state.ratio * dropsToTrx(this.props.totalTRX);
+    console.log(this.props.assetNum, parseInt(dropsToTrx(this.props.totalTRX)))
+    this.state.ratio = this.props.assetNum / parseInt(dropsToTrx(this.props.trxNum));
+    this.state.assetPossible = this.state.ratio * parseInt(dropsToTrx(this.props.totalTRX));
+    console.log('possible', this.state.assetPossible)
     return (
       <div className={styles.container}>
         <div className={styles.amount}>
@@ -56,6 +59,9 @@ export default class AmountSlider extends Component {
         </div>
         <div className={styles.price}>
           {this.renderUsd(this.props.usd)}
+        </div>
+        <div className={styles.price}>
+          <div className={styles.amountSub}>{this.state.current / this.state.ratio} TRX</div>
         </div>
         <div className={styles.sliderContainer}>
           <Input
@@ -73,10 +79,10 @@ export default class AmountSlider extends Component {
           <div className={styles.sliderBG} />
         </div>
         <div className={styles.sliderRange}>
-          <span>0 TRX</span>
+          <span>0 { this.props.tokenLabel }</span>
           <span>
             <FormattedNumber value={this.state.assetPossible} />{" "}
-            TRX
+            { this.props.tokenLabel }
           </span>
         </div>
       </div>

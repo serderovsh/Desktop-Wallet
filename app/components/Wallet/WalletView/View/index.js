@@ -53,7 +53,7 @@ class ViewTransaction extends Component {
       )
     }
     if (tx.contract_desc === "ParticipateAssetIssueContract") {
-      console.log(tx.amount_tokens)
+      let contract = tx.asset_issue_contract
       return (
         <div className={styles.headerAmount}>
           <FormattedNumber value={tx.amount_tokens} /> { tx.asset }
@@ -104,11 +104,17 @@ class ViewTransaction extends Component {
     let transactions = account.transactions;
 
     let tx = transactions.find(tx => tx._id === txID);
-
+    console.log(tx)
     let usdValue = dropsToFiat(this.props.currency, tx.amount || 0);
     if (tx.asset !== "TRX") {
       let token = this.props.tokens.find(token => token.name === tx.asset);
       usdValue = dropsToFiat(this.props.currency, tx.amount * token.trx_num);
+    }
+
+    if (tx.contract_desc === "ParticipateAssetIssueContract") {
+      let token = this.props.tokens.find(token => token.name === tx.asset);
+      console.log(parseInt(tx.amount_tokens) * (token.trx_num / token.num))
+      usdValue = dropsToFiat(this.props.currency, parseInt(tx.amount_tokens) * (token.trx_num / token.num));
     }
 
     this.state.tx = tx;
