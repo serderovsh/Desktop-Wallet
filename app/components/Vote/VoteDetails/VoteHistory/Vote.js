@@ -30,7 +30,7 @@ export default class Vote extends Component {
       <div className={styles.vote}>
         <div className={styles.voteType}>
           <VoteIcon className={styles.icon} />
-          <div>Vote</div>
+          <div>Vote for {this.props.url}</div>
         </div>
         <div className={styles.voteInfo}>
           <div className={styles.voteAmount}> {amount} TP</div>

@@ -29,7 +29,7 @@ class voteList extends Component {
         if(transaction.contract_desc === 'VoteWitnessContract'){
           votes.push({
             _id : transaction._id,
-            url : transaction.votes.length > 0 ? transaction.votes[0].vote_address: "",
+            url : transaction.witness ? transaction.witness.owner_address + " - " + transaction.witness.url : "-",
             amount : transaction.votes.length > 0 ? transaction.votes[0].vote_count : 0,
             date : transaction.timestamp
           });
