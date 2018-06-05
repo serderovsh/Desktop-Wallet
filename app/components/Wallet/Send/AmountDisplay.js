@@ -5,6 +5,16 @@ import styles from "./AmountDisplay.css";
 import AmountInput from "./AmountInput";
 
 export default class AmountDisplay extends Component {
+
+  renderUsd(amount){
+    if(amount <= 0)
+      return "";
+
+    return (
+      <div className={styles.amountSub}>{parseFloat(amount).toLocaleString()} USD</div>
+    )
+  }
+
   render() {
     console.log(this.props.usd) 
     return (
@@ -15,7 +25,7 @@ export default class AmountDisplay extends Component {
             <AmountInput onSetAmount={this.props.onSetAmount} />
             <span>{this.props.token}</span>
           </div>
-          <div className={styles.amountSub}>{parseFloat(this.props.usd).toLocaleString()} USD</div>
+          {this.renderUsd(this.props.usd)}
         </div>
       </div>
     );

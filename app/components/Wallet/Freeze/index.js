@@ -12,7 +12,14 @@ import AmountDisplay from "./AmountDisplay";
 
 import { trxToDrops } from "../../../utils/currency";
 import TronHttpClient from "tron-http-client";
+import {ContactIcon } from "../../Icons";
+
 const client = new TronHttpClient();
+
+import { TextArea } from "semantic-ui-react";
+import commonStyles from '../WalletCommon.css'
+import {toHexString} from "../../../utils/hex";
+const tools = require("tron-http-tools");
 
 class Freeze extends Component {
   constructor(props) {
@@ -36,21 +43,50 @@ class Freeze extends Component {
   }
 
   async onShow(isFreeze) {
-    let accountId = this.props.match.params.account;
-    let account = this.props.wallet.persistent.accounts[accountId];
+    if(this.props.isCold){
+      if(isFreeze){
+        console.log(this.state.senderAddress);
+        let transaction = await tools.transactions.createUnsignedFreezeBalanceTransaction(
+          {
+            ownerAddress: this.state.senderAddress.trim(),
+            amount : parseInt(this.state.amount) * 1000000,
+            duration : 3
+          },
+          await client.getLastBlock()
+        );
+        let hex = toHexString(transaction.serializeBinary());
+        this.setState({
+          coldOutputString:hex
+        });
+      }else{
+        let transaction = await tools.transactions.createUnsignedUnfreezeBalanceTransaction(
+          {
+            ownerAddress: this.state.senderAddress.trim()
+          },
+          await client.getLastBlock()
+        );
+        let hex = toHexString(transaction.serializeBinary());
+        this.setState({
+          coldOutputString:hex
+        });
+      }
+    }else{
+      let accountId = this.props.match.params.account;
+      let account = this.props.wallet.persistent.accounts[accountId];
 
-    let amount = parseInt(this.state.amount);
-    this.setState({
-      ...this.state,
-      freezeTrx: {
-        privateKey: account.privateKey,
-        amount: parseInt(this.state.amount),
-        isFreeze: isFreeze
-      },
-      accountAddress: account.publicKey,
-      showConfirmModal: true,
-      modalConfirmText: isFreeze ? `Freeze ${amount} TRX?` : "Unfreeze All?"
-    });
+      let amount = parseInt(this.state.amount);
+      this.setState({
+        ...this.state,
+        freezeTrx: {
+          privateKey: account.privateKey,
+          amount: parseInt(this.state.amount),
+          isFreeze: isFreeze
+        },
+        accountAddress: account.publicKey,
+        showConfirmModal: true,
+        modalConfirmText: isFreeze ? `Freeze ${amount} TRX?` : "Unfreeze All?"
+      });
+    }
   }
 
   async onClickUnfreezeTrx(isFreeze) {
@@ -88,9 +124,8 @@ class Freeze extends Component {
         });
       }
     } else {
-      let response = await client.freezeTrx(
-        this.state.freezeTrx.privateKey,
-        this.state.freezeTrx.amount * 1000000
+      let response = await client.unfreezeTrx(
+        this.state.freezeTrx.privateKey
       );
 
       if (response && response.result == true) {
@@ -136,6 +171,40 @@ class Freeze extends Component {
     this.state.showConfirmModal = false;
   }
 
+  onSetSenderAddress(e){
+    this.setState({
+      senderAddress : e.target.value
+    });
+  }
+
+  renderColdwalletOwnerInput(){
+    if(!this.props.isCold)
+      return "";
+
+    return(
+      <div className={commonStyles.addressContainer}>
+        <ContactIcon/>
+        <input
+          onChange={this.onSetSenderAddress.bind(this)}
+          placeholder="Sender Address"
+          className={commonStyles.address}
+          value={this.props.address}
+        />
+      </div>
+    );
+  }
+
+  renderColdwalletOutput(){
+    if(!this.props.isCold)
+      return "";
+    return (<TextArea
+        placeholder="Output..."
+        class={commonStyles.textArea}
+        value={this.state.coldOutputString}
+      />
+    );
+  }
+
   render() {
     let accountId = this.props.match.params.account;
     let account = this.props.wallet.persistent.accounts[accountId];
@@ -149,21 +218,23 @@ class Freeze extends Component {
           During this period the frozen TRX cannot be traded. After this period
           you can unfreeze the TRX and trade the tokens.
         </div>
+        {this.renderColdwalletOwnerInput()}
         <AmountDisplay onSetAmount={this.onSetAmount.bind(this)} />
         <div className={styles.buttonContainer}>
           <Button
             onClick={this.onClickUnfreezeTrx.bind(this)}
             className={`${buttonStyles.button} ${buttonStyles.gradient}`}
           >
-            Unfreeze
+            {this.props.isCold ? "Create Unfreeze" : "Unfreeze"}
           </Button>
           <Button
             onClick={this.onClickFreezeTrx.bind(this)}
             className={`${buttonStyles.button} ${buttonStyles.gradient}`}
           >
-            Freeze
+            {this.props.isCold ? "Create Freeze" : "Freeze"}
           </Button>
         </div>
+        {this.renderColdwalletOutput()}
 
         <PopupModal
           confirmation

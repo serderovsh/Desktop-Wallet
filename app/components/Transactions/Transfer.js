@@ -18,11 +18,7 @@ import BackButton from '../Content/BackButton';
 const client = new TronHttpClient();
 const tools = require("tron-http-tools");
 
-function toHexString(byteArray) {
-  return Array.from(byteArray, function(byte) {
-    return ("0" + (byte & 0xff).toString(16)).slice(-2);
-  }).join("");
-}
+import {toHexString} from "../../utils/hex";
 
 class Transfer extends Component {
   constructor(props) {
