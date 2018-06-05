@@ -16,6 +16,19 @@
   font-size: 20px;
   font-weight: 600;
   float: right;
+  margin-bottom: 5px;
+  z-index: 5;
+  width: 100%;
+}
+.price {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-family: "Source Code Pro", monospace;
+  font-size: 12px;
+  font-weight: 600;
+  float: left;
   margin-bottom: 10px;
   z-index: 5;
   width: 100%;

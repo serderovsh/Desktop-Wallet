@@ -23,7 +23,6 @@ export default class AmountSlider extends Component {
   };
 
   get sliderWidthCalc() {
-    console.log(this.state.current, this.props.totalTRX);
     if (this.state.current === 0 || this.props.totalTRX === 0) {
       return 0;
     }
@@ -55,7 +54,7 @@ export default class AmountSlider extends Component {
           />
           <div className={styles.amountLabel}>{this.props.tokenLabel}</div>
         </div>
-        <div className={styles.amount}>
+        <div className={styles.price}>
           {this.renderUsd(this.props.usd)}
         </div>
         <div className={styles.sliderContainer}>
