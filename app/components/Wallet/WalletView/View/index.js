@@ -88,7 +88,10 @@ class ViewTransaction extends Component {
     }
 
     this.state.tx = tx;
-
+    /*
+    goToBlockchain = () =>
+      require("electron").shell.openExternal("https://tronscan.org/#/transaction/");
+*/
     return (
       <DarkMainModal className={styles.container}>
         <div className={`${styles.subContainer} ${this.props.className}`}>
@@ -132,6 +135,13 @@ class ViewTransaction extends Component {
               <FormattedDate value={tx.date} />{" "}
               <FormattedTime value={tx.date} />
             </div>
+            {/*
+              <div>
+                <button>
+                  View On Blockchain
+                </button>
+              </div>
+            */}
           </div>
         </div>
       </DarkMainModal>

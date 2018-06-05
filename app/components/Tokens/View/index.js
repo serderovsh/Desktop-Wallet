@@ -12,7 +12,7 @@ import { ArrowRightIcon } from "../../Icons";
 import { loadTokens } from "../../../actions/tokens";
 import { PopupModal } from "../../Content/PopupModal";
 
-import { dropsToTrx } from "../../../utils/currency";
+import { dropsToFiat, dropsToTrx } from "../../../utils/currency";
 
 const TronHttpClient = require("tron-http-client");
 
@@ -28,8 +28,8 @@ class TokenView extends Component {
         value: "",
         trx: 0
       },
-
-      sendProperties: {}
+      sendProperties: {},
+      usdAmount: 0
     };
   }
 
@@ -71,7 +71,11 @@ class TokenView extends Component {
   };
 
   onSliderChange(amount) {
-    this.state.current = parseInt(amount);
+    this.setState({
+      ...this.state,
+      amount: amount,
+      usdAmount: dropsToFiat(this.props.currency, parseInt(amount) * 1000000)
+    });
   }
 
   async modalConfirm() {
@@ -189,6 +193,7 @@ class TokenView extends Component {
             />
           </div>
           <AmountSlider
+            usd={this.state.usdAmount}
             onSliderChange={this.onSliderChange.bind(this)}
             tokenLabel={token.abbr ? token.abbr : token.name}
             assetNum={token.num}
@@ -236,7 +241,7 @@ class TokenView extends Component {
 
 export default withRouter(
   connect(
-    state => ({ wallet: state.wallet, tokens: state.tokens }),
+    state => ({ wallet: state.wallet, tokens: state.tokens, currency: state.currency }),
     dispatch => ({
       loadTokens: props => {
         dispatch(loadTokens(props));
