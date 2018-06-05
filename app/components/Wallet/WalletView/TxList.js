@@ -90,6 +90,7 @@ class TxList extends Component {
         {filteredTransactions.map((tx, i) => (
           <Transaction
             key={i}
+            tx={tx}
             txID={tx._id}
             amount={tx.amount_tokens ? tx.amount_tokens : tx.amount}
             isToken={(tx.asset !== "TRX")}

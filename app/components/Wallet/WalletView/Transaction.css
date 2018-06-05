@@ -38,8 +38,10 @@
 }
 
 .txAmount {
+  display: inline-block;
   font-family: "Source Code Pro", monospace;
   margin-bottom: 5px;
+  margin-left: 10px;
 }
 
 .txDate {
@@ -52,6 +54,14 @@
 
 .green {
   color: #1fbe9a;
+}
+
+.iconFreeze {
+  fill: #00b2ff;
+}
+
+.iconToken {
+  fill: #ffdb00;
 }
 
 .iconReceived {
