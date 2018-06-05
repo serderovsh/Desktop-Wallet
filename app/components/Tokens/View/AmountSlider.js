@@ -4,9 +4,9 @@ import { FormattedNumber } from "react-intl";
 import { Input } from "semantic-ui-react";
 import styles from "./AmountSlider.css";
 
-import { dropsToTrx } from "../../../utils/currency";
+import { dropsToFiat, dropsToTrx } from "../../../utils/currency";
 
-class AmountSlider extends Component {
+export default class AmountSlider extends Component {
   state = {
     current: 0
   };
@@ -29,7 +29,16 @@ class AmountSlider extends Component {
     }
     return Math.round((this.state.current / this.state.assetPossible) * 100);
   }
-  /*<FormattedNumber value={parseInt(this.state.current)} />*/
+
+  renderUsd(amount){
+    if(amount <= 0)
+      return "";
+
+    return (
+      <div className={styles.amountSub}>{parseFloat(amount).toLocaleString()} USD</div>
+    );
+  }
+
   render() {
     this.state.ratio = this.props.assetNum / dropsToTrx(this.props.trxNum);
     this.state.assetPossible = this.state.ratio * dropsToTrx(this.props.totalTRX);
@@ -45,6 +54,9 @@ class AmountSlider extends Component {
             onChange={this.handleChange}
           />
           <div className={styles.amountLabel}>{this.props.tokenLabel}</div>
+        </div>
+        <div className={styles.amount}>
+          {this.renderUsd(this.props.usd)}
         </div>
         <div className={styles.sliderContainer}>
           <Input
@@ -73,4 +85,3 @@ class AmountSlider extends Component {
   }
 }
 
-export default AmountSlider;

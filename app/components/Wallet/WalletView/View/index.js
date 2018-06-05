@@ -28,6 +28,9 @@ class ViewTransaction extends Component {
       usdValue = dropsToFiat(this.props.currency, tx.amount * token.trx_num);
     }
 
+    goToBlockchain = () =>
+      require("electron").shell.openExternal("https://tronscan.org/#/transaction/");
+
     return (
       <DarkMainModal className={styles.container}>
         <div className={`${styles.subContainer} ${this.props.className}`}>
@@ -77,6 +80,11 @@ class ViewTransaction extends Component {
             <div className={styles.tokenHeaderText}>
               <FormattedDate value={tx.date} />{" "}
               <FormattedTime value={tx.date} />
+            </div>
+            <div>
+              <button>
+                View On Blockchain
+              </button>
             </div>
           </div>
         </div>

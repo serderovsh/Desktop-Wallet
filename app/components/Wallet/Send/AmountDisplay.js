@@ -16,7 +16,6 @@ export default class AmountDisplay extends Component {
   }
 
   render() {
-    console.log(this.props.usd) 
     return (
       <div className={styles.container}>
         <div className={styles.amountTag}>Amount :</div>
