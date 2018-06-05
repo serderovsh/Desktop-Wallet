@@ -99,7 +99,6 @@ class Transaction extends Component {
       )
     }
     if (this.props.contract_desc === "VoteWitnessContract") {
-      console.log('tXXXX', this.props.tx)
       return (
         <div className={styles.txType}>
           <VoteIcon className={styles.iconToken} />

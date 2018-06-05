@@ -11,9 +11,33 @@ import { dropsToTrx, dropsToFiat } from "../../../../utils/currency";
 
 class ViewTransaction extends Component {
   state = {}
+
+  renderHeaderLabel() {
+    let { tx } = this.state;
+    //tx.type === 0 ? "Sent" : "Received"
+    if (tx.contract_desc === "TransferContract" || tx.contract_desc === "TransferAssetContract") {
+      if (tx.type === 0) {
+        return 'Received'
+      }
+      return 'Sent'
+    }
+    if (tx.contract_desc === "ParticipateAssetIssueContract") {
+      return 'Token Purchased'
+    }
+    if (tx.contract_desc === "FreezeBalanceContract" || tx.contract_desc === "UnfreezeBalanceContract") {
+      return 'Frozen'
+    }
+    if (tx.contract_desc === "AssetIssueContract") {
+      return 'Token Created'
+    }
+    if (tx.contract_desc === "VoteWitnessContract") {
+      return 'Vote'
+    }
+    return 'TESTEST'
+  }
+
   renderHeaderAmount() {
     let { tx } = this.state;
-    console.log(tx)
     if (tx.frozen_balance) {
       return (
         <div className={styles.headerAmount}>
@@ -104,7 +128,7 @@ class ViewTransaction extends Component {
               }
             />
             <div className={styles.headerType}>
-              {tx.type === 0 ? "Sent" : "Received"} :
+              { this.renderHeaderLabel() } :
             </div>
             { this.renderHeaderAmount() }
             <div className={styles.headerCurrency}>{usdValue} USD</div>
