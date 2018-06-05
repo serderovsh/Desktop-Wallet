@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { setFiatPrice } from "../actions/currency";
 import { CURRENCY } from "../actions/currency";
-import { startUpdateAccountsAsync } from "../actions/wallet";
+import { startUpdateAccountsAsync, updateTransferTransactions} from "../actions/wallet";
 
 class WebsocketContainer extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class WebsocketContainer extends Component {
       let msg = JSON.parse(event.data);
       if (msg.cmd === "ADDRESS_EVENT") {
         console.log(`received address change notification: `);
-        this.props.startUpdating(this.props.wallet.persistent);
+        this.props.startUpdating(this.props.wallet.persistent, msg.address);
       } else if (msg.symbol === "TRX" && msg["USD"].price) {
         this.props.setFiatPrice(CURRENCY.USD, msg["USD"].price);
       } else {
@@ -130,9 +130,10 @@ export default withRouter(
       setFiatPrice(currency, price) {
         dispatch(setFiatPrice(currency, price));
       },
-      startUpdating(persistent) {
+      startUpdating(persistent, address) {
         console.log("starting update");
         startUpdateAccountsAsync(persistent, dispatch);
+        updateTransferTransactions(address, dispatch);
       }
     })
   )(WebsocketContainer)

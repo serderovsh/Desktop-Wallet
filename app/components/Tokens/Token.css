@@ -36,12 +36,17 @@
   font-size: 11px;
 }
 
+.salesBar {
+  
+}
+
 .website {
   color: #828282;
 }
 
 .tokenName {
   color: #fff;
+  font-size: 12px;
 }
 
 .filler {

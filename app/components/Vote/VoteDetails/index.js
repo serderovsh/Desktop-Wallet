@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Dropdown, Button } from "semantic-ui-react";
-import { withRouter } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import styles from "./VoteDetails.css";
 import buttonStyles from "../../Button.css";
@@ -10,6 +10,8 @@ import Header from "../../Header";
 import VoteAmountSlider from "./VoteAmountSlider";
 import { ArrowRightIcon } from "../../Icons";
 import { PopupModal } from "../../Content/PopupModal";
+
+import VoteHistory from './VoteHistory';
 
 const TronHttpClient = require("tron-http-client");
 
@@ -170,6 +172,9 @@ class VoteDetails extends Component {
           <div className={styles.headerText}>
             Earn More TronPower by freezing Tron
           </div>
+          <div className={styles.headerSubText}>
+            You can do this by clicking on "Freeze TRX" after selecting a wallet.
+          </div>
         </div>
         <div className={styles.subContainer}>
           <div className={styles.votingFor}>
@@ -198,7 +203,8 @@ class VoteDetails extends Component {
             Submit Your Vote
           </Button>
         </div>
-
+        <div className={styles.voteHistory}>Vote History</div>
+        <VoteHistory />
         <PopupModal
           confirmation
           modalVis={this.state.showConfirmModal}

@@ -88,7 +88,7 @@ export const addAccount = async (
   newAccount = null
 ) => {
   console.log("adding account with name: " + accountName);
-  if (accountName === "") accountName = "Unnamed Account";
+  if (!accountName || accountName === "") accountName = "Unnamed Account";
   let persistent = props.wallet.persistent;
 
   if (newAccount === null)
@@ -154,13 +154,7 @@ export const updateTransferTransactions = async (address, dispatch) => {
       asset: transaction.asset_name ? transaction.asset_name : "TRX"
     };
 
-    if (
-      transactions[i].contract_desc === "TransferContract" ||
-      transactions[i].contract_desc === "ParticipateAssetIssueContract" ||
-      transactions[i].contract_desc === "TransferAssetContract"
-    ) {
-      cleanedTransactions.push(newTransaction);
-    }
+    cleanedTransactions.push(newTransaction);
   }
 
   dispatch(updateTransactions(address, cleanedTransactions));

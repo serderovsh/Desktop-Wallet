@@ -3,16 +3,40 @@ import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { FormattedNumber, FormattedDate, FormattedTime } from "react-intl";
 import styles from "./Transaction.css";
-import { TopRightArrow } from "../../Icons";
+import { TopRightArrow, TokensIcon, SnowIcon, PencilIcon, VoteIcon } from "../../Icons";
 import { updateTransactions } from "../../../actions/wallet";
 import { dropsToTrx } from "../../../utils/currency";
+
+
+/*
+  ACCOUNTCREATECONTRACT: 0,
+  TRANSFERCONTRACT: 1,
+  TRANSFERASSETCONTRACT: 2,
+  VOTEASSETCONTRACT: 3,
+  VOTEWITNESSCONTRACT: 4,
+  WITNESSCREATECONTRACT: 5,
+  ASSETISSUECONTRACT: 6,
+  DEPLOYCONTRACT: 7,
+  WITNESSUPDATECONTRACT: 8,
+  PARTICIPATEASSETISSUECONTRACT: 9,
+  ACCOUNTUPDATECONTRACT: 10,
+  FREEZEBALANCECONTRACT: 11,
+  UNFREEZEBALANCECONTRACT: 12,
+  WITHDRAWBALANCECONTRACT: 13,
+  UNFREEZEASSETCONTRACT: 14,
+  UPDATEASSETCONTRACT: 15,
+  CUSTOMCONTRACT: 20
+*/
 
 const enums = {
   Received: 0,
   Sent: 1,
+  "Token Created": 2,
+
 
   0: "Received",
-  1: "Sent"
+  1: "Sent",
+  2: "Token Created"
 };
 
 class Transaction extends Component {
@@ -25,22 +49,166 @@ class Transaction extends Component {
     });
   }
 
-  txAmount() {
-    if (this.props.type === enums.Received) {
+  /*
+  <div className={styles.txType}>
+    { this.chooseIcon() }
+    <div>{enums[this.props.type]}</div>
+  </div>
+  */
+
+  chooseIcon() {
+    if (this.props.contract_desc === "TransferContract" || this.props.contract_desc === "TransferAssetContract") {
+      console.log(this.props.type)
+      if (this.props.type === enums.Received) {
+        return (
+          <div className={styles.txType}>
+            <TopRightArrow className={styles.iconReceived} />
+            <div>Received</div>
+          </div>
+        )
+      }
       return (
-        <div className={`${styles.txAmount} ${styles.green}`}>
-          + <FormattedNumber value={dropsToTrx(this.props.amount)} />{" "}
-          {this.props.asset}
+        <div className={styles.txType}>
+          <TopRightArrow className={styles.iconSent} />
+          <div>Sent</div>
         </div>
-      );
-    } else {
+      )
+    }
+    if (this.props.contract_desc === "ParticipateAssetIssueContract") {
       return (
-        <div className={`${styles.txAmount} ${styles.red}`}>
-          - <FormattedNumber value={dropsToTrx(this.props.amount)} />{" "}
-          {this.props.asset}
+        <div className={styles.txType}>
+          <TokensIcon className={styles.iconToken} />
+          <div>Token Purchased</div>
+        </div>
+      )
+    }
+    if (this.props.contract_desc === "FreezeBalanceContract" || this.props.contract_desc === "UnfreezeBalanceContract") {
+      return (
+        <div className={styles.txType}>
+          <SnowIcon className={styles.iconFreeze} />
+          <div>Frozen</div>
+        </div>
+      )
+    }
+    if (this.props.contract_desc === "AssetIssueContract") {
+      return (
+        <div className={styles.txType}>
+          <PencilIcon className={styles.iconToken} />
+          <div>Token Created</div>
+        </div>
+      )
+    }
+    if (this.props.contract_desc === "VoteWitnessContract") {
+      return (
+        <div className={styles.txType}>
+          <VoteIcon className={styles.iconToken} />
+          <div>Vote - {this.props.tx.witness ? this.props.tx.witness.url : ''}</div>
+        </div>
+      )
+    }
+  }
+
+  txAmount() {
+    switch (this.props.contract_desc){
+      case "TransferContract" : {
+        let amount = dropsToTrx(this.props.amount);
+        if(this.props.is_owner){
+          //sent
+          return (
+            <div className={`${styles.txAmount} ${styles.red}`}>
+              - <FormattedNumber value={amount} />{" "}
+              {this.props.asset}
+            </div>
+          );
+        }else{
+          return (
+            <div className={`${styles.txAmount} ${styles.green}`}>
+              + <FormattedNumber value={amount} />{" "}
+              {this.props.asset}
+            </div>
+          );
+        }
+      }
+      case "TransferAssetContract" : {
+        if(this.props.is_owner){
+          //sent
+          return (
+            <div className={`${styles.txAmount} ${styles.red}`}>
+              - <FormattedNumber value={this.props.amount} />{" "}
+              {this.props.asset}
+            </div>
+          );
+        }else{
+          return (
+            <div className={`${styles.txAmount} ${styles.green}`}>
+              + <FormattedNumber value={this.props.amount} />{" "}
+              {this.props.asset}
+            </div>
+          );
+        }
+      }
+      case "ParticipateAssetIssueContract" : {
+        let contract = this.props.tx.asset_issue_contract
+        return (
+          <div>
+            <div className={`${styles.txAmount} ${styles.red}`}>
+              - <FormattedNumber value={dropsToTrx(parseInt(this.props.tx.amount_tokens) * (contract.trx_num / contract.num))} /> TRX
+            </div>
+            <div className={`${styles.txAmount} ${styles.green}`}>
+              + <FormattedNumber value={this.props.tx.amount_tokens} />{" "}
+              {this.props.asset}
+            </div>
+          </div>
+        );
+      }
+      case "FreezeBalanceContract" : {
+        return (
+          <div>
+            <div className={`${styles.txAmount} ${styles.red}`}>
+              - <FormattedNumber value={dropsToTrx(this.props.tx.frozen_balance)} /> TRX
+            </div>
+          </div>
+        );
+      }
+      case "UnfreezeBalanceContract" : {
+        return (
+          <div>
+            <div className={`${styles.txAmount} ${styles.red}`}>
+              + <FormattedNumber value={dropsToTrx(this.props.tx.frozen_balance)} /> TRX
+            </div>
+          </div>
+        );
+      }
+      case "AssetIssueContract" : {
+        return (
+          <div>
+            <div className={`${styles.txAmount} ${styles.red}`}>
+              - <FormattedNumber value={1024} /> TRX
+            </div>
+            <div className={`${styles.txAmount} ${styles.green}`}>
+              + <FormattedNumber value={this.props.tx.total_supply} /> {this.props.tx.name}
+            </div>
+          </div>
+        );
+      }
+      case "VoteWitnessContract" : {
+        return (
+          <div>
+            <div className={`${styles.txAmount} ${styles.green}`}>
+              <FormattedNumber value={this.props.tx.votes[0].vote_count} /> TP
+            </div>
+          </div>
+        );
+      }
+      default:
+
+      return (
+        <div>
+          type {this.props.contract_desc} not implemented
         </div>
       );
     }
+
   }
 
   render() {
@@ -59,16 +227,7 @@ class Transaction extends Component {
         }
         className={styles.tx}
       >
-        <div className={styles.txType}>
-          <TopRightArrow
-            className={
-              this.props.type === enums.Received
-                ? styles.iconReceived
-                : styles.iconSent
-            }
-          />
-          <div>{enums[this.props.type]}</div>
-        </div>
+        { this.chooseIcon() }
         <div className={styles.txInfo}>
           {this.txAmount()}
           <div className={styles.txDate}>

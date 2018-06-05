@@ -39,14 +39,12 @@ class PasswordModal extends Component {
     this.setState({
       pw: e.target.value.trim()
     });
-    console.log(this.state);
   }
 
   setConfirm(e) {
     this.setState({
       confirm: e.target.value.trim()
     });
-    console.log(this.state);
   }
 
   onUserPwReset() {

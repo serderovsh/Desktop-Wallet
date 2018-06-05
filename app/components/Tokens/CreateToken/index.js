@@ -14,7 +14,7 @@ import moment from "moment";
 
 import { PopupModal } from "../../Content/PopupModal";
 
-import { CalendarIcon, ArrowLeftIcon, ArrowRightIcon } from "../../Icons";
+import { ArrowRightIcon } from "../../Icons";
 
 const TronHttpClient = require("tron-http-client");
 const client = new TronHttpClient();
@@ -42,7 +42,8 @@ class CreateToken extends Component {
         startTime: moment(),
         description: "",
         url: "",
-        confirmed: false
+        frozenSupply: 0,
+        frozenDuration: 0,
       }
     };
   }
@@ -54,65 +55,32 @@ class CreateToken extends Component {
   setDateEnd = date =>
     this.setState({ formValues: { ...this.state.formValues, endTime: date } });
 
-  /*
-  if(!(/^([A-Za-z0-9]{3,32})$/.test(name)))
-      errors.push('name');
-
-  if(!(/^([A-Za-z]{1,5})$/.test(abbreviation)))
-      errors.push('abbreviation');
-
-  if((Math.floor(supply) != supply) || supply < 1)
-      errors.push('supply');
-
-  if(description.trim().length > 200 || !description.trim().length)
-      errors.push('description');
-
-  if(url.trim().length > 256 || !url.trim().length)
-      errors.push('url');
-
-  if(frozenSupply && ((Math.floor(frozenSupply) != frozenSupply) || frozenSupply < 1))
-      errors.push('frozen');
-
-  if(frozenDuration && ((Math.floor(frozenDuration) != frozenDuration) || frozenDuration < 1))
-      errors.push('frozen');
-
-  if((Math.floor(exchangeTRX) != exchangeTRX) || exchangeTRX < 1)
-      errors.push('exchange');
-
-  if((Math.floor(exchangeToken) != exchangeToken) || exchangeToken < 1)
-      errors.push('exchange');
-  */
-
-  isValid = ({
-    assetName,
-    assetAbbr,
-    totalSupply,
-    num,
-    trxNum,
-    endTime,
-    startTime,
-    description,
-    url,
-    confirmed
-  }) => {
+  isValid = ({ assetName, assetAbbr, totalSupply, num, trxNum, endTime, startTime, description, url, frozenSupply, frozenDuration}) => {
     let { loading, selectedWallet } = this.state;
-    if (
-      !selectedWallet ||
-      loading ||
-      !/^([A-Za-z0-9]{3,32})$/.test(assetName) ||
-      !/^([A-Za-z]{1,5})$/.test(assetAbbr) ||
-      totalSupply <= 0 ||
-      num <= 0 ||
-      trxNum <= 0 ||
-      Date.parse(endTime._d) <= Date.now() ||
-      Date.parse(startTime._d) <= Date.now() ||
-      description.length === 0 ||
-      url.length === 0 ||
-      confirmed
-    ) {
-      return false;
-    }
 
+    console.log(assetName);
+    if ( !selectedWallet)
+      return "Select a Wallet";
+    if( loading )
+      return "Still loading";
+    if( !/^([A-Za-z0-9]{3,32})$/.test(assetName) || assetName.length <= 0 )
+      "Invalid Asset Name";
+    if(!/^([A-Za-z]{1,5})$/.test(assetAbbr))
+      return "Invalid Abbreviation";
+    if( totalSupply <= 0 )
+      return "Invalid Supply";
+    if( num <= 0 )
+      return "Invalid num per Trx";
+    if( trxNum <= 0 )
+      return "Invalid Trx";
+    if( Date.parse(endTime._d) <= Date.now() )
+      return "Invalid end time";
+    if( Date.parse(startTime._d) <= Date.now() )
+      return "Invalid start time";
+    if( description.length === 0 )
+      return "Invalid description";
+    if( url.length === 0 )
+      return "invalid url";
     return true;
   };
 
@@ -138,7 +106,8 @@ class CreateToken extends Component {
     let { accounts } = this.props;
     let { selectedWallet, formValues } = this.state;
 
-    if (this.isValid(formValues)) {
+    let valid = this.isValid(formValues);
+    if (valid === true) {
       this.setState({ loading: true });
       this.setState({
         showConfirmModal: true,
@@ -147,7 +116,7 @@ class CreateToken extends Component {
     } else {
       this.setState({
         showFailureModal: true,
-        modalFailureText: "Invalid field Inputs."
+        modalFailureText: "Invalid field Inputs: " + valid
       });
     }
   };
@@ -161,6 +130,8 @@ class CreateToken extends Component {
       ...formValues,
       startTime: Date.parse(formValues.startTime._d),
       endTime: Date.parse(formValues.endTime._d),
+      frozenSupply: parseInt(formValues.frozenSupply),
+      frozenDuration: parseInt(formValues.frozenDuration),
       trxNum: formValues.trxNum * 1000000
     };
 
@@ -197,16 +168,16 @@ class CreateToken extends Component {
   }
 
   modalDecline() {
-    this.setState({ showConfirmModal: false });
+    this.setState({ showConfirmModal: false, loading:false });
   }
 
   modalFailureClose() {
-    this.setState({ showFailureModal: false });
+    this.setState({ showFailureModal: false, loading:false});
   }
 
   modalSuccessClose() {
     this.props.history.push(
-      "/wallets/walletDetails/" + this.state.accountAddress
+      "/wallets/walletDetails/" + this.state.selectedWallet.publicKey
     );
     this.setState({ showSuccessModal: false });
   }
@@ -290,6 +261,34 @@ class CreateToken extends Component {
           </div>
           <div className={styles.inputSubText}>
             A website where users can find more information about the token.
+          </div>
+          <div className={styles.divider} />
+          <div className={styles.header}>Frozen Supply :</div>
+          <div className={styles.headerSubText}>
+            The amount of supply can be specified and must be frozen for a minimum of 1 day.
+            The frozen supply can manually be unfrozen after start date + frozen days has been reached.
+            <div className={styles.divider} />
+            <div className={styles.headerSubText}>
+              Freezing supply is not required.
+            </div>
+            <div className={styles.textBoxContainer}>
+              <span>Amount</span>
+              <Input
+                name="frozenSupply"
+                type="number"
+                onChange={this.handleInputChange}
+                className={styles.input}
+              />
+            </div>
+            <div className={styles.textBoxContainer}>
+              <span>Days to Freeze</span>
+              <Input
+                name="frozenDuration"
+                type="number"
+                onChange={this.handleInputChange}
+                className={styles.input}
+              />
+            </div>
           </div>
           <div className={styles.divider} />
           <div className={styles.header}>EXCHANGE RATE :</div>

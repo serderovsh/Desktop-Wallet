@@ -37,6 +37,7 @@
 }
 
 .link {
+  position: relative;
   display: block;
   text-align: center;
   text-decoration: none;
@@ -44,6 +45,30 @@
   font-size: 10px;
   font-weight: 300;
   margin: 8px 0px;
+}
+
+.navText {
+
+}
+
+.navBackground {
+  position: absolute;
+  top: 0;
+  left: 17px;
+  height: 45px;
+  width: 45px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  background: linear-gradient(270deg, #ed3f21 0%, #dc2c73 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: 250ms;
+  transform: scale(0);
+}
+
+.active > .navBackground {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .top {
@@ -58,5 +83,4 @@
 
 .active > svg {
   fill: #fff;
-  background: linear-gradient(270deg, #ed3f21 0%, #dc2c73 100%);
 }

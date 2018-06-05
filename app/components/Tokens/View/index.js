@@ -12,7 +12,7 @@ import { ArrowRightIcon } from "../../Icons";
 import { loadTokens } from "../../../actions/tokens";
 import { PopupModal } from "../../Content/PopupModal";
 
-import { dropsToTrx } from "../../../utils/currency";
+import { dropsToFiat, dropsToTrx } from "../../../utils/currency";
 
 const TronHttpClient = require("tron-http-client");
 
@@ -28,8 +28,8 @@ class TokenView extends Component {
         value: "",
         trx: 0
       },
-
-      sendProperties: {}
+      sendProperties: {},
+      usdAmount: 0
     };
   }
 
@@ -38,27 +38,26 @@ class TokenView extends Component {
   }
 
   getDropFromCurrent() {
-    return (
-      (parseInt(this.state.current) * parseInt(this.state.token.trx_num)) /
-      parseInt(this.state.token.num)
-    );
+    return (parseInt(this.state.amount) * this.state.ratio);
   }
 
   async submitTokenPurchase() {
+    let { amount, ratio } = this.state;
+    console.log('amount ratio final', amount, ratio)
     let drops = this.getDropFromCurrent();
     let tokens = {
       recipient: this.state.token.owner_address,
       assetName: this.state.token.name,
-      amount: this.getDropFromCurrent()
+      amount: (amount / ratio) * 1000000
     };
     let { token } = this.state;
     this.setState({
       ...this.state,
       sendProperties: tokens,
       showConfirmModal: true,
-      modalConfirmText: `Are you sure you want to buy ${this.state.current} ${
+      modalConfirmText: `Are you sure you want to buy ${amount} ${
         token.abbr ? token.abbr : token.name
-      } ${this.props.match.params.token} for ${dropsToTrx(drops)} TRX?`
+      } ${this.props.match.params.token} for ${amount / ratio} TRX?`
     });
   }
 
@@ -70,8 +69,13 @@ class TokenView extends Component {
     this.setState({ selectedWallet: accounts[wallet[0]] });
   };
 
-  onSliderChange(amount) {
-    this.state.current = parseInt(amount);
+  onSliderChange(amount, ratio) {
+    console.log('AR', amount, ratio)
+    this.setState({
+      amount: amount,
+      ratio: ratio,
+      usdAmount: dropsToFiat(this.props.currency, parseInt(amount) * 1000000)
+    });
   }
 
   async modalConfirm() {
@@ -189,6 +193,7 @@ class TokenView extends Component {
             />
           </div>
           <AmountSlider
+            usd={this.state.usdAmount}
             onSliderChange={this.onSliderChange.bind(this)}
             tokenLabel={token.abbr ? token.abbr : token.name}
             assetNum={token.num}
@@ -236,7 +241,7 @@ class TokenView extends Component {
 
 export default withRouter(
   connect(
-    state => ({ wallet: state.wallet, tokens: state.tokens }),
+    state => ({ wallet: state.wallet, tokens: state.tokens, currency: state.currency }),
     dispatch => ({
       loadTokens: props => {
         dispatch(loadTokens(props));

@@ -15,7 +15,7 @@
   justify-content: center;
   flex-wrap: wrap;
   z-index: 2;
-  margin-top: 20px;
+  margin: 20px 0px 15px 0px;
 }
 
 .buttonContainer button {

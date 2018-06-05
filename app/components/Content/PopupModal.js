@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./PopupModal.css";
 
-import Anime from "react-anime";
+import Anime from "../Animation/react-anime";
 import { Button } from "semantic-ui-react";
 import buttonStyles from "../Button.css";
 
 import { CSSTransitionGroup } from "react-transition-group";
-
-import { withRouter } from "react-router-dom";
 
 import {
   CheckMarkBoxAnimation,
@@ -81,13 +78,11 @@ export class PopupModal extends Component {
     if (this.props.modalVis) {
       return (
         <div className={`${styles.container} ${this.modalVis()}`}>
-          <Anime scale={[0.7, 1]} duration={500} delay={100}>
-            <div className={`${styles.subContainer} ${this.props.className}`}>
-              {this.renderSymbol()}
-              <div className={styles.modalText}>{this.props.modalText}</div>
-              {this.renderButtons()}
-            </div>
-          </Anime>
+          <div className={`${styles.subContainer} ${this.props.className}`}>
+            {this.renderSymbol()}
+            <div className={styles.modalText}>{this.props.modalText}</div>
+            {this.renderButtons()}
+          </div>
         </div>
       );
     }

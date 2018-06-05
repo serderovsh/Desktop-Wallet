@@ -4,9 +4,9 @@ import { FormattedNumber } from "react-intl";
 import { Input } from "semantic-ui-react";
 import styles from "./AmountSlider.css";
 
-import { dropsToTrx } from "../../../utils/currency";
+import { dropsToFiat, dropsToTrx } from "../../../utils/currency";
 
-class AmountSlider extends Component {
+export default class AmountSlider extends Component {
   state = {
     current: 0
   };
@@ -14,7 +14,8 @@ class AmountSlider extends Component {
   handleChange = (e, { value }) => {
     //if(this.onSliderChange)
     if (value) {
-      this.props.onSliderChange(this.state.ratio * value);
+      console.log(this.state.ratio, value, this.state.ratio * value)
+      this.props.onSliderChange(value, this.state.ratio);
       this.setState({ current: value });
     } else {
       this.props.onSliderChange(0);
@@ -23,23 +24,26 @@ class AmountSlider extends Component {
   };
 
   get sliderWidthCalc() {
-    console.log(this.state.current, this.props.totalTRX);
     if (this.state.current === 0 || this.props.totalTRX === 0) {
       return 0;
     }
     return Math.round((this.state.current / this.state.assetPossible) * 100);
   }
-  /*<FormattedNumber value={parseInt(this.state.current)} />*/
-  render() {
-    console.log(
-      this.props.assetNum,
-      dropsToTrx(this.props.trxNum),
-      dropsToTrx(this.props.totalTRX)
+
+  renderUsd(amount){
+    if(amount <= 0)
+      return "0.00 USD";
+    console.log(this.props.usd)
+    return (
+      <div className={styles.amountSub}>{parseFloat(amount).toLocaleString()} USD</div>
     );
-    this.state.ratio = this.props.assetNum / dropsToTrx(this.props.trxNum);
-    this.state.assetPossible =
-      this.state.ratio * dropsToTrx(this.props.totalTRX);
-    console.log(this.state.ratio, this.state.assetPossible);
+  }
+
+  render() {
+    console.log(this.props.assetNum, parseInt(dropsToTrx(this.props.totalTRX)))
+    this.state.ratio = this.props.assetNum / parseInt(dropsToTrx(this.props.trxNum));
+    this.state.assetPossible = this.state.ratio * parseInt(dropsToTrx(this.props.totalTRX));
+    console.log('possible', this.state.assetPossible)
     return (
       <div className={styles.container}>
         <div className={styles.amount}>
@@ -50,8 +54,14 @@ class AmountSlider extends Component {
             className={styles.input}
             value={this.state.current}
             onChange={this.handleChange}
-          />{" "}
-          {this.props.tokenLabel}
+          />
+          <div className={styles.amountLabel}>{this.props.tokenLabel}</div>
+        </div>
+        <div className={styles.price}>
+          {this.renderUsd(this.props.usd)}
+        </div>
+        <div className={styles.price}>
+          <div className={styles.amountSub}>{this.state.current / this.state.ratio} TRX</div>
         </div>
         <div className={styles.sliderContainer}>
           <Input
@@ -69,10 +79,10 @@ class AmountSlider extends Component {
           <div className={styles.sliderBG} />
         </div>
         <div className={styles.sliderRange}>
-          <span>0 {this.props.tokenLabel}</span>
+          <span>0 { this.props.tokenLabel }</span>
           <span>
             <FormattedNumber value={this.state.assetPossible} />{" "}
-            {this.props.tokenLabel}
+            { this.props.tokenLabel }
           </span>
         </div>
       </div>
@@ -80,4 +90,3 @@ class AmountSlider extends Component {
   }
 }
 
-export default AmountSlider;
