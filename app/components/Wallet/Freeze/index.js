@@ -38,7 +38,9 @@ class Freeze extends Component {
 
       showSuccessModal: false,
       modalSuccessText: "Success",
-      accountAddress: ""
+      accountAddress: "",
+
+      senderAddress : this.props.match.params.account
     };
   }
 
@@ -188,7 +190,7 @@ class Freeze extends Component {
           onChange={this.onSetSenderAddress.bind(this)}
           placeholder="Sender Address"
           className={commonStyles.address}
-          value={this.props.address}
+          value={this.props.match.params.account}
         />
       </div>
     );

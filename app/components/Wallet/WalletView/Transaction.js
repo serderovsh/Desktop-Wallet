@@ -58,7 +58,6 @@ class Transaction extends Component {
 
   chooseIcon() {
     if (this.props.contract_desc === "TransferContract" || this.props.contract_desc === "TransferAssetContract") {
-      console.log(this.props.type)
       if (this.props.type === enums.Received) {
         return (
           <div className={styles.txType}>
