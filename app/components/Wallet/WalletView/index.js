@@ -39,7 +39,7 @@ class WalletView extends Component {
     let freezeUrl = "";
 
     if(account.watchonly){
-      if(this.props.match.params.token)
+      if(this.props.match.params.token && token !== "TRX")
         sendUrl = "/wallets/createassettransfer/" + accountId + "/" + token;
       else
         sendUrl = "/wallets/createtransfer/" + accountId;
