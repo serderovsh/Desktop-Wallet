@@ -16,16 +16,13 @@ class WebsocketContainer extends Component {
   }
 
   websocketOnMessage(event) {
-    console.log(event);
     try {
       let msg = JSON.parse(event.data);
       if (msg.cmd === "ADDRESS_EVENT") {
-        console.log(`received address change notification: `);
         this.props.startUpdating(this.props.wallet.persistent, msg.address);
       } else if (msg.symbol === "TRX" && msg["USD"].price) {
         this.props.setFiatPrice(CURRENCY.USD, msg["USD"].price);
       } else {
-        console.log(`unknown message: `);
       }
     } catch (e) {
       //console.log(e);
@@ -57,7 +54,6 @@ class WebsocketContainer extends Component {
 
   addWebsocketAlert(address) {
     if (this.state.websocket.readyState === WebSocket.OPEN) {
-      console.log(`requesting alerts for ${address}`);
       this.state.websocket.send(
         JSON.stringify({
           cmd: "START_ALERT",
@@ -94,7 +90,7 @@ class WebsocketContainer extends Component {
     let keys = Object.keys(this.props.wallet.persistent.accounts);
     this.addAddresses(keys);
 
-    return <div keepAlive={keys.count} />;
+    return <div pingpong={keys.count} />;
   }
 
   guid() {

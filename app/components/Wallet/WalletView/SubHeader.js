@@ -6,7 +6,6 @@ import { dropsToTrx } from "../../../utils/currency";
 
 export default class SubHeader extends Component {
   render() {
-    console.log(this.props.account);
     return (
       <div className={styles.main}>
         <div className={styles.mainAmount}>

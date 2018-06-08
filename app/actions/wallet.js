@@ -81,12 +81,8 @@ export const onSetPassword = (props, newPassword) => {
   };
 };
 
-export const addAccount = async (
-  props,
-  accountName,
-  dispatch,
-  newAccount = null
-) => {
+
+export const addAccount = async ( props, accountName, dispatch, newAccount = null) => {
   console.log("adding account with name: " + accountName);
   if (!accountName || accountName === "") accountName = "Unnamed Account";
   let persistent = props.wallet.persistent;
@@ -109,7 +105,9 @@ export const addAccount = async (
 
     frozenBalance: 0,
     frozenExpireTime: 0,
-    bandwidth: 0
+    bandwidth: 0,
+
+    watchonly : (newAccount.watchonly === true)
   };
 
   let newWalletState =
@@ -224,14 +222,7 @@ export const initFromStorage = (props, dispatch) => {
   if (persistent) {
     try {
       console.log("loaded encrypted persistent:");
-      console.log(persistent);
 
-      //testing
-      /*
-            setTimeout(()=>{
-                decryptPersistent(persistent, "", dispatch);
-            },0);
-            */
       return {
         type: INITIALIZATION_NEED_DECRYPTION,
         wallet_state: WALLET_STATE.NEEDS_USER_UNLOCK,

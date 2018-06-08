@@ -34,6 +34,7 @@ class WalletView extends Component {
     let token = this.props.match.params.token
       ? this.props.match.params.token
       : "";
+
     return (
       <Secondary>
         <div className={styles.headerContainer}>
