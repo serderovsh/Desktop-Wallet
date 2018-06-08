@@ -30,7 +30,7 @@ class SendAmount extends Component {
             modalConfirmText: "",
 
             target: "",
-            tokenStr: this.props.match.params.token,
+            tokenStr: "",
 
             sendProperties: {},
 
@@ -45,6 +45,7 @@ class SendAmount extends Component {
 
             usdAmount: 0,
 
+            assetName: this.props.match.params.token,
             senderAddress : this.props.match.params.account
         };
     }
