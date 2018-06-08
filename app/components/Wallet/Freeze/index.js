@@ -38,7 +38,9 @@ class Freeze extends Component {
 
       showSuccessModal: false,
       modalSuccessText: "Success",
-      accountAddress: ""
+      accountAddress: "",
+
+      senderAddress : this.props.match.params.account
     };
   }
 

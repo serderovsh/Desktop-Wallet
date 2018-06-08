@@ -43,7 +43,9 @@ class SendAmount extends Component {
 
             coldOutputString : "",
 
-            usdAmount: 0
+            usdAmount: 0,
+
+            senderAddress : this.props.match.params.account
         };
     }
 

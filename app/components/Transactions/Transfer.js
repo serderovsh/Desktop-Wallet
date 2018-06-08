@@ -26,7 +26,6 @@ class Transfer extends Component {
 
     this.state = {
       amount: 0,
-      userAddress: "",
       recipientAddress: "",
 
       showConfirmModal: false,
@@ -43,7 +42,9 @@ class Transfer extends Component {
       showSuccessModal: false,
       modalSuccessText: "Success",
       accountAddress: "",
-      outputText: ""
+      outputText: "",
+
+      userAddress: this.props.match.params.account
     };
   }
 
