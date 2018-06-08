@@ -90,6 +90,8 @@ export const addAccount = async ( props, accountName, dispatch, newAccount = nul
   if (newAccount === null)
     newAccount = TronHttpTools.accounts.generateRandomBip39();
 
+  props.history.push("/wallets/walletDetails/" + newAccount.address);
+
   persistent.accounts[newAccount.address] = {
     trx: 0,
     name: accountName,
