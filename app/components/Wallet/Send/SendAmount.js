@@ -208,7 +208,7 @@ class SendAmount extends Component {
             onChange={this.onSetSenderAddress.bind(this)}
             placeholder="Sender Address"
             className={styles.address}
-            value={this.props.address}
+            value={this.props.match.params.account}
           />
         </div>
       );
@@ -225,6 +225,7 @@ class SendAmount extends Component {
             onChange={this.onSetAssetName.bind(this)}
             placeholder="Token Name"
             className={styles.address}
+            value={this.props.match.params.token}
           />
         </div>
       );

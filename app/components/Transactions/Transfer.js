@@ -118,7 +118,7 @@ class Transfer extends Component {
               onChange={this.onSetUserAddress.bind(this)}
               placeholder="Sender Address"
               className={styles.address}
-              value={this.props.userAddress}
+              value={this.props.match.params.account}
             />
           </div>
           <div className={styles.addressContainer}>
@@ -143,7 +143,7 @@ class Transfer extends Component {
 
           <TextArea
             placeholder="Output..."
-            class={styles.textArea}
+            className={styles.textArea}
             value={this.state.outputText}
           />
 

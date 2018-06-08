@@ -35,22 +35,38 @@ class WalletView extends Component {
       ? this.props.match.params.token
       : "";
 
+    let sendUrl = "";
+    let freezeUrl = "";
+
+    if(account.watchonly){
+      if(this.props.match.params.token)
+        sendUrl = "/wallets/createassettransfer/" + accountId + "/" + token;
+      else
+        sendUrl = "/wallets/createtransfer/" + accountId;
+      freezeUrl = "/wallets/createfreeze/" + accountId;
+    }else{
+      sendUrl = "/wallets/send/" + accountId + "/" + token;
+      freezeUrl = "/wallets/freeze/" + accountId + "/" + token;
+    }
+
+
     return (
       <Secondary>
         <div className={styles.headerContainer}>
           <Header headerName={account.name}>
             <Dropdown className={styles.moreMenu} icon={<MoreIcon />}>
               <Dropdown.Menu>
+                {!account.watchonly ? (
                 <NavLink to={"/wallets/walletBackup/" + accountId}>
                   <Dropdown.Item text="Backup Wallet" icon={<DownloadIcon />} />
-                </NavLink>
+                </NavLink>) : ""}
               </Dropdown.Menu>
             </Dropdown>
           </Header>
           <SubHeader account={account} />
         </div>
         <div className={styles.buttonContainer}>
-          <NavLink to={"/wallets/send/" + accountId + "/" + token}>
+          <NavLink to={sendUrl}>
             <Button className={buttonStyles.button}>
               <SendIcon />Send
             </Button>
@@ -60,16 +76,17 @@ class WalletView extends Component {
               <QRScanIcon />Receive
             </Button>
           </NavLink>
-          <NavLink to={"/wallets/freeze/" + accountId + "/" + token}>
+          <NavLink to={freezeUrl}>
             <Button className={buttonStyles.button}>
               <SnowIcon />Freeze TRX
             </Button>
           </NavLink>
-          <NavLink to={"/wallets/offline/" + accountId}>
+          {!account.watchonly ?
+          (<NavLink to={"/wallets/offline/" + accountId}>
             <Button className={buttonStyles.button}>
               <PencilIcon />Offline Sign
             </Button>
-          </NavLink>
+          </NavLink>) : ""}
         </div>
         {/*<DatePicker/>*/}
         <TxList />
