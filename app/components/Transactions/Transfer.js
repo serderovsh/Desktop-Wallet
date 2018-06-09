@@ -26,7 +26,6 @@ class Transfer extends Component {
 
     this.state = {
       amount: 0,
-      userAddress: "",
       recipientAddress: "",
 
       showConfirmModal: false,
@@ -43,7 +42,9 @@ class Transfer extends Component {
       showSuccessModal: false,
       modalSuccessText: "Success",
       accountAddress: "",
-      outputText: ""
+      outputText: "",
+
+      userAddress: this.props.match.params.account
     };
   }
 
@@ -118,7 +119,7 @@ class Transfer extends Component {
               onChange={this.onSetUserAddress.bind(this)}
               placeholder="Sender Address"
               className={styles.address}
-              value={this.props.userAddress}
+              value={this.props.match.params.account}
             />
           </div>
           <div className={styles.addressContainer}>
@@ -143,7 +144,7 @@ class Transfer extends Component {
 
           <TextArea
             placeholder="Output..."
-            class={styles.textArea}
+            className={styles.textArea}
             value={this.state.outputText}
           />
 

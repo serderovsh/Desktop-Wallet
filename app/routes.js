@@ -125,7 +125,7 @@ export const routes = [
   },
   /* OFFLINE SIGNING STUFF*/
   {
-    path: "/wallets/createtransfer/",
+    path: "/wallets/createtransfer/:account?",
     main: () => <Transfer />
   },
   {
@@ -133,11 +133,11 @@ export const routes = [
     main: () => <Broadcast/>
   },
   {
-    path: "/wallets/createassettransfer/",
+    path: "/wallets/createassettransfer/:account?/:token?",
     main: () => <SendAmount isCold='true'/>
   },
   {
-    path: "/wallets/createfreeze",
+    path: "/wallets/createfreeze/:account?",
     main: () => <Freeze isCold='true'/>
   },
 

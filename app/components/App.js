@@ -48,31 +48,22 @@ class App extends React.Component {
       this.props.wallet.persistent_encrypted,
       pw
     );
-    console.log("result:");
-    console.log(result);
     if (result === false) {
-      console.log("wrong pw");
-
       this.setState({
         userHasEnteredWrongPw: true
       });
     } else {
-      console.log("sup");
       this.setState({
         userHasEnteredWrongPw: false
       });
     }
-    console.log(this.state);
   }
 
   onCreatePassword(pw) {
-    console.log("onCreatePassword");
-    console.log(pw);
     this.props.onSetPassword(this.props, pw);
   }
 
   onUserPwReset() {
-    console.log("user wants to reset");
     this.setState({
       showResetModal: true
     });
