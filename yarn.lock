@@ -9975,16 +9975,16 @@ trim@0.0.1:
   resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
 
 tron-http-client@tronwatch/tron-http-client:
-  version "1.0.22"
-  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/c54e4e5375f3378d605be56cf91f224be1498690"
+  version "1.0.25"
+  resolved "https://codeload.github.com/tronwatch/tron-http-client/tar.gz/af6fc797d3ef6e6455a70205fa79eb2f765da8a5"
   dependencies:
     axios "^0.18.0"
     qs "^6.5.2"
     tron-http-tools tronwatch/tron-http-tools
 
 tron-http-tools@tronwatch/tron-http-tools:
-  version "1.0.23"
-  resolved "https://codeload.github.com/tronwatch/tron-http-tools/tar.gz/255a4245f4610c35b22828a525c8dc57866f0f0b"
+  version "1.0.25"
+  resolved "https://codeload.github.com/tronwatch/tron-http-tools/tar.gz/9a340caba6ce2254ec2927dedd31d040f2121da6"
   dependencies:
     assert "^1.4.1"
     bip39 "2.3.0"
