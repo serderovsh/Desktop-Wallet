@@ -74,7 +74,7 @@ class VoteList extends Component {
           </CSSTransitionGroup>
         </div>
         <div className={styles.buttonContainer}>
-          <NavLink to="#">
+          <NavLink to="/vote/voting/">
             <Button
               className={`${buttonStyles.button} ${buttonStyles.gradient}`}
             >

@@ -28,6 +28,7 @@ import OfflineSignature from "./components/Wallet/OfflineSignature";
 import Transfer from "./components/Transactions/Transfer";
 import Tronwatch from "./components/Content/Tronwatch";
 import Broadcast from './components/Transactions/Broadcast';
+import VoteMultiple from './components/Vote/Votes/';
 
 export const routes = [
   {
@@ -105,6 +106,10 @@ export const routes = [
   {
     path: "/vote/voteDetails/:rep",
     main: () => <VoteDetails />
+  },
+  {
+    path: "/vote/voting/",
+    main: () => <VoteMultiple />
   },
   {
     path: "/tokens/",
