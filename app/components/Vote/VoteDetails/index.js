@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Dropdown, Button } from "semantic-ui-react";
-import { withRouter, NavLink } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import styles from "./VoteDetails.css";
 import buttonStyles from "../../Button.css";
@@ -164,7 +164,7 @@ class VoteDetails extends Component {
     return (
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
-          <Header headerName="Votes" />
+          <Header headerName="Witness Details" />
           <div className={styles.headerTP}>
             {selectedWallet.frozenBalance}
             <span>TP</span>

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { CSSTransitionGroup } from "react-transition-group";
+import { Button } from "semantic-ui-react";
 
 import { loadWitnesses } from "../../actions/witnesses";
 import { MoreIcon, WalletIcon, DownloadIcon } from "../Icons";
@@ -9,6 +11,7 @@ import Header from "../ContentPrimaryHeader";
 import Vote from "./Vote";
 
 import styles from "./VoteList.css";
+import buttonStyles from "../Button.css";
 
 class VoteList extends Component {
   constructor(props) {
@@ -20,7 +23,7 @@ class VoteList extends Component {
     };
   }
 
-  filterTokens = e => {
+  filterWitness = e => {
     let filtered = this.props.witnesses.witnesses.filter(witness => {
       return witness.url.toLowerCase().includes(e.target.value.toLowerCase());
     });
@@ -43,7 +46,7 @@ class VoteList extends Component {
         <input
           className={styles.input}
           placeholder="Search for a Witness here..."
-          onChange={this.filterTokens}
+          onChange={this.filterWitness}
         />
         <div className={styles.votesContainer}>
           {witnesses.length < 1 ? (
@@ -56,11 +59,11 @@ class VoteList extends Component {
             transitionEnterTimeout={300}
             transitionLeaveTimeout={300}
           >
-            {witnesses.map((rep, i) => (
+            {witnesses.sort((a, b) => { return b.votecount - a.votecount; }).map((rep, i) => (
               <Vote
                 key={i}
                 voteLabel={i + 1}
-                voteTitle={rep.url}
+                voteTitle={rep.ownerAccount.account_name || rep.url}
                 lastBlock={rep.latestblocknum}
                 blocksProduced={rep.totalproduced}
                 blocksMissed={rep.totalmissed}
@@ -70,6 +73,15 @@ class VoteList extends Component {
             ))}
           </CSSTransitionGroup>
         </div>
+        <div className={styles.buttonContainer}>
+          <NavLink to="#">
+            <Button
+              className={`${buttonStyles.button} ${buttonStyles.gradient}`}
+            >
+              Start Voting
+            </Button>
+          </NavLink>
+        </div>
       </div>
     );
   }
@@ -78,7 +90,6 @@ class VoteList extends Component {
 export default connect(
   state => ({
     witnesses: state.witnesses,
-    searchString: state.app.searchString,
     router: state.router
   }),
   dispatch => ({
