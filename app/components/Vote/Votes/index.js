@@ -27,8 +27,9 @@ class VoteMultiple extends Component {
         text: "Select a Wallet",
         value: "",
         frozenBalance: 0,
-        lastVotes : {}
+        lastVotes: {}
       },
+      sendProperties: {},
     };
   }
   setVote = (address, numberOfVotes) => {
@@ -91,7 +92,6 @@ class VoteMultiple extends Component {
   };
 
   async modalConfirm() {
-    let { account } = this.props;
     let { votes } = this.state;
     let witVotes = {};
 
@@ -162,6 +162,12 @@ class VoteMultiple extends Component {
       return this.state.selectedWallet.lastVotes[witnessAddress];
   }
 
+  resetVotes = () => {
+    this.setState({
+      votes: {},
+    });
+  };
+
   render() {
     let { selectedWallet, votes, witnesses } = this.state;
 
@@ -176,7 +182,7 @@ class VoteMultiple extends Component {
       wallets.push(formattedObj);
     });
 
-    witnesses = sortBy(witnesses, w => w.votecount *-1).map((w, index) => ({
+    witnesses = sortBy(witnesses, w => w.votecount * -1).map((w, index) => ({
       ...w,
       rank: index,
     }));
@@ -209,7 +215,7 @@ class VoteMultiple extends Component {
           </div>
           <div className={styles.buttonContainer}>
             <Button
-              // onClick={this.clickReset.bind(this)}
+              onClick={this.resetVotes.bind(this)}
               className={`${buttonStyles.button} ${buttonStyles.black}`}
             >
               Reset
@@ -249,7 +255,7 @@ class VoteMultiple extends Component {
                     <Table.Cell className={styles.input}>
                       <input
                         type="text"
-                        value={this.getVotesFor(rep.address) || votes[rep.address] || ""}
+                        value={votes[rep.address] || ""}
                         onChange={(event) => this.setVote(rep.address, event.target.value)}
                       />
                     </Table.Cell>
