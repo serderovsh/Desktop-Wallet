@@ -24,7 +24,8 @@ class VoteMultiple extends Component {
       selectedWallet: {
         text: "Select a Wallet",
         value: "",
-        frozenBalance: 0
+        frozenBalance: 0,
+        lastVotes : {}
       },
       sendProperties: {}
     };
@@ -49,12 +50,29 @@ class VoteMultiple extends Component {
     });
   }
 
+  updateCurrentAccountTransactions(account){
+    account.lastVotes = {};
+    for(let t in account.transactions){
+      let transaction = account.transactions[t];
+      if(transaction.contract_desc === 'VoteWitnessContract'){
+        for(let v in transaction.votes){
+          let vote = transaction.votes[v];
+          account.lastVotes[vote.vote_address] = parseInt(vote.vote_count);
+        }
+        break;
+      }
+    }
+    return account;
+  }
+
   selectWallet = (e, { value }) => {
     let accounts = this.props.wallet.persistent.accounts;
     let wallet = Object.keys(accounts).filter(
       wallet => accounts[wallet].publicKey === value
     );
-    this.setState({ selectedWallet: accounts[wallet[0]] });
+    let account = this.updateCurrentAccountTransactions(accounts[wallet[0]]);
+    console.log(account);
+    this.setState({ selectedWallet: account });
   };
 
   async modalConfirm() {
@@ -125,6 +143,12 @@ class VoteMultiple extends Component {
 
   modalClose() {
     this.state.showConfirmModal = false;
+  }
+
+  getVotesFor(witnessAddress){
+    if(this.state.selectedWallet.lastVotes[witnessAddress])
+      return this.state.selectedWallet.lastVotes[witnessAddress];
+    return 0;
   }
 
   render() {
@@ -210,7 +234,7 @@ class VoteMultiple extends Component {
                     </Table.Cell>
                     <Table.Cell className={styles.input}>
                       <input
-                        value={this.state.witnesses.count}
+                        value={this.getVotesFor(rep.address)}
                       />
                     </Table.Cell>
                   </Table.Row>
