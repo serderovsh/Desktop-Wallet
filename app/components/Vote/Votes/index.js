@@ -93,10 +93,13 @@ class VoteMultiple extends Component {
 
   async modalConfirm() {
     let { votes } = this.state;
-    let witVotes = {};
+    let witVotes = [];
 
     for (let address of Object.keys(votes)) {
-      witVotes[address] = parseInt(votes[address]);
+      witVotes.push({
+        address : address,
+        count : parseInt(votes[address])
+      });
     }
     console.log(witVotes)
     let client = new TronHttpClient();
