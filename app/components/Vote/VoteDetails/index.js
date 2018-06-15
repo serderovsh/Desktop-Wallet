@@ -63,7 +63,6 @@ class VoteDetails extends Component {
 
   onSliderChange(amount) {
     this.state.current = amount;
-    console.log(`amount: ${amount}`);
   }
 
   async modalConfirm() {

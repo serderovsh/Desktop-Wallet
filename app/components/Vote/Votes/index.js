@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import {sortBy, isNaN} from "lodash";
 import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
 import { Dropdown, Button, Table } from "semantic-ui-react";
@@ -19,6 +20,7 @@ class VoteMultiple extends Component {
     super(props);
 
     this.state = {
+      votes: {},
       witnesses: this.props.witnesses.witnesses,
       wallets: [],
       selectedWallet: {
@@ -27,14 +29,28 @@ class VoteMultiple extends Component {
         frozenBalance: 0,
         lastVotes : {}
       },
-      sendProperties: {}
     };
   }
+  setVote = (address, numberOfVotes) => {
+    let {votes} = this.state;
+
+    if (numberOfVotes !== "") {
+      numberOfVotes = parseInt(numberOfVotes);
+      numberOfVotes = isNaN(numberOfVotes) ? "" : numberOfVotes;
+
+      if (numberOfVotes < 0) {
+        numberOfVotes = 0;
+      }
+    }
+    votes[address] = numberOfVotes;
+    this.setState({
+      votes,
+    });
+  };
 
   componentDidMount() {
     this.props.loadWitnesses();
   }
-
 
   async clickSubmit() {
     let address = this.state.witnesses.address;
@@ -71,34 +87,32 @@ class VoteMultiple extends Component {
       wallet => accounts[wallet].publicKey === value
     );
     let account = this.updateCurrentAccountTransactions(accounts[wallet[0]]);
-    console.log(account);
     this.setState({ selectedWallet: account });
   };
 
   async modalConfirm() {
-    let votes = [
-      {
-        address: this.state.witnesses.address,
-        count: parseInt(this.state.count)
-      }
-    ];
+    let { account } = this.props;
+    let { votes } = this.state;
+    let witVotes = {};
+
+    for (let address of Object.keys(votes)) {
+      witVotes[address] = parseInt(votes[address]);
+    }
+    console.log(witVotes)
     let client = new TronHttpClient();
-    let response = await client
-      .vote(this.state.selectedWallet.privateKey, votes)
+    let response = await client.vote(this.state.selectedWallet.privateKey, witVotes)
       .catch(x => null);
 
     if (response === null) {
       this.setState({
         ...this.state,
-        sendProperties: {},
         showConfirmModal: false,
         showFailureModal: true,
         modalFailureText: "Voting failed"
       });
-    } else if (response.result != true) {
+    } else if (response.result !== true) {
       this.setState({
         ...this.state,
-        sendProperties: {},
         showConfirmModal: false,
         showFailureModal: true,
         modalFailureText: "Voting failed: " + response.message
@@ -106,13 +120,11 @@ class VoteMultiple extends Component {
     } else {
       this.setState({
         ...this.state,
-        sendProperties: {},
         showConfirmModal: false,
         showSuccessModal: true,
         modalSuccessText: "Vote Successful!"
       });
     }
-
     console.log(response);
   }
 
@@ -148,11 +160,10 @@ class VoteMultiple extends Component {
   getVotesFor(witnessAddress){
     if(this.state.selectedWallet.lastVotes[witnessAddress])
       return this.state.selectedWallet.lastVotes[witnessAddress];
-    return 0;
   }
 
   render() {
-    let { selectedWallet } = this.state;
+    let { selectedWallet, votes, witnesses } = this.state;
 
     let accountId = this.props.match.params.account;
     let accounts = this.props.wallet.persistent.accounts;
@@ -165,7 +176,10 @@ class VoteMultiple extends Component {
       wallets.push(formattedObj);
     });
 
-    let witnesses = this.state.witnesses;
+    witnesses = sortBy(witnesses, w => w.votecount *-1).map((w, index) => ({
+      ...w,
+      rank: index,
+    }));
 
     return (
       <Secondary className={styles.container}>
@@ -218,10 +232,10 @@ class VoteMultiple extends Component {
             </Table.Header>
             <Table.Body>
               {
-                witnesses.sort((a, b) => { return b.votecount - a.votecount; }).map((rep, i) => (
-                  <Table.Row key={i}>
+                witnesses.map(rep => (
+                  <Table.Row key={rep.address}>
                     <Table.Cell>
-                      {i + 1}
+                      {rep.rank + 1}
                     </Table.Cell>
                     <Table.Cell>
                       <div>
@@ -234,7 +248,9 @@ class VoteMultiple extends Component {
                     </Table.Cell>
                     <Table.Cell className={styles.input}>
                       <input
-                        value={this.getVotesFor(rep.address)}
+                        type="text"
+                        value={this.getVotesFor(rep.address) || votes[rep.address] || ""}
+                        onChange={(event) => this.setVote(rep.address, event.target.value)}
                       />
                     </Table.Cell>
                   </Table.Row>
@@ -251,7 +267,6 @@ class VoteMultiple extends Component {
           modalConfirm={this.modalConfirm.bind(this)}
           modalDecline={this.modalDecline.bind(this)}
         />
-
         <PopupModal
           failure
           modalVis={this.state.showFailureModal}
@@ -259,7 +274,6 @@ class VoteMultiple extends Component {
           closeModalFunction={this.modalFailureClose.bind(this)}
           modalConfirm={this.modalFailureClose.bind(this)}
         />
-
         <PopupModal
           success
           modalVis={this.state.showSuccessModal}
