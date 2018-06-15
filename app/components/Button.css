@@ -34,6 +34,11 @@
   color: #eee;
 }
 
+.green {
+  background-color: #1fbe9a;
+  color: #0b0f12;
+}
+
 .gradient {
   color: #fff;
   background: linear-gradient(270deg, #ed3f21 0%, #dc2c73 100%);
@@ -47,6 +52,11 @@
 .black:active {
   color: #aaa;
   opacity: 0.9;
+}
+
+.green:hover {
+  background-color: #1fbe9a;
+  color: #0b0f12;
 }
 
 .gradient:hover {

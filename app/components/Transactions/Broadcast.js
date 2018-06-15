@@ -23,6 +23,12 @@ function isHex(h){
   return (a.toString(16) === h);
 }
 
+function hexToBase64(hexstring) {
+  return btoa(hexstring.match(/\w{2}/g).map(function(a) {
+    return String.fromCharCode(parseInt(a, 16));
+  }).join(""));
+}
+
 class Broadcast extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +44,7 @@ class Broadcast extends Component {
 
   async onClickSend() {
     try {
-      let b64= new Buffer(this.state.inputValueString.trim(), 'hex').toString('base64');
+      let b64= hexToBase64(this.state.inputValueString.trim());
       let response = await client.broadcastBase64Transaction(b64);
 
       if(response && response.result == true){
@@ -53,7 +59,7 @@ class Broadcast extends Component {
     } catch (e) {
       console.log(e);
       this.setState({
-        responseString: "Something went wrong. Make sure to input a signed Transaction, base64 or hex encoded."
+        responseString: "Something went wrong. Make sure to input a signed Transaction, base64 or hex encoded. " + e.toString()
       });
     }
   }

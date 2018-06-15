@@ -35,12 +35,14 @@
   fill: #9b9b9b;
   font-size: 25px;
   padding: 0px 20px;
+  min-width: 24px;
 }
 
 .wallet > .arrowIcon {
   fill: #fff;
   font-size: 30px;
   padding: 15px;
+  min-width: 24px;
 }
 
 .wallet svg {
@@ -51,6 +53,7 @@
   font-size: 12px;
   text-align: left;
   flex-grow: 1;
+  min-width: 0;
 }
 
 .token {
@@ -64,6 +67,9 @@
   font-family: "Roboto", sans-serif;
   color: #fff;
   margin-bottom: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .publicKey {
