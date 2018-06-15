@@ -68,17 +68,21 @@ class VoteMultiple extends Component {
   }
 
   updateCurrentAccountTransactions(account){
-    account.lastVotes = {};
+    let votes = {};
     for(let t in account.transactions){
       let transaction = account.transactions[t];
       if(transaction.contract_desc === 'VoteWitnessContract'){
         for(let v in transaction.votes){
           let vote = transaction.votes[v];
-          account.lastVotes[vote.vote_address] = parseInt(vote.vote_count);
+          votes[vote.vote_address] = parseInt(vote.vote_count);
         }
         break;
       }
     }
+
+    this.setState({
+      votes
+    });
     return account;
   }
 
@@ -96,10 +100,13 @@ class VoteMultiple extends Component {
     let witVotes = [];
 
     for (let address of Object.keys(votes)) {
-      witVotes.push({
-        address : address,
-        count : parseInt(votes[address])
-      });
+      let count = parseInt(votes[address]);
+      if(count > 0){
+        witVotes.push({
+          address : address,
+          count : count
+        });
+      }
     }
     console.log(witVotes)
     let client = new TronHttpClient();
