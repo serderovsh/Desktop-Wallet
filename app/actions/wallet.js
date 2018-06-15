@@ -192,6 +192,11 @@ export const startUpdateAccountsAsync = (persistent, dispatch) => {
       }
     }
     dispatch(updateAllAccounts(persistent));
+
+    for (let j = 0; j < accountIds.length; j++) {
+      await updateTransferTransactions(accountIds[j], dispatch);
+    }
+
   }, 0);
 };
 
