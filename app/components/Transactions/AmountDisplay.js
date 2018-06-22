@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { FormattedNumber } from "react-intl";
 import styles from "./AmountDisplay.css";
 
 import AmountInput from "./AmountInput";

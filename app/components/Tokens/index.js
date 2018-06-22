@@ -31,7 +31,6 @@ class TokenList extends Component {
   };
 
   render() {
-    console.log(this.state.tokens[0])
     return (
       <div className={styles.container}>
         <Header text="TOKENS :" />

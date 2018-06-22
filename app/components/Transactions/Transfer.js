@@ -13,12 +13,12 @@ import { TextArea } from "semantic-ui-react";
 import { trxToDrops } from "../../utils/currency";
 
 import TronHttpClient from "tron-http-client";
-import BackButton from '../Content/BackButton';
+import BackButton from "../Content/BackButton";
 
 const client = new TronHttpClient();
 const tools = require("tron-http-tools");
 
-import {toHexString} from "../../utils/hex";
+import { toHexString } from "../../utils/hex";
 
 class Transfer extends Component {
   constructor(props) {
@@ -64,7 +64,6 @@ class Transfer extends Component {
       this.setState({
         outputText: hex
       });
-      console.log(hex);
     } catch (e) {
       this.setState({
         outputText: "Something went wrong. Make sure to input valid values."
@@ -103,7 +102,7 @@ class Transfer extends Component {
     this.state.tokenStr = token;
     return (
       <div className={styles.container}>
-        <BackButton/>
+        <BackButton />
         <Header className={styles.white} headerName="Create Raw Transfer" />
         <div onClick={this.props.history.goBack} className={styles.backArrow}>
           <BackArrowIcon />

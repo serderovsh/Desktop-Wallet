@@ -62,7 +62,7 @@
   margin-bottom: 15px;
 }
 
-.selectable{
+.selectable {
   -moz-user-select: text;
   -khtml-user-select: text;
   -webkit-user-select: text;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { TextArea, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import styles from "./OfflineSignature.css";
@@ -12,7 +12,7 @@ import {
   DownloadIcon
 } from "../../Icons";
 import buttonStyles from "../../Button.css";
-import BackButton from '../../Content/BackButton';
+import BackButton from "../../Content/BackButton";
 import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
 
@@ -50,19 +50,22 @@ class OfflineSignature extends Component {
     this.setState({
       hexAfter: toHexString(signed.serializeBinary())
     });
-
-    console.log(transaction.toObject());
   };
 
   render() {
     return (
       <Secondary>
         <div className={styles.container}>
-          <BackButton/>
+          <BackButton />
           <Header headerName="Offline Signature" />
           <div className={styles.subContainer}>
             <div className={styles.header}>Sign Transactions:</div>
-            <div className={styles["sub-header"]}>You can broadcast the ouput using <span className={styles.selectable}>https://tronscan.org/#/tools/transaction-viewer</span></div>
+            <div className={styles["sub-header"]}>
+              You can broadcast the ouput using{" "}
+              <span className={styles.selectable}>
+                https://tronscan.org/#/tools/transaction-viewer
+              </span>
+            </div>
             <TextArea
               placeholder="Paste unsigned transaction here..."
               className={styles.textArea}

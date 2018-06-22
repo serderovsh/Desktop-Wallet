@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./Language.css";
 
 import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
 
 import { Form, TextArea, Button } from "semantic-ui-react";
-import buttonStyles from "../../Button.css";
 
 import { TranslateIcon, ArrowRightIcon } from "../../Icons";
 

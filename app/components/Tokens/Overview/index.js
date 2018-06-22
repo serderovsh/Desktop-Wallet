@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button, Dropdown } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import { filter, sortBy } from "lodash";
-
 import styles from "./Overview.css";
-
 import buttonStyles from "../../Button.css";
-
 import Token from "./Token";
 import { loadTokens } from "../../../actions/tokens";
 

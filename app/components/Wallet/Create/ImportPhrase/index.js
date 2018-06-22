@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import styles from "./Import.css";
 
-import { Checkbox, Input, Form, Button } from "semantic-ui-react";
+import { Input, Form } from "semantic-ui-react";
 import buttonStyles from "../../../Button.css";
 import { addAccount } from "../../../../actions/wallet";
 

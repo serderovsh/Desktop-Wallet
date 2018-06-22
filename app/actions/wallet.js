@@ -81,8 +81,12 @@ export const onSetPassword = (props, newPassword) => {
   };
 };
 
-
-export const addAccount = async ( props, accountName, dispatch, newAccount = null) => {
+export const addAccount = async (
+  props,
+  accountName,
+  dispatch,
+  newAccount = null
+) => {
   console.log("adding account with name: " + accountName);
   if (!accountName || accountName === "") accountName = "Unnamed Account";
   let persistent = props.wallet.persistent;
@@ -109,7 +113,7 @@ export const addAccount = async ( props, accountName, dispatch, newAccount = nul
     frozenExpireTime: 0,
     bandwidth: 0,
 
-    watchonly : (newAccount.watchonly === true)
+    watchonly: newAccount.watchonly === true
   };
 
   let newWalletState =
@@ -196,7 +200,6 @@ export const startUpdateAccountsAsync = (persistent, dispatch) => {
     for (let j = 0; j < accountIds.length; j++) {
       await updateTransferTransactions(accountIds[j], dispatch);
     }
-
   }, 0);
 };
 

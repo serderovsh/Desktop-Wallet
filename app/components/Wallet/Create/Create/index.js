@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Checkbox, Input, Form } from "semantic-ui-react";
+import { Input, Form } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -13,8 +13,6 @@ class CreationContent extends Component {
     this.onClickCreate = this.onClickCreate.bind(this);
   }
   state = {};
-
-  // wallet types: 0-Hot, 1-Cold
   toggleRadio = (e, { value }) => this.setState({ value });
   setWalletHot = type => this.setState({ walletType: 0 });
   setWalletCold = type => this.setState({ walletType: 1 });

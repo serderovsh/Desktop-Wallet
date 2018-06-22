@@ -5,10 +5,10 @@ import { Button } from "semantic-ui-react";
 import styles from "./Broadcast.css";
 import Header from "../Header";
 import buttonStyles from "../Button.css";
-import { ContactIcon, BackArrowIcon } from "../Icons";
+import { BackArrowIcon } from "../Icons";
 import { TextArea } from "semantic-ui-react";
 import TronHttpClient from "tron-http-client";
-import BackButton from '../Content/BackButton';
+import BackButton from "../Content/BackButton";
 
 const client = new TronHttpClient();
 const tools = require("tron-http-tools");
@@ -18,15 +18,20 @@ function toHexString(byteArray) {
     return ("0" + (byte & 0xff).toString(16)).slice(-2);
   }).join("");
 }
-function isHex(h){
-  let a = parseInt(h,16);
-  return (a.toString(16) === h);
+function isHex(h) {
+  let a = parseInt(h, 16);
+  return a.toString(16) === h;
 }
 
 function hexToBase64(hexstring) {
-  return btoa(hexstring.match(/\w{2}/g).map(function(a) {
-    return String.fromCharCode(parseInt(a, 16));
-  }).join(""));
+  return btoa(
+    hexstring
+      .match(/\w{2}/g)
+      .map(function(a) {
+        return String.fromCharCode(parseInt(a, 16));
+      })
+      .join("")
+  );
 }
 
 class Broadcast extends Component {
@@ -34,32 +39,35 @@ class Broadcast extends Component {
     super(props);
 
     this.state = {
-      showFailureModal:false,
-      modalFailureText:"",
+      showFailureModal: false,
+      modalFailureText: "",
 
-      inputValueString : "",
-      responseString : ""
+      inputValueString: "",
+      responseString: ""
     };
   }
 
   async onClickSend() {
     try {
-      let b64= hexToBase64(this.state.inputValueString.trim());
+      let b64 = hexToBase64(this.state.inputValueString.trim());
       let response = await client.broadcastBase64Transaction(b64);
 
-      if(response && response.result == true){
+      if (response && response.result == true) {
         this.setState({
           responseString: "Successfully broadcasted Transaction"
         });
-      }else{
+      } else {
         this.setState({
-          responseString: "Failed to broadcast Transaction. Response: " + JSON.stringify(response)
+          responseString:
+            "Failed to broadcast Transaction. Response: " +
+            JSON.stringify(response)
         });
       }
     } catch (e) {
-      console.log(e);
       this.setState({
-        responseString: "Something went wrong. Make sure to input a signed Transaction, base64 or hex encoded. " + e.toString()
+        responseString:
+          "Something went wrong. Make sure to input a signed Transaction, base64 or hex encoded. " +
+          e.toString()
       });
     }
   }
@@ -75,15 +83,16 @@ class Broadcast extends Component {
     this.state.tokenStr = token;
     return (
       <div className={styles.container}>
-        <BackButton/>
-        <Header className={styles.white} headerName="Broadcast Signed Transaction" />
+        <BackButton />
+        <Header
+          className={styles.white}
+          headerName="Broadcast Signed Transaction"
+        />
         <div onClick={this.props.history.goBack} className={styles.backArrow}>
           <BackArrowIcon />
         </div>
         <div className={styles.subContainer}>
-          <p>
-            Use this tool to broadcast signed transactions.
-          </p>
+          <p>Use this tool to broadcast signed transactions.</p>
           <TextArea
             onChange={this.onSetTransaction.bind(this)}
             placeholder="Paste signed transaction..."
@@ -96,10 +105,10 @@ class Broadcast extends Component {
           />
           <Button
             onClick={this.onClickSend.bind(this)}
-            className={`${buttonStyles.button} ${buttonStyles.black}`} >
+            className={`${buttonStyles.button} ${buttonStyles.black}`}
+          >
             Broadcast
           </Button>
-
         </div>
       </div>
     );
