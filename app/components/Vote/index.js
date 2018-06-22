@@ -63,7 +63,7 @@ class VoteList extends Component {
               <Vote
                 key={i}
                 voteLabel={i + 1}
-                voteTitle={rep.ownerAccount.account_name || rep.url}
+                voteTitle={rep.url}
                 lastBlock={rep.latestblocknum}
                 blocksProduced={rep.totalproduced}
                 blocksMissed={rep.totalmissed}

@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import {sortBy, isNaN} from "lodash";
 import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
-import { Dropdown, Button, Table } from "semantic-ui-react";
+import { Dropdown, Button, Table, Input } from "semantic-ui-react";
 import { ArrowRightIcon } from "../../Icons";
 import { loadWitnesses } from "../../../actions/witnesses";
 import { PopupModal } from "../../Content/PopupModal";
@@ -223,6 +223,38 @@ class VoteMultiple extends Component {
               options={wallets}
             />
           </div>
+
+          <div className={styles.voteTable}>
+            <div className={styles.voteHeader}>
+              <div className={styles.voteCol1}>#</div>
+              <div className={styles.voteCol2}>Name</div>
+              <div className={styles.voteCol3}>Current Votes</div>
+              <div className={styles.voteCol4}>Your Votes</div>
+            </div>
+            <div className={styles.voteBody}>
+              {
+                witnesses.map(rep => (
+                  <div className={styles.voteRow} key={rep.address}>
+                    <div className={styles.voteCol1}>{rep.rank + 1}-</div>
+                    <div className={styles.voteCol2}>
+                      <div className={styles.voteName}>{rep.url}</div>
+                      <div className={styles.voteAddress}>{rep.address}</div>
+                    </div>
+                    <div className={styles.voteCol3}>{rep.votecount.toLocaleString()}</div>
+                    <div className={styles.voteCol4}>
+                      <Input
+                        type="text"
+                        className={styles.voteInput}
+                        value={votes[rep.address] || ""}
+                        onChange={(event) => this.setVote(rep.address, event.target.value)}
+                      />
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
           <div className={styles.buttonContainer}>
             <Button
               onClick={this.resetVotes.bind(this)}
@@ -237,6 +269,7 @@ class VoteMultiple extends Component {
               Submit
             </Button>
           </div>
+          {/*
           <Table celled singleLine>
             <Table.Header>
               <Table.Row>
@@ -274,6 +307,8 @@ class VoteMultiple extends Component {
               }
             </Table.Body>
           </Table>
+          */ }
+
         </div>
         <PopupModal
           confirmation
