@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./Feedback.css";
 
 import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
 
-import { Form, TextArea, Button } from "semantic-ui-react";
+import { TextArea, Button } from "semantic-ui-react";
 import buttonStyles from "../../Button.css";
 
 import { CommentIcon } from "../../Icons";

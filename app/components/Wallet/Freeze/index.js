@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Input } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -10,15 +10,14 @@ import MainModal from "../../Content/DarkMainModal";
 import { PopupModal } from "../../Content/PopupModal";
 import AmountDisplay from "./AmountDisplay";
 
-import { trxToDrops } from "../../../utils/currency";
 import TronHttpClient from "tron-http-client";
-import {ContactIcon } from "../../Icons";
+import { ContactIcon } from "../../Icons";
 
 const client = new TronHttpClient();
 
 import { TextArea } from "semantic-ui-react";
-import commonStyles from '../WalletCommon.css'
-import {toHexString} from "../../../utils/hex";
+import commonStyles from "../WalletCommon.css";
+import { toHexString } from "../../../utils/hex";
 const tools = require("tron-http-tools");
 
 class Freeze extends Component {
@@ -40,27 +39,26 @@ class Freeze extends Component {
       modalSuccessText: "Success",
       accountAddress: "",
 
-      senderAddress : this.props.match.params.account
+      senderAddress: this.props.match.params.account
     };
   }
 
   async onShow(isFreeze) {
-    if(this.props.isCold){
-      if(isFreeze){
-        console.log(this.state.senderAddress);
+    if (this.props.isCold) {
+      if (isFreeze) {
         let transaction = await tools.transactions.createUnsignedFreezeBalanceTransaction(
           {
             ownerAddress: this.state.senderAddress.trim(),
-            amount : parseInt(this.state.amount) * 1000000,
-            duration : 3
+            amount: parseInt(this.state.amount) * 1000000,
+            duration: 3
           },
           await client.getLastBlock()
         );
         let hex = toHexString(transaction.serializeBinary());
         this.setState({
-          coldOutputString:hex
+          coldOutputString: hex
         });
-      }else{
+      } else {
         let transaction = await tools.transactions.createUnsignedUnfreezeBalanceTransaction(
           {
             ownerAddress: this.state.senderAddress.trim()
@@ -69,10 +67,10 @@ class Freeze extends Component {
         );
         let hex = toHexString(transaction.serializeBinary());
         this.setState({
-          coldOutputString:hex
+          coldOutputString: hex
         });
       }
-    }else{
+    } else {
       let accountId = this.props.match.params.account;
       let account = this.props.wallet.persistent.accounts[accountId];
 
@@ -126,9 +124,7 @@ class Freeze extends Component {
         });
       }
     } else {
-      let response = await client.unfreezeTrx(
-        this.state.freezeTrx.privateKey
-      );
+      let response = await client.unfreezeTrx(this.state.freezeTrx.privateKey);
 
       if (response && response.result == true) {
         this.setState({
@@ -173,19 +169,18 @@ class Freeze extends Component {
     this.state.showConfirmModal = false;
   }
 
-  onSetSenderAddress(e){
+  onSetSenderAddress(e) {
     this.setState({
-      senderAddress : e.target.value
+      senderAddress: e.target.value
     });
   }
 
-  renderColdwalletOwnerInput(){
-    if(!this.props.isCold)
-      return "";
+  renderColdwalletOwnerInput() {
+    if (!this.props.isCold) return "";
 
-    return(
+    return (
       <div className={commonStyles.addressContainer}>
-        <ContactIcon/>
+        <ContactIcon />
         <input
           onChange={this.onSetSenderAddress.bind(this)}
           placeholder="Sender Address"
@@ -196,10 +191,10 @@ class Freeze extends Component {
     );
   }
 
-  renderColdwalletOutput(){
-    if(!this.props.isCold)
-      return "";
-    return (<TextArea
+  renderColdwalletOutput() {
+    if (!this.props.isCold) return "";
+    return (
+      <TextArea
         placeholder="Output..."
         class={commonStyles.textArea}
         value={this.state.coldOutputString}

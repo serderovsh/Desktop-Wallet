@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./Info.css";
-
 import Header from "../../Header";
-
 import { TronIcon } from "../../Icons";
 
 export default class Info extends Component {

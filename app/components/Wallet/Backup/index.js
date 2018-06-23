@@ -1,46 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import styles from "./Backup.css";
-
 import MainModal from "../../Content/DarkMainModal";
-
-import { Button, Input, Checkbox } from "semantic-ui-react";
-import buttonStyles from "../../Button.css";
-
-import { Form, ContactIcon, CloseIcon } from "../../Icons";
 
 const bip39 = require("bip39");
 
 class Backup extends Component {
   state = {
-    backupPhrase: [
-      "apple",
-      "banana",
-      "orange",
-      "horse",
-      "pig",
-      "street",
-      "happy",
-      "sad",
-      "fun",
-      "mad",
-      "because",
-      "beta",
-      "omega",
-      "hack",
-      "chain",
-      "link",
-      "verge",
-      "tron",
-      "golem",
-      "test",
-      "phrase",
-      "girl",
-      "boy",
-      "goat"
-    ]
+    backupPhrase: []
   };
 
   renderSpan(words, start) {

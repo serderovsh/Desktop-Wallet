@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import styles from "./DatePicker.css";
-
 import DateSelect from "react-date-picker";
-
-import { CalendarIcon, ArrowLeftIcon, ArrowRightIcon } from "../../Icons";
 
 export default class DatePicker extends Component {
   state = {

@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { filter, sortBy } from "lodash";
 
-import { loadWitnesses } from "../../actions/contacts";
-import { MoreIcon, WalletIcon, DownloadIcon } from "../Icons";
-
 import Header from "../ContentPrimaryHeader";
 import Contact from "./Contact";
 

@@ -27,8 +27,8 @@ import CreateToken from "./components/Tokens/CreateToken";
 import OfflineSignature from "./components/Wallet/OfflineSignature";
 import Transfer from "./components/Transactions/Transfer";
 import Tronwatch from "./components/Content/Tronwatch";
-import Broadcast from './components/Transactions/Broadcast';
-import VoteMultiple from './components/Vote/Votes/';
+import Broadcast from "./components/Transactions/Broadcast";
+import VoteMultiple from "./components/Vote/Votes/";
 
 export const routes = [
   {
@@ -135,15 +135,15 @@ export const routes = [
   },
   {
     path: "/wallets/broadcast/",
-    main: () => <Broadcast/>
+    main: () => <Broadcast />
   },
   {
     path: "/wallets/createassettransfer/:account?/:token?",
-    main: () => <SendAmount isCold='true'/>
+    main: () => <SendAmount isCold="true" />
   },
   {
     path: "/wallets/createfreeze/:account?",
-    main: () => <Freeze isCold='true'/>
+    main: () => <Freeze isCold="true" />
   },
 
   {

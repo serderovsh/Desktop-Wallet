@@ -14,26 +14,33 @@ class voteList extends Component {
     super(props);
 
     this.state = {
-      filterValue: "",
+      filterValue: ""
     };
   }
 
   render() {
     let addresses = Object.keys(this.props.wallet.persistent.accounts);
     let votes = [];
-    for(let i = 0;i<addresses.length;i++){
+    for (let i = 0; i < addresses.length; i++) {
       let address = addresses[i];
       let account = this.props.wallet.persistent.accounts[address];
-      for(let j = 0;j<account.transactions.length;j++){
+      for (let j = 0; j < account.transactions.length; j++) {
         let transaction = account.transactions[j];
-        if(transaction.contract_desc === 'VoteWitnessContract'){
+        if (transaction.contract_desc === "VoteWitnessContract") {
           votes.push({
-            _id : transaction._id,
-            url : transaction.witness ? transaction.witness.owner_address + " - " + transaction.witness.url : "-",
-            amount : transaction.votes.length > 0 ? transaction.votes[0].vote_count : 0,
-            date : transaction.timestamp
+            _id: transaction._id,
+            url: transaction.witness
+              ? transaction.witness.owner_address +
+                " - " +
+                transaction.witness.url
+              : "-",
+            amount:
+              transaction.votes.length > 0
+                ? transaction.votes[0].vote_count
+                : 0,
+            date: transaction.timestamp
           });
-        }else{
+        } else {
         }
       }
     }
@@ -54,10 +61,9 @@ class voteList extends Component {
   }
 }
 
-
 export default withRouter(
   connect(
     state => ({ wallet: state.wallet }),
-    dispatch => ({ })
+    dispatch => ({})
   )(voteList)
 );

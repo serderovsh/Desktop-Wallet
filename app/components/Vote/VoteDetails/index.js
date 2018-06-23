@@ -11,7 +11,7 @@ import VoteAmountSlider from "./VoteAmountSlider";
 import { ArrowRightIcon } from "../../Icons";
 import { PopupModal } from "../../Content/PopupModal";
 
-import VoteHistory from './VoteHistory';
+import VoteHistory from "./VoteHistory";
 
 const TronHttpClient = require("tron-http-client");
 
@@ -102,8 +102,6 @@ class VoteDetails extends Component {
         modalSuccessText: "Vote Successful!"
       });
     }
-
-    console.log(response);
   }
 
   modalDecline() {
@@ -172,7 +170,8 @@ class VoteDetails extends Component {
             Earn More TronPower by freezing Tron
           </div>
           <div className={styles.headerSubText}>
-            You can do this by clicking on "Freeze TRX" after selecting a wallet.
+            You can do this by clicking on "Freeze TRX" after selecting a
+            wallet.
           </div>
         </div>
         <div className={styles.subContainer}>

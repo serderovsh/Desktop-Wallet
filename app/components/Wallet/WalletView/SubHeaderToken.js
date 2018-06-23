@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { FormattedNumber } from "react-intl";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-
 import styles from "./SubHeaderToken.css";
 
 class SubHeaderToken extends Component {

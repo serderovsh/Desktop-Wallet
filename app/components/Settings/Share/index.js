@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./Share.css";
 
 import Secondary from "../../Content/Secondary";

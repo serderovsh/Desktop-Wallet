@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./DatePicker.css";
-
 import DatePickerReact from "react-datepicker";
 import moment from "moment";
-
-import { CalendarIcon, ArrowLeftIcon, ArrowRightIcon } from "../../Icons";
 
 export default class DatePicker extends Component {
   state = {
