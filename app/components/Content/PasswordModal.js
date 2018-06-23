@@ -35,6 +35,12 @@ class PasswordModal extends Component {
     }
   }
 
+  handleKeyPress(e) {
+    if (e.key === "Enter") {
+      this.onClick();
+    }
+  }
+
   setPw(e) {
     this.setState({
       pw: e.target.value.trim()
@@ -75,6 +81,7 @@ class PasswordModal extends Component {
               type="password"
               placeholder="Enter your Password..."
               className={styles.passwordInput}
+              onKeyPress={this.handleKeyPress.bind(this)}
             />
             <p className={styles.status}>
               {this.props.userHasEnteredWrongPw ? "Wrong Password" : ""}
