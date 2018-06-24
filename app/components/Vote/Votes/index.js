@@ -43,6 +43,14 @@ class VoteMultiple extends Component {
         numberOfVotes = 0;
       }
     }
+
+    let { votesAvailable } = this.getVoteUpdate();
+    votesAvailable += votes[address] || 0;
+
+    if (numberOfVotes > votesAvailable) {
+      numberOfVotes = votesAvailable;
+    }
+
     votes[address] = numberOfVotes;
     this.setState({
       votes
@@ -83,11 +91,7 @@ class VoteMultiple extends Component {
     let { votesAvailable, voteState } = this.getVoteUpdate();
     switch (voteState) {
       case 0:
-        return (
-          <span>
-            All vote are currently used
-          </span>
-        );
+        return <span>All vote are currently used</span>;
 
       case 1:
         return (
@@ -96,18 +100,10 @@ class VoteMultiple extends Component {
           </span>
         );
       case -1:
-        return (
-          <span>
-            You have to much vote placed
-          </span>
-        );
+        return <span>You have to much vote placed</span>;
 
       case -2:
-        return (
-          <span>
-            You need TP to vote
-          </span>
-        );
+        return <span>You need TP to vote</span>;
     }
   }
 
@@ -264,9 +260,7 @@ class VoteMultiple extends Component {
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
           <Header headerName="Place your vote" />
-          <div className={styles.headerTP}>
-            {this.renderVoteUpdate()}
-          </div>
+          <div className={styles.headerTP}>{this.renderVoteUpdate()}</div>
           <div className={styles.headerText}>
             Earn More TronPower by freezing Tron
           </div>
