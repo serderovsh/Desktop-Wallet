@@ -7,10 +7,10 @@ import styles from "./Vote.css";
 class Vote extends Component {
   render() {
     return (
-      <NavLink
-        to={"/vote/voteDetails/" + btoa(this.props.address) + "/"}
+      <div
+        // to={"/vote/voteDetails/" + btoa(this.props.address) + "/"}
         className={styles.vote}
-        activeClassName={styles.active}
+        // activeClassName={styles.active}
       >
         <div className={styles.voteLabel}>{`${this.props.voteLabel} -`}</div>
         <div className={styles.container}>
@@ -40,7 +40,7 @@ class Vote extends Component {
             </span>
           </div>
         </div>
-      </NavLink>
+      </div>
     );
   }
 }
