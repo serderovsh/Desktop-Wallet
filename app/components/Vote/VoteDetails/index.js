@@ -161,48 +161,52 @@ class VoteDetails extends Component {
     return (
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
-          <Header headerName="Witness Details" />
-          <div className={styles.headerTP}>
-            {selectedWallet.frozenBalance}
-            <span>TP</span>
-          </div>
-          <div className={styles.headerText}>
-            Earn More TronPower by freezing Tron
-          </div>
-          <div className={styles.headerSubText}>
-            You can do this by clicking on "Freeze TRX" after selecting a
-            wallet.
-          </div>
+          <Header headerName="Representative Details" />
         </div>
+
         <div className={styles.subContainer}>
-          <div className={styles.votingFor}>
-            YOUR ARE VOTING FOR : <span>{rep.url}</span>
+
+          <div className={styles.subHeader}>Intro</div>
+          <div className={styles.subBody}>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
-          <div className={styles.dropdown}>
-            <ArrowRightIcon />
-            <Dropdown
-              fluid
-              selection
-              onChange={this.selectWallet}
-              placeholder="Choose Wallet"
-              options={wallets}
-            />
+
+          <div className={styles.subHeader}>Team</div>
+          <div className={`${styles.subBody} ${styles.teamContainer}`}>
+            <div className={styles.memberContainer}>
+              <img className={styles.memberImg} src="http://via.placeholder.com/80x80"/>
+              <div className={styles.memberName}>Tommy Test</div>
+              <div className={styles.memberRole}>Frontend Engineer</div>
+            </div>
+            <div className={styles.memberContainer}>
+              <img className={styles.memberImg} src="http://via.placeholder.com/80x80"/>
+              <div className={styles.memberName}>Tommy Test</div>
+              <div className={styles.memberRole}>Frontend Engineer</div>
+            </div>
+            <div className={styles.memberContainer}>
+              <img className={styles.memberImg} src="http://via.placeholder.com/80x80"/>
+              <div className={styles.memberName}>Tommy Test</div>
+              <div className={styles.memberRole}>Frontend Engineer</div>
+            </div>
+            <div className={styles.memberContainer}>
+              <img className={styles.memberImg} src="http://via.placeholder.com/80x80"/>
+              <div className={styles.memberName}>Tommy Test</div>
+              <div className={styles.memberRole}>Frontend Engineer</div>
+            </div>
+            <div className={styles.memberContainer}>
+              <img className={styles.memberImg} src="http://via.placeholder.com/80x80"/>
+              <div className={styles.memberName}>Tommy Test</div>
+              <div className={styles.memberRole}>Frontend Engineer</div>
+            </div>
+            <div className={styles.memberContainer}>
+              <img className={styles.memberImg} src="http://via.placeholder.com/80x80"/>
+              <div className={styles.memberName}>Tommy Test</div>
+              <div className={styles.memberRole}>Frontend Engineer</div>
+            </div>
           </div>
-          <VoteAmountSlider
-            onSliderChange={this.onSliderChange.bind(this)}
-            totalTP={selectedWallet.frozenBalance}
-          />
-          <Button
-            onClick={this.clickSubmit.bind(this)}
-            className={`${styles.btn} ${buttonStyles.button} ${
-              buttonStyles.black
-            }`}
-          >
-            Submit Your Vote
-          </Button>
+          
         </div>
-        <div className={styles.voteHistory}>Vote History</div>
-        <VoteHistory />
+
         <PopupModal
           confirmation
           modalVis={this.state.showConfirmModal}
