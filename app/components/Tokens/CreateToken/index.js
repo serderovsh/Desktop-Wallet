@@ -42,7 +42,9 @@ class CreateToken extends Component {
         url: "",
         frozenSupply: 0,
         frozenDuration: 0
-      }
+      },
+      showUserHasTokenWarning: false,
+      modalUserHasTokenText : "This account already created a token. Chose a different one."
     };
   }
 
@@ -100,7 +102,20 @@ class CreateToken extends Component {
       wallet => accounts[wallet].publicKey === value
     );
     this.setState({ selectedWallet: accounts[wallet[0]] });
+    for(let i = 0;i<this.props.tokens.length;i++){
+      if(this.props.tokens[i].owner_address == value){
+        this.setState({
+          showUserHasTokenWarning:true
+        });
+      }
+    }
   };
+
+  hideUserHasTokenWarning(){
+    this.setState({
+      showUserHasTokenWarning:false
+    });
+  }
 
   submitHandler = async () => {
     let { accounts } = this.props;
@@ -389,6 +404,14 @@ class CreateToken extends Component {
           modalText={this.state.modalFailureText}
           closeModalFunction={this.modalFailureClose.bind(this)}
           modalConfirm={this.modalFailureClose.bind(this)}
+        />
+
+        <PopupModal
+          failure
+          modalVis={this.state.showUserHasTokenWarning}
+          modalText={this.state.modalUserHasTokenText}
+          closeModalFunction={this.hideUserHasTokenWarning.bind(this)}
+          modalConfirm={this.hideUserHasTokenWarning.bind(this)}
         />
 
         <PopupModal
