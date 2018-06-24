@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { sortBy, isNaN } from "lodash";
+import { sortBy, isNaN, sumBy } from "lodash";
 import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
 import { Dropdown, Button, Table, Input } from "semantic-ui-react";
@@ -48,6 +48,68 @@ class VoteMultiple extends Component {
       votes
     });
   };
+
+  getVoteUpdate = () => {
+    let { wallet } = this.props;
+    let { votes } = this.state;
+
+    let frozenBalance = 0;
+    let votesCount = sumBy(Object.values(votes), vote => parseInt(vote) || 0);
+    let votesAvailable = frozenBalance - votesCount;
+    let spendAll = votesCount > 0 && votesAvailable === 0;
+    let voteState = 0;
+
+    if (votesAvailable > 0) {
+      voteState = 1;
+    } else if (votesAvailable < 0) {
+      voteState = -1;
+    }
+
+    if (frozenBalance === 0) {
+      voteState = -2;
+    }
+
+    return {
+      frozenBalance,
+      votesCount,
+      votesAvailable,
+      spendAll,
+      voteState,
+      votePercentage: (votesCount / frozenBalance) * 100
+    };
+  };
+
+  renderVoteUpdate() {
+    let { votesAvailable, voteState } = this.getVoteUpdate();
+    switch (voteState) {
+      case 0:
+        return (
+          <span>
+            All vote are currently used
+          </span>
+        );
+
+      case 1:
+        return (
+          <span>
+            Votes left:&nbsp;<b>{votesAvailable} TP</b>
+          </span>
+        );
+      case -1:
+        return (
+          <span>
+            You have to much vote placed
+          </span>
+        );
+
+      case -2:
+        return (
+          <span>
+            You need TP to vote
+          </span>
+        );
+    }
+  }
 
   componentDidMount() {
     this.props.loadWitnesses();
@@ -191,6 +253,8 @@ class VoteMultiple extends Component {
       wallets.push(formattedObj);
     });
 
+    let { frozenBalance } = this.getVoteUpdate();
+
     witnesses = sortBy(witnesses, w => w.votecount * -1).map((w, index) => ({
       ...w,
       rank: index
@@ -201,8 +265,7 @@ class VoteMultiple extends Component {
         <div className={styles.headerContainer}>
           <Header headerName="Place your vote" />
           <div className={styles.headerTP}>
-            {selectedWallet.frozenBalance}
-            <span>TP</span>
+            {this.renderVoteUpdate()}
           </div>
           <div className={styles.headerText}>
             Earn More TronPower by freezing Tron
