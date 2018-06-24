@@ -58,11 +58,11 @@ class VoteMultiple extends Component {
   };
 
   getVoteUpdate = () => {
-    let { wallet } = this.props;
+    let { wallets } = this.props;
     let { votes } = this.state;
 
-    let frozenBalance = 0;
-    let votesCount = sumBy(Object.values(votes), vote => parseInt(vote) || 0);
+    let frozenBalance = this.state.selectedWallet.frozenBalance;
+    let votesCount = sumBy(Object.values(votes), vote => parseInt(vote));
     let votesAvailable = frozenBalance - votesCount;
     let spendAll = votesCount > 0 && votesAvailable === 0;
     let voteState = 0;
