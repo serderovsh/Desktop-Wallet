@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { FormattedDate, FormattedNumber, FormattedTime } from "react-intl";
 import { connect } from "react-redux";
 import styles from "./ViewTransaction.css";
@@ -10,30 +10,35 @@ import { updateTransactions } from "../../../../actions/wallet";
 import { dropsToTrx, dropsToFiat } from "../../../../utils/currency";
 
 class ViewTransaction extends Component {
-  state = {}
+  state = {};
 
   renderHeaderLabel() {
     let { tx } = this.state;
-    //tx.type === 0 ? "Sent" : "Received"
-    if (tx.contract_desc === "TransferContract" || tx.contract_desc === "TransferAssetContract") {
+    if (
+      tx.contract_desc === "TransferContract" ||
+      tx.contract_desc === "TransferAssetContract"
+    ) {
       if (tx.type === 0) {
-        return 'Received'
+        return "Received";
       }
-      return 'Sent'
+      return "Sent";
     }
     if (tx.contract_desc === "ParticipateAssetIssueContract") {
-      return 'Token Purchased'
+      return "Token Purchased";
     }
-    if (tx.contract_desc === "FreezeBalanceContract" || tx.contract_desc === "UnfreezeBalanceContract") {
-      return 'Frozen'
+    if (
+      tx.contract_desc === "FreezeBalanceContract" ||
+      tx.contract_desc === "UnfreezeBalanceContract"
+    ) {
+      return "Frozen";
     }
     if (tx.contract_desc === "AssetIssueContract") {
-      return 'Token Created'
+      return "Token Created";
     }
     if (tx.contract_desc === "VoteWitnessContract") {
-      return 'Vote'
+      return "Vote";
     }
-    return 'TESTEST'
+    return "TESTEST";
   }
 
   renderHeaderAmount() {
@@ -41,56 +46,59 @@ class ViewTransaction extends Component {
     if (tx.frozen_balance) {
       return (
         <div className={styles.headerAmount}>
-          <FormattedNumber value={dropsToTrx(tx.frozen_balance)} />{' ' + tx.asset}
+          <FormattedNumber value={dropsToTrx(tx.frozen_balance)} />
+          {" " + tx.asset}
         </div>
-      )
+      );
     }
     if (tx.contract_desc === "VoteWitnessContract") {
       return (
         <div className={styles.headerAmount}>
           <FormattedNumber value={tx.votes[0].vote_count} /> TP
         </div>
-      )
+      );
     }
     if (tx.contract_desc === "ParticipateAssetIssueContract") {
-      let contract = tx.asset_issue_contract
+      let contract = tx.asset_issue_contract;
       return (
         <div className={styles.headerAmount}>
-          <FormattedNumber value={tx.amount_tokens} /> { tx.asset }
+          <FormattedNumber value={tx.amount_tokens} /> {tx.asset}
         </div>
-      )
+      );
     }
     if (tx.contract_desc === "AssetIssueContract") {
       return (
         <div className={styles.headerAmount}>
-          <FormattedNumber value={tx.total_supply} /> { tx.name }
+          <FormattedNumber value={tx.total_supply} /> {tx.name}
         </div>
-      )
+      );
     }
     if (tx.amount) {
       if (tx.asset === "TRX") {
         return (
           <div className={styles.headerAmount}>
-            <FormattedNumber value={tx.amount / 1000000} />{' ' + tx.asset}
+            <FormattedNumber value={tx.amount / 1000000} />
+            {" " + tx.asset}
           </div>
-        )
+        );
       }
       return (
         <div className={styles.headerAmount}>
-          <FormattedNumber value={tx.amount} />{' ' + tx.asset}
+          <FormattedNumber value={tx.amount} />
+          {" " + tx.asset}
         </div>
-      )
+      );
     }
     return (
       <div className={styles.headerAmount}>
-        {
-          tx.asset === "TRX" ?
-            <FormattedNumber value={tx.amount / 1000000} />
-          :
-            <FormattedNumber value={tx.amount} />
-        }{' ' + tx.asset}
+        {tx.asset === "TRX" ? (
+          <FormattedNumber value={tx.amount / 1000000} />
+        ) : (
+          <FormattedNumber value={tx.amount} />
+        )}
+        {" " + tx.asset}
       </div>
-    )
+    );
   }
 
   render() {
@@ -112,7 +120,10 @@ class ViewTransaction extends Component {
 
     if (tx.contract_desc === "ParticipateAssetIssueContract") {
       let token = this.props.tokens.find(token => token.name === tx.asset);
-      usdValue = dropsToFiat(this.props.currency, parseInt(tx.amount_tokens) * (token.trx_num / token.num));
+      usdValue = dropsToFiat(
+        this.props.currency,
+        parseInt(tx.amount_tokens) * (token.trx_num / token.num)
+      );
     }
 
     this.state.tx = tx;
@@ -132,9 +143,9 @@ class ViewTransaction extends Component {
               }
             />
             <div className={styles.headerType}>
-              { this.renderHeaderLabel() } :
+              {this.renderHeaderLabel()} :
             </div>
-            { this.renderHeaderAmount() }
+            {this.renderHeaderAmount()}
             <div className={styles.headerCurrency}>{usdValue} USD</div>
           </div>
           <div className={styles.tokenInfoContainer}>
@@ -179,7 +190,11 @@ class ViewTransaction extends Component {
 
 export default withRouter(
   connect(
-    state => ({ wallet: state.wallet, currency: state.currency, tokens: state.tokens.tokens }),
+    state => ({
+      wallet: state.wallet,
+      currency: state.currency,
+      tokens: state.tokens.tokens
+    }),
     dispatch => ({
       updateTransactions: (accountId, transactions) => {
         dispatch(updateTransactions(accountId, transactions));

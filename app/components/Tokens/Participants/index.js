@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import { connect } from "react-redux";
 import styles from "./Participants.css";
 
-import { Button, Dropdown } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import buttonStyles from "../../Button.css";
 
 import Token from "./Token";

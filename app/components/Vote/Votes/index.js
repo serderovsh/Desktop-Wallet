@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {sortBy, isNaN} from "lodash";
+import { sortBy, isNaN, sumBy } from "lodash";
 import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
-import { Dropdown, Button, Table } from "semantic-ui-react";
+import { Dropdown, Button, Table, Input } from "semantic-ui-react";
 import { ArrowRightIcon } from "../../Icons";
 import { loadWitnesses } from "../../../actions/witnesses";
 import { PopupModal } from "../../Content/PopupModal";
-import { Truncate } from "../../Content/Text";
 import buttonStyles from "../../Button.css";
 
 import styles from "./style.css";
@@ -29,11 +28,12 @@ class VoteMultiple extends Component {
         frozenBalance: 0,
         lastVotes: {}
       },
-      sendProperties: {},
+      sendProperties: {}
     };
   }
+
   setVote = (address, numberOfVotes) => {
-    let {votes} = this.state;
+    let { votes } = this.state;
 
     if (numberOfVotes !== "") {
       numberOfVotes = parseInt(numberOfVotes);
@@ -43,11 +43,69 @@ class VoteMultiple extends Component {
         numberOfVotes = 0;
       }
     }
+
+    let { votesAvailable } = this.getVoteUpdate();
+    votesAvailable += votes[address] || 0;
+
+    if (numberOfVotes > votesAvailable) {
+      numberOfVotes = votesAvailable;
+    }
+
     votes[address] = numberOfVotes;
     this.setState({
-      votes,
+      votes
     });
   };
+
+  getVoteUpdate = () => {
+    let { wallets } = this.props;
+    let { votes } = this.state;
+
+    let frozenBalance = this.state.selectedWallet.frozenBalance;
+    let votesCount = sumBy(Object.values(votes), vote => parseInt(vote));
+    let votesAvailable = frozenBalance - votesCount;
+    let spendAll = votesCount > 0 && votesAvailable === 0;
+    let voteState = 0;
+
+    if (votesAvailable > 0) {
+      voteState = 1;
+    } else if (votesAvailable < 0) {
+      voteState = -1;
+    }
+
+    if (frozenBalance === 0) {
+      voteState = -2;
+    }
+
+    return {
+      frozenBalance,
+      votesCount,
+      votesAvailable,
+      spendAll,
+      voteState,
+      votePercentage: (votesCount / frozenBalance) * 100
+    };
+  };
+
+  renderVoteUpdate() {
+    let { votesAvailable, voteState } = this.getVoteUpdate();
+    switch (voteState) {
+      case 0:
+        return <span>All vote are currently used</span>;
+
+      case 1:
+        return (
+          <span>
+            Votes left:&nbsp;<b>{votesAvailable} TP</b>
+          </span>
+        );
+      case -1:
+        return <span>You have to much vote placed</span>;
+
+      case -2:
+        return <span>You need TP to vote</span>;
+    }
+  }
 
   componentDidMount() {
     this.props.loadWitnesses();
@@ -67,12 +125,12 @@ class VoteMultiple extends Component {
     });
   }
 
-  updateCurrentAccountTransactions(account){
+  updateCurrentAccountTransactions(account) {
     let votes = {};
-    for(let t in account.transactions){
+    for (let t in account.transactions) {
       let transaction = account.transactions[t];
-      if(transaction.contract_desc === 'VoteWitnessContract'){
-        for(let v in transaction.votes){
+      if (transaction.contract_desc === "VoteWitnessContract") {
+        for (let v in transaction.votes) {
           let vote = transaction.votes[v];
           votes[vote.vote_address] = parseInt(vote.vote_count);
         }
@@ -101,16 +159,16 @@ class VoteMultiple extends Component {
 
     for (let address of Object.keys(votes)) {
       let count = parseInt(votes[address]);
-      if(count > 0){
+      if (count > 0) {
         witVotes.push({
-          address : address,
-          count : count
+          address: address,
+          count: count
         });
       }
     }
-    console.log(witVotes)
     let client = new TronHttpClient();
-    let response = await client.vote(this.state.selectedWallet.privateKey, witVotes)
+    let response = await client
+      .vote(this.state.selectedWallet.privateKey, witVotes)
       .catch(x => null);
 
     if (response === null) {
@@ -135,7 +193,6 @@ class VoteMultiple extends Component {
         modalSuccessText: "Vote Successful!"
       });
     }
-    console.log(response);
   }
 
   modalDecline() {
@@ -167,14 +224,14 @@ class VoteMultiple extends Component {
     this.state.showConfirmModal = false;
   }
 
-  getVotesFor(witnessAddress){
-    if(this.state.selectedWallet.lastVotes[witnessAddress])
+  getVotesFor(witnessAddress) {
+    if (this.state.selectedWallet.lastVotes[witnessAddress])
       return this.state.selectedWallet.lastVotes[witnessAddress];
   }
 
   resetVotes = () => {
     this.setState({
-      votes: {},
+      votes: {}
     });
   };
 
@@ -192,24 +249,24 @@ class VoteMultiple extends Component {
       wallets.push(formattedObj);
     });
 
+    let { frozenBalance } = this.getVoteUpdate();
+
     witnesses = sortBy(witnesses, w => w.votecount * -1).map((w, index) => ({
       ...w,
-      rank: index,
+      rank: index
     }));
 
     return (
       <Secondary className={styles.container}>
         <div className={styles.headerContainer}>
           <Header headerName="Place your vote" />
-          <div className={styles.headerTP}>
-            {selectedWallet.frozenBalance}
-            <span>TP</span>
-          </div>
+          <div className={styles.headerTP}>{this.renderVoteUpdate()}</div>
           <div className={styles.headerText}>
             Earn More TronPower by freezing Tron
           </div>
           <div className={styles.headerSubText}>
-            You can do this by clicking on "Freeze TRX" after selecting a wallet.
+            You can do this by clicking on "Freeze TRX" after selecting a
+            wallet.
           </div>
         </div>
         <div className={styles.voteContainer}>
@@ -223,6 +280,40 @@ class VoteMultiple extends Component {
               options={wallets}
             />
           </div>
+
+          <div className={styles.voteTable}>
+            <div className={styles.voteHeader}>
+              <div className={styles.voteCol1}>#</div>
+              <div className={styles.voteCol2}>Name</div>
+              <div className={styles.voteCol3}>Current Votes</div>
+              <div className={styles.voteCol4}>Your Votes</div>
+            </div>
+            <div className={styles.voteBody}>
+              {witnesses.map(rep => (
+                <div className={styles.voteRow} key={rep.address}>
+                  <div className={styles.voteCol1}>{rep.rank + 1}-</div>
+                  <div className={styles.voteCol2}>
+                    <div className={styles.voteName}>{rep.url}</div>
+                    <div className={styles.voteAddress}>{rep.address}</div>
+                  </div>
+                  <div className={styles.voteCol3}>
+                    {rep.votecount.toLocaleString()}
+                  </div>
+                  <div className={styles.voteCol4}>
+                    <Input
+                      type="text"
+                      className={styles.voteInput}
+                      value={votes[rep.address] || ""}
+                      onChange={event =>
+                        this.setVote(rep.address, event.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <div className={styles.buttonContainer}>
             <Button
               onClick={this.resetVotes.bind(this)}
@@ -237,43 +328,6 @@ class VoteMultiple extends Component {
               Submit
             </Button>
           </div>
-          <Table celled singleLine>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell style={{width: 10}}>#</Table.HeaderCell>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell style={{width: 25}}>Current Votes</Table.HeaderCell>
-                <Table.HeaderCell style={{width: 65}}>Your Votes</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {
-                witnesses.map(rep => (
-                  <Table.Row key={rep.address}>
-                    <Table.Cell>
-                      {rep.rank + 1}
-                    </Table.Cell>
-                    <Table.Cell>
-                      <div>
-                        {rep.ownerAccount.account_name || rep.url}
-                      </div>
-                      <span>{rep.address}</span>
-                    </Table.Cell>
-                    <Table.Cell>
-                      {rep.votecount}
-                    </Table.Cell>
-                    <Table.Cell className={styles.input}>
-                      <input
-                        type="text"
-                        value={votes[rep.address] || ""}
-                        onChange={(event) => this.setVote(rep.address, event.target.value)}
-                      />
-                    </Table.Cell>
-                  </Table.Row>
-                ))
-              }
-            </Table.Body>
-          </Table>
         </div>
         <PopupModal
           confirmation
@@ -306,12 +360,12 @@ export default withRouter(
   connect(
     state => ({
       wallet: state.wallet,
-      witnesses: state.witnesses,
+      witnesses: state.witnesses
     }),
     dispatch => ({
       loadWitnesses: props => {
         dispatch(loadWitnesses(props));
-      },
+      }
     })
   )(VoteMultiple)
 );

@@ -6,7 +6,6 @@ import styles from "./WalletView.css";
 
 import {
   MoreIcon,
-  CalendarIcon,
   SendIcon,
   QRScanIcon,
   DownloadIcon,
@@ -38,17 +37,15 @@ class WalletView extends Component {
     let sendUrl = "";
     let freezeUrl = "";
 
-    if(account.watchonly){
-      if(this.props.match.params.token && token !== "TRX")
+    if (account.watchonly) {
+      if (this.props.match.params.token && token !== "TRX")
         sendUrl = "/wallets/createassettransfer/" + accountId + "/" + token;
-      else
-        sendUrl = "/wallets/createtransfer/" + accountId;
+      else sendUrl = "/wallets/createtransfer/" + accountId;
       freezeUrl = "/wallets/createfreeze/" + accountId;
-    }else{
+    } else {
       sendUrl = "/wallets/send/" + accountId + "/" + token;
       freezeUrl = "/wallets/freeze/" + accountId + "/" + token;
     }
-
 
     return (
       <Secondary>
@@ -57,9 +54,15 @@ class WalletView extends Component {
             <Dropdown className={styles.moreMenu} icon={<MoreIcon />}>
               <Dropdown.Menu>
                 {!account.watchonly ? (
-                <NavLink to={"/wallets/walletBackup/" + accountId}>
-                  <Dropdown.Item text="Backup Wallet" icon={<DownloadIcon />} />
-                </NavLink>) : ""}
+                  <NavLink to={"/wallets/walletBackup/" + accountId}>
+                    <Dropdown.Item
+                      text="Backup Wallet"
+                      icon={<DownloadIcon />}
+                    />
+                  </NavLink>
+                ) : (
+                  ""
+                )}
               </Dropdown.Menu>
             </Dropdown>
           </Header>
@@ -81,12 +84,15 @@ class WalletView extends Component {
               <SnowIcon />Freeze TRX
             </Button>
           </NavLink>
-          {!account.watchonly ?
-          (<NavLink to={"/wallets/offline/" + accountId}>
-            <Button className={buttonStyles.button}>
-              <PencilIcon />Offline Sign
-            </Button>
-          </NavLink>) : ""}
+          {!account.watchonly ? (
+            <NavLink to={"/wallets/offline/" + accountId}>
+              <Button className={buttonStyles.button}>
+                <PencilIcon />Offline Sign
+              </Button>
+            </NavLink>
+          ) : (
+            ""
+          )}
         </div>
         {/*<DatePicker/>*/}
         <TxList />

@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./CreationContent.css";
-
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import { createAccount } from "../../../../actions/wallet";
 
-import { Checkbox, Input, Form, Button } from "semantic-ui-react";
+import { Input, Form } from "semantic-ui-react";
 import buttonStyles from "../../../Button.css";
 
 class CreationContent extends Component {

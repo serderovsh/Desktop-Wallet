@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { setFiatPrice } from "../actions/currency";
 import { CURRENCY } from "../actions/currency";
-import { startUpdateAccountsAsync, updateTransferTransactions} from "../actions/wallet";
+import {
+  startUpdateAccountsAsync,
+  updateTransferTransactions
+} from "../actions/wallet";
 
 class WebsocketContainer extends Component {
   constructor(props) {
@@ -24,9 +27,7 @@ class WebsocketContainer extends Component {
         this.props.setFiatPrice(CURRENCY.USD, msg["USD"].price);
       } else {
       }
-    } catch (e) {
-      //console.log(e);
-    }
+    } catch (e) {}
   }
 
   addAllInWallet() {}

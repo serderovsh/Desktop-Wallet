@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./SettingList.css";
-
 import Header from "../ContentPrimaryHeader";
 import CategoryHeader from "./CategoryHeader";
 import CategoryChild from "./CategoryChild";
-
-import { Dropdown } from "semantic-ui-react";
 import {
-  BookIcon,
-  QuestionMarkIcon,
   ShareIcon,
   BellIcon,
   WebGlobeIcon,

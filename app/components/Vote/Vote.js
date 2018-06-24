@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { FormattedNumber } from "react-intl";
-
 import { NavLink } from "react-router-dom";
 
 import styles from "./Vote.css";
@@ -8,8 +7,11 @@ import styles from "./Vote.css";
 class Vote extends Component {
   render() {
     return (
-      // convert addres to base64 beccause address has a slash which screws up routing
-      <div className={styles.vote}>
+      <div
+        // to={"/vote/voteDetails/" + btoa(this.props.address) + "/"}
+        className={styles.vote}
+        // activeClassName={styles.active}
+      >
         <div className={styles.voteLabel}>{`${this.props.voteLabel} -`}</div>
         <div className={styles.container}>
           <div className={styles.title}>{this.props.voteTitle}</div>

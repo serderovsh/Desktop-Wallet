@@ -23,7 +23,7 @@ class TokenProgressBar extends Component {
           value={this.props.tokenCurrent}
           max={this.props.tokenMax}
         />
-        { Date.now() < this.props.startTime ? 
+        {Date.now() < this.props.startTime ? (
           <div className={`${styles.bottom} ${styles.green}`}>
             <div className={styles.dateLabel}>Starts on :</div>
             <div className={styles.dateMain}>
@@ -41,8 +41,9 @@ class TokenProgressBar extends Component {
               />
             </div>
           </div>
-          : ''
-        }
+        ) : (
+          ""
+        )}
         <div className={`${styles.bottom} ${styles.green}`}>
           <div className={styles.dateLabel}>Ends on :</div>
           <div className={styles.dateMain}>

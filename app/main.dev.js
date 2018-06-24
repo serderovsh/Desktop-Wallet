@@ -62,10 +62,10 @@ app.on("ready", async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
+    width: 1276,
     height: 768,
     minHeight: 768,
-    minWidth: 1276,
+    minWidth: 1024,
     icon: __dirname + "/assets/icons/64x64.png"
   });
 

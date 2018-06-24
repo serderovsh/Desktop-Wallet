@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { NavLink, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 import styles from "./Vote.css";
 
-import { FormattedNumber, FormattedDate, FormattedTime } from "react-intl";
+import { FormattedDate, FormattedTime } from "react-intl";
 
 import { VoteIcon } from "../../../Icons";
 
@@ -24,8 +22,7 @@ export default class Vote extends Component {
       .transactions;
     */
     let amount = 0;
-    if(this.props.amount)
-      amount = this.props.amount.toLocaleString();
+    if (this.props.amount) amount = this.props.amount.toLocaleString();
     return (
       <div className={styles.vote}>
         <div className={styles.voteType}>
@@ -35,8 +32,7 @@ export default class Vote extends Component {
         <div className={styles.voteInfo}>
           <div className={styles.voteAmount}> {amount} TP</div>
           <div className={styles.voteDate}>
-            <FormattedDate value={this.props.date} />
-            {' '}
+            <FormattedDate value={this.props.date} />{" "}
             <FormattedTime value={this.props.date} />
           </div>
         </div>
@@ -44,18 +40,3 @@ export default class Vote extends Component {
     );
   }
 }
-
-/*
-
-export default withRouter(
-  connect(
-    state => ({ wallet: state.wallet }),
-    dispatch => ({
-      updateTransactions: (accountId, transactions) => {
-        dispatch(updateTransactions(accountId, transactions));
-      }
-    })
-  )(Vote)
-);
-
-*/

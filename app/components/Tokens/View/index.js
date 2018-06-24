@@ -11,7 +11,6 @@ import AmountSlider from "./AmountSlider";
 import { ArrowRightIcon } from "../../Icons";
 import { loadTokens } from "../../../actions/tokens";
 import { PopupModal } from "../../Content/PopupModal";
-
 import { dropsToFiat, dropsToTrx } from "../../../utils/currency";
 
 const TronHttpClient = require("tron-http-client");
@@ -38,12 +37,11 @@ class TokenView extends Component {
   }
 
   getDropFromCurrent() {
-    return (parseInt(this.state.amount) * this.state.ratio);
+    return parseInt(this.state.amount) * this.state.ratio;
   }
 
   async submitTokenPurchase() {
     let { amount, ratio } = this.state;
-    console.log('amount ratio final', amount, ratio)
     let drops = this.getDropFromCurrent();
     let tokens = {
       recipient: this.state.token.owner_address,
@@ -70,7 +68,6 @@ class TokenView extends Component {
   };
 
   onSliderChange(amount, ratio) {
-    console.log('AR', amount, ratio)
     this.setState({
       amount: amount,
       ratio: ratio,
@@ -110,8 +107,6 @@ class TokenView extends Component {
         modalSuccessText: "Buy Successful!"
       });
     }
-
-    console.log(response);
   }
 
   modalDecline() {
@@ -151,7 +146,6 @@ class TokenView extends Component {
     let currentToken = this.props.match.params.token;
     let token = this.props.tokens.tokens.find(t => t._id === currentToken);
     this.state.token = token;
-    console.log(token);
 
     if (!token) {
       return <div>not loaded</div>;
@@ -241,7 +235,11 @@ class TokenView extends Component {
 
 export default withRouter(
   connect(
-    state => ({ wallet: state.wallet, tokens: state.tokens, currency: state.currency }),
+    state => ({
+      wallet: state.wallet,
+      tokens: state.tokens,
+      currency: state.currency
+    }),
     dispatch => ({
       loadTokens: props => {
         dispatch(loadTokens(props));

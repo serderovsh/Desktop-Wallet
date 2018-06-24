@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import styles from "./Import.css";
 
 import { addAccount, addWatchOnlyAccount } from "../../../../actions/wallet";
@@ -15,8 +14,8 @@ class Import extends Component {
     super(props);
 
     this.state = {
-      checkbox: '0',
-      key: ''
+      checkbox: "0",
+      key: ""
     };
   }
 
@@ -24,28 +23,27 @@ class Import extends Component {
   handleCheckboxChange = (e, { value }) => this.setState({ checkbox: value });
 
   /*doesn't check checksum*/
-  addressIsValid(address){
-    if(!address[0] === 'T')
-      return false;
-    return (address.length === 34);
+  addressIsValid(address) {
+    if (!address[0] === "T") return false;
+    return address.length === 34;
   }
 
   importKey = () => {
     // add checkbox logic here, 0:privatekey, 1:publickey
     let value = this.state.key.trim();
-    if(this.state.checkbox === '0'){
+    if (this.state.checkbox === "0") {
       let newAccount = tools.accounts.accountFromPrivateKey(value);
       this.props.addAccount(this.props, "Imported Account", newAccount);
-    }else{
-      if(this.addressIsValid(value)){
+    } else {
+      if (this.addressIsValid(value)) {
         let newAccount = {
-          watchonly : true,
-          address : value,
+          watchonly: true,
+          address: value
         };
         let accountName = "Watch " + value;
         this.props.addAccount(this.props, accountName, newAccount);
-      }else{
-        console.log('public key not valid.');
+      } else {
+        console.log("public key not valid.");
       }
     }
   };
@@ -67,18 +65,19 @@ class Import extends Component {
           <Input
             onKeyPress={this.inputAlphanumeric}
             className={styles.input}
-            placeholder={(this.state.checkbox === '0') ? "Private Key..." : "Public Key..."}
+            placeholder={
+              this.state.checkbox === "0" ? "Private Key..." : "Public Key..."
+            }
             onChange={this.updateValue}
           />
           <div className={styles.typeContainerMain}>
-
             <div className={styles.typeSection}>
               <div className={styles.typeButton}>
                 <Checkbox
                   radio
-                  name='checkboxRadioGroup'
-                  value='0'
-                  checked={this.state.checkbox === '0'}
+                  name="checkboxRadioGroup"
+                  value="0"
+                  checked={this.state.checkbox === "0"}
                   onChange={this.handleCheckboxChange}
                 />
               </div>
@@ -87,7 +86,9 @@ class Import extends Component {
                 <ul className={styles.typeList}>
                   <li>Allows full account control.</li>
                   <li>Manage all your Tron wallets and tokens.</li>
-                  <li>Ability to buy and create tokens, along with casting votes.</li>
+                  <li>
+                    Ability to buy and create tokens, along with casting votes.
+                  </li>
                 </ul>
               </div>
             </div>
@@ -96,14 +97,16 @@ class Import extends Component {
               <div className={styles.typeButton}>
                 <Checkbox
                   radio
-                  name='checkboxRadioGroup'
-                  value='1'
-                  checked={this.state.checkbox === '1'}
+                  name="checkboxRadioGroup"
+                  value="1"
+                  checked={this.state.checkbox === "1"}
                   onChange={this.handleCheckboxChange}
                 />
               </div>
               <div className={styles.typeContainer}>
-                <div className={styles.typeHeader}>PUBLIC KEY (Watch-Only):</div>
+                <div className={styles.typeHeader}>
+                  PUBLIC KEY (Watch-Only):
+                </div>
                 <ul className={styles.typeList}>
                   <li>Able to view transactions and balance.</li>
                   <li>Unable to send/create anything.</li>
@@ -111,12 +114,15 @@ class Import extends Component {
                 </ul>
               </div>
             </div>
-
           </div>
           <Button
             onClick={this.importKey}
-            className={`${styles.btn} ${buttonStyles.button} ${buttonStyles.black}`}
-          >Import</Button>
+            className={`${styles.btn} ${buttonStyles.button} ${
+              buttonStyles.black
+            }`}
+          >
+            Import
+          </Button>
         </div>
       </div>
     );
@@ -134,7 +140,7 @@ export default withRouter(
       addAccount: (props, accountName, newAccount) => {
         return addAccount(props, accountName, dispatch, newAccount);
       },
-      addWatchOnlyAccount : (props, accountName, dispatch, publicKey) =>{
+      addWatchOnlyAccount: (props, accountName, dispatch, publicKey) => {
         return addWatchOnlyAccount(props, accountName, dispatch, publicKey);
       }
     })

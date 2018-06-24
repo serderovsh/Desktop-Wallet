@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
-import { connect } from "react-redux";
 import styles from "./Token.css";
-
 import TokenProgressBar from "./TokenProgressBar";
 
 class Token extends Component {

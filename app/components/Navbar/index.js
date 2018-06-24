@@ -28,7 +28,7 @@ class Navbar extends Component {
             className={styles.link}
           >
             <link.icon />
-            <div className={styles.navBackground}></div>
+            <div className={styles.navBackground} />
             <div className={styles.navText}>{link.text}</div>
           </NavLink>
         ))}

@@ -3,20 +3,18 @@ import { Input, Button, Dropdown } from "semantic-ui-react";
 import buttonStyles from "../../Button.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import moment from "moment";
+import DatePicker from "react-datepicker";
 
 import { loadTokens } from "../../../actions/tokens";
 import styles from "./CreateToken.css";
 import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
-
-import DatePicker from "react-datepicker";
-import moment from "moment";
-
 import { PopupModal } from "../../Content/PopupModal";
-
 import { ArrowRightIcon } from "../../Icons";
 
 const TronHttpClient = require("tron-http-client");
+
 const client = new TronHttpClient();
 
 class CreateToken extends Component {
@@ -43,8 +41,10 @@ class CreateToken extends Component {
         description: "",
         url: "",
         frozenSupply: 0,
-        frozenDuration: 0,
-      }
+        frozenDuration: 0
+      },
+      showUserHasTokenWarning: false,
+      modalUserHasTokenText : "This account already created a token. Chose a different one."
     };
   }
 
@@ -55,32 +55,34 @@ class CreateToken extends Component {
   setDateEnd = date =>
     this.setState({ formValues: { ...this.state.formValues, endTime: date } });
 
-  isValid = ({ assetName, assetAbbr, totalSupply, num, trxNum, endTime, startTime, description, url, frozenSupply, frozenDuration}) => {
+  isValid = ({
+    assetName,
+    assetAbbr,
+    totalSupply,
+    num,
+    trxNum,
+    endTime,
+    startTime,
+    description,
+    url,
+    frozenSupply,
+    frozenDuration
+  }) => {
     let { loading, selectedWallet } = this.state;
 
     console.log(assetName);
-    if ( !selectedWallet)
-      return "Select a Wallet";
-    if( loading )
-      return "Still loading";
-    if( !/^([A-Za-z0-9]{3,32})$/.test(assetName) || assetName.length <= 0 )
+    if (!selectedWallet) return "Select a Wallet";
+    if (loading) return "Still loading";
+    if (!/^([A-Za-z0-9]{3,32})$/.test(assetName) || assetName.length <= 0)
       "Invalid Asset Name";
-    if(!/^([A-Za-z]{1,5})$/.test(assetAbbr))
-      return "Invalid Abbreviation";
-    if( totalSupply <= 0 )
-      return "Invalid Supply";
-    if( num <= 0 )
-      return "Invalid num per Trx";
-    if( trxNum <= 0 )
-      return "Invalid Trx";
-    if( Date.parse(endTime._d) <= Date.now() )
-      return "Invalid end time";
-    if( Date.parse(startTime._d) <= Date.now() )
-      return "Invalid start time";
-    if( description.length === 0 )
-      return "Invalid description";
-    if( url.length === 0 )
-      return "invalid url";
+    if (!/^([A-Za-z]{1,5})$/.test(assetAbbr)) return "Invalid Abbreviation";
+    if (totalSupply <= 0) return "Invalid Supply";
+    if (num <= 0) return "Invalid num per Trx";
+    if (trxNum <= 0) return "Invalid Trx";
+    if (Date.parse(endTime._d) <= Date.now()) return "Invalid end time";
+    if (Date.parse(startTime._d) <= Date.now()) return "Invalid start time";
+    if (description.length === 0) return "Invalid description";
+    if (url.length === 0) return "invalid url";
     return true;
   };
 
@@ -100,7 +102,20 @@ class CreateToken extends Component {
       wallet => accounts[wallet].publicKey === value
     );
     this.setState({ selectedWallet: accounts[wallet[0]] });
+    for(let i = 0;i<this.props.tokens.length;i++){
+      if(this.props.tokens[i].owner_address == value){
+        this.setState({
+          showUserHasTokenWarning:true
+        });
+      }
+    }
   };
+
+  hideUserHasTokenWarning(){
+    this.setState({
+      showUserHasTokenWarning:false
+    });
+  }
 
   submitHandler = async () => {
     let { accounts } = this.props;
@@ -168,11 +183,11 @@ class CreateToken extends Component {
   }
 
   modalDecline() {
-    this.setState({ showConfirmModal: false, loading:false });
+    this.setState({ showConfirmModal: false, loading: false });
   }
 
   modalFailureClose() {
-    this.setState({ showFailureModal: false, loading:false});
+    this.setState({ showFailureModal: false, loading: false });
   }
 
   modalSuccessClose() {
@@ -265,8 +280,9 @@ class CreateToken extends Component {
           <div className={styles.divider} />
           <div className={styles.header}>Frozen Supply :</div>
           <div className={styles.headerSubText}>
-            The amount of supply can be specified and must be frozen for a minimum of 1 day.
-            The frozen supply can manually be unfrozen after start date + frozen days has been reached.
+            The amount of supply can be specified and must be frozen for a
+            minimum of 1 day. The frozen supply can manually be unfrozen after
+            start date + frozen days has been reached.
             <div className={styles.divider} />
             <div className={styles.headerSubText}>
               Freezing supply is not required.
@@ -388,6 +404,14 @@ class CreateToken extends Component {
           modalText={this.state.modalFailureText}
           closeModalFunction={this.modalFailureClose.bind(this)}
           modalConfirm={this.modalFailureClose.bind(this)}
+        />
+
+        <PopupModal
+          failure
+          modalVis={this.state.showUserHasTokenWarning}
+          modalText={this.state.modalUserHasTokenText}
+          closeModalFunction={this.hideUserHasTokenWarning.bind(this)}
+          modalConfirm={this.hideUserHasTokenWarning.bind(this)}
         />
 
         <PopupModal

@@ -31,6 +31,12 @@
   color: #d4d4d4;
 }
 
+.react-datepicker-popper[data-placement^="top"] {
+    margin-bottom: 10px;
+    left: -45px !important;
+    z-index: 500;
+}
+
 #root {
   height: 100%;
   font-family: "Roboto", sans-serif;
