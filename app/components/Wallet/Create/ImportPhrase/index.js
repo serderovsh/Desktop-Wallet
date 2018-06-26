@@ -46,7 +46,7 @@ class Import extends Component {
           <Input
             onChange={this.changeWord.bind({
               state: this.state,
-              id: i,
+              id: i-1,
               _this: this
             })}
           />
