@@ -5,6 +5,8 @@ import { CURRENCY } from "../actions/currency";
 const DROPS_PER_TRX = new Decimal(1000000);
 
 export function dropsToTrx(drops) {
+  if(!drops)
+    return "0";
   return new Decimal(drops)
     .div(DROPS_PER_TRX)
     .toFixed(8)
