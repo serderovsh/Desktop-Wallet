@@ -49,12 +49,6 @@ body {
   width: 100%;
 }
 
-.interface {
-  display: flex;
-  height: 100%;
-  overflow: hidden;
-}
-
 a {
   text-decoration: none;
 }
