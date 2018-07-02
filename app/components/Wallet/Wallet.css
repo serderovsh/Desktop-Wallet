@@ -20,15 +20,15 @@
 }
 
 .wallet:first-child {
-  margin: 85px 30px 0px 30px;
+  margin: 85px 20px 0px 20px;
 }
 
 .wallet:last-child {
-  margin: 5px 30px 85px 30px;
+  margin: 5px 20px 85px 20px;
 }
 
 .wallet:first-child:last-child {
-  margin: 85px 30px 0px 30px;
+  margin: 85px 20px 0px 20px;
 }
 
 .wallet > .walletIcon {
@@ -65,6 +65,16 @@
 
 .walletInfo > .name {
   font-family: "Roboto", sans-serif;
+  color: #fff;
+  margin-bottom: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.walletInfo > .address {
+  font-family: "Roboto", sans-serif;
+  font-size: 9px;
   color: #fff;
   margin-bottom: 8px;
   text-overflow: ellipsis;

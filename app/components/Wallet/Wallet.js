@@ -32,6 +32,7 @@ class Wallet extends Component {
         <WalletIcon className={styles.walletIcon} />
         <ul className={styles.walletInfo}>
           <li className={styles.name}>{this.props.name}</li>
+          <li className={styles.address}>{this.props.index}</li>
           <li className={styles.token}>
             <FormattedNumber value={dropsToTrx(this.props.trx)} /> TRX
           </li>
