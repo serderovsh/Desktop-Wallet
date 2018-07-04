@@ -38,7 +38,16 @@ class ViewTransaction extends Component {
     if (tx.contract_desc === "VoteWitnessContract") {
       return "Vote";
     }
-    return "TESTEST";
+    if (tx.contract_desc === "WitnessCreateContract") {
+      return "Super Representative Application";
+    }
+    if (tx.contract_desc === "WithdrawBalanceContract") {
+      return "Super Representative Rewards";
+    }
+    if (tx.contract_desc === "AccountUpdateContract") {
+      return "Account Name Update";
+    }
+    return "Not Implemented yet";
   }
 
   renderHeaderAmount() {
@@ -70,6 +79,20 @@ class ViewTransaction extends Component {
       return (
         <div className={styles.headerAmount}>
           <FormattedNumber value={tx.total_supply} /> {tx.name}
+        </div>
+      );
+    }
+    if (tx.contract_desc === "WitnessCreateContract") {
+      return (
+        <div className={styles.headerAmount}>
+          <FormattedNumber value={9999} /> TRX
+        </div>
+      );
+    }
+    if (tx.contract_desc === "AccountUpdateContract") {
+      return (
+        <div className={styles.headerAmount}>
+          <FormattedNumber value={0} /> TRX
         </div>
       );
     }
