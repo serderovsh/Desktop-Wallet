@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { IntlProvider } from "react-intl";
-import axios from 'axios';
+import axios from "axios";
 
 import Navbar from "./Navbar/";
 import Sidebar from "./Sidebar";
@@ -23,7 +23,7 @@ import { onSetPassword } from "../actions/wallet";
 import styles from "../components/ContentMain.css";
 import { WALLET_STATE } from "../actions/wallet";
 
-let myPackage = require('../package');
+let myPackage = require("../package");
 
 class App extends React.Component {
   constructor(props) {
@@ -34,9 +34,9 @@ class App extends React.Component {
 
       userHasEnteredWrongPw: false,
       showResetModal: false,
-      onlineAppVersion : null,
-      myVersion : null,
-      isOutdated : false
+      onlineAppVersion: null,
+      myVersion: null,
+      isOutdated: false
       //the current app version, fetched from github
     };
   }
@@ -51,34 +51,37 @@ class App extends React.Component {
     this.fetchAppVersion();
   }
 
-  isOutdated(myVersion, onlineVersion){
+  isOutdated(myVersion, onlineVersion) {
     let mine = myVersion.split(".");
     let theirs = onlineVersion.split(".");
 
-    for(let i = 0;i<theirs.length && i<mine.length;i++){
+    for (let i = 0; i < theirs.length && i < mine.length; i++) {
       let m = parseInt(mine[i]);
       let t = parseInt(theirs[i]);
 
-      if(t > m)
-        return true;
+      if (t > m) return true;
     }
-    return (theirs.length > mine.length);
+    return theirs.length > mine.length;
   }
 
-  async fetchAppVersion(){
-    try{
-      let onlinePackage = await axios.get("https://raw.githubusercontent.com/TronWatch/Desktop-Wallet/master/app/package.json").then(x => x.data);
+  async fetchAppVersion() {
+    try {
+      let onlinePackage = await axios
+        .get(
+          "https://raw.githubusercontent.com/TronWatch/Desktop-Wallet/master/app/package.json"
+        )
+        .then(x => x.data);
       let theirVersion = onlinePackage.version;
       let myVersion = myPackage.version;
       let outdated = this.isOutdated(myVersion, theirVersion);
 
       this.setState({
-        myVersion : myVersion,
+        myVersion: myVersion,
         onlineAppVersion: theirVersion,
-        isOutdated : outdated
+        isOutdated: outdated
       });
-    }catch (e) {
-      console.log('error fetching version');
+    } catch (e) {
+      console.log("error fetching version");
       console.log(e);
     }
   }
@@ -127,11 +130,20 @@ class App extends React.Component {
   renderVersionCheck() {
     //if out of date, then
     if (this.state.isOutdated) {
-      return (<div className={styles.importantMsg} onClick={this.updateApp}>Your App is out of date. Please click here and install latest release. Your version {this.state.myVersion} new version {this.state.onlineAppVersion}</div>);
+      return (
+        <div className={styles.importantMsg} onClick={this.updateApp}>
+          Your App is out of date. Please click here and install latest release.
+          Your version {this.state.myVersion} new version{" "}
+          {this.state.onlineAppVersion}
+        </div>
+      );
     }
   }
 
-  updateApp = () => require("electron").shell.openExternal("https://github.com/TronWatch/Desktop-Wallet/releases")
+  updateApp = () =>
+    require("electron").shell.openExternal(
+      "https://github.com/TronWatch/Desktop-Wallet/releases"
+    );
 
   render() {
     let { activeLanguage } = this.props;
@@ -141,7 +153,7 @@ class App extends React.Component {
         messages={languages[activeLanguage]}
       >
         <div className={styles.appContainer}>
-          { this.renderVersionCheck() }
+          {this.renderVersionCheck()}
           <div className={styles.interface}>
             <Navbar />
             <div className={styles.container}>
