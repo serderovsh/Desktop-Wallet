@@ -24,7 +24,6 @@ class Token extends Component {
             <div className={styles.filler} />
           )}
         </div>
-        {/*<div className={styles.salesBar}>STATUS: <span></span></div>*/}
         <TokenProgressBar
           className={styles.tokenBar}
           tokenCurrent={this.props.totalIssued}

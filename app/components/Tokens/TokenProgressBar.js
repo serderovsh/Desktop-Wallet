@@ -9,7 +9,7 @@ class TokenProgressBar extends Component {
       <div className={`${styles.container} ${this.props.className}`}>
         <div className={styles.top}>
           <div className={styles.green}>
-            {Math.round((this.props.tokenCurrent / this.props.tokenMax) * 100)}%
+            {((this.props.tokenCurrent / this.props.tokenMax) * 100).toFixed(5)}%
           </div>
           <div className={styles.tokenContainer}>
             <span className={styles.green}>

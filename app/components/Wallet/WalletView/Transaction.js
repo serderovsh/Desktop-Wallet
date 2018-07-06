@@ -117,6 +117,29 @@ class Transaction extends Component {
         </div>
       );
     }
+    if (this.props.contract_desc === "WitnessCreateContract") {
+      return (
+        <div className={styles.txType}>
+          <TopRightArrow className={styles.iconSent} />
+          <div>SR Application</div>
+        </div>
+      );
+    }
+    if (this.props.contract_desc === "WithdrawBalanceContract") {
+      return (
+        <div className={styles.txType}>
+          <TopRightArrow className={styles.iconReceived} />
+          <div>Super Representative Reward</div>
+        </div>
+      );
+    }
+    if (this.props.contract_desc === "AccountUpdateContract") {
+      return (
+        <div className={styles.txType}>
+          <div>Update Account Name</div>
+        </div>
+      );
+    }
   }
 
   txAmount() {
@@ -220,6 +243,30 @@ class Transaction extends Component {
             <div className={`${styles.txAmount} ${styles.green}`}>
               <FormattedNumber value={this.props.tx.votes[0].vote_count} /> TP
             </div>
+          </div>
+        );
+      }
+      case "WitnessCreateContract": {
+        return (
+          <div>
+            <div className={`${styles.txAmount} ${styles.red}`}>
+              - <FormattedNumber value={9999} /> TRX
+            </div>
+          </div>
+        );
+      }
+      case "AccountUpdateContract": {
+        return (
+          <div>
+            <div className={`${styles.txAmount} ${styles.green}`}>FREE</div>
+          </div>
+        );
+      }
+      case "WithdrawBalanceContract": {
+        let amount = dropsToTrx(this.props.amount);
+        return (
+          <div className={`${styles.txAmount} ${styles.green}`}>
+            + <FormattedNumber value={amount} />
           </div>
         );
       }

@@ -363,7 +363,7 @@ class CreateToken extends Component {
             <DatePicker
               selected={this.state.formValues.endTime}
               onChange={this.setDateEnd}
-              minDate={moment().add(30, "days")}
+              minDate={moment().add(5, "minutes")}
               showTimeSelect
               timeFormat="HH:mm"
               timeIntervals={15}

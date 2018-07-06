@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { IntlProvider } from "react-intl";
+import axios from "axios";
 
 import Navbar from "./Navbar/";
 import Sidebar from "./Sidebar";
@@ -22,6 +23,8 @@ import { onSetPassword } from "../actions/wallet";
 import styles from "../components/ContentMain.css";
 import { WALLET_STATE } from "../actions/wallet";
 
+let myPackage = require("../package");
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +33,11 @@ class App extends React.Component {
       showCreatePw: false,
 
       userHasEnteredWrongPw: false,
-      showResetModal: false
+      showResetModal: false,
+      onlineAppVersion: null,
+      myVersion: null,
+      isOutdated: false
+      //the current app version, fetched from github
     };
   }
 
@@ -41,6 +48,42 @@ class App extends React.Component {
     this.props.loadTokens();
     this.props.loadWitnesses();
     this.props.loadStorage(this.props);
+    this.fetchAppVersion();
+  }
+
+  isOutdated(myVersion, onlineVersion) {
+    let mine = myVersion.split(".");
+    let theirs = onlineVersion.split(".");
+
+    for (let i = 0; i < theirs.length && i < mine.length; i++) {
+      let m = parseInt(mine[i]);
+      let t = parseInt(theirs[i]);
+
+      if (t > m) return true;
+    }
+    return theirs.length > mine.length;
+  }
+
+  async fetchAppVersion() {
+    try {
+      let onlinePackage = await axios
+        .get(
+          "https://raw.githubusercontent.com/TronWatch/Desktop-Wallet/master/app/package.json"
+        )
+        .then(x => x.data);
+      let theirVersion = onlinePackage.version;
+      let myVersion = myPackage.version;
+      let outdated = this.isOutdated(myVersion, theirVersion);
+
+      this.setState({
+        myVersion: myVersion,
+        onlineAppVersion: theirVersion,
+        isOutdated: outdated
+      });
+    } catch (e) {
+      console.log("error fetching version");
+      console.log(e);
+    }
   }
 
   async onEnterPassword(pw) {
@@ -84,6 +127,24 @@ class App extends React.Component {
     });
   }
 
+  renderVersionCheck() {
+    //if out of date, then
+    if (this.state.isOutdated) {
+      return (
+        <div className={styles.importantMsg} onClick={this.updateApp}>
+          Your App is out of date. Please click here and install latest release.
+          Your version {this.state.myVersion} new version{" "}
+          {this.state.onlineAppVersion}
+        </div>
+      );
+    }
+  }
+
+  updateApp = () =>
+    require("electron").shell.openExternal(
+      "https://github.com/TronWatch/Desktop-Wallet/releases"
+    );
+
   render() {
     let { activeLanguage } = this.props;
     return (
@@ -91,39 +152,42 @@ class App extends React.Component {
         locale={activeLanguage}
         messages={languages[activeLanguage]}
       >
-        <div className="interface">
-          <Navbar />
-          <div className={styles.container}>
-            <Sidebar />
-            <Main />
-            <WebsocketContainer />
+        <div className={styles.appContainer}>
+          {this.renderVersionCheck()}
+          <div className={styles.interface}>
+            <Navbar />
+            <div className={styles.container}>
+              <Sidebar />
+              <Main />
+              <WebsocketContainer />
 
-            <PasswordModal
-              render={
-                this.props.wallet.wallet_state ===
-                  WALLET_STATE.NEEDS_USER_UNLOCK && !this.state.showResetModal
-              }
-              onPassword={this.onEnterPassword.bind(this)}
-              userHasEnteredWrongPw={this.state.userHasEnteredWrongPw}
-              onUserPwReset={this.onUserPwReset.bind(this)}
-            />
+              <PasswordModal
+                render={
+                  this.props.wallet.wallet_state ===
+                    WALLET_STATE.NEEDS_USER_UNLOCK && !this.state.showResetModal
+                }
+                onPassword={this.onEnterPassword.bind(this)}
+                userHasEnteredWrongPw={this.state.userHasEnteredWrongPw}
+                onUserPwReset={this.onUserPwReset.bind(this)}
+              />
 
-            <PasswordModal
-              newPass
-              render={
-                this.props.wallet.wallet_state ===
-                WALLET_STATE.NEEDS_USER_PASSWORD
-              }
-              onPassword={this.onCreatePassword.bind(this)}
-            />
+              <PasswordModal
+                newPass
+                render={
+                  this.props.wallet.wallet_state ===
+                  WALLET_STATE.NEEDS_USER_PASSWORD
+                }
+                onPassword={this.onCreatePassword.bind(this)}
+              />
 
-            <PopupModal
-              confirmation
-              modalVis={this.state.showResetModal}
-              modalText="Are you sure? This will reset TronWatch and delete all data."
-              modalConfirm={this.onUserAcceptsReset.bind(this)}
-              modalDecline={this.onUserDeclinesReset.bind(this)}
-            />
+              <PopupModal
+                confirmation
+                modalVis={this.state.showResetModal}
+                modalText="Are you sure? This will reset TronWatch and delete all data."
+                modalConfirm={this.onUserAcceptsReset.bind(this)}
+                modalDecline={this.onUserDeclinesReset.bind(this)}
+              />
+            </div>
           </div>
         </div>
       </IntlProvider>

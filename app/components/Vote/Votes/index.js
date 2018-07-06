@@ -293,7 +293,11 @@ class VoteMultiple extends Component {
                 <div className={styles.voteRow} key={rep.address}>
                   <div className={styles.voteCol1}>{rep.rank + 1}-</div>
                   <div className={styles.voteCol2}>
-                    <div className={styles.voteName}>{rep.url}</div>
+                    <div className={styles.voteName}>
+                      {rep.ownerAccount && rep.ownerAccount.account_name
+                        ? rep.ownerAccount.account_name
+                        : rep.url}
+                    </div>
                     <div className={styles.voteAddress}>{rep.address}</div>
                   </div>
                   <div className={styles.voteCol3}>
