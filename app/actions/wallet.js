@@ -86,9 +86,10 @@ export const deleteAccount = (props, address) =>{
   savePersistent(props.wallet.persistent, props.wallet.pw);
 };
 
-export const renameAccount = (props, address, name) =>{
+export const renameAccount = (props, address, name, dispatch) =>{
   props.wallet.persistent.accounts[address].name = name;
   savePersistent(props.wallet.persistent, props.wallet.pw);
+  dispatch(broadcastPersistent(props.wallet.persistent, WALLET_STATE.READY));
 };
 
 export const addAccount = async (

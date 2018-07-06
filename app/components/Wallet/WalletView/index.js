@@ -74,7 +74,7 @@ class WalletView extends Component {
   }
 
   confirmWalletNameChange(name){
-    renameAccount(this.props, this.props.match.params.account, name);
+    this.props.renameAccount(this.props, this.props.match.params.account, name);
     this.setState({
       showWalletNameChange : false
     });
@@ -211,8 +211,8 @@ export default withRouter(
       deleteAccount: (props, address)=> {
         deleteAccount(props, address);
       },
-      renameAccount: (props, name, address)=>{
-        renameAccount(props, address, name);
+      renameAccount: (props, address, name)=>{
+        renameAccount(props, address, name, dispatch);
       }
     })
   )(WalletView)
