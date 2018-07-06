@@ -4,7 +4,7 @@ import { Dropdown, Button } from "semantic-ui-react";
 import { connect } from "react-redux";
 import styles from "./WalletView.css";
 
-import { deleteAccount } from "../../../actions/wallet";
+import { deleteAccount, renameAccount } from "../../../actions/wallet";
 
 import {
   MoreIcon,
@@ -20,7 +20,7 @@ import Secondary from "../../Content/Secondary";
 import Header from "../../Header";
 import SubHeader from "./SubHeader";
 import { PopupModal } from "../../Content/PopupModal";
-import DatePicker from "./DatePicker";
+import InputModal from "../../Content/InputModal";
 import TxList from "./TxList";
 
 class WalletView extends Component {
@@ -29,6 +29,8 @@ class WalletView extends Component {
     super(props);
 
     this.state = {
+      showWalletNameChange : false,
+
       showDeleteStep1 : false,
       showDeleteStep2 : false,
 
@@ -68,6 +70,25 @@ class WalletView extends Component {
     this.setState({
       showDeleteStep1:false,
       showDeleteStep2:false,
+    });
+  }
+
+  confirmWalletNameChange(name){
+    renameAccount(this.props, this.props.match.params.account, name);
+    this.setState({
+      showWalletNameChange : false
+    });
+  }
+
+  cancelWalletNameChange(){
+    this.setState({
+      showWalletNameChange : false
+    });
+  }
+
+  showWalletNameChange(){
+    this.setState({
+      showWalletNameChange : true
     });
   }
 
@@ -116,6 +137,10 @@ class WalletView extends Component {
                 <Dropdown.Item
                   text="Delete Wallet"
                   onClick={this.showStep1.bind(this)}
+                />
+                <Dropdown.Item
+                  text="Rename Wallet"
+                  onClick={this.showWalletNameChange.bind(this)}
                 />
               </Dropdown.Menu>
             </Dropdown>
@@ -169,6 +194,11 @@ class WalletView extends Component {
           modalConfirm={this.acceptStep2.bind(this)}
         />
 
+        <InputModal
+          render={this.state.showWalletNameChange}
+          onInput={this.confirmWalletNameChange.bind(this)}
+          modalDecline={this.cancelWalletNameChange.bind(this)}
+        />
       </Secondary>
     );
   }
@@ -179,7 +209,10 @@ export default withRouter(
     state => ({ wallet: state.wallet }),
     dispatch => ({
       deleteAccount: (props, address)=> {
-        deleteAccount(props, address, dispatch);
+        deleteAccount(props, address);
+      },
+      renameAccount: (props, name, address)=>{
+        renameAccount(props, address, name);
       }
     })
   )(WalletView)

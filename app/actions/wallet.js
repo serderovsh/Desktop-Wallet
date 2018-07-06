@@ -81,8 +81,13 @@ export const onSetPassword = (props, newPassword) => {
   };
 };
 
-export const deleteAccount = (props, address, dispatch) =>{
+export const deleteAccount = (props, address) =>{
   delete props.wallet.persistent.accounts[address];
+  savePersistent(props.wallet.persistent, props.wallet.pw);
+};
+
+export const renameAccount = (props, address, name) =>{
+  props.wallet.persistent.accounts[address].name = name;
   savePersistent(props.wallet.persistent, props.wallet.pw);
 };
 
