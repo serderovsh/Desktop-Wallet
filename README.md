@@ -8,4 +8,5 @@ You can download the latest releases here:
 
 https://github.com/TronWatch/Desktop-Wallet/releases/  
 
+
 You can request features and report bugs here: https://github.com/TronWatch/Desktop-Wallet/issues  
