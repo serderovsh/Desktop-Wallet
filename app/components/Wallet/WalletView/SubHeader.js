@@ -44,7 +44,6 @@ export default class SubHeader extends Component {
               token="TRX"
             />
             {Object.keys(this.props.account.tokens).map((coin, i) => {
-              console.log(this.props.account.tokens[coin], coin)
               if (this.props.account.tokens[coin] > 0) {
                 return (
                   <SubHeaderToken
