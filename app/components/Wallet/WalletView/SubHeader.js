@@ -43,14 +43,19 @@ export default class SubHeader extends Component {
               amount={dropsToTrx(this.props.account.trx)}
               token="TRX"
             />
-            {Object.keys(this.props.account.tokens).map((coin, i) => (
-              <SubHeaderToken
-                key={coin}
-                amount={this.props.account.tokens[coin]}
-                token={coin}
-                isToken="true"
-              />
-            ))}
+            {Object.keys(this.props.account.tokens).map((coin, i) => {
+              console.log(this.props.account.tokens[coin], coin)
+              if (this.props.account.tokens[coin] > 0) {
+                return (
+                  <SubHeaderToken
+                    key={coin}
+                    amount={this.props.account.tokens[coin]}
+                    token={coin}
+                    isToken="true"
+                  />
+                );
+              }
+            })}
           </div>
         </div>
       </div>
