@@ -36,15 +36,19 @@ class Wallet extends Component {
           <li className={styles.token}>
             <FormattedNumber value={dropsToTrx(this.props.trx)} /> TRX
           </li>
-          {keys.map((k, i) => (
-            <li className={styles.token} key={k}>
-              <FormattedNumber
-                formatNumber="decimal"
-                value={this.props.tokens[k]}
-              />{" "}
-              {k}
-            </li>
-          ))}
+          {keys.map((k, i) => {
+            if (this.props.tokens[k] > 0) {
+              return (
+                <li className={styles.token} key={k}>
+                  <FormattedNumber
+                    formatNumber="decimal"
+                    value={this.props.tokens[k]}
+                  />{" "}
+                  {k}
+                </li>
+              );
+            }
+          })}
         </ul>
         <ArrowRightIcon className={styles.arrowIcon} />
       </NavLink>
