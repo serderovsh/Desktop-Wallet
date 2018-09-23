@@ -53,7 +53,14 @@ function decrypt(text, password) {
 
 function savePersistent(persistent, password) {
   if (verifyPersistent(persistent)) {
-    let persistentString = JSON.stringify(persistent);
+
+    let persistentCopy = JSON.parse(JSON.stringify(persistent));
+    let keys = Object.keys(persistentCopy.accounts);
+    keys.forEach(x => {
+      persistentCopy.accounts[x].transactions = [];
+    });
+
+    let persistentString = JSON.stringify(persistentCopy);
     let encryptedString = encrypt(persistentString, password);
     window.localStorage.setItem(LOCALSTORAGE_KEY, encryptedString);
     return true;
